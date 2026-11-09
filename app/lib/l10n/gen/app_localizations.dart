@@ -488,6 +488,42 @@ abstract class AppLocalizations {
   /// **'Vị trí nằm ngoài vùng hỗ trợ'**
   String get map_outsideVn;
 
+  /// No description provided for @map_layers.
+  ///
+  /// In vi, this message translates to:
+  /// **'Lớp bản đồ'**
+  String get map_layers;
+
+  /// No description provided for @map_layerStandard.
+  ///
+  /// In vi, this message translates to:
+  /// **'Bản đồ thường'**
+  String get map_layerStandard;
+
+  /// No description provided for @map_layerStandardHint.
+  ///
+  /// In vi, this message translates to:
+  /// **'Đường, địa danh, sông hồ (OpenFreeMap)'**
+  String get map_layerStandardHint;
+
+  /// No description provided for @map_layerSatellite.
+  ///
+  /// In vi, this message translates to:
+  /// **'Ảnh vệ tinh'**
+  String get map_layerSatellite;
+
+  /// No description provided for @map_layerSatelliteHint.
+  ///
+  /// In vi, this message translates to:
+  /// **'Sentinel-2 năm 2025, độ phân giải 10 m — thấy rõ sông, bãi bồi, ruộng; không rõ từng nhà'**
+  String get map_layerSatelliteHint;
+
+  /// No description provided for @map_satelliteCredit.
+  ///
+  /// In vi, this message translates to:
+  /// **'Ảnh vệ tinh: EOxCloudless (EOX IT Services) · chứa dữ liệu Copernicus Sentinel 2025 · chỉ dùng phi thương mại'**
+  String get map_satelliteCredit;
+
   /// No description provided for @map_filter.
   ///
   /// In vi, this message translates to:
@@ -1205,7 +1241,7 @@ abstract class AppLocalizations {
   /// No description provided for @more_sourcesBody.
   ///
   /// In vi, this message translates to:
-  /// **'• IOC Sea Level Monitoring — thực đo mực nước biển Vũng Tàu, Quy Nhơn (mỗi phút).\n• Open-Meteo — dự báo thời tiết và mô hình mực nước biển (gói miễn phí, phi thương mại).\n• Dự báo triều tại trạm có máy đo: tính bằng phân tích điều hòa (utide) từ 12 tháng số liệu IOC.\nMọi số liệu dự báo/ước tính chỉ mang tính tham khảo.'**
+  /// **'• IOC Sea Level Monitoring — thực đo mực nước biển Vũng Tàu, Quy Nhơn (mỗi phút).\n• Trung tâm Dự báo KTTV quốc gia — bản tin thủy văn hạn ngắn (mực nước sông, 4 mốc/ngày + dự báo); đường từng giờ do app ước tính.\n• Open-Meteo — thời tiết và mô hình mực nước biển (gói miễn phí, phi thương mại).\n• Dự báo triều tại trạm có máy đo: phân tích điều hòa (utide) từ 12 tháng số liệu IOC.\n• Bản đồ nền: OpenFreeMap · © OpenMapTiles · dữ liệu © OpenStreetMap.\n• Ảnh vệ tinh: EOxCloudless (EOX IT Services GmbH), chứa dữ liệu Copernicus Sentinel 2025, giấy phép CC BY-NC-SA 4.0.\nMọi số liệu dự báo/ước tính chỉ mang tính tham khảo.'**
   String get more_sourcesBody;
 
   /// No description provided for @more_about.

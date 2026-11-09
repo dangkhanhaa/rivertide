@@ -49,7 +49,15 @@ class _MapLibreStationMapState extends State<MapLibreStationMap> implements Base
   /// Water layers of the current style (river lines are thin: look ±8 px).
   late List<String> _water = waterLayerIds(widget.config.styleString);
 
+  bool _blocked(Point<double> p) {
+    final box = context.findRenderObject();
+    final check = widget.config.blocksTapAt;
+    if (check == null || box is! RenderBox || !box.hasSize) return false;
+    return check(box.localToGlobal(Offset(p.x, p.y)));
+  }
+
   Future<void> _tapped(Point<double> p, LatLng at) async {
+    if (_blocked(p)) return;
     var surface = PointSurface.unknown;
     final c = _controller;
     if (c != null && _water.isNotEmpty) {
@@ -116,6 +124,7 @@ class _MapLibreStationMapState extends State<MapLibreStationMap> implements Base
   }
 
   void _onFeatureTap(Point<double> point, LatLng latLng, String id, String layerId, Annotation? _) {
+    if (_blocked(point)) return;
     final n = int.tryParse(id);
     if (n == null) return;
     if (layerId == stationDotsLayerId && n >= 0 && n < _shown.length) {

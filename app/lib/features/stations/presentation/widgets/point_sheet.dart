@@ -41,6 +41,7 @@ class PointSheet extends ConsumerWidget {
     final id = PointId.encode(lat, lon);
     final coords = '${lat.toStringAsFixed(5)}, ${lon.toStringAsFixed(5)}';
     final view = ref.watch(stationViewProvider(id));
+    final isFavorite = ref.watch(favoriteIdsProvider).value?.contains(id) ?? false;
     return Padding(
       padding: const EdgeInsets.fromLTRB(AppSpacing.lg, 0, AppSpacing.lg, AppSpacing.lg),
       child: Column(
@@ -57,6 +58,11 @@ class PointSheet extends ConsumerWidget {
                     SelectableText(l10n.point_coords(coords), style: context.text.body),
                   ],
                 ),
+              ),
+              IconButton(
+                tooltip: isFavorite ? l10n.station_unfollow : l10n.station_follow,
+                icon: Icon(isFavorite ? Icons.star_rounded : Icons.star_outline_rounded),
+                onPressed: () => toggleFavorite(ref, id),
               ),
               IconButton(
                 tooltip: l10n.point_copy,

@@ -156,6 +156,55 @@ void main() {
     await disposeApp(tester, db);
   });
 
+  testWidgets('a tapped point can be starred and reopens from the watch list', (tester) async {
+    final db = await pumpApp(tester, startOnMap: true);
+    await tester.tap(find.text('tap-river'));
+    await settle(tester);
+    await tester.tap(find.byTooltip('Theo dõi trạm'));
+    await settle(tester);
+    expect(find.byTooltip('Bỏ theo dõi'), findsOneWidget);
+    await tester.tap(find.byTooltip('Đóng'));
+    await settle(tester);
+    await tester.tap(find.text('Theo dõi'));
+    await settle(tester);
+    expect(find.text('20.9950, 105.8800'), findsOneWidget); // saved point, named by coordinates
+    await tester.tap(find.text('20.9950, 105.8800'));
+    await settle(tester);
+    expect(find.text('Điểm đã chọn'), findsOneWidget);
+    await disposeApp(tester, db);
+  });
+
+  testWidgets('layer button switches to satellite and remembers it', (tester) async {
+    final db = await pumpApp(tester, startOnMap: true);
+    expect(find.textContaining('"layer":"standard"'), findsOneWidget);
+    await tester.tap(find.byTooltip('Lớp bản đồ'));
+    await settle(tester);
+    expect(find.textContaining('Sentinel-2'), findsOneWidget);
+    await tester.tap(find.text('Ảnh vệ tinh'));
+    await settle(tester);
+    expect(find.textContaining('"layer":"satellite"'), findsOneWidget);
+    expect(await db.readSetting('map_base_layer'), 'satellite');
+    await disposeApp(tester, db);
+  });
+
+  testWidgets(
+    'web click-through: clicks on buttons, search bar or under a sheet are not map taps',
+    (tester) async {
+      final db = await pumpApp(tester, startOnMap: true);
+      final blocks = FakeBaseMap.last?.blocksTapAt;
+      expect(blocks, isNotNull);
+      final search = tester.getCenter(find.byType(SearchBar));
+      final layersButton = tester.getCenter(find.byTooltip('Lớp bản đồ'));
+      expect(blocks!(search), isTrue);
+      expect(blocks(layersButton), isTrue);
+      expect(blocks(const Offset(60, 700)), isFalse); // open map
+      await tester.tap(find.byTooltip('Lớp bản đồ'));
+      await settle(tester);
+      expect(blocks(const Offset(60, 700)), isTrue); // a sheet is open above the map
+      await disposeApp(tester, db);
+    },
+  );
+
   testWidgets('tap the sea → model at the point itself, no reference station', (tester) async {
     final db = await pumpApp(tester, startOnMap: true);
     await tester.tap(find.text('tap-sea'));

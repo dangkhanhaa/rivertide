@@ -2,25 +2,53 @@ import 'package:flutter/widgets.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:rivertide/core/clock/clock_provider.dart';
 import 'package:rivertide/core/db/app_database.dart';
+import 'package:rivertide/core/errors/app_exception.dart';
 import 'package:rivertide/core/network/dio_client.dart';
 import 'package:rivertide/features/map/data/location_source.dart';
 import 'package:rivertide/features/map/data/map_style_source.dart';
+import 'package:rivertide/features/map/data/satellite_style.dart';
+import 'package:rivertide/features/map/domain/base_layer.dart';
 import 'package:rivertide/features/map/domain/location_service.dart';
 import 'package:rivertide/features/map/domain/map_marker.dart';
 import 'package:rivertide/features/stations/stations.dart';
 
 part 'map_providers.g.dart';
 
-/// Base-map style (JSON text or URL) for the current brightness.
+/// Base-map style (JSON text or URL) for the current brightness and layer.
 @Riverpod(keepAlive: true)
-Future<String> mapStyle(Ref ref, Brightness brightness) {
+Future<String> mapStyle(Ref ref, Brightness brightness, BaseLayer layer) async {
   final dio = ref.watch(dioProvider);
   final source = MapStyleSource(
     fetch: (uri) => getText(dio, uri),
     db: ref.watch(appDatabaseProvider),
     clock: ref.watch(clockProvider),
   );
-  return source.load(brightness == Brightness.dark ? openFreeMapDark : openFreeMapLight);
+  if (layer == BaseLayer.satellite) {
+    final vector = await source.load(openFreeMapLight);
+    try {
+      return satelliteStyle(vector);
+    } on ParseException {
+      return vector; // URL fallback (offline, never fetched): plain map instead
+    }
+  }
+  return await source.load(brightness == Brightness.dark ? openFreeMapDark : openFreeMapLight);
+}
+
+/// Normal map or satellite imagery, remembered across launches.
+@Riverpod(keepAlive: true)
+class BaseLayerChoice extends _$BaseLayerChoice {
+  static const _key = 'map_base_layer';
+
+  @override
+  Future<BaseLayer> build() async {
+    final stored = await ref.watch(appDatabaseProvider).readSetting(_key);
+    return BaseLayer.values.firstWhere((l) => l.name == stored, orElse: () => BaseLayer.standard);
+  }
+
+  Future<void> choose(BaseLayer layer) async {
+    state = AsyncData(layer);
+    await ref.read(appDatabaseProvider).writeSetting(_key, layer.name);
+  }
 }
 
 @Riverpod(keepAlive: true)

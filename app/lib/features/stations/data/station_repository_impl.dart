@@ -67,7 +67,7 @@ class StationRepositoryImpl implements StationRepository {
 
   @override
   Future<Station> getById(String id) async {
-    if (PointId.decode(id) case final p?) return pointStation(id, p.lat, p.lon);
+    if (PointId.toStation(id) case final p?) return p;
     final station = (await getAll()).firstWhereOrNull((s) => s.id == id);
     if (station == null) throw NotFoundException('station $id');
     return station;

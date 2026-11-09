@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rivertide/core/l10n/l10n_ext.dart';
@@ -5,12 +7,17 @@ import 'package:rivertide/core/theme/app_colors.dart';
 import 'package:rivertide/core/theme/app_spacing.dart';
 import 'package:rivertide/core/theme/app_text.dart';
 import 'package:rivertide/features/map/application/map_providers.dart';
+import 'package:rivertide/features/map/domain/base_layer.dart';
 
 /// Legend, filter and "my location" buttons stacked on the map's right edge.
 class MapControls extends ConsumerWidget {
-  const MapControls({required this.onLocate, super.key});
+  const MapControls({required this.onLocate, required this.openSheet, super.key});
 
   final VoidCallback onLocate;
+
+  /// Opens a bottom sheet through the map screen, which swallows the click
+  /// that leaks to the web map when the sheet closes.
+  final void Function(WidgetBuilder builder) openSheet;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -22,22 +29,21 @@ class MapControls extends ConsumerWidget {
         FloatingActionButton.small(
           heroTag: 'map-legend',
           tooltip: l10n.map_legend,
-          onPressed: () => showModalBottomSheet<void>(
-            context: context,
-            showDragHandle: true,
-            builder: (_) => const _Legend(),
-          ),
+          onPressed: () => openSheet((_) => const _Legend()),
           child: const Icon(Icons.info_outline_rounded),
+        ),
+        const SizedBox(height: AppSpacing.sm),
+        FloatingActionButton.small(
+          heroTag: 'map-layers',
+          tooltip: l10n.map_layers,
+          onPressed: () => openSheet((_) => const _LayerSheet()),
+          child: const Icon(Icons.layers_rounded),
         ),
         const SizedBox(height: AppSpacing.sm),
         FloatingActionButton.small(
           heroTag: 'map-filter',
           tooltip: l10n.map_filter,
-          onPressed: () => showModalBottomSheet<void>(
-            context: context,
-            showDragHandle: true,
-            builder: (_) => const _FilterSheet(),
-          ),
+          onPressed: () => openSheet((_) => const _FilterSheet()),
           child: Badge(isLabelVisible: filterActive, child: const Icon(Icons.filter_alt_outlined)),
         ),
         const SizedBox(height: AppSpacing.sm),
@@ -48,6 +54,47 @@ class MapControls extends ConsumerWidget {
           child: const Icon(Icons.my_location_rounded),
         ),
       ],
+    );
+  }
+}
+
+class _LayerSheet extends ConsumerWidget {
+  const _LayerSheet();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = context.l10n;
+    final current = ref.watch(baseLayerChoiceProvider).value ?? BaseLayer.standard;
+    final notifier = ref.read(baseLayerChoiceProvider.notifier);
+    Widget option(BaseLayer layer, IconData icon, String title, String subtitle) => ListTile(
+      leading: Icon(icon),
+      title: Text(title),
+      subtitle: Text(subtitle),
+      trailing: current == layer ? const Icon(Icons.check_rounded) : null,
+      selected: current == layer,
+      onTap: () {
+        unawaited(notifier.choose(layer));
+        Navigator.of(context).pop();
+      },
+    );
+    return SafeArea(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          option(
+            BaseLayer.standard,
+            Icons.map_rounded,
+            l10n.map_layerStandard,
+            l10n.map_layerStandardHint,
+          ),
+          option(
+            BaseLayer.satellite,
+            Icons.satellite_alt_rounded,
+            l10n.map_layerSatellite,
+            l10n.map_layerSatelliteHint,
+          ),
+        ],
+      ),
     );
   }
 }
@@ -125,6 +172,7 @@ class _Legend extends StatelessWidget {
                   Text(l10n.map_legendNote, style: context.text.caption),
                   const SizedBox(height: AppSpacing.sm),
                   Text(l10n.map_baseMapCredit, style: context.text.caption),
+                  Text(l10n.map_satelliteCredit, style: context.text.caption),
                 ],
               ),
             ),

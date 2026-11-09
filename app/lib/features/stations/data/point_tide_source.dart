@@ -13,16 +13,6 @@ const double maxRiverReferenceKm = 40;
 /// Beyond this the reference is shown with low confidence.
 const double nearRiverReferenceKm = 10;
 
-/// Virtual station for a tapped map point; the name is its coordinates.
-Station pointStation(String id, double lat, double lon) => Station(
-  id: id,
-  name: '${lat.toStringAsFixed(4)}, ${lon.toStringAsFixed(4)}',
-  region: '',
-  lat: lat,
-  lon: lon,
-  kind: StationKind.model,
-);
-
 /// Water level for any map point: the ocean model at the point itself when it
 /// has sea there, otherwise the nearest KTTV river station (labelled with its
 /// distance). Never invents data for a point with neither.

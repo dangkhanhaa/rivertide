@@ -31,6 +31,7 @@ class BaseMapConfig {
     required this.onStationTap,
     required this.onReady,
     required this.onMapTap,
+    this.blocksTapAt,
     this.userPosition,
     this.pin,
   });
@@ -46,6 +47,11 @@ class BaseMapConfig {
   /// Tap or long-press on the map outside a marker (F-MAP-03).
   /// `surface` says whether the base map draws water at that spot.
   final void Function(double lat, double lon, PointSurface surface) onMapTap;
+
+  /// True when a click at this global position belongs to Flutter UI drawn over
+  /// the map. On web the platform map also receives clicks on buttons and
+  /// panels above it, which must not count as map taps.
+  final bool Function(Offset global)? blocksTapAt;
 
   /// Temporary pin for the last tapped point; one at a time.
   final ({double lat, double lon})? pin;

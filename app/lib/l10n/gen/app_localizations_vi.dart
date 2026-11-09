@@ -242,6 +242,26 @@ class AppLocalizationsVi extends AppLocalizations {
   String get map_outsideVn => 'Vị trí nằm ngoài vùng hỗ trợ';
 
   @override
+  String get map_layers => 'Lớp bản đồ';
+
+  @override
+  String get map_layerStandard => 'Bản đồ thường';
+
+  @override
+  String get map_layerStandardHint => 'Đường, địa danh, sông hồ (OpenFreeMap)';
+
+  @override
+  String get map_layerSatellite => 'Ảnh vệ tinh';
+
+  @override
+  String get map_layerSatelliteHint =>
+      'Sentinel-2 năm 2025, độ phân giải 10 m — thấy rõ sông, bãi bồi, ruộng; không rõ từng nhà';
+
+  @override
+  String get map_satelliteCredit =>
+      'Ảnh vệ tinh: EOxCloudless (EOX IT Services) · chứa dữ liệu Copernicus Sentinel 2025 · chỉ dùng phi thương mại';
+
+  @override
   String get map_filter => 'Bộ lọc';
 
   @override
@@ -666,7 +686,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get more_sourcesBody =>
-      '• IOC Sea Level Monitoring — thực đo mực nước biển Vũng Tàu, Quy Nhơn (mỗi phút).\n• Open-Meteo — dự báo thời tiết và mô hình mực nước biển (gói miễn phí, phi thương mại).\n• Dự báo triều tại trạm có máy đo: tính bằng phân tích điều hòa (utide) từ 12 tháng số liệu IOC.\nMọi số liệu dự báo/ước tính chỉ mang tính tham khảo.';
+      '• IOC Sea Level Monitoring — thực đo mực nước biển Vũng Tàu, Quy Nhơn (mỗi phút).\n• Trung tâm Dự báo KTTV quốc gia — bản tin thủy văn hạn ngắn (mực nước sông, 4 mốc/ngày + dự báo); đường từng giờ do app ước tính.\n• Open-Meteo — thời tiết và mô hình mực nước biển (gói miễn phí, phi thương mại).\n• Dự báo triều tại trạm có máy đo: phân tích điều hòa (utide) từ 12 tháng số liệu IOC.\n• Bản đồ nền: OpenFreeMap · © OpenMapTiles · dữ liệu © OpenStreetMap.\n• Ảnh vệ tinh: EOxCloudless (EOX IT Services GmbH), chứa dữ liệu Copernicus Sentinel 2025, giấy phép CC BY-NC-SA 4.0.\nMọi số liệu dự báo/ước tính chỉ mang tính tham khảo.';
 
   @override
   String get more_about => 'Giới thiệu';

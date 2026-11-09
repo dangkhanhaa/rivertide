@@ -40,6 +40,17 @@ mixin MapDetailPresenter<T extends ConsumerStatefulWidget> on ConsumerState<T> {
     onDetailClosed();
   }
 
+  /// A plain sheet (legend, filter, layers) with the same click guard.
+  Future<void> showGuardedSheet(WidgetBuilder builder) async {
+    _releaseTimer?.cancel();
+    sheetBusy = true;
+    try {
+      await showModalBottomSheet<void>(context: context, showDragHandle: true, builder: builder);
+    } finally {
+      _releaseTimer = Timer(_tapGrace, () => sheetBusy = false);
+    }
+  }
+
   Future<void> showDetail(Widget child) async {
     if (isWide) {
       setState(() => sidePanel = child);
@@ -71,10 +82,20 @@ mixin MapDetailPresenter<T extends ConsumerStatefulWidget> on ConsumerState<T> {
     if (mounted) onDetailClosed();
   }
 
+  /// True when [global] falls on the open side panel.
+  bool isOverSidePanel(Offset global) {
+    if (sidePanel == null || !isWide) return false;
+    final screen = MediaQuery.sizeOf(context);
+    return global.dx >= screen.width - sidePanelWidth;
+  }
+
   /// Right-hand panel for the wide layout, or nothing.
   Widget buildSidePanel(BuildContext context) {
     final panel = sidePanel;
-    if (panel == null || !isWide) return const SizedBox.shrink();
+    // Positioned even when empty: a non-positioned child would size the Stack.
+    if (panel == null || !isWide) {
+      return const Positioned(width: 0, height: 0, child: SizedBox.shrink());
+    }
     return Positioned(
       top: 0,
       right: 0,

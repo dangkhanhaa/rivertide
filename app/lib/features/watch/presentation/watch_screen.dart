@@ -26,7 +26,10 @@ class WatchScreen extends ConsumerWidget {
   }
 
   Widget _list(BuildContext context, List<String> ids, List<Station> all) {
-    final followed = [for (final id in ids) ?all.firstWhereOrNull((s) => s.id == id)];
+    // Saved map points are not in the catalogue: rebuild them from their id.
+    final followed = [
+      for (final id in ids) ?(all.firstWhereOrNull((s) => s.id == id) ?? PointId.toStation(id)),
+    ];
     if (followed.isEmpty) return EmptyView(message: context.l10n.watch_empty);
     return ListView.separated(
       padding: const EdgeInsets.all(AppSpacing.lg),

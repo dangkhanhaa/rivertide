@@ -5,6 +5,7 @@ export 'application/hour_extras_provider.dart' show StationFishing, stationFishi
 export 'application/station_providers.dart'
     show favoriteIdsProvider, stationByIdProvider, stationListProvider, stationTideProvider;
 export 'application/station_view_providers.dart' show StationView, stationViewProvider;
+export 'domain/point_id.dart' show PointId;
 export 'domain/station.dart' show Station, StationKind;
 export 'presentation/station_detail_screen.dart' show StationDetailScreen;
 export 'presentation/stations_screen.dart' show StationsScreen;

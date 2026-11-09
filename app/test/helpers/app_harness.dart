@@ -53,6 +53,7 @@ class FakeBaseMap extends StatelessWidget implements BaseMapHandle {
         children: [
           if (config.userPosition != null) const Text('me'),
           if (config.pin != null) const Text('pin'),
+          Text('style:${config.styleString}'),
           tap('tap-river', 20.995, 105.88), // Red River bank near Thanh Trì bridge
           tap('tap-sea', 10.3, 107.1), // open sea off Vũng Tàu
           tap('tap-none', 13, 107.6), // Central Highlands, no station within 40 km
@@ -121,7 +122,7 @@ Future<AppDatabase> pumpApp(
                 clock: () => testNow,
               ),
         ),
-        mapStyleProvider.overrideWith((ref, brightness) async => '{}'),
+        mapStyleProvider.overrideWith((ref, args) async => '{"layer":"${args.$2.name}"}'),
         baseMapBuilderProvider.overrideWithValue((config) => FakeBaseMap(config: config)),
         locationServiceProvider.overrideWithValue(location ?? FakeLocation()),
       ],

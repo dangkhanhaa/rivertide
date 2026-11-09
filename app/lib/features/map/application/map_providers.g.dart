@@ -8,25 +8,27 @@ part of 'map_providers.dart';
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
-/// Base-map style (JSON text or URL) for the current brightness.
+/// Base-map style (JSON text or URL) for the current brightness and layer.
 
 @ProviderFor(mapStyle)
 final mapStyleProvider = MapStyleFamily._();
 
-/// Base-map style (JSON text or URL) for the current brightness.
+/// Base-map style (JSON text or URL) for the current brightness and layer.
 
 final class MapStyleProvider
     extends $FunctionalProvider<AsyncValue<String>, String, FutureOr<String>>
     with $FutureModifier<String>, $FutureProvider<String> {
-  /// Base-map style (JSON text or URL) for the current brightness.
-  MapStyleProvider._({required MapStyleFamily super.from, required Brightness super.argument})
-    : super(
-        retry: null,
-        name: r'mapStyleProvider',
-        isAutoDispose: false,
-        dependencies: null,
-        $allTransitiveDependencies: null,
-      );
+  /// Base-map style (JSON text or URL) for the current brightness and layer.
+  MapStyleProvider._({
+    required MapStyleFamily super.from,
+    required (Brightness, BaseLayer) super.argument,
+  }) : super(
+         retry: null,
+         name: r'mapStyleProvider',
+         isAutoDispose: false,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
 
   @override
   String debugGetCreateSourceHash() => _$mapStyleHash();
@@ -35,7 +37,7 @@ final class MapStyleProvider
   String toString() {
     return r'mapStyleProvider'
         ''
-        '($argument)';
+        '$argument';
   }
 
   @$internal
@@ -45,8 +47,8 @@ final class MapStyleProvider
 
   @override
   FutureOr<String> create(Ref ref) {
-    final argument = this.argument as Brightness;
-    return mapStyle(ref, argument);
+    final argument = this.argument as (Brightness, BaseLayer);
+    return mapStyle(ref, argument.$1, argument.$2);
   }
 
   @override
@@ -60,12 +62,12 @@ final class MapStyleProvider
   }
 }
 
-String _$mapStyleHash() => r'54fbf59dc2c58467d105df25dc09a1c6d0ab005c';
+String _$mapStyleHash() => r'67f928cf602d93b2e6b7a47846dfc653538a58ec';
 
-/// Base-map style (JSON text or URL) for the current brightness.
+/// Base-map style (JSON text or URL) for the current brightness and layer.
 
 final class MapStyleFamily extends $Family
-    with $FunctionalFamilyOverride<FutureOr<String>, Brightness> {
+    with $FunctionalFamilyOverride<FutureOr<String>, (Brightness, BaseLayer)> {
   MapStyleFamily._()
     : super(
         retry: null,
@@ -75,13 +77,62 @@ final class MapStyleFamily extends $Family
         isAutoDispose: false,
       );
 
-  /// Base-map style (JSON text or URL) for the current brightness.
+  /// Base-map style (JSON text or URL) for the current brightness and layer.
 
-  MapStyleProvider call(Brightness brightness) =>
-      MapStyleProvider._(argument: brightness, from: this);
+  MapStyleProvider call(Brightness brightness, BaseLayer layer) =>
+      MapStyleProvider._(argument: (brightness, layer), from: this);
 
   @override
   String toString() => r'mapStyleProvider';
+}
+
+/// Normal map or satellite imagery, remembered across launches.
+
+@ProviderFor(BaseLayerChoice)
+final baseLayerChoiceProvider = BaseLayerChoiceProvider._();
+
+/// Normal map or satellite imagery, remembered across launches.
+final class BaseLayerChoiceProvider extends $AsyncNotifierProvider<BaseLayerChoice, BaseLayer> {
+  /// Normal map or satellite imagery, remembered across launches.
+  BaseLayerChoiceProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'baseLayerChoiceProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$baseLayerChoiceHash();
+
+  @$internal
+  @override
+  BaseLayerChoice create() => BaseLayerChoice();
+}
+
+String _$baseLayerChoiceHash() => r'1ccd3ab48bbe8e8333b714f2f939a6b1176d4e05';
+
+/// Normal map or satellite imagery, remembered across launches.
+
+abstract class _$BaseLayerChoice extends $AsyncNotifier<BaseLayer> {
+  FutureOr<BaseLayer> build();
+  @$mustCallSuper
+  @override
+  WhenComplete runBuild() {
+    final ref = this.ref as $Ref<AsyncValue<BaseLayer>, BaseLayer>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<AsyncValue<BaseLayer>, BaseLayer>,
+              AsyncValue<BaseLayer>,
+              Object?,
+              Object?
+            >;
+    return element.handleCreate(ref, build);
+  }
 }
 
 @ProviderFor(locationService)

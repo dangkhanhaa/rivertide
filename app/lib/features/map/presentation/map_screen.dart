@@ -9,6 +9,7 @@ import 'package:rivertide/core/theme/app_colors.dart';
 import 'package:rivertide/core/theme/app_spacing.dart';
 import 'package:rivertide/core/widgets/state_views.dart';
 import 'package:rivertide/features/map/application/map_providers.dart';
+import 'package:rivertide/features/map/domain/base_layer.dart';
 import 'package:rivertide/features/map/domain/location_service.dart';
 import 'package:rivertide/features/map/domain/map_marker.dart';
 import 'package:rivertide/features/map/domain/water_layers.dart';
@@ -34,6 +35,24 @@ class _MapScreenState extends ConsumerState<MapScreen> with MapDetailPresenter<M
   ({double lat, double lon})? _pin;
   bool _started = false;
   bool _hintDismissed = false;
+  String? _lastStyle;
+
+  /// Flutter UI drawn over the map (see [BaseMapConfig.blocksTapAt]).
+  final GlobalKey _topKey = GlobalKey();
+  final GlobalKey _controlsKey = GlobalKey();
+
+  bool _blocksTapAt(Offset global) {
+    // A sheet or dialog is open above the map: the click was meant for it.
+    if (!(ModalRoute.of(context)?.isCurrent ?? true) || sheetBusy) return true;
+    for (final key in [_topKey, _controlsKey]) {
+      final box = key.currentContext?.findRenderObject();
+      if (box is RenderBox && box.hasSize) {
+        final rect = box.localToGlobal(Offset.zero) & box.size;
+        if (rect.contains(global)) return true;
+      }
+    }
+    return isOverSidePanel(global);
+  }
 
   @override
   void onDetailClosed() {
@@ -75,6 +94,12 @@ class _MapScreenState extends ConsumerState<MapScreen> with MapDetailPresenter<M
   /// "Show on map" from the station or watch list: zoom in and open its details.
   Future<void> _focusStation(String id) async {
     ref.read(mapFocusProvider.notifier).stationId = null;
+    // A saved map point (from the watch list): fly there and reopen it.
+    if (PointId.decode(id) case final p?) {
+      await _map?.flyTo(p.lat, p.lon, zoom: 12);
+      if (mounted) await _openPoint(p.lat, p.lon, PointSurface.unknown);
+      return;
+    }
     final stations = await ref.read(stationListProvider.future);
     final s = stations.where((x) => x.id == id).firstOrNull;
     if (s == null || !mounted) return;
@@ -145,12 +170,17 @@ class _MapScreenState extends ConsumerState<MapScreen> with MapDetailPresenter<M
 
   Widget _buildMap(BuildContext context, List<MapMarker> shown) {
     final l10n = context.l10n;
-    final style = ref.watch(mapStyleProvider(Theme.of(context).brightness));
+    final layer = ref.watch(baseLayerChoiceProvider).value ?? BaseLayer.standard;
+    final style = ref.watch(mapStyleProvider(Theme.of(context).brightness, layer));
+    // Keep showing the previous style while a new one loads: replacing the map
+    // with a spinner would recreate it and lose the camera position.
+    if (style.value case final s?) _lastStyle = s;
+    final shownStyle = style.value ?? _lastStyle;
     final buildMap = ref.watch(baseMapBuilderProvider);
     return switch (style) {
-      AsyncData(:final value) => buildMap(
+      _ when shownStyle != null => buildMap(
         BaseMapConfig(
-          styleString: value,
+          styleString: shownStyle,
           markers: shown,
           palette: _palette(context.colors),
           fixedLabels: [
@@ -160,6 +190,7 @@ class _MapScreenState extends ConsumerState<MapScreen> with MapDetailPresenter<M
           onStationTap: _openStation,
           onReady: _onReady,
           onMapTap: _openPoint,
+          blocksTapAt: _blocksTapAt,
           userPosition: _me,
           pin: _pin,
         ),
@@ -188,31 +219,47 @@ class _MapScreenState extends ConsumerState<MapScreen> with MapDetailPresenter<M
       body: Stack(
         children: [
           Positioned.fill(child: _buildMap(context, shown)),
-          SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.all(AppSpacing.md)
-                  .copyWith(right: AppSpacing.md + rightInset),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  MapSearchBar(stations: stationList.value ?? const [], onSelected: _selectStation),
-                  // Riverpod retries failed providers: show the error, not a spinner, meanwhile.
-                  if (stationList.hasError && !stationList.hasValue)
-                    MapInlineError(onRetry: () => ref.invalidate(stationListProvider))
-                  else if (markers.isLoading)
-                    const LinearProgressIndicator(minHeight: 2),
-                  if (markers.hasValue && shown.isEmpty && filter.isActive)
-                    MapNote(text: l10n.map_filterNone)
-                  else if (!_hintDismissed)
-                    MapNote(text: l10n.point_tapHint),
-                ],
+          // Positioned so the top overlay is only as tall as its content.
+          Positioned(
+            top: 0,
+            left: 0,
+            right: 0,
+            child: SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.all(AppSpacing.md)
+                    .copyWith(right: AppSpacing.md + rightInset),
+                child: Column(
+                  key: _topKey,
+                  // Only as tall as its content, so the rest of the map stays tappable.
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    MapSearchBar(
+                      stations: stationList.value ?? const [],
+                      onSelected: _selectStation,
+                    ),
+                    // Riverpod retries failed providers: show the error, not a spinner, meanwhile.
+                    if (stationList.hasError && !stationList.hasValue)
+                      MapInlineError(onRetry: () => ref.invalidate(stationListProvider))
+                    else if (markers.isLoading)
+                      const LinearProgressIndicator(minHeight: 2),
+                    if (markers.hasValue && shown.isEmpty && filter.isActive)
+                      MapNote(text: l10n.map_filterNone)
+                    else if (!_hintDismissed)
+                      MapNote(text: l10n.point_tapHint),
+                  ],
+                ),
               ),
             ),
           ),
           Positioned(
             right: AppSpacing.md + rightInset,
             bottom: AppSpacing.xxl,
-            child: MapControls(onLocate: _locate),
+            child: MapControls(
+              key: _controlsKey,
+              onLocate: _locate,
+              openSheet: (b) => unawaited(showGuardedSheet(b)),
+            ),
           ),
           buildSidePanel(context),
         ],
