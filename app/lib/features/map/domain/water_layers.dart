@@ -17,7 +17,9 @@ List<String> waterLayerIds(String style) {
     return [
       for (final l in layers)
         if (l case {'id': final String id, 'source-layer': 'water' || 'waterway'})
-          if (!id.contains('label') && !id.contains('tunnel')) id,
+          // Rivers, lakes and sea only: rural ditches/streams ("waterway_other")
+          // are everywhere and would mark most farmland as water.
+          if (!id.contains('label') && !id.contains('tunnel') && !id.contains('other')) id,
     ];
   }
   return const [];

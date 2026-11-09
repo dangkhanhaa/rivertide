@@ -3,6 +3,7 @@ import 'dart:math' show Point;
 
 import 'package:flutter/material.dart';
 import 'package:maplibre_gl/maplibre_gl.dart';
+import 'package:rivertide/core/calc/geo/camera_offset.dart';
 import 'package:rivertide/core/logging/log.dart';
 import 'package:rivertide/features/map/domain/map_marker.dart';
 import 'package:rivertide/features/map/domain/water_layers.dart';
@@ -46,7 +47,7 @@ class _MapLibreStationMapState extends State<MapLibreStationMap> implements Base
     }
   }
 
-  /// Water layers of the current style (river lines are thin: look ±8 px).
+  /// Water layers of the current style (river lines are thin: look ±4 px).
   late List<String> _water = waterLayerIds(widget.config.styleString);
 
   bool _blocked(Point<double> p) {
@@ -63,7 +64,7 @@ class _MapLibreStationMapState extends State<MapLibreStationMap> implements Base
     if (c != null && _water.isNotEmpty) {
       try {
         final hits = await c.queryRenderedFeaturesInRect(
-          Rect.fromCenter(center: Offset(p.x, p.y), width: 16, height: 16),
+          Rect.fromCenter(center: Offset(p.x, p.y), width: 8, height: 8),
           _water,
           null,
         );
@@ -76,8 +77,12 @@ class _MapLibreStationMapState extends State<MapLibreStationMap> implements Base
   }
 
   @override
-  Future<void> flyTo(double lat, double lon, {double zoom = 10}) async {
-    await _controller?.animateCamera(CameraUpdate.newLatLngZoom(LatLng(lat, lon), zoom));
+  Future<void> flyTo(double lat, double lon, {double? zoom, Offset offset = Offset.zero}) async {
+    final c = _controller;
+    if (c == null) return;
+    final z = zoom ?? c.cameraPosition?.zoom ?? _vnZoom;
+    final center = cameraCenterFor(lat: lat, lon: lon, zoom: z, dxPx: offset.dx, dyPx: offset.dy);
+    await c.animateCamera(CameraUpdate.newLatLngZoom(LatLng(center.lat, center.lon), z));
   }
 
   void _onCreated(MapLibreMapController c) {
@@ -147,6 +152,8 @@ class _MapLibreStationMapState extends State<MapLibreStationMap> implements Base
     initialCameraPosition: const CameraPosition(target: _vnCenter, zoom: _vnZoom),
     minMaxZoomPreference: const MinMaxZoomPreference(3, 17),
     rotateGesturesEnabled: false,
+    // Needed for cameraPosition (current zoom) when re-centring on a tap.
+    trackCameraPosition: true,
     // The screen draws its own one-line credit (licences need it visible) so the
     // long built-in attribution bar does not cover the map.
     attributionEnabled: false,

@@ -39,7 +39,12 @@ class FakeBaseMap extends StatelessWidget implements BaseMapHandle {
   static BaseMapConfig? last;
 
   @override
-  Future<void> flyTo(double lat, double lon, {double zoom = 10}) async {}
+  Future<void> flyTo(double lat, double lon, {double? zoom, Offset offset = Offset.zero}) async {
+    flights.add((lat: lat, lon: lon, offset: offset));
+  }
+
+  /// Camera moves requested by the screen, newest last.
+  static final flights = <({double lat, double lon, Offset offset})>[];
 
   @override
   Widget build(BuildContext context) {

@@ -215,6 +215,51 @@ void main() {
     await disposeApp(tester, db);
   });
 
+  testWidgets('phone: a tapped point is centred above the detail sheet, below the search bar', (
+    tester,
+  ) async {
+    final db = await pumpApp(tester, startOnMap: true);
+    FakeBaseMap.flights.clear();
+    await tester.tap(find.text('tap-river'));
+    await settle(tester);
+    final f = FakeBaseMap.flights.last;
+    expect((f.lat, f.lon), (20.995, 105.88));
+    expect(f.offset.dx, 0); // full width visible
+    // Sheet covers the lower ~55 %: the point must sit well above the view centre.
+    final mapSize = tester.getSize(find.byType(FakeBaseMap));
+    expect(f.offset.dy, greaterThan(mapSize.height * 0.15));
+    await disposeApp(tester, db);
+  });
+
+  testWidgets('wide: a tapped point is centred in the map left of the side panel', (tester) async {
+    final db = await pumpApp(
+      tester,
+      startOnMap: true,
+      physicalSize: const Size(1400, 900),
+      devicePixelRatio: 1,
+    );
+    FakeBaseMap.flights.clear();
+    await tester.tap(find.text('tap-river'));
+    await settle(tester);
+    final f = FakeBaseMap.flights.last;
+    expect(f.offset.dx, closeTo(420 / 2, 0.5)); // half the panel width
+    expect(f.offset.dy, lessThan(0)); // nudged down below the search bar
+    await disposeApp(tester, db);
+  });
+
+  testWidgets('station from search or list flies there zoomed with the same centring', (
+    tester,
+  ) async {
+    final db = await pumpApp(tester);
+    FakeBaseMap.flights.clear();
+    await tester.tap(find.text('Quy Nhơn'));
+    await settle(tester);
+    final f = FakeBaseMap.flights.last;
+    expect(f.lat, closeTo(13.7751, 1e-3));
+    expect(f.offset.dy, greaterThan(0));
+    await disposeApp(tester, db);
+  });
+
   testWidgets('tap the sea → model at the point itself, no reference station', (tester) async {
     final db = await pumpApp(tester, startOnMap: true);
     await tester.tap(find.text('tap-sea'));

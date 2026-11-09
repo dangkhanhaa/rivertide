@@ -10,6 +10,9 @@ const double wideLayoutMinWidth = 840;
 /// Width of the right-hand detail panel on wide screens.
 const double sidePanelWidth = 420;
 
+/// Phone detail sheet opens at this share of the screen height.
+const double sheetInitialSize = 0.55;
+
 /// Shows station/point details: a draggable half-height sheet on phones, a
 /// right-hand panel on wide screens (the map stays usable beside it).
 mixin MapDetailPresenter<T extends ConsumerStatefulWidget> on ConsumerState<T> {
@@ -25,6 +28,38 @@ mixin MapDetailPresenter<T extends ConsumerStatefulWidget> on ConsumerState<T> {
   static const Duration _tapGrace = Duration(milliseconds: 500);
 
   bool get isWide => MediaQuery.sizeOf(context).width >= wideLayoutMinWidth;
+
+  /// The map area and the overlay at its top (search bar, notes).
+  GlobalKey get mapAreaKey;
+  GlobalKey get topOverlayKey;
+
+  /// From the view centre to the centre of the map part the user can still
+  /// see once details open: left of the side panel on wide screens, above the
+  /// sheet on phones, below the search bar on both. Passed to flyTo so the
+  /// chosen point lands in that middle instead of under a panel.
+  Offset visibleOffset({required bool detailOpen}) {
+    final map = mapAreaKey.currentContext?.findRenderObject();
+    if (map is! RenderBox || !map.hasSize) return Offset.zero;
+    final origin = map.localToGlobal(Offset.zero);
+    final size = map.size;
+    var top = 0.0;
+    final overlay = topOverlayKey.currentContext?.findRenderObject();
+    if (overlay is RenderBox && overlay.hasSize) {
+      top = (overlay.localToGlobal(Offset(0, overlay.size.height)).dy - origin.dy).clamp(
+        0,
+        size.height / 2,
+      );
+    }
+    var right = size.width;
+    var bottom = size.height;
+    if (detailOpen && isWide) right = size.width - sidePanelWidth;
+    if (detailOpen && !isWide) {
+      final sheetTop = MediaQuery.sizeOf(context).height * (1 - sheetInitialSize) - origin.dy;
+      bottom = sheetTop.clamp(top + 1, size.height);
+    }
+    final visible = Offset(right / 2, (top + bottom) / 2);
+    return Offset(size.width / 2, size.height / 2) - visible;
+  }
 
   /// Called when the detail closes (pin removal etc.).
   void onDetailClosed();
@@ -66,7 +101,7 @@ mixin MapDetailPresenter<T extends ConsumerStatefulWidget> on ConsumerState<T> {
         useSafeArea: true,
         builder: (ctx) => DraggableScrollableSheet(
           expand: false,
-          initialChildSize: 0.55,
+          initialChildSize: sheetInitialSize,
           minChildSize: 0.3,
           maxChildSize: 0.95,
           builder: (ctx, controller) => MapDetailPanel(

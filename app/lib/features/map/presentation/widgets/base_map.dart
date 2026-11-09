@@ -6,7 +6,9 @@ import 'package:rivertide/features/map/presentation/widgets/maplibre_station_map
 
 /// Camera commands the screen can send to whichever map is mounted.
 abstract interface class BaseMapHandle {
-  Future<void> flyTo(double lat, double lon, {double zoom});
+  /// Moves the camera so ([lat], [lon]) ends up [offset] (logical px) left of /
+  /// above the view centre; [zoom] null keeps the current zoom.
+  Future<void> flyTo(double lat, double lon, {double? zoom, Offset offset});
 }
 
 /// A fixed text label drawn on the map (e.g. the Vietnamese archipelagos).

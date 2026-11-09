@@ -39,6 +39,13 @@ class _MapScreenState extends ConsumerState<MapScreen> with MapDetailPresenter<M
 
   /// Flutter UI drawn over the map (see [BaseMapConfig.blocksTapAt]).
   final GlobalKey _topKey = GlobalKey();
+  final GlobalKey _mapKey = GlobalKey();
+
+  @override
+  GlobalKey get mapAreaKey => _mapKey;
+
+  @override
+  GlobalKey get topOverlayKey => _topKey;
   final GlobalKey _controlsKey = GlobalKey();
   final GlobalKey _creditKey = GlobalKey();
 
@@ -83,7 +90,7 @@ class _MapScreenState extends ConsumerState<MapScreen> with MapDetailPresenter<M
     if (await service.hasPermission()) {
       if (await service.locate() case Located(:final lat, :final lon) when mounted) {
         setState(() => _me = (lat: lat, lon: lon));
-        await _map?.flyTo(lat, lon, zoom: 11);
+        await _map?.flyTo(lat, lon, zoom: 11, offset: visibleOffset(detailOpen: false));
       }
       return;
     }
@@ -97,18 +104,16 @@ class _MapScreenState extends ConsumerState<MapScreen> with MapDetailPresenter<M
     ref.read(mapFocusProvider.notifier).stationId = null;
     // A saved map point (from the watch list): fly there and reopen it.
     if (PointId.decode(id) case final p?) {
-      await _map?.flyTo(p.lat, p.lon, zoom: 12);
-      if (mounted) await _openPoint(p.lat, p.lon, PointSurface.unknown);
+      await _openPoint(p.lat, p.lon, PointSurface.unknown, zoom: 12);
       return;
     }
     final stations = await ref.read(stationListProvider.future);
     final s = stations.where((x) => x.id == id).firstOrNull;
     if (s == null || !mounted) return;
-    await _map?.flyTo(s.lat, s.lon, zoom: 11);
-    if (mounted) await _openStation(s.id);
+    if (mounted) await _openStation(s.id, zoom: 11);
   }
 
-  Future<void> _openPoint(double lat, double lon, PointSurface surface) async {
+  Future<void> _openPoint(double lat, double lon, PointSurface surface, {double? zoom}) async {
     if (sheetBusy) return;
     if (!isInVietnamBounds(lat, lon)) {
       ScaffoldMessenger.of(context)
@@ -120,6 +125,8 @@ class _MapScreenState extends ConsumerState<MapScreen> with MapDetailPresenter<M
       _pin = (lat: lat, lon: lon);
       _hintDismissed = true;
     });
+    // Bring the point to the middle of what stays visible beside the details.
+    unawaited(_map?.flyTo(lat, lon, zoom: zoom, offset: visibleOffset(detailOpen: true)));
     await showDetail(
       PointSheet(
         key: ValueKey('$lat,$lon'),
@@ -134,24 +141,24 @@ class _MapScreenState extends ConsumerState<MapScreen> with MapDetailPresenter<M
     );
   }
 
-  Future<void> _openStation(String id) async {
+  Future<void> _openStation(String id, {double? zoom}) async {
     if (sheetBusy) return;
     final station = ref.read(stationListProvider).value?.where((s) => s.id == id).firstOrNull;
     if (station == null) return;
     setState(() => _pin = null);
+    unawaited(
+      _map?.flyTo(station.lat, station.lon, zoom: zoom, offset: visibleOffset(detailOpen: true)),
+    );
     await showDetail(StationSheet(key: ValueKey(id), station: station));
   }
 
-  Future<void> _selectStation(Station s) async {
-    await _map?.flyTo(s.lat, s.lon, zoom: 11);
-    await _openStation(s.id);
-  }
+  Future<void> _selectStation(Station s) => _openStation(s.id, zoom: 11);
 
   Future<void> _locate() async {
     final p = await runLocateFlow(context, ref.read(locationServiceProvider));
     if (p == null || !mounted) return;
     setState(() => _me = p);
-    await _map?.flyTo(p.lat, p.lon, zoom: 11);
+    await _map?.flyTo(p.lat, p.lon, zoom: 11, offset: visibleOffset(detailOpen: false));
   }
 
   MarkerPalette _palette(AppColors c) => (
@@ -219,7 +226,9 @@ class _MapScreenState extends ConsumerState<MapScreen> with MapDetailPresenter<M
     return Scaffold(
       body: Stack(
         children: [
-          Positioned.fill(child: _buildMap(context, shown)),
+          Positioned.fill(
+            child: KeyedSubtree(key: _mapKey, child: _buildMap(context, shown)),
+          ),
           // Positioned so the top overlay is only as tall as its content.
           Positioned(
             top: 0,

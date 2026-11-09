@@ -8,7 +8,8 @@ void main() {
     final ids = waterLayerIds(
       File('test/fixtures/openfreemap_liberty_20261109.json').readAsStringSync(),
     );
-    expect(ids, containsAll(['water', 'waterway_river', 'waterway_other']));
+    expect(ids, containsAll(['water', 'waterway_river']));
+    expect(ids, isNot(contains('waterway_other'))); // ditches would flag farmland
     expect(ids, isNot(contains('waterway_line_label')));
     expect(ids, isNot(contains('waterway_tunnel')));
   });
