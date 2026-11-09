@@ -1,0 +1,67 @@
+# ===== Secrets (KHÔNG BAO GIỜ commit) =====
+app/env/*.json
+!app/env/example.json
+supabase/functions/.env
+supabase/.env
+.env
+.env.*
+secrets/
+*.jks
+*.keystore
+key.properties
+*.p8
+*.p12
+*.mobileprovision
+service-account*.json
+google-services.json.bak
+
+# ===== Flutter / Dart =====
+.dart_tool/
+.packages
+.pub-cache/
+.pub/
+build/
+app/build/
+app/coverage/
+.flutter-plugins
+.flutter-plugins-dependencies
+app/android/.gradle/
+app/android/local.properties
+app/android/app/debug/
+app/android/app/profile/
+app/android/app/release/
+app/ios/Pods/
+app/ios/.symlinks/
+app/ios/Flutter/Generated.xcconfig
+app/ios/Flutter/flutter_export_environment.sh
+app/ios/Runner/GeneratedPluginRegistrant.*
+*.iml
+
+# ===== Supabase =====
+supabase/.branches/
+supabase/.temp/
+
+# ===== Python =====
+tools/tide/.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+tools/tide/output/
+tools/tide/data/raw/
+
+# ===== IDE / OS =====
+.idea/
+.DS_Store
+Thumbs.db
+*.swp
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+!.vscode/launch.json
+tools/nchmf/data/raw/
+tools/nchmf/output/
+
+# ===== GitHub Pages build output =====
+site/

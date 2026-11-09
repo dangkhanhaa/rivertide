@@ -1,0 +1,77 @@
+# Free "server": GitHub Actions fetches the KTTV bulletin every day and GitHub
+# Pages serves both the parsed data and the web build of the app (PROJECT.md 3.0, V0-09).
+# No secrets are used. Pages on a free account needs a public repository.
+name: KTTV data + web app
+
+on:
+  schedule:
+    # KTTV issues around 10:30 VN (03:30 UTC). Retry later in the day: a missed
+    # day is lost forever because old bulletins are not listed.
+    - cron: "30 4 * * *"   # 11:30 VN
+    - cron: "30 6 * * *"   # 13:30 VN
+    - cron: "30 9 * * *"   # 16:30 VN
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write   # commit the bulletin archive
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Fetch, parse and archive today's bulletin
+        working-directory: tools/nchmf
+        run: |
+          pip install -r requirements.txt
+          python fetch_bulletin.py --site ../../site/data
+
+      - name: Commit archive
+        run: |
+          git config user.name "rivertide-bot"
+          git config user.email "rivertide-bot@users.noreply.github.com"
+          git add tools/nchmf/archive
+          git diff --cached --quiet || (git commit -m "chore(data): archive KTTV bulletin" && git push)
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3.47.9"
+          channel: stable
+          cache: true
+
+      - name: Build web app
+        working-directory: app
+        run: |
+          cp ../site/data/kttv_tvhn.json assets/data/kttv_tvhn.json
+          flutter pub get
+          flutter test
+          flutter build web --release --base-href /rivertide/
+          cp -r build/web/. ../site/
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

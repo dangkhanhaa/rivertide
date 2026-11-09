@@ -1,0 +1,35 @@
+include: package:very_good_analysis/analysis_options.yaml
+
+formatter:
+  page_width: 100
+
+analyzer:
+  exclude:
+    - "**/*.g.dart"
+    - "**/*.freezed.dart"
+    - "lib/l10n/gen/**"
+    - build/**
+    - android/**
+    - ios/**
+    - web/**
+  language:
+    strict-casts: true
+    strict-inference: true
+    strict-raw-types: true
+  errors:
+    missing_required_param: error
+    missing_return: error
+    todo: ignore
+
+linter:
+  rules:
+    public_member_api_docs: false
+    avoid_print: true
+    prefer_final_locals: true
+    prefer_const_constructors: true
+    unawaited_futures: true
+    always_use_package_imports: true
+    avoid_dynamic_calls: true
+    lines_longer_than_80_chars: false
+    # Would force the new `new(...)` constructor syntax; docs/rules samples use class names.
+    unnecessary_type_name_in_constructor: false

@@ -1,0 +1,16 @@
+{
+  "recommendations": [
+    "Dart-Code.flutter",
+    "Dart-Code.dart-code",
+    "denoland.vscode-deno",
+    "eamodio.gitlens",
+    "usernamehw.errorlens",
+    "yzhang.markdown-all-in-one",
+    "ms-python.python",
+    "charliermarsh.ruff",
+    "redhat.vscode-yaml",
+    "github.vscode-github-actions",
+    "streetsidesoftware.code-spell-checker",
+    "editorconfig.editorconfig"
+  ]
+}

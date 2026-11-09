@@ -1,0 +1,29 @@
+{
+  "editor.formatOnSave": true,
+  "files.eol": "\n",
+  "files.insertFinalNewline": true,
+  "files.trimTrailingWhitespace": true,
+  "dart.lineLength": 100,
+  "[dart]": {
+    "editor.rulers": [100],
+    "editor.codeActionsOnSave": {
+      "source.fixAll": "explicit",
+      "source.organizeImports": "explicit"
+    }
+  },
+  "dart.flutterSdkPath": "C:\\dev\\flutter",
+  "deno.enablePaths": ["supabase/functions"],
+  "deno.lint": true,
+  "[typescript]": {
+    "editor.defaultFormatter": "denoland.vscode-deno"
+  },
+  "python.defaultInterpreterPath": "tools/tide/.venv/Scripts/python.exe",
+  "files.exclude": {
+    "**/.dart_tool": true,
+    "**/build": true
+  },
+  "search.exclude": {
+    "**/*.g.dart": true,
+    "**/*.freezed.dart": true
+  }
+}
