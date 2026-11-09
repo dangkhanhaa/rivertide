@@ -1335,7 +1335,7 @@ Hoãn tới khi cần máy chủ: P1-05 → P1-12, P1-18, P1-30, P1-32 (phần D
   - Bản đồ OpenFreeMap (P1-20). Mở app là tự tìm vị trí của người dùng.
   - **Chạm điểm bất kỳ** trên bản đồ (P1-24): xem tọa độ, mực nước (mô hình biển tại điểm hoặc trạm sông KTTV gần nhất), thời tiết, giờ mặt trời và các trạm gần.
   - **38 trạm**: 2 trạm có máy đo IOC, 14 điểm mô hình biển, 11 trạm sông KTTV có đường mực nước từng giờ ước tính, 11 trạm sông có triều chỉ có mức cao nhất/thấp nhất. Chi tiết trong docs/river-model.md.
-  - Bộ đọc bản tin KTTV và workflow GitHub Actions/Pages (V0-09) đã viết, **chưa chạy trên GitHub** vì chưa có kho mã.
+  - Bộ đọc bản tin KTTV và workflow GitHub Actions/Pages (V0-09) **đang chạy**: https://dangkhanhaa.github.io/rivertide/ (lần đầu thành công 09/11/2026). DoD V0-09 cần chạy 3 ngày liên tiếp không lỗi — chưa đủ.
   - 223 test Flutter, 9 test cho tools/nchmf, 11 test cho tools/tide, đều pass.
 - **Chưa xong:**
   - P0-02: Android SDK, chủ dự án tự cài.

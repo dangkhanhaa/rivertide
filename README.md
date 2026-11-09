@@ -3,6 +3,8 @@
 App di động xem **mực nước sông, thủy triều, con nước và giờ câu cá** cho toàn Việt Nam — Flutter + bản đồ OpenFreeMap (Supabase ở giai đoạn sau).
 
 > 🚧 Đang ở giai đoạn **bản dev**.
+>
+> **Bản dùng thử trên web:** https://dangkhanhaa.github.io/rivertide/ (tự cập nhật bản tin KTTV 3 lần/ngày)
 
 ## Tài liệu
 
