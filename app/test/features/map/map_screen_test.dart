@@ -83,7 +83,7 @@ void main() {
     await settle(tester);
     expect(find.text('Báo động II'), findsOneWidget);
     expect(find.text('Mất dữ liệu quá 6 giờ'), findsOneWidget);
-    expect(find.textContaining('OpenStreetMap'), findsOneWidget);
+    expect(find.textContaining('OpenStreetMap'), findsWidgets);
     await disposeApp(tester, db);
   });
 
@@ -125,9 +125,7 @@ void main() {
     expect(find.text('Điểm đã chọn'), findsOneWidget);
     expect(find.textContaining('20.99500, 105.88000'), findsOneWidget);
     expect(
-      find.textContaining(
-        RegExp(r'Ước tính theo trạm Hà Nội \(Long Biên\) \(sông Hồng\), cách \d'),
-      ),
+      find.textContaining(RegExp(r'Dựa theo trạm Hà Nội \(Long Biên\) \(sông Hồng\) · cách \d')),
       findsOneWidget,
     );
     expect(find.text('Ước tính'), findsWidgets);
@@ -205,13 +203,27 @@ void main() {
     },
   );
 
+  testWidgets('map keeps a one-line licence credit; tapping it shows the full text', (
+    tester,
+  ) async {
+    final db = await pumpApp(tester, startOnMap: true);
+    expect(find.text('© OpenFreeMap · © OpenStreetMap'), findsOneWidget);
+    await tester.tap(find.text('© OpenFreeMap · © OpenStreetMap'));
+    await settle(tester);
+    expect(find.text('Nguồn bản đồ'), findsOneWidget);
+    expect(find.textContaining('dữ liệu © OpenStreetMap'), findsOneWidget);
+    await disposeApp(tester, db);
+  });
+
   testWidgets('tap the sea → model at the point itself, no reference station', (tester) async {
     final db = await pumpApp(tester, startOnMap: true);
     await tester.tap(find.text('tap-sea'));
     await settle(tester);
     expect(find.textContaining('10.30000, 107.10000'), findsOneWidget);
     expect(find.textContaining('Ước tính theo trạm'), findsNothing);
-    expect(find.textContaining('Open-Meteo Marine'), findsOneWidget);
+    // Sources live in Thêm → Nguồn dữ liệu and the Thông tin tab, not here.
+    expect(find.textContaining('Nguồn:'), findsNothing);
+    expect(find.byTooltip('Chi tiết nguồn'), findsNothing);
     expect(find.text('Mô hình biển tính ngay tại điểm này'), findsOneWidget);
     expect(find.text('Điểm nằm trên mặt nước (sông, hồ hoặc biển)'), findsOneWidget);
     await disposeApp(tester, db);

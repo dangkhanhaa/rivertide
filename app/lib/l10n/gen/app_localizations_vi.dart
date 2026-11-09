@@ -490,6 +490,35 @@ class AppLocalizationsVi extends AppLocalizations {
   String get point_tapHint => 'Chạm vào bất kỳ đâu trên bản đồ để xem nước tại đó';
 
   @override
+  String get source_shortGauge => 'IOC + utide';
+
+  @override
+  String get source_shortModel => 'Open-Meteo';
+
+  @override
+  String get source_shortRiver => 'KTTV';
+
+  @override
+  String get source_shortRiverTide => 'KTTV + triều Open-Meteo';
+
+  @override
+  String source_compact(String source, String updated) {
+    return 'Nguồn: $source · $updated';
+  }
+
+  @override
+  String get source_details => 'Chi tiết nguồn';
+
+  @override
+  String get map_credits => 'Nguồn bản đồ';
+
+  @override
+  String get map_creditShort => '© OpenFreeMap · © OpenStreetMap';
+
+  @override
+  String get map_creditShortSat => '© EOX · Copernicus · © OpenStreetMap';
+
+  @override
   String station_datumNote(String datum) {
     return 'Độ cao so với $datum';
   }
@@ -686,7 +715,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get more_sourcesBody =>
-      '• IOC Sea Level Monitoring — thực đo mực nước biển Vũng Tàu, Quy Nhơn (mỗi phút).\n• Trung tâm Dự báo KTTV quốc gia — bản tin thủy văn hạn ngắn (mực nước sông, 4 mốc/ngày + dự báo); đường từng giờ do app ước tính.\n• Open-Meteo — thời tiết và mô hình mực nước biển (gói miễn phí, phi thương mại).\n• Dự báo triều tại trạm có máy đo: phân tích điều hòa (utide) từ 12 tháng số liệu IOC.\n• Bản đồ nền: OpenFreeMap · © OpenMapTiles · dữ liệu © OpenStreetMap.\n• Ảnh vệ tinh: EOxCloudless (EOX IT Services GmbH), chứa dữ liệu Copernicus Sentinel 2025, giấy phép CC BY-NC-SA 4.0.\nMọi số liệu dự báo/ước tính chỉ mang tính tham khảo.';
+      '• IOC Sea Level Monitoring — thực đo mực nước biển Vũng Tàu, Quy Nhơn (mỗi phút). Dự báo triều tại 2 trạm này tính bằng phân tích điều hòa (utide) từ 12 tháng số liệu; kiểm thử ngược: sai số ±10 cm (Vũng Tàu), ±7 cm (Quy Nhơn).\n• Trung tâm Dự báo KTTV quốc gia — bản tin thủy văn hạn ngắn: mực nước sông 4 mốc/ngày + dự báo. Đường từng giờ do app ước tính (ghép triều cửa sông); kiểm thử ngược: ±12 cm (Hà Nội), ±11 cm (Nam Đàn).\n• Open-Meteo — thời tiết, sóng và mô hình mực nước biển tại điểm ven biển (gói miễn phí, phi thương mại).\n• Điểm bất kỳ trên bản đồ: mô hình biển tại điểm đó, hoặc trạm sông KTTV gần nhất (trong 40 km).\n• Bản đồ nền: OpenFreeMap · © OpenMapTiles · dữ liệu © OpenStreetMap.\n• Ảnh vệ tinh: EOxCloudless (EOX IT Services GmbH), chứa dữ liệu Copernicus Sentinel 2025, giấy phép CC BY-NC-SA 4.0.\nMọi số liệu dự báo/ước tính chỉ mang tính tham khảo. Chi tiết nguồn, mốc cao độ và độ tin cậy của từng trạm xem ở tab Thông tin của trạm.';
 
   @override
   String get more_about => 'Giới thiệu';

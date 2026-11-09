@@ -40,11 +40,12 @@ class _MapScreenState extends ConsumerState<MapScreen> with MapDetailPresenter<M
   /// Flutter UI drawn over the map (see [BaseMapConfig.blocksTapAt]).
   final GlobalKey _topKey = GlobalKey();
   final GlobalKey _controlsKey = GlobalKey();
+  final GlobalKey _creditKey = GlobalKey();
 
   bool _blocksTapAt(Offset global) {
     // A sheet or dialog is open above the map: the click was meant for it.
     if (!(ModalRoute.of(context)?.isCurrent ?? true) || sheetBusy) return true;
-    for (final key in [_topKey, _controlsKey]) {
+    for (final key in [_topKey, _controlsKey, _creditKey]) {
       final box = key.currentContext?.findRenderObject();
       if (box is RenderBox && box.hasSize) {
         final rect = box.localToGlobal(Offset.zero) & box.size;
@@ -259,6 +260,15 @@ class _MapScreenState extends ConsumerState<MapScreen> with MapDetailPresenter<M
               key: _controlsKey,
               onLocate: _locate,
               openSheet: (b) => unawaited(showGuardedSheet(b)),
+            ),
+          ),
+          Positioned(
+            left: AppSpacing.sm,
+            bottom: AppSpacing.xs,
+            child: MapCredit(
+              key: _creditKey,
+              satellite: ref.watch(baseLayerChoiceProvider).value == BaseLayer.satellite,
+              onTap: (b) => unawaited(showGuardedSheet(b)),
             ),
           ),
           buildSidePanel(context),

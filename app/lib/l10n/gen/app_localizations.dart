@@ -908,6 +908,60 @@ abstract class AppLocalizations {
   /// **'Chạm vào bất kỳ đâu trên bản đồ để xem nước tại đó'**
   String get point_tapHint;
 
+  /// No description provided for @source_shortGauge.
+  ///
+  /// In vi, this message translates to:
+  /// **'IOC + utide'**
+  String get source_shortGauge;
+
+  /// No description provided for @source_shortModel.
+  ///
+  /// In vi, this message translates to:
+  /// **'Open-Meteo'**
+  String get source_shortModel;
+
+  /// No description provided for @source_shortRiver.
+  ///
+  /// In vi, this message translates to:
+  /// **'KTTV'**
+  String get source_shortRiver;
+
+  /// No description provided for @source_shortRiverTide.
+  ///
+  /// In vi, this message translates to:
+  /// **'KTTV + triều Open-Meteo'**
+  String get source_shortRiverTide;
+
+  /// No description provided for @source_compact.
+  ///
+  /// In vi, this message translates to:
+  /// **'Nguồn: {source} · {updated}'**
+  String source_compact(String source, String updated);
+
+  /// No description provided for @source_details.
+  ///
+  /// In vi, this message translates to:
+  /// **'Chi tiết nguồn'**
+  String get source_details;
+
+  /// No description provided for @map_credits.
+  ///
+  /// In vi, this message translates to:
+  /// **'Nguồn bản đồ'**
+  String get map_credits;
+
+  /// No description provided for @map_creditShort.
+  ///
+  /// In vi, this message translates to:
+  /// **'© OpenFreeMap · © OpenStreetMap'**
+  String get map_creditShort;
+
+  /// No description provided for @map_creditShortSat.
+  ///
+  /// In vi, this message translates to:
+  /// **'© EOX · Copernicus · © OpenStreetMap'**
+  String get map_creditShortSat;
+
   /// No description provided for @station_datumNote.
   ///
   /// In vi, this message translates to:
@@ -1241,7 +1295,7 @@ abstract class AppLocalizations {
   /// No description provided for @more_sourcesBody.
   ///
   /// In vi, this message translates to:
-  /// **'• IOC Sea Level Monitoring — thực đo mực nước biển Vũng Tàu, Quy Nhơn (mỗi phút).\n• Trung tâm Dự báo KTTV quốc gia — bản tin thủy văn hạn ngắn (mực nước sông, 4 mốc/ngày + dự báo); đường từng giờ do app ước tính.\n• Open-Meteo — thời tiết và mô hình mực nước biển (gói miễn phí, phi thương mại).\n• Dự báo triều tại trạm có máy đo: phân tích điều hòa (utide) từ 12 tháng số liệu IOC.\n• Bản đồ nền: OpenFreeMap · © OpenMapTiles · dữ liệu © OpenStreetMap.\n• Ảnh vệ tinh: EOxCloudless (EOX IT Services GmbH), chứa dữ liệu Copernicus Sentinel 2025, giấy phép CC BY-NC-SA 4.0.\nMọi số liệu dự báo/ước tính chỉ mang tính tham khảo.'**
+  /// **'• IOC Sea Level Monitoring — thực đo mực nước biển Vũng Tàu, Quy Nhơn (mỗi phút). Dự báo triều tại 2 trạm này tính bằng phân tích điều hòa (utide) từ 12 tháng số liệu; kiểm thử ngược: sai số ±10 cm (Vũng Tàu), ±7 cm (Quy Nhơn).\n• Trung tâm Dự báo KTTV quốc gia — bản tin thủy văn hạn ngắn: mực nước sông 4 mốc/ngày + dự báo. Đường từng giờ do app ước tính (ghép triều cửa sông); kiểm thử ngược: ±12 cm (Hà Nội), ±11 cm (Nam Đàn).\n• Open-Meteo — thời tiết, sóng và mô hình mực nước biển tại điểm ven biển (gói miễn phí, phi thương mại).\n• Điểm bất kỳ trên bản đồ: mô hình biển tại điểm đó, hoặc trạm sông KTTV gần nhất (trong 40 km).\n• Bản đồ nền: OpenFreeMap · © OpenMapTiles · dữ liệu © OpenStreetMap.\n• Ảnh vệ tinh: EOxCloudless (EOX IT Services GmbH), chứa dữ liệu Copernicus Sentinel 2025, giấy phép CC BY-NC-SA 4.0.\nMọi số liệu dự báo/ước tính chỉ mang tính tham khảo. Chi tiết nguồn, mốc cao độ và độ tin cậy của từng trạm xem ở tab Thông tin của trạm.'**
   String get more_sourcesBody;
 
   /// No description provided for @more_about.

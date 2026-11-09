@@ -31,7 +31,7 @@ class OverviewTab extends StatelessWidget {
         children: [
           DailyExtremesCard(extremes: daily),
           const SizedBox(height: AppSpacing.md),
-          SourceLine(view: view),
+          SourceLine(view: view, showSource: false),
         ],
       );
     }
@@ -74,7 +74,7 @@ class OverviewTab extends StatelessWidget {
           ),
         ],
         const SizedBox(height: AppSpacing.md),
-        SourceLine(view: view),
+        SourceLine(view: view, showSource: false),
       ],
     );
   }

@@ -85,6 +85,17 @@ void main() {
     await disposeApp(tester, db);
   });
 
+  testWidgets('all data sources are listed under Thêm → Nguồn dữ liệu', (tester) async {
+    final db = await pumpApp(tester);
+    await tester.tap(find.text('Thêm'));
+    await settle(tester);
+    expect(find.text('Nguồn dữ liệu'), findsOneWidget);
+    for (final s in ['IOC', 'KTTV', 'Open-Meteo', 'OpenStreetMap', 'EOxCloudless']) {
+      expect(find.textContaining(s), findsWidgets, reason: s);
+    }
+    await disposeApp(tester, db);
+  });
+
   testWidgets('fishing tab shows day score and 7-day strip', (tester) async {
     final db = await pumpApp(tester);
     await tester.tap(find.text('Câu cá'));

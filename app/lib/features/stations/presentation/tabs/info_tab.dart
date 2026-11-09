@@ -51,7 +51,7 @@ class InfoTab extends StatelessWidget {
             child: Text(line, style: context.text.body),
           ),
         const SizedBox(height: AppSpacing.md),
-        SourceLine(view: view),
+        SourceLine(view: view, initiallyOpen: true),
       ],
     );
   }

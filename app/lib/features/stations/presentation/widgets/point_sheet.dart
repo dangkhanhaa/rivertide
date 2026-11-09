@@ -81,7 +81,7 @@ class PointSheet extends ConsumerWidget {
           if (view.hasValue) ...[
             _EstimateBanner(view: view.requireValue, onWater: onWater),
             const SizedBox(height: AppSpacing.sm),
-            StationSummaryBody(view: view.requireValue),
+            StationSummaryBody(view: view.requireValue, showReference: false),
           ] else if (view.error is NotFoundException)
             Text(l10n.point_noData, style: context.text.body)
           else if (view.error case final Object error)

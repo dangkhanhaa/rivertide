@@ -147,6 +147,9 @@ class _MapLibreStationMapState extends State<MapLibreStationMap> implements Base
     initialCameraPosition: const CameraPosition(target: _vnCenter, zoom: _vnZoom),
     minMaxZoomPreference: const MinMaxZoomPreference(3, 17),
     rotateGesturesEnabled: false,
+    // The screen draws its own one-line credit (licences need it visible) so the
+    // long built-in attribution bar does not cover the map.
+    attributionEnabled: false,
     tiltGesturesEnabled: false,
     onMapCreated: _onCreated,
     onStyleLoadedCallback: () => unawaited(_onStyleLoaded()),

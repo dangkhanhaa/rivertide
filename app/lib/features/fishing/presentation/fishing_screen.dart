@@ -6,7 +6,6 @@ import 'package:rivertide/core/l10n/l10n_ext.dart';
 import 'package:rivertide/core/theme/app_spacing.dart';
 import 'package:rivertide/core/theme/app_text.dart';
 import 'package:rivertide/core/widgets/async_value_view.dart';
-import 'package:rivertide/core/widgets/data_labels.dart';
 import 'package:rivertide/features/fishing/application/fishing_selection.dart';
 import 'package:rivertide/features/fishing/presentation/widgets/day_score_card.dart';
 import 'package:rivertide/features/fishing/presentation/widgets/golden_list.dart';
@@ -77,7 +76,6 @@ class _FishingBody extends StatelessWidget {
         WeekStrip(hours: fishing.hours),
         const SizedBox(height: AppSpacing.lg),
         Text(context.l10n.fishing_reference, style: context.text.caption),
-        SourceAttribution(source: context.l10n.fishing_weatherSource),
       ],
     );
   }

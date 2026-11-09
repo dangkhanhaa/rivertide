@@ -77,9 +77,12 @@ class StationSheet extends ConsumerWidget {
 
 /// Level, trend, next turn, mini chart and sources — shared by station and point sheets.
 class StationSummaryBody extends StatelessWidget {
-  const StationSummaryBody({required this.view, super.key});
+  const StationSummaryBody({required this.view, this.showReference = true, super.key});
 
   final StationView view;
+
+  /// False when the caller already shows the reference station.
+  final bool showReference;
 
   @override
   Widget build(BuildContext context) {
@@ -95,7 +98,7 @@ class StationSummaryBody extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           DailyExtremesCard(extremes: daily),
-          SourceLine(view: view),
+          SourceLine(view: view, showReference: showReference, showSource: false),
         ],
       );
     }
@@ -144,7 +147,7 @@ class StationSummaryBody extends StatelessWidget {
           latestObservation: tide.anchor,
         ),
         const SizedBox(height: AppSpacing.sm),
-        SourceLine(view: view),
+        SourceLine(view: view, showReference: showReference, showSource: false),
       ],
     );
   }
