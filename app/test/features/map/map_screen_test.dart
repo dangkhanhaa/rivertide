@@ -25,7 +25,9 @@ void main() {
     await tester.tap(find.textContaining('pin:ioc-vung:'));
     await settle(tester);
     expect(find.text('Vũng Tàu'), findsOneWidget);
-    expect(find.textContaining(RegExp('(Đỉnh|Chân) triều .* · còn ')), findsOneWidget);
+    // Next-turn tiles: kind, time, level and a countdown.
+    expect(find.textContaining(RegExp(r'^(Đỉnh|Chân) triều$')), findsWidgets);
+    expect(find.textContaining(RegExp('^còn ')), findsWidgets);
     expect(find.text('Thực đo'), findsWidgets);
     await tester.tap(find.byTooltip('Theo dõi trạm'));
     await settle(tester);
@@ -114,25 +116,22 @@ void main() {
     await disposeApp(tester, db);
   });
 
-  testWidgets('tap a river bank → coordinates + estimate from the nearest KTTV station', (
-    tester,
-  ) async {
-    final db = await pumpApp(tester, startOnMap: true);
+  testWidgets('tap a river bank → own level, turns and day stats for that place', (tester) async {
+    // Clock inside the real bulletin + Hòn Dấu data window.
+    final db = await pumpApp(tester, startOnMap: true, now: DateTime.utc(2026, 11, 9, 8));
     expect(find.textContaining('Chạm vào bất kỳ đâu'), findsOneWidget);
     await tester.tap(find.text('tap-river'));
     await settle(tester);
     expect(find.text('pin'), findsOneWidget);
     expect(find.text('Điểm đã chọn'), findsOneWidget);
     expect(find.textContaining('20.99500, 105.88000'), findsOneWidget);
-    // On the Red River line: position measured along the river, tide timing vs the station.
-    expect(
-      find.textContaining(
-        RegExp(r'Cách trạm Hà Nội \(Long Biên\) [\d,]+ km về phía hạ lưu, đo dọc sông Hồng'),
-      ),
-      findsOneWidget,
-    );
-    expect(find.textContaining('sớm hơn trạm'), findsOneWidget);
+    // The place's own numbers, no "based on station…" explanations.
+    expect(find.text('Sông Hồng'), findsOneWidget);
+    expect(find.textContaining('trạm Hà Nội'), findsNothing);
+    expect(find.textContaining('Dựa theo'), findsNothing);
     expect(find.text('Ước tính'), findsWidgets);
+    expect(find.textContaining(RegExp(r'^\d+,\d\d m$')), findsWidgets); // level here
+    expect(find.text('Hôm nay'), findsOneWidget);
     expect(find.textContaining('Mặt trời mọc'), findsOneWidget);
     expect(find.text('Trạm gần nhất'), findsOneWidget);
     await tester.ensureVisible(find.text('Xem chi tiết theo giờ'));
@@ -143,18 +142,14 @@ void main() {
     await disposeApp(tester, db);
   });
 
-  testWidgets('tap a street (not water) → still an estimate, clearly labelled with its basis', (
-    tester,
-  ) async {
+  testWidgets('tap a street (not water) → nearby river named, still an estimate', (tester) async {
     final db = await pumpApp(tester, startOnMap: true);
     await tester.tap(find.text('tap-street'));
     await settle(tester);
-    expect(find.text('Mực nước ước tính tại điểm này'), findsOneWidget);
-    expect(find.textContaining('không nằm trên sông, hồ hay biển'), findsOneWidget);
-    expect(
-      find.textContaining(RegExp(r'Dựa theo trạm Hà Nội \(Long Biên\) \(sông Hồng\) · cách \d')),
-      findsOneWidget,
-    );
+    expect(find.text('Gần sông Hồng'), findsOneWidget);
+    expect(find.textContaining('Dựa theo'), findsNothing);
+    expect(find.text('Ước tính'), findsWidgets);
+    expect(find.text('Trạm gần nhất'), findsOneWidget); // stations only as a list
     await disposeApp(tester, db);
   });
 
@@ -300,8 +295,7 @@ void main() {
     // Sources live in Thêm → Nguồn dữ liệu and the Thông tin tab, not here.
     expect(find.textContaining('Nguồn:'), findsNothing);
     expect(find.byTooltip('Chi tiết nguồn'), findsNothing);
-    expect(find.text('Mô hình biển tính ngay tại điểm này'), findsOneWidget);
-    expect(find.text('Điểm nằm trên mặt nước (sông, hồ hoặc biển)'), findsOneWidget);
+    expect(find.text('Vùng biển'), findsOneWidget);
     await disposeApp(tester, db);
   });
 

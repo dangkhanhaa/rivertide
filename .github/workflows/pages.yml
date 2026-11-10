@@ -59,8 +59,10 @@ jobs:
           cp ../site/data/kttv_tvhn.json assets/data/kttv_tvhn.json
           flutter pub get
           flutter test
-          flutter build web --release --base-href /rivertide/
+          flutter build web --release --base-href /rivertide/ --dart-define=BUILD_SHA=${{ github.sha }}
           cp -r build/web/. ../site/
+          # Lets running apps tell they are out of date ("Có phiên bản mới").
+          echo '{"sha":"${{ github.sha }}"}' > ../site/build.json
 
       - uses: actions/upload-pages-artifact@v3
         with:

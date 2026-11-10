@@ -926,6 +926,210 @@ abstract class AppLocalizations {
   /// **'Dải mờ quanh đường: sai số khoảng ±{cm} cm, đo khi kiểm thử tại trạm'**
   String chart_band(String cm);
 
+  /// No description provided for @turn_in.
+  ///
+  /// In vi, this message translates to:
+  /// **'còn {duration}'**
+  String turn_in(String duration);
+
+  /// No description provided for @day_high.
+  ///
+  /// In vi, this message translates to:
+  /// **'Cao nhất {level} · {time}'**
+  String day_high(String level, String time);
+
+  /// No description provided for @day_low.
+  ///
+  /// In vi, this message translates to:
+  /// **'Thấp nhất {level} · {time}'**
+  String day_low(String level, String time);
+
+  /// No description provided for @day_range.
+  ///
+  /// In vi, this message translates to:
+  /// **'Chênh {cm} cm'**
+  String day_range(int cm);
+
+  /// No description provided for @fish_now_title.
+  ///
+  /// In vi, this message translates to:
+  /// **'Câu cá lúc này'**
+  String get fish_now_title;
+
+  /// No description provided for @fish_unsafe.
+  ///
+  /// In vi, this message translates to:
+  /// **'Đang có cảnh báo thời tiết — không nên ra nước'**
+  String get fish_unsafe;
+
+  /// No description provided for @fish_noWindow.
+  ///
+  /// In vi, this message translates to:
+  /// **'Hôm nay không có khung giờ nổi bật'**
+  String get fish_noWindow;
+
+  /// No description provided for @fish_best.
+  ///
+  /// In vi, this message translates to:
+  /// **'Giờ đẹp hôm nay: {from}–{to}'**
+  String fish_best(String from, String to);
+
+  /// No description provided for @cond_title.
+  ///
+  /// In vi, this message translates to:
+  /// **'Thời tiết & trời'**
+  String get cond_title;
+
+  /// No description provided for @loc_river.
+  ///
+  /// In vi, this message translates to:
+  /// **'Sông {river}'**
+  String loc_river(String river);
+
+  /// No description provided for @loc_nearRiver.
+  ///
+  /// In vi, this message translates to:
+  /// **'Gần sông {river}'**
+  String loc_nearRiver(String river);
+
+  /// No description provided for @loc_sea.
+  ///
+  /// In vi, this message translates to:
+  /// **'Vùng biển'**
+  String get loc_sea;
+
+  /// No description provided for @loc_water.
+  ///
+  /// In vi, this message translates to:
+  /// **'Trên mặt nước'**
+  String get loc_water;
+
+  /// No description provided for @spot_title.
+  ///
+  /// In vi, this message translates to:
+  /// **'Điểm câu'**
+  String get spot_title;
+
+  /// No description provided for @spot_mine.
+  ///
+  /// In vi, this message translates to:
+  /// **'Vị trí của tôi'**
+  String get spot_mine;
+
+  /// No description provided for @spot_point.
+  ///
+  /// In vi, this message translates to:
+  /// **'Điểm đã chọn'**
+  String get spot_point;
+
+  /// No description provided for @spot_useMine.
+  ///
+  /// In vi, this message translates to:
+  /// **'Vị trí của tôi'**
+  String get spot_useMine;
+
+  /// No description provided for @spot_pickMap.
+  ///
+  /// In vi, this message translates to:
+  /// **'Chọn trên bản đồ'**
+  String get spot_pickMap;
+
+  /// No description provided for @spot_pickHint.
+  ///
+  /// In vi, this message translates to:
+  /// **'Chạm vào chỗ bạn định câu, rồi bấm \"Câu cá tại đây\"'**
+  String get spot_pickHint;
+
+  /// No description provided for @spot_saved.
+  ///
+  /// In vi, this message translates to:
+  /// **'Điểm đã lưu'**
+  String get spot_saved;
+
+  /// No description provided for @fish_here.
+  ///
+  /// In vi, this message translates to:
+  /// **'Câu cá tại đây'**
+  String get fish_here;
+
+  /// No description provided for @advice_title.
+  ///
+  /// In vi, this message translates to:
+  /// **'Gợi ý câu lúc này'**
+  String get advice_title;
+
+  /// No description provided for @advice_note.
+  ///
+  /// In vi, this message translates to:
+  /// **'Gợi ý theo kinh nghiệm câu phổ biến, tính cho đúng điểm này.'**
+  String get advice_note;
+
+  /// No description provided for @advice_unsafe.
+  ///
+  /// In vi, this message translates to:
+  /// **'Có dông hoặc gió giật mạnh — không nên câu lúc này'**
+  String get advice_unsafe;
+
+  /// No description provided for @advice_rising.
+  ///
+  /// In vi, this message translates to:
+  /// **'Nước đang lên: cá vào gần bờ, mép cỏ, bãi nông kiếm ăn → câu gần bờ'**
+  String get advice_rising;
+
+  /// No description provided for @advice_falling.
+  ///
+  /// In vi, this message translates to:
+  /// **'Nước đang rút: cá ra chỗ sâu, mép luồng, cửa lạch → câu xa bờ hơn'**
+  String get advice_falling;
+
+  /// No description provided for @advice_slack.
+  ///
+  /// In vi, this message translates to:
+  /// **'Nước đứng: cá ít ăn, chờ nước chảy lại'**
+  String get advice_slack;
+
+  /// No description provided for @advice_slackAt.
+  ///
+  /// In vi, this message translates to:
+  /// **'Nước đứng: cá ít ăn — nước chảy lại khoảng {time}'**
+  String advice_slackAt(String time);
+
+  /// No description provided for @advice_windStrong.
+  ///
+  /// In vi, this message translates to:
+  /// **'Gió mạnh: khó quăng xa — câu sát bờ khuất gió, không nên ra thuyền'**
+  String get advice_windStrong;
+
+  /// No description provided for @advice_windDown.
+  ///
+  /// In vi, this message translates to:
+  /// **'Có gió: câu phía cuối gió, nơi sóng dồn mồi'**
+  String get advice_windDown;
+
+  /// No description provided for @advice_rain.
+  ///
+  /// In vi, this message translates to:
+  /// **'Khả năng mưa cao — mang theo áo mưa'**
+  String get advice_rain;
+
+  /// No description provided for @advice_flood.
+  ///
+  /// In vi, this message translates to:
+  /// **'Nước sông lên nhanh, đục: câu chỗ nước quẩn sau mỏ kè, gốc cây'**
+  String get advice_flood;
+
+  /// No description provided for @advice_light.
+  ///
+  /// In vi, this message translates to:
+  /// **'Sắp bình minh/hoàng hôn — giờ cá ăn mạnh'**
+  String get advice_light;
+
+  /// No description provided for @advice_good.
+  ///
+  /// In vi, this message translates to:
+  /// **'Điểm câu đang tốt — tranh thủ ra câu'**
+  String get advice_good;
+
   /// No description provided for @point_reference.
   ///
   /// In vi, this message translates to:
@@ -1358,6 +1562,36 @@ abstract class AppLocalizations {
   /// **'Trăng lưỡi liềm cuối tháng'**
   String get moon_waningCrescent;
 
+  /// No description provided for @more_info.
+  ///
+  /// In vi, this message translates to:
+  /// **'Thông tin ứng dụng'**
+  String get more_info;
+
+  /// No description provided for @more_appName.
+  ///
+  /// In vi, this message translates to:
+  /// **'Con Nước'**
+  String get more_appName;
+
+  /// No description provided for @more_build.
+  ///
+  /// In vi, this message translates to:
+  /// **'Bản dựng {sha}'**
+  String more_build(String sha);
+
+  /// No description provided for @more_update.
+  ///
+  /// In vi, this message translates to:
+  /// **'Có phiên bản mới — tải lại trang để cập nhật'**
+  String get more_update;
+
+  /// No description provided for @more_close.
+  ///
+  /// In vi, this message translates to:
+  /// **'Đóng'**
+  String get more_close;
+
   /// No description provided for @more_title.
   ///
   /// In vi, this message translates to:
@@ -1399,18 +1633,6 @@ abstract class AppLocalizations {
   /// In vi, this message translates to:
   /// **'• IOC Sea Level Monitoring — thực đo mực nước biển Vũng Tàu, Quy Nhơn (mỗi phút). Dự báo triều tại 2 trạm này tính bằng phân tích điều hòa (utide) từ 12 tháng số liệu; kiểm thử ngược: sai số ±10 cm (Vũng Tàu), ±7 cm (Quy Nhơn).\n• Trung tâm Dự báo KTTV quốc gia — bản tin thủy văn hạn ngắn: mực nước sông 4 mốc/ngày + dự báo. Đường từng giờ do app ước tính (ghép triều cửa sông); kiểm thử ngược: ±12 cm (Hà Nội), ±11 cm (Nam Đàn).\n• Open-Meteo — thời tiết, sóng và mô hình mực nước biển tại điểm ven biển (gói miễn phí, phi thương mại).\n• Điểm bất kỳ trên bản đồ: mô hình biển tại điểm đó, hoặc trạm sông KTTV gần nhất (trong 40 km).\n• Bản đồ nền: OpenFreeMap · © OpenMapTiles · dữ liệu © OpenStreetMap.\n• Ảnh vệ tinh: EOxCloudless (EOX IT Services GmbH), chứa dữ liệu Copernicus Sentinel 2025, giấy phép CC BY-NC-SA 4.0.\nMọi số liệu dự báo/ước tính chỉ mang tính tham khảo. Chi tiết nguồn, mốc cao độ và độ tin cậy của từng trạm xem ở tab Thông tin của trạm.'**
   String get more_sourcesBody;
-
-  /// No description provided for @more_about.
-  ///
-  /// In vi, this message translates to:
-  /// **'Giới thiệu'**
-  String get more_about;
-
-  /// No description provided for @more_aboutBody.
-  ///
-  /// In vi, this message translates to:
-  /// **'Con Nước — bản dùng thử V0. Không có máy chủ: app lấy dữ liệu trực tiếp từ nguồn miễn phí và tính toán trên máy.'**
-  String get more_aboutBody;
 
   /// No description provided for @more_version.
   ///

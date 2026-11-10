@@ -34,7 +34,7 @@ class OverviewTab extends StatelessWidget {
         children: [
           DailyExtremesCard(extremes: daily),
           const SizedBox(height: AppSpacing.md),
-          SourceLine(view: view, showSource: false),
+          SourceLine(view: view, showSource: false, showReference: false),
         ],
       );
     }
@@ -78,7 +78,7 @@ class OverviewTab extends StatelessWidget {
           ),
         ],
         const SizedBox(height: AppSpacing.md),
-        SourceLine(view: view, showSource: false),
+        SourceLine(view: view, showSource: false, showReference: false),
         if (tide.station.kind == StationKind.river)
           FlowCard(stationId: tide.station.id, nowUtc: view.nowUtc),
       ],

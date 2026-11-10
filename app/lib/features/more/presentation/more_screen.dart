@@ -1,25 +1,51 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:rivertide/core/config/env.dart';
 import 'package:rivertide/core/l10n/l10n_ext.dart';
+import 'package:rivertide/core/theme/app_colors.dart';
 import 'package:rivertide/core/theme/app_spacing.dart';
 import 'package:rivertide/core/theme/app_text.dart';
 import 'package:rivertide/features/more/application/theme_mode_provider.dart';
+import 'package:rivertide/features/more/application/update_provider.dart';
 
-/// S13 (V0 subset): theme, data sources, about.
+/// S13: settings only; version and data sources sit behind the ⓘ button.
 class MoreScreen extends ConsumerWidget {
   const MoreScreen({super.key});
-
-  static const String _version = '0.1.0 (V0)';
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = context.l10n;
     final mode = ref.watch(appThemeModeProvider).value ?? ThemeMode.system;
+    final update = ref.watch(updateAvailableProvider).value ?? false;
     return Scaffold(
-      appBar: AppBar(title: Text(l10n.more_title)),
+      appBar: AppBar(
+        title: Text(l10n.more_title),
+        actions: [
+          IconButton(
+            tooltip: l10n.more_info,
+            icon: Badge(isLabelVisible: update, child: const Icon(Icons.info_outline_rounded)),
+            onPressed: () => showModalBottomSheet<void>(
+              context: context,
+              showDragHandle: true,
+              isScrollControlled: true,
+              builder: (_) => const _AppInfo(),
+            ),
+          ),
+        ],
+      ),
       body: ListView(
         padding: const EdgeInsets.all(AppSpacing.lg),
         children: [
+          if (update) ...[
+            Card(
+              color: context.colors.primary.withValues(alpha: 0.12),
+              child: ListTile(
+                leading: const Icon(Icons.system_update_rounded),
+                title: Text(l10n.more_update),
+              ),
+            ),
+            const SizedBox(height: AppSpacing.md),
+          ],
           Text(l10n.more_theme, style: context.text.title),
           const SizedBox(height: AppSpacing.sm),
           SegmentedButton<ThemeMode>(
@@ -31,17 +57,42 @@ class MoreScreen extends ConsumerWidget {
             selected: {mode},
             onSelectionChanged: (s) => ref.read(appThemeModeProvider.notifier).set(s.first),
           ),
-          const SizedBox(height: AppSpacing.xl),
-          Text(l10n.more_sources, style: context.text.title),
-          const SizedBox(height: AppSpacing.sm),
-          Text(l10n.more_sourcesBody, style: context.text.body),
-          const SizedBox(height: AppSpacing.xl),
-          Text(l10n.more_about, style: context.text.title),
-          const SizedBox(height: AppSpacing.sm),
-          Text(l10n.more_aboutBody, style: context.text.body),
-          const SizedBox(height: AppSpacing.sm),
-          Text(l10n.more_version(_version), style: context.text.caption),
         ],
+      ),
+    );
+  }
+}
+
+class _AppInfo extends ConsumerWidget {
+  const _AppInfo();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = context.l10n;
+    final update = ref.watch(updateAvailableProvider).value ?? false;
+    const sha = Env.buildSha;
+    return SafeArea(
+      child: SingleChildScrollView(
+        padding: const EdgeInsets.fromLTRB(AppSpacing.lg, 0, AppSpacing.lg, AppSpacing.lg),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          spacing: AppSpacing.sm,
+          children: [
+            Text(l10n.more_appName, style: context.text.headline),
+            Text(l10n.more_version(Env.version), style: context.text.body),
+            if (sha.isNotEmpty)
+              Text(
+                l10n.more_build(sha.substring(0, sha.length < 7 ? sha.length : 7)),
+                style: context.text.caption,
+              ),
+            if (update) Text(l10n.more_update, style: context.text.bodyStrong),
+            ExpansionTile(
+              tilePadding: EdgeInsets.zero,
+              title: Text(l10n.more_sources, style: context.text.label),
+              children: [Text(l10n.more_sourcesBody, style: context.text.caption)],
+            ),
+          ],
+        ),
       ),
     );
   }

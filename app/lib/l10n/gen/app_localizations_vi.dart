@@ -508,6 +508,125 @@ class AppLocalizationsVi extends AppLocalizations {
   }
 
   @override
+  String turn_in(String duration) {
+    return 'còn $duration';
+  }
+
+  @override
+  String day_high(String level, String time) {
+    return 'Cao nhất $level · $time';
+  }
+
+  @override
+  String day_low(String level, String time) {
+    return 'Thấp nhất $level · $time';
+  }
+
+  @override
+  String day_range(int cm) {
+    return 'Chênh $cm cm';
+  }
+
+  @override
+  String get fish_now_title => 'Câu cá lúc này';
+
+  @override
+  String get fish_unsafe => 'Đang có cảnh báo thời tiết — không nên ra nước';
+
+  @override
+  String get fish_noWindow => 'Hôm nay không có khung giờ nổi bật';
+
+  @override
+  String fish_best(String from, String to) {
+    return 'Giờ đẹp hôm nay: $from–$to';
+  }
+
+  @override
+  String get cond_title => 'Thời tiết & trời';
+
+  @override
+  String loc_river(String river) {
+    return 'Sông $river';
+  }
+
+  @override
+  String loc_nearRiver(String river) {
+    return 'Gần sông $river';
+  }
+
+  @override
+  String get loc_sea => 'Vùng biển';
+
+  @override
+  String get loc_water => 'Trên mặt nước';
+
+  @override
+  String get spot_title => 'Điểm câu';
+
+  @override
+  String get spot_mine => 'Vị trí của tôi';
+
+  @override
+  String get spot_point => 'Điểm đã chọn';
+
+  @override
+  String get spot_useMine => 'Vị trí của tôi';
+
+  @override
+  String get spot_pickMap => 'Chọn trên bản đồ';
+
+  @override
+  String get spot_pickHint => 'Chạm vào chỗ bạn định câu, rồi bấm \"Câu cá tại đây\"';
+
+  @override
+  String get spot_saved => 'Điểm đã lưu';
+
+  @override
+  String get fish_here => 'Câu cá tại đây';
+
+  @override
+  String get advice_title => 'Gợi ý câu lúc này';
+
+  @override
+  String get advice_note => 'Gợi ý theo kinh nghiệm câu phổ biến, tính cho đúng điểm này.';
+
+  @override
+  String get advice_unsafe => 'Có dông hoặc gió giật mạnh — không nên câu lúc này';
+
+  @override
+  String get advice_rising => 'Nước đang lên: cá vào gần bờ, mép cỏ, bãi nông kiếm ăn → câu gần bờ';
+
+  @override
+  String get advice_falling => 'Nước đang rút: cá ra chỗ sâu, mép luồng, cửa lạch → câu xa bờ hơn';
+
+  @override
+  String get advice_slack => 'Nước đứng: cá ít ăn, chờ nước chảy lại';
+
+  @override
+  String advice_slackAt(String time) {
+    return 'Nước đứng: cá ít ăn — nước chảy lại khoảng $time';
+  }
+
+  @override
+  String get advice_windStrong =>
+      'Gió mạnh: khó quăng xa — câu sát bờ khuất gió, không nên ra thuyền';
+
+  @override
+  String get advice_windDown => 'Có gió: câu phía cuối gió, nơi sóng dồn mồi';
+
+  @override
+  String get advice_rain => 'Khả năng mưa cao — mang theo áo mưa';
+
+  @override
+  String get advice_flood => 'Nước sông lên nhanh, đục: câu chỗ nước quẩn sau mỏ kè, gốc cây';
+
+  @override
+  String get advice_light => 'Sắp bình minh/hoàng hôn — giờ cá ăn mạnh';
+
+  @override
+  String get advice_good => 'Điểm câu đang tốt — tranh thủ ra câu';
+
+  @override
   String point_reference(String station, String distance) {
     return 'Ước tính theo trạm $station, cách $distance';
   }
@@ -769,6 +888,23 @@ class AppLocalizationsVi extends AppLocalizations {
   String get moon_waningCrescent => 'Trăng lưỡi liềm cuối tháng';
 
   @override
+  String get more_info => 'Thông tin ứng dụng';
+
+  @override
+  String get more_appName => 'Con Nước';
+
+  @override
+  String more_build(String sha) {
+    return 'Bản dựng $sha';
+  }
+
+  @override
+  String get more_update => 'Có phiên bản mới — tải lại trang để cập nhật';
+
+  @override
+  String get more_close => 'Đóng';
+
+  @override
   String get more_title => 'Thêm';
 
   @override
@@ -789,13 +925,6 @@ class AppLocalizationsVi extends AppLocalizations {
   @override
   String get more_sourcesBody =>
       '• IOC Sea Level Monitoring — thực đo mực nước biển Vũng Tàu, Quy Nhơn (mỗi phút). Dự báo triều tại 2 trạm này tính bằng phân tích điều hòa (utide) từ 12 tháng số liệu; kiểm thử ngược: sai số ±10 cm (Vũng Tàu), ±7 cm (Quy Nhơn).\n• Trung tâm Dự báo KTTV quốc gia — bản tin thủy văn hạn ngắn: mực nước sông 4 mốc/ngày + dự báo. Đường từng giờ do app ước tính (ghép triều cửa sông); kiểm thử ngược: ±12 cm (Hà Nội), ±11 cm (Nam Đàn).\n• Open-Meteo — thời tiết, sóng và mô hình mực nước biển tại điểm ven biển (gói miễn phí, phi thương mại).\n• Điểm bất kỳ trên bản đồ: mô hình biển tại điểm đó, hoặc trạm sông KTTV gần nhất (trong 40 km).\n• Bản đồ nền: OpenFreeMap · © OpenMapTiles · dữ liệu © OpenStreetMap.\n• Ảnh vệ tinh: EOxCloudless (EOX IT Services GmbH), chứa dữ liệu Copernicus Sentinel 2025, giấy phép CC BY-NC-SA 4.0.\nMọi số liệu dự báo/ước tính chỉ mang tính tham khảo. Chi tiết nguồn, mốc cao độ và độ tin cậy của từng trạm xem ở tab Thông tin của trạm.';
-
-  @override
-  String get more_about => 'Giới thiệu';
-
-  @override
-  String get more_aboutBody =>
-      'Con Nước — bản dùng thử V0. Không có máy chủ: app lấy dữ liệu trực tiếp từ nguồn miễn phí và tính toán trên máy.';
 
   @override
   String more_version(String version) {

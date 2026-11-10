@@ -7,10 +7,12 @@ export 'application/station_providers.dart'
         favoriteIdsProvider,
         riverLinesProvider,
         stationByIdProvider,
+        stationFlowProvider,
         stationListProvider,
         stationTideProvider;
 export 'application/station_view_providers.dart' show StationView, stationViewProvider;
 export 'domain/point_id.dart' show PointId;
+export 'domain/river_flow.dart' show FlowTrend, RiverFlow, flowTrend;
 export 'domain/station.dart' show Station, StationKind;
 export 'presentation/station_detail_screen.dart' show StationDetailScreen;
 export 'presentation/stations_screen.dart' show StationsScreen;

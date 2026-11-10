@@ -4,21 +4,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:rivertide/core/calc/tide/hourly_timeline.dart';
-import 'package:rivertide/core/format/level_format.dart';
 import 'package:rivertide/core/l10n/l10n_ext.dart';
+import 'package:rivertide/core/navigation/fishing_spot.dart';
 import 'package:rivertide/core/theme/app_spacing.dart';
 import 'package:rivertide/core/theme/app_text.dart';
 import 'package:rivertide/core/widgets/async_value_view.dart';
-import 'package:rivertide/core/widgets/data_labels.dart';
 import 'package:rivertide/core/widgets/detail_host.dart';
 import 'package:rivertide/features/stations/application/station_providers.dart';
 import 'package:rivertide/features/stations/application/station_view_providers.dart';
 import 'package:rivertide/features/stations/domain/station.dart';
 import 'package:rivertide/features/stations/presentation/widgets/daily_extremes_card.dart';
 import 'package:rivertide/features/stations/presentation/widgets/flow_card.dart';
-import 'package:rivertide/features/stations/presentation/widgets/source_line.dart';
+import 'package:rivertide/features/stations/presentation/widgets/location_extras.dart';
+import 'package:rivertide/features/stations/presentation/widgets/location_summary.dart';
 import 'package:rivertide/features/stations/presentation/widgets/tide_chart.dart';
-import 'package:rivertide/features/stations/presentation/widgets/tide_text.dart';
 
 /// Station summary shown when a map marker is tapped (FEATURES.md F-MAP-02).
 /// Uses cached data first, so it opens without waiting for the network.
@@ -60,9 +59,25 @@ class StationSheet extends ConsumerWidget {
           AsyncValueView(
             value: view,
             onRetry: () => ref.invalidate(stationTideProvider(station.id)),
-            data: (v) => StationSummaryBody(view: v),
+            data: (v) => StationSummaryBody(
+              view: v,
+              place: station.river == null ? station.region : l10n.loc_river(station.river ?? ''),
+            ),
           ),
           const SizedBox(height: AppSpacing.md),
+          OutlinedButton.icon(
+            style: OutlinedButton.styleFrom(
+              minimumSize: const Size.fromHeight(AppSpacing.minTouch),
+            ),
+            icon: const Icon(Icons.phishing_rounded),
+            label: Text(l10n.fish_here),
+            onPressed: () {
+              ref.read(fishingSpotProvider.notifier).choose(station.id);
+              DetailHost.closeOf(context);
+              context.go(fishingRoute);
+            },
+          ),
+          const SizedBox(height: AppSpacing.sm),
           FilledButton(
             style: FilledButton.styleFrom(minimumSize: const Size.fromHeight(AppSpacing.minTouch)),
             onPressed: () {
@@ -77,31 +92,29 @@ class StationSheet extends ConsumerWidget {
   }
 }
 
-/// Level, trend, next turn, mini chart and sources — shared by station and point sheets.
+/// Everything known for one place, shared by station and point sheets:
+/// level, next turns, chart, today's range, flow, fishing, weather.
 class StationSummaryBody extends StatelessWidget {
-  const StationSummaryBody({required this.view, this.showReference = true, super.key});
+  const StationSummaryBody({required this.view, this.place, super.key});
 
   final StationView view;
 
-  /// False when the caller already shows the reference station.
-  final bool showReference;
+  /// Short place context shown above the level ("Sông Hồng", "Vùng biển").
+  final String? place;
 
   @override
   Widget build(BuildContext context) {
-    final l10n = context.l10n;
-    final now = view.now;
-    final level = now.levelCm;
-    final state = now.state;
-    final next = now.nextExtreme;
     final tide = view.tide.data;
     final daily = tide.dailyExtremes;
+    final river = _isRiver(view);
     if (tide.prediction == null && daily != null) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
+        spacing: AppSpacing.sm,
         children: [
           DailyExtremesCard(extremes: daily),
-          SourceLine(view: view, showReference: showReference, showSource: false),
-          FlowCard(stationId: view.tide.data.station.id, nowUtc: view.nowUtc),
+          FlowCard(stationId: tide.station.id, nowUtc: view.nowUtc),
+          Conditions(view: view),
         ],
       );
     }
@@ -112,37 +125,17 @@ class StationSummaryBody extends StatelessWidget {
       view.nowUtc.hour,
     );
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      spacing: AppSpacing.md,
       children: [
-        Wrap(
-          spacing: AppSpacing.md,
-          runSpacing: AppSpacing.xs,
-          crossAxisAlignment: WrapCrossAlignment.center,
-          children: [
-            Text(level == null ? '—' : LevelFormat.meters(level), style: context.text.headline),
-            if (state != null) TrendLabel(state: state),
-            DataKindBadge(kind: now.kind),
-          ],
-        ),
-        if (next != null) ...[
-          const SizedBox(height: AppSpacing.xs),
-          Text(
-            l10n.map_nextExtreme(
-              context.extremeName(next.kind),
-              context.relativeTime(next.timeUtc, view.nowUtc),
-              LevelFormat.meters(next.levelCm),
-              context.durationText(next.timeUtc.difference(view.nowUtc)),
-            ),
-            style: context.text.bodyStrong,
-          ),
-          if (context.changeToNext(level, next) case final change?)
-            Text(change, style: context.text.body),
-        ] else if (tide.prediction == null)
-          Text(l10n.tide_noPrediction, style: context.text.caption),
-        const SizedBox(height: AppSpacing.sm),
+        LocationHero(view: view, place: place),
+        if (tide.prediction == null)
+          Text(context.l10n.tide_noPrediction, style: context.text.caption)
+        else
+          NextTurns(view: view),
         TideChart(
           bandCm: tide.predictionKind == LevelDataKind.estimate ? tide.model?.rmseCm : null,
-          height: 120,
+          height: 140,
           fromUtc: hour.subtract(const Duration(hours: 6)),
           toUtc: hour.add(const Duration(hours: 18)),
           nowUtc: view.nowUtc,
@@ -150,9 +143,10 @@ class StationSummaryBody extends StatelessWidget {
           prediction: tide.prediction,
           latestObservation: tide.anchor,
         ),
-        const SizedBox(height: AppSpacing.sm),
-        SourceLine(view: view, showReference: showReference, showSource: false),
-        if (_isRiver(view)) FlowCard(stationId: view.tide.data.station.id, nowUtc: view.nowUtc),
+        DayStats(view: view),
+        if (river) FlowCard(stationId: tide.station.id, nowUtc: view.nowUtc),
+        FishingNow(view: view),
+        Conditions(view: view),
       ],
     );
   }

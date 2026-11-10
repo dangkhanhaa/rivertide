@@ -5,14 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:rivertide/core/calc/astro/sun.dart';
 import 'package:rivertide/core/calc/geo/haversine.dart';
-import 'package:rivertide/core/clock/clock_provider.dart';
 import 'package:rivertide/core/errors/app_exception.dart';
 import 'package:rivertide/core/format/level_format.dart';
-import 'package:rivertide/core/format/time_format.dart';
 import 'package:rivertide/core/l10n/l10n_ext.dart';
-import 'package:rivertide/core/theme/app_colors.dart';
+import 'package:rivertide/core/navigation/fishing_spot.dart';
 import 'package:rivertide/core/theme/app_spacing.dart';
 import 'package:rivertide/core/theme/app_text.dart';
 import 'package:rivertide/core/widgets/detail_host.dart';
@@ -34,6 +31,17 @@ class PointSheet extends ConsumerWidget {
 
   /// Whether the base map draws water here; null when unknown.
   final bool? onWater;
+
+  /// Where the point is, in a few words — never how the number was computed.
+  String? _place(BuildContext context, StationView v) {
+    final l10n = context.l10n;
+    final ref = v.tide.data.reference;
+    final river = ref?.river;
+    if (ref?.alongKm != null && river != null) return l10n.loc_river(river);
+    if (ref == null) return onWater == false ? null : l10n.loc_sea;
+    if (onWater ?? false) return l10n.loc_water;
+    return river == null ? null : l10n.loc_nearRiver(river);
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -78,22 +86,31 @@ class PointSheet extends ConsumerWidget {
           ),
           const SizedBox(height: AppSpacing.sm),
           // Riverpod retries failures and reports loading meanwhile: check the error first.
-          if (view.hasValue) ...[
-            _EstimateBanner(view: view.requireValue, onWater: onWater),
-            const SizedBox(height: AppSpacing.sm),
-            StationSummaryBody(view: view.requireValue, showReference: false),
-          ] else if (view.error is NotFoundException)
+          if (view.hasValue)
+            StationSummaryBody(view: view.requireValue, place: _place(context, view.requireValue))
+          else if (view.error is NotFoundException)
             Text(l10n.point_noData, style: context.text.body)
           else if (view.error case final Object error)
             ErrorView(error: error, onRetry: () => ref.invalidate(stationTideProvider(id)))
           else
             const LinearProgressIndicator(minHeight: 2),
           const SizedBox(height: AppSpacing.md),
-          _WeatherSun(id: id, lat: lat, lon: lon),
-          const SizedBox(height: AppSpacing.md),
           _Nearby(lat: lat, lon: lon),
           if (view.hasValue) ...[
             const SizedBox(height: AppSpacing.md),
+            OutlinedButton.icon(
+              style: OutlinedButton.styleFrom(
+                minimumSize: const Size.fromHeight(AppSpacing.minTouch),
+              ),
+              icon: const Icon(Icons.phishing_rounded),
+              label: Text(l10n.fish_here),
+              onPressed: () {
+                ref.read(fishingSpotProvider.notifier).choose(id);
+                DetailHost.closeOf(context);
+                context.go(fishingRoute);
+              },
+            ),
+            const SizedBox(height: AppSpacing.sm),
             FilledButton(
               style: FilledButton.styleFrom(
                 minimumSize: const Size.fromHeight(AppSpacing.minTouch),
@@ -107,46 +124,6 @@ class PointSheet extends ConsumerWidget {
           ],
         ],
       ),
-    );
-  }
-}
-
-class _WeatherSun extends ConsumerWidget {
-  const _WeatherSun({required this.id, required this.lat, required this.lon});
-
-  final String id;
-  final double lat;
-  final double lon;
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final l10n = context.l10n;
-    final now = ref.watch(clockProvider)();
-    final vn = TimeFormat.toVn(now);
-    final sun = sunTimes(year: vn.year, month: vn.month, day: vn.day, lat: lat, lon: lon);
-    final (rise, set) = (sun.sunrise, sun.sunset);
-    final hour = ref
-        .watch(stationWeatherProvider(id))
-        .value
-        ?.data
-        .firstWhereOrNull(
-          (h) => !h.timeUtc.isAfter(now) && now.difference(h.timeUtc) < const Duration(hours: 1),
-        );
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        if (hour != null)
-          Text(
-            l10n.point_weatherNow(
-              LevelFormat.decimal1(hour.temperatureC ?? 0),
-              (hour.windKmh ?? 0).round().toString(),
-              (hour.precipProbPct ?? 0).round(),
-            ),
-            style: context.text.body,
-          ),
-        if (rise != null && set != null)
-          Text(l10n.point_sun(TimeFormat.hm(rise), TimeFormat.hm(set)), style: context.text.body),
-      ],
     );
   }
 }
@@ -183,48 +160,6 @@ class _Nearby extends ConsumerWidget {
             },
           ),
       ],
-    );
-  }
-}
-
-/// Makes clear the numbers are an estimate for this exact point, and what they
-/// are based on (the point's own sea model, or a station some km away).
-class _EstimateBanner extends StatelessWidget {
-  const _EstimateBanner({required this.view, required this.onWater});
-
-  final StationView view;
-  final bool? onWater;
-
-  @override
-  Widget build(BuildContext context) {
-    final l10n = context.l10n;
-    final ref = view.tide.data.reference;
-    final basis = ref == null ? [l10n.point_seaModel] : context.referenceLines(ref);
-    return Container(
-      padding: const EdgeInsets.all(AppSpacing.md),
-      decoration: BoxDecoration(
-        color: context.colors.estimateHatch,
-        border: Border.all(color: context.colors.alarm2),
-        borderRadius: BorderRadius.circular(AppRadius.md),
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Icon(Icons.place_rounded, color: context.colors.alarm2),
-          const SizedBox(width: AppSpacing.sm),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(l10n.point_estimateHere, style: context.text.bodyStrong),
-                if (onWater case final w?)
-                  Text(w ? l10n.point_onWater : l10n.point_onLand, style: context.text.body),
-                for (final line in basis) Text(line, style: context.text.body),
-              ],
-            ),
-          ),
-        ],
-      ),
     );
   }
 }

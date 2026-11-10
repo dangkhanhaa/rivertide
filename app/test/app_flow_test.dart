@@ -89,10 +89,35 @@ void main() {
     final db = await pumpApp(tester);
     await tester.tap(find.text('Thêm'));
     await settle(tester);
-    expect(find.text('Nguồn dữ liệu'), findsOneWidget);
+    // Settings only on the page; version + sources behind the ⓘ button.
+    expect(find.text('Nguồn dữ liệu'), findsNothing);
+    expect(find.textContaining('Có phiên bản mới'), findsNothing); // no update known
+    await tester.tap(find.byTooltip('Thông tin ứng dụng'));
+    await settle(tester);
+    expect(find.text('Con Nước'), findsOneWidget);
+    expect(find.textContaining('Phiên bản 0.1.0'), findsOneWidget);
+    await tester.tap(find.text('Nguồn dữ liệu'));
+    await settle(tester);
     for (final s in ['IOC', 'KTTV', 'Open-Meteo', 'OpenStreetMap', 'EOxCloudless']) {
       expect(find.textContaining(s), findsWidgets, reason: s);
     }
+    await disposeApp(tester, db);
+  });
+
+  testWidgets('fishing: "Câu cá tại đây" on a map point → tab computed for that point', (
+    tester,
+  ) async {
+    final db = await pumpApp(tester, startOnMap: true, now: DateTime.utc(2026, 11, 9, 8));
+    await tester.tap(find.text('tap-river'));
+    await settle(tester);
+    await tester.ensureVisible(find.text('Câu cá tại đây'));
+    await tester.tap(find.text('Câu cá tại đây'));
+    await settle(tester);
+    expect(find.text('Điểm câu'), findsOneWidget);
+    expect(find.text('Điểm đã chọn'), findsOneWidget);
+    expect(find.text('20.9950, 105.8800'), findsOneWidget);
+    expect(find.text('Gợi ý câu lúc này'), findsOneWidget);
+    expect(find.textContaining(RegExp('câu gần bờ|câu xa bờ|Nước đứng')), findsWidgets);
     await disposeApp(tester, db);
   });
 
