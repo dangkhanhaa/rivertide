@@ -43,6 +43,19 @@ abstract class ReferenceStation with _$ReferenceStation {
     required String name,
     required double distanceKm,
     String? river,
+
+    /// Along-river position relative to the station (km, + upstream); null
+    /// when the point is not on the station's river line.
+    double? alongKm,
+
+    /// Tide turns this many minutes later (+) / earlier (−) than at the station.
+    double? lagShiftMinutes,
+
+    /// River mean level difference to the station now (cm).
+    double? meanShiftCm,
+
+    /// Speed of the tide wave up this river (km/h).
+    double? celerityKmH,
   }) = _ReferenceStation;
 }
 

@@ -83,6 +83,40 @@ final class StationListProvider
 
 String _$stationListHash() => r'edcfa0d214f0d8407b30fd48566fd3a77c72271f';
 
+@ProviderFor(riverLines)
+final riverLinesProvider = RiverLinesProvider._();
+
+final class RiverLinesProvider
+    extends
+        $FunctionalProvider<AsyncValue<List<RiverLine>>, List<RiverLine>, FutureOr<List<RiverLine>>>
+    with $FutureModifier<List<RiverLine>>, $FutureProvider<List<RiverLine>> {
+  RiverLinesProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'riverLinesProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$riverLinesHash();
+
+  @$internal
+  @override
+  $FutureProviderElement<List<RiverLine>> $createElement($ProviderPointer pointer) =>
+      $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<List<RiverLine>> create(Ref ref) {
+    return riverLines(ref);
+  }
+}
+
+String _$riverLinesHash() => r'f59dafb51b86354c14baad256f3db910335624af';
+
 @ProviderFor(stationById)
 final stationByIdProvider = StationByIdFamily._();
 
@@ -291,6 +325,77 @@ final class StationWeatherFamily extends $Family
 
   @override
   String toString() => r'stationWeatherProvider';
+}
+
+@ProviderFor(stationFlow)
+final stationFlowProvider = StationFlowFamily._();
+
+final class StationFlowProvider
+    extends
+        $FunctionalProvider<
+          AsyncValue<Cached<RiverFlow?>>,
+          Cached<RiverFlow?>,
+          FutureOr<Cached<RiverFlow?>>
+        >
+    with $FutureModifier<Cached<RiverFlow?>>, $FutureProvider<Cached<RiverFlow?>> {
+  StationFlowProvider._({required StationFlowFamily super.from, required String super.argument})
+    : super(
+        retry: null,
+        name: r'stationFlowProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$stationFlowHash();
+
+  @override
+  String toString() {
+    return r'stationFlowProvider'
+        ''
+        '($argument)';
+  }
+
+  @$internal
+  @override
+  $FutureProviderElement<Cached<RiverFlow?>> $createElement($ProviderPointer pointer) =>
+      $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<Cached<RiverFlow?>> create(Ref ref) {
+    final argument = this.argument as String;
+    return stationFlow(ref, argument);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is StationFlowProvider && other.argument == argument;
+  }
+
+  @override
+  int get hashCode {
+    return argument.hashCode;
+  }
+}
+
+String _$stationFlowHash() => r'c3552274bb4adf9b833ddf3e7d89cdd54bff90a7';
+
+final class StationFlowFamily extends $Family
+    with $FunctionalFamilyOverride<FutureOr<Cached<RiverFlow?>>, String> {
+  StationFlowFamily._()
+    : super(
+        retry: null,
+        name: r'stationFlowProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
+
+  StationFlowProvider call(String id) => StationFlowProvider._(argument: id, from: this);
+
+  @override
+  String toString() => r'stationFlowProvider';
 }
 
 @ProviderFor(favoriteIds)

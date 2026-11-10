@@ -22,6 +22,7 @@ typedef MarkerPalette = ({
   Color labelHalo,
   Color me,
   Color pin,
+  Color river,
 });
 
 class BaseMapConfig {
@@ -33,7 +34,9 @@ class BaseMapConfig {
     required this.onStationTap,
     required this.onReady,
     required this.onMapTap,
+    this.riverReaches = const {'type': 'FeatureCollection', 'features': <Object>[]},
     this.blocksTapAt,
+    this.gesturesEnabled = true,
     this.userPosition,
     this.pin,
   });
@@ -42,6 +45,9 @@ class BaseMapConfig {
   final List<MapMarker> markers;
   final MarkerPalette palette;
   final List<MapLabel> fixedLabels;
+
+  /// River segments with along-river estimates (`conf` 0-1), GeoJSON.
+  final Map<String, Object?> riverReaches;
   final ValueChanged<String> onStationTap;
   final ValueChanged<BaseMapHandle> onReady;
   final ({double lat, double lon})? userPosition;
@@ -54,6 +60,10 @@ class BaseMapConfig {
   /// the map. On web the platform map also receives clicks on buttons and
   /// panels above it, which must not count as map taps.
   final bool Function(Offset global)? blocksTapAt;
+
+  /// False while a sheet covers the map: pan/zoom off so drags on the sheet do
+  /// not move the platform map underneath (web).
+  final bool gesturesEnabled;
 
   /// Temporary pin for the last tapped point; one at a time.
   final ({double lat, double lon})? pin;

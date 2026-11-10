@@ -22,6 +22,7 @@ class TideChart extends StatelessWidget {
     this.selectedHourUtc,
     this.onHourTap,
     this.height = 220,
+    this.bandCm,
     super.key,
   });
 
@@ -39,6 +40,9 @@ class TideChart extends StatelessWidget {
   final DateTime? selectedHourUtc;
   final ValueChanged<DateTime>? onHourTap;
   final double height;
+
+  /// Half-width of the uncertainty band around the estimate (measured error), cm.
+  final double? bandCm;
 
   static const double _axisStepM = 0.5;
 
@@ -91,8 +95,15 @@ class TideChart extends StatelessWidget {
     final c = context.colors;
     final observedSpots = _observedSpots();
     final forecast = _forecastSpots();
-    final (minY, maxY) = _yRange([...observedSpots, ...forecast]);
-    return Semantics(
+    final band = bandCm;
+    final upper = band == null
+        ? const <FlSpot>[]
+        : [for (final s in forecast) FlSpot(s.x, s.y + band / 100)];
+    final lower = band == null
+        ? const <FlSpot>[]
+        : [for (final s in forecast) FlSpot(s.x, s.y - band / 100)];
+    final (minY, maxY) = _yRange([...observedSpots, ...forecast, ...upper, ...lower]);
+    final chart = Semantics(
       label: context.l10n.chart_semantics,
       child: SizedBox(
         height: height,
@@ -111,6 +122,15 @@ class TideChart extends StatelessWidget {
                 dots: observedSpots.contains(FlSpot.nullSpot) || observedSpots.length < 3,
               ),
               _bar(forecast, c.tidePred, dashed: true),
+              if (upper.isNotEmpty) ...[_edge(upper), _edge(lower)],
+            ],
+            betweenBarsData: [
+              if (upper.isNotEmpty)
+                BetweenBarsData(
+                  fromIndex: 2,
+                  toIndex: 3,
+                  color: c.tidePred.withValues(alpha: 0.15),
+                ),
             ],
             extraLinesData: ExtraLinesData(verticalLines: _verticalLines(context)),
             titlesData: _titles(context, maxY),
@@ -124,7 +144,24 @@ class TideChart extends StatelessWidget {
         ),
       ),
     );
+    if (band == null || upper.isEmpty) return chart;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        chart,
+        Text(context.l10n.chart_band(LevelFormat.decimal1(band)), style: context.text.caption),
+      ],
+    );
   }
+
+  /// Invisible edge of the uncertainty band (filled by betweenBarsData).
+  LineChartBarData _edge(List<FlSpot> spots) => LineChartBarData(
+    spots: spots,
+    barWidth: 0,
+    isCurved: true,
+    preventCurveOverShooting: true,
+    dotData: const FlDotData(show: false),
+  );
 
   LineChartBarData _bar(
     List<FlSpot> spots,
@@ -213,6 +250,10 @@ class TideChart extends StatelessWidget {
       final t = fromUtc.add(Duration(minutes: (spot.x * 60).round()));
       onHourTap?.call(DateTime.utc(t.year, t.month, t.day, t.hour));
     },
+    // Band edges are not data: no marker, no tooltip line.
+    getTouchedSpotIndicator: (bar, indexes) => bar.barWidth == 0
+        ? [for (final _ in indexes) null]
+        : defaultTouchedIndicators(bar, indexes),
     touchTooltipData: LineTouchTooltipData(
       getTooltipColor: (_) => context.colors.surface,
       // Keep the bubble inside the chart so it never covers text above it.
@@ -220,11 +261,14 @@ class TideChart extends StatelessWidget {
       fitInsideHorizontally: true,
       getTooltipItems: (spots) => [
         for (final s in spots)
-          LineTooltipItem(
-            '${TimeFormat.hm(fromUtc.add(Duration(minutes: (s.x * 60).round())))} · '
-            '${LevelFormat.meters(s.y * 100)}',
-            context.text.caption.copyWith(color: s.bar.color),
-          ),
+          if (s.bar.barWidth == 0)
+            null
+          else
+            LineTooltipItem(
+              '${TimeFormat.hm(fromUtc.add(Duration(minutes: (s.x * 60).round())))} · '
+              '${LevelFormat.meters(s.y * 100)}',
+              context.text.caption.copyWith(color: s.bar.color),
+            ),
       ],
     ),
   );

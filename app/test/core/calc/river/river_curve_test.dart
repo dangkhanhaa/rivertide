@@ -37,7 +37,7 @@ void main() {
     ];
     final fit = fitTidalRiver(points, sea);
     expect(fit, isNotNull);
-    expect(fit!.lagHours, 9);
+    expect(fit!.lagHours, 9.0);
     expect(fit.gain, closeTo(0.5, 1e-6));
     expect(fit.slopeCmPerH, closeTo(0.1, 1e-6));
     expect(fit.rmsCm, closeTo(0, 1e-6));
@@ -128,7 +128,7 @@ void main() {
     final r = buildRiverSeries(points: points, tidal: true, sea: sea);
     expect(r, isNotNull);
     // Same answer as the Python prototype (lag 8 h, gain ≈ 0,3).
-    expect(r!.fit?.lagHours, 8);
+    expect(r!.fit?.lagHours, closeTo(8.0, 0.5));
     expect(r.fit?.gain, closeTo(0.3, 0.05));
     final highs = r.series.extremes.where((e) => e.kind == TideExtremeKind.high).toList();
     final lows = r.series.extremes.where((e) => e.kind == TideExtremeKind.low).toList();

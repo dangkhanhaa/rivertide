@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:rivertide/core/cache/cached.dart';
 import 'package:rivertide/core/calc/river/river_curve.dart';
+import 'package:rivertide/core/calc/river/river_reach.dart';
 import 'package:rivertide/core/calc/tide/hourly_timeline.dart';
 import 'package:rivertide/core/calc/tide/observation.dart';
 import 'package:rivertide/core/clock/clock_provider.dart';
@@ -22,6 +23,9 @@ const Duration kttvStaleAfter = Duration(hours: 30);
 
 /// Observations before the newest one that feed the fit (backtest window).
 const Duration riverFitWindow = Duration(hours: 48);
+
+/// Within this along-river distance a reach estimate keeps "medium" confidence.
+const double nearReachKm = 10;
 
 /// Measured in tools/nchmf/river_backtest.py (real-time mode, 6-hourly points).
 const Map<String, double> riverBacktestMaeCm = {'HàNội': 11.7, 'NamĐàn': 11.4};
@@ -89,12 +93,60 @@ class RiverTideSource {
     return Cached(data: best, fetchedAtUtc: best.issuedUtc, isStale: stale);
   }
 
-  Future<Cached<StationTide>> tide(Station station, {bool forceRefresh = false}) async {
+  Future<Cached<StationTide>> tide(Station station, {bool forceRefresh = false}) async =>
+      (await _build(station, forceRefresh)).tide;
+
+  /// Level at [pointKm] on the station's river (km from the mouth), from the
+  /// station model + sea tide (core/calc/river/river_reach.dart). Null when the
+  /// station has no tide fit or the point is out of the defensible range.
+  Future<({Cached<StationTide> tide, RiverReach reach})?> reachTide(
+    Station station,
+    Station point, {
+    required double stationKm,
+    required double pointKm,
+    bool forceRefresh = false,
+  }) async {
+    final m = await _build(station, forceRefresh);
+    final (fit, sea, base) = (m.fit, m.sea, m.tide.data.prediction);
+    if (fit == null || sea == null || base == null) return null;
+    final reach = RiverReach(fit: fit, stationKm: stationKm, pointKm: pointKm);
+    if (!reach.inRange) return null;
+    final series = reach.series(sea, base.startUtc, base.endUtc);
+    if (series == null) return null;
+    return (
+      tide: Cached(
+        data: StationTide(
+          station: point,
+          // Bulletin readings belong to the station, not to this point.
+          observations: const [],
+          prediction: series,
+          predictionKind: LevelDataKind.estimate,
+          model: TideModelInfo(
+            sourceName: 'KTTV + triều Open-Meteo',
+            confidence: reach.alongKm.abs() <= nearReachKm
+                ? TideConfidence.medium
+                : TideConfidence.low,
+            // Error measured at the station; the point itself is not validated.
+            rmseCm: riverBacktestMaeCm[station.kttvKey],
+          ),
+          correctWithObservations: false,
+        ),
+        fetchedAtUtc: m.tide.fetchedAtUtc,
+        isStale: m.tide.isStale,
+      ),
+      reach: reach,
+    );
+  }
+
+  Future<({Cached<StationTide> tide, RiverFit? fit, HourlySignal? sea})> _build(
+    Station station,
+    bool forceRefresh,
+  ) async {
     final b = await bulletin(forceRefresh: forceRefresh);
     final key = station.kttvKey;
     if (key == null) throw ParseException('station ${station.id} has no kttv_key');
     if (station.kind == StationKind.riverDaily) {
-      return Cached(
+      final daily = Cached(
         data: StationTide(
           station: station,
           observations: const [],
@@ -105,13 +157,14 @@ class RiverTideSource {
         fetchedAtUtc: b.fetchedAtUtc,
         isStale: b.isStale,
       );
+      return (tide: daily, fit: null, sea: null);
     }
     final all = b.data.series[key];
     if (all == null || all.isEmpty) throw NotFoundException('kttv $key');
     final points = _fitWindow(all);
     final sea = station.tidal ? await _sea(station, forceRefresh) : null;
     final built = buildRiverSeries(points: points, tidal: station.tidal, sea: sea);
-    return Cached(
+    final tide = Cached(
       data: StationTide(
         station: station,
         observations: [
@@ -126,6 +179,7 @@ class RiverTideSource {
       fetchedAtUtc: b.fetchedAtUtc,
       isStale: b.isStale,
     );
+    return (tide: tide, fit: built?.fit, sea: sea);
   }
 
   List<RiverPoint> _fitWindow(List<RiverPoint> all) {

@@ -6,4 +6,7 @@ abstract final class CacheTtl {
 
   /// KTTV bulletin is issued once a day (~10:30); re-check every 3 h.
   static const Duration kttv = Duration(hours: 3);
+
+  /// GloFAS discharge is daily.
+  static const Duration flood = Duration(hours: 6);
 }

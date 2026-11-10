@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rivertide/core/calc/tide/spring_neap.dart';
 import 'package:rivertide/core/calc/tide/tide_series.dart';
+import 'package:rivertide/core/format/level_format.dart';
 import 'package:rivertide/core/format/time_format.dart';
 import 'package:rivertide/core/l10n/l10n_ext.dart';
 import 'package:rivertide/features/stations/domain/station.dart';
@@ -37,6 +38,39 @@ extension TideText on BuildContext {
     final delta = (next.levelCm - levelNowCm).round();
     if (delta.abs() < 1) return null;
     return delta > 0 ? l10n.tide_moreRise(delta) : l10n.tide_moreFall(-delta);
+  }
+
+  /// Lines describing how a map point relates to its reference station:
+  /// along-river position, tide timing, mean level and tide-wave speed.
+  List<String> referenceLines(ReferenceStation ref) {
+    final along = ref.alongKm;
+    if (along == null) {
+      return [
+        if (ref.river case final river?)
+          l10n.point_basisRiver(ref.name, river, LevelFormat.km(ref.distanceKm))
+        else
+          l10n.point_basisStation(ref.name, LevelFormat.km(ref.distanceKm)),
+      ];
+    }
+    final river = ref.river ?? '';
+    final dist = LevelFormat.km(along.abs());
+    final lag = (ref.lagShiftMinutes ?? 0).round();
+    final mean = (ref.meanShiftCm ?? 0).round();
+    return [
+      if (along < 0)
+        l10n.point_alongDown(ref.name, dist, river)
+      else
+        l10n.point_alongUp(ref.name, dist, river),
+      if (lag.abs() < 2)
+        l10n.point_lagSame
+      else if (lag < 0)
+        l10n.point_lagEarlier(-lag)
+      else
+        l10n.point_lagLater(lag),
+      if (mean <= -1) l10n.point_meanLower(-mean) else if (mean >= 1) l10n.point_meanHigher(mean),
+      if (ref.celerityKmH case final c?) l10n.point_celerity(LevelFormat.decimal1(c)),
+      l10n.point_reachNote,
+    ];
   }
 
   String extremeName(TideExtremeKind kind) =>

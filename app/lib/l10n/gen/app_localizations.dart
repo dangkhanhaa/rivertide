@@ -824,6 +824,108 @@ abstract class AppLocalizations {
   /// **'Dựa theo trạm {station} · cách {distance}'**
   String point_basisStation(String station, String distance);
 
+  /// No description provided for @point_alongDown.
+  ///
+  /// In vi, this message translates to:
+  /// **'Cách trạm {station} {distance} về phía hạ lưu, đo dọc sông {river}'**
+  String point_alongDown(String station, String distance, String river);
+
+  /// No description provided for @point_alongUp.
+  ///
+  /// In vi, this message translates to:
+  /// **'Cách trạm {station} {distance} về phía thượng lưu, đo dọc sông {river}'**
+  String point_alongUp(String station, String distance, String river);
+
+  /// No description provided for @point_lagEarlier.
+  ///
+  /// In vi, this message translates to:
+  /// **'Nước lên/xuống sớm hơn trạm khoảng {minutes} phút'**
+  String point_lagEarlier(int minutes);
+
+  /// No description provided for @point_lagLater.
+  ///
+  /// In vi, this message translates to:
+  /// **'Nước lên/xuống muộn hơn trạm khoảng {minutes} phút'**
+  String point_lagLater(int minutes);
+
+  /// No description provided for @point_lagSame.
+  ///
+  /// In vi, this message translates to:
+  /// **'Nước lên/xuống gần như cùng lúc với trạm'**
+  String get point_lagSame;
+
+  /// No description provided for @point_meanLower.
+  ///
+  /// In vi, this message translates to:
+  /// **'Mặt nước thấp hơn ở trạm khoảng {cm} cm'**
+  String point_meanLower(int cm);
+
+  /// No description provided for @point_meanHigher.
+  ///
+  /// In vi, this message translates to:
+  /// **'Mặt nước cao hơn ở trạm khoảng {cm} cm'**
+  String point_meanHigher(int cm);
+
+  /// No description provided for @point_celerity.
+  ///
+  /// In vi, this message translates to:
+  /// **'Con triều truyền ngược sông khoảng {speed} km/giờ'**
+  String point_celerity(String speed);
+
+  /// No description provided for @point_reachNote.
+  ///
+  /// In vi, this message translates to:
+  /// **'Ước tính theo vị trí dọc sông, giữa triều ở cửa sông và trạm đo; chưa kiểm chứng bằng trạm thứ hai.'**
+  String get point_reachNote;
+
+  /// No description provided for @flow_title.
+  ///
+  /// In vi, this message translates to:
+  /// **'Dòng chảy sông'**
+  String get flow_title;
+
+  /// No description provided for @flow_today.
+  ///
+  /// In vi, this message translates to:
+  /// **'Lưu lượng hôm nay ≈ {q} m³/s'**
+  String flow_today(String q);
+
+  /// No description provided for @flow_tomorrow.
+  ///
+  /// In vi, this message translates to:
+  /// **'Ngày mai ≈ {q} m³/s · {trend}'**
+  String flow_tomorrow(String q, String trend);
+
+  /// No description provided for @flow_rising.
+  ///
+  /// In vi, this message translates to:
+  /// **'đang tăng (nước sông lên dần)'**
+  String get flow_rising;
+
+  /// No description provided for @flow_falling.
+  ///
+  /// In vi, this message translates to:
+  /// **'đang giảm (nước sông rút dần)'**
+  String get flow_falling;
+
+  /// No description provided for @flow_steady.
+  ///
+  /// In vi, this message translates to:
+  /// **'ổn định'**
+  String get flow_steady;
+
+  /// No description provided for @flow_note.
+  ///
+  /// In vi, this message translates to:
+  /// **'Mô hình GloFAS cho dòng chính, ô lưới khoảng 5 km. Chưa có số đo vận tốc dòng chảy thật.'**
+  String get flow_note;
+
+  /// No description provided for @chart_band.
+  ///
+  /// In vi, this message translates to:
+  /// **'Dải mờ quanh đường: sai số khoảng ±{cm} cm, đo khi kiểm thử tại trạm'**
+  String chart_band(String cm);
+
   /// No description provided for @point_reference.
   ///
   /// In vi, this message translates to:

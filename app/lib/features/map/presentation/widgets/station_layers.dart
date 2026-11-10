@@ -7,6 +7,7 @@ const stationSourceId = 'stations';
 const stationDotsLayerId = 'station-dots';
 const clusterLayerId = 'station-clusters';
 const meSourceId = 'me';
+const riverReachSourceId = 'river-reach';
 const pinSourceId = 'pin';
 const _labelsSource = 'fixed-labels';
 
@@ -43,6 +44,7 @@ Future<void> addStationOverlay(
       },
     ),
   );
+  await addRiverReachLayer(c, p);
   await _addClusterLayers(c, p, sevColor);
   await _addStationLayers(c, p, sevColor);
   await _addFixedLabels(c, p, fixedLabels);
@@ -211,6 +213,37 @@ Future<void> _addPointLayer(
       circleRadius: radius,
       circleStrokeWidth: 3,
       circleStrokeColor: hexColor(p.stroke),
+    ),
+    enableInteraction: false,
+  );
+}
+
+/// Rivers where along-river estimates apply; firmer (more opaque) near stations.
+Future<void> addRiverReachLayer(MapLibreMapController c, MarkerPalette p) async {
+  await c.addGeoJsonSource(riverReachSourceId, {
+    'type': 'FeatureCollection',
+    'features': <Object>[],
+  });
+  await c.addLineLayer(
+    riverReachSourceId,
+    'river-reach-line',
+    LineLayerProperties(
+      lineColor: hexColor(p.river),
+      lineWidth: [
+        'interpolate',
+        ['linear'],
+        ['zoom'],
+        6,
+        2,
+        12,
+        6,
+      ],
+      lineOpacity: [
+        '*',
+        0.85,
+        ['get', 'conf'],
+      ],
+      lineCap: 'round',
     ),
     enableInteraction: false,
   );

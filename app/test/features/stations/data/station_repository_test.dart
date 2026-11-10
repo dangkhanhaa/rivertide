@@ -30,10 +30,16 @@ class FakeRemote extends RemoteSources {
   Future<String> fetchMarine(double lat, double lon) async {
     marineCalls++;
     if (offline) throw const NetworkException('offline');
+    // Sea reference of the Red River (Hòn Dấu): real Open-Meteo extract.
+    if ((lat - 20.67).abs() < 1e-6 && (lon - 106.81).abs() < 1e-6) {
+      return File('test/fixtures/om_hondau_20261025_20261112.json').readAsStringSync();
+    }
     // Open-Meteo returns all-null sea level over land.
     final inland = (lat > 20.8 && lon < 106.5) || (lat > 12 && lat < 15 && lon < 108.5);
     return File(
-      inland ? 'test/fixtures/marine_land.json' : 'test/fixtures/marine_vungtau_20261106.json',
+      inland
+          ? 'test/fixtures/marine_land_hanoi_20261110.json'
+          : 'test/fixtures/marine_vungtau_20261106.json',
     ).readAsStringSync();
   }
 
@@ -45,6 +51,12 @@ class FakeRemote extends RemoteSources {
     final body = kttvBody;
     if (offline || body == null) throw const NetworkException('kttv offline');
     return body;
+  }
+
+  @override
+  Future<String> fetchFlood(double lat, double lon) async {
+    if (offline) throw const NetworkException('offline');
+    return File('test/fixtures/flood_hanoi_3x3_20261110.json').readAsStringSync();
   }
 
   @override

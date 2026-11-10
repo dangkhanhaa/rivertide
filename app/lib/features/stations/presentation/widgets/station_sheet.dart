@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:rivertide/core/calc/tide/hourly_timeline.dart';
 import 'package:rivertide/core/format/level_format.dart';
 import 'package:rivertide/core/l10n/l10n_ext.dart';
 import 'package:rivertide/core/theme/app_spacing.dart';
@@ -14,6 +15,7 @@ import 'package:rivertide/features/stations/application/station_providers.dart';
 import 'package:rivertide/features/stations/application/station_view_providers.dart';
 import 'package:rivertide/features/stations/domain/station.dart';
 import 'package:rivertide/features/stations/presentation/widgets/daily_extremes_card.dart';
+import 'package:rivertide/features/stations/presentation/widgets/flow_card.dart';
 import 'package:rivertide/features/stations/presentation/widgets/source_line.dart';
 import 'package:rivertide/features/stations/presentation/widgets/tide_chart.dart';
 import 'package:rivertide/features/stations/presentation/widgets/tide_text.dart';
@@ -99,6 +101,7 @@ class StationSummaryBody extends StatelessWidget {
         children: [
           DailyExtremesCard(extremes: daily),
           SourceLine(view: view, showReference: showReference, showSource: false),
+          FlowCard(stationId: view.tide.data.station.id, nowUtc: view.nowUtc),
         ],
       );
     }
@@ -138,6 +141,7 @@ class StationSummaryBody extends StatelessWidget {
           Text(l10n.tide_noPrediction, style: context.text.caption),
         const SizedBox(height: AppSpacing.sm),
         TideChart(
+          bandCm: tide.predictionKind == LevelDataKind.estimate ? tide.model?.rmseCm : null,
           height: 120,
           fromUtc: hour.subtract(const Duration(hours: 6)),
           toUtc: hour.add(const Duration(hours: 18)),
@@ -148,7 +152,12 @@ class StationSummaryBody extends StatelessWidget {
         ),
         const SizedBox(height: AppSpacing.sm),
         SourceLine(view: view, showReference: showReference, showSource: false),
+        if (_isRiver(view)) FlowCard(stationId: view.tide.data.station.id, nowUtc: view.nowUtc),
       ],
     );
   }
 }
+
+bool _isRiver(StationView v) =>
+    v.tide.data.station.kind == StationKind.river ||
+    v.tide.data.station.kind == StationKind.riverDaily;

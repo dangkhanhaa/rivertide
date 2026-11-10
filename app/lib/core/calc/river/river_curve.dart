@@ -46,7 +46,8 @@ class RiverFit {
     required this.rmsCm,
   });
 
-  final int lagHours;
+  /// Hours the sea tide takes to reach the station (0.25 h steps).
+  final double lagHours;
   final double gain;
   final double intercept;
   final double slopeCmPerH;
@@ -56,14 +57,25 @@ class RiverFit {
   final double rmsCm;
 
   double? levelAt(DateTime t, HourlySignal sea) {
-    final s = sea.at(t.subtract(Duration(hours: lagHours)));
+    final s = sea.at(t.subtract(hoursToDuration(lagHours)));
     if (s == null) return null;
-    return intercept + slopeCmPerH * _hours(t, t0Utc) + gain * s;
+    return meanAt(t) + gain * s;
   }
+
+  /// River (non-tidal) part of the level: intercept + slope·(t − t0).
+  double meanAt(DateTime t) => intercept + slopeCmPerH * _hours(t, t0Utc);
+
+  /// Along-river speed of the tide wave given the station's distance from the mouth.
+  double celerityKmH(double stationKm) => lagHours <= 0 ? double.infinity : stationKm / lagHours;
 }
 
 /// Lags tried when propagating the sea tide up-river.
-const int maxRiverLagHours = 24;
+const double maxRiverLagHours = 24;
+
+/// Lag resolution: backtest found Hà Nội 8,46 ± 0,34 h, so whole hours are too coarse.
+const double riverLagStepHours = 0.25;
+
+Duration hoursToDuration(double h) => Duration(seconds: (h * 3600).round());
 
 /// Minimum points for a 3-parameter fit to mean anything.
 const int minRiverFitPoints = 6;
@@ -75,16 +87,18 @@ double _hours(DateTime t, DateTime t0) => t.difference(t0).inMinutes / 60;
 RiverFit? fitTidalRiver(
   List<RiverPoint> points,
   HourlySignal sea, {
-  int maxLag = maxRiverLagHours,
+  double maxLag = maxRiverLagHours,
 }) {
   if (points.length < minRiverFitPoints) return null;
   final t0 = points.first.timeUtc;
   RiverFit? best;
   var bestSse = double.infinity;
-  for (var lag = 0; lag <= maxLag; lag++) {
+  final steps = (maxLag / riverLagStepHours).round();
+  for (var k = 0; k <= steps; k++) {
+    final lag = k * riverLagStepHours;
     final rows = <(double, double, double)>[]; // (t, sea, y)
     for (final p in points) {
-      final s = sea.at(p.timeUtc.subtract(Duration(hours: lag)));
+      final s = sea.at(p.timeUtc.subtract(hoursToDuration(lag)));
       if (s != null) rows.add((_hours(p.timeUtc, t0), s, p.levelCm));
     }
     if (rows.length < minRiverFitPoints) continue;

@@ -62,7 +62,7 @@ final class MapStyleProvider
   }
 }
 
-String _$mapStyleHash() => r'67f928cf602d93b2e6b7a47846dfc653538a58ec';
+String _$mapStyleHash() => r'55aefec905af2c7a47f7fa4f9ef273878758ba81';
 
 /// Base-map style (JSON text or URL) for the current brightness and layer.
 

@@ -199,12 +199,7 @@ class _EstimateBanner extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     final ref = view.tide.data.reference;
-    final distance = ref == null ? null : LevelFormat.km(ref.distanceKm);
-    final basis = switch ((ref, distance)) {
-      (final r?, final d?) when r.river != null => l10n.point_basisRiver(r.name, r.river ?? '', d),
-      (final r?, final d?) => l10n.point_basisStation(r.name, d),
-      _ => l10n.point_seaModel,
-    };
+    final basis = ref == null ? [l10n.point_seaModel] : context.referenceLines(ref);
     return Container(
       padding: const EdgeInsets.all(AppSpacing.md),
       decoration: BoxDecoration(
@@ -224,7 +219,7 @@ class _EstimateBanner extends StatelessWidget {
                 Text(l10n.point_estimateHere, style: context.text.bodyStrong),
                 if (onWater case final w?)
                   Text(w ? l10n.point_onWater : l10n.point_onLand, style: context.text.body),
-                Text(basis, style: context.text.body),
+                for (final line in basis) Text(line, style: context.text.body),
               ],
             ),
           ),

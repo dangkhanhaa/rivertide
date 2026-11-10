@@ -63,16 +63,8 @@ class _SourceLineState extends State<SourceLine> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         if (ref != null && widget.showReference)
-          Text(
-            ref.river == null
-                ? l10n.point_reference(ref.name, LevelFormat.km(ref.distanceKm))
-                : l10n.point_referenceRiver(
-                    ref.name,
-                    ref.river ?? '',
-                    LevelFormat.km(ref.distanceKm),
-                  ),
-            style: context.text.bodyStrong,
-          ),
+          for (final (i, line) in context.referenceLines(ref).indexed)
+            Text(line, style: i == 0 ? context.text.bodyStrong : context.text.body),
         if (widget.showSource)
           Row(
             children: [

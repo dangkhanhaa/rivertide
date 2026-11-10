@@ -58,6 +58,7 @@ class FakeBaseMap extends StatelessWidget implements BaseMapHandle {
         children: [
           if (config.userPosition != null) const Text('me'),
           if (config.pin != null) const Text('pin'),
+          if (!config.gesturesEnabled) const Text('map-locked'),
           Text('style:${config.styleString}'),
           tap('tap-river', 20.995, 105.88), // Red River bank near Thanh Trì bridge
           tap('tap-sea', 10.3, 107.1), // open sea off Vũng Tàu
@@ -105,7 +106,9 @@ Future<AppDatabase> pumpApp(
   LocationService? location,
   Size physicalSize = const Size(1080, 2340),
   double devicePixelRatio = 2.75,
+  DateTime? now,
 }) async {
+  final clock = now ?? testNow;
   driftRuntimeOptions.dontWarnAboutMultipleDatabases = true;
   final db = AppDatabase(NativeDatabase.memory());
   tester.view.physicalSize = physicalSize;
@@ -115,8 +118,8 @@ Future<AppDatabase> pumpApp(
     ProviderScope(
       retry: providerRetry,
       overrides: [
-        clockProvider.overrideWithValue(() => testNow),
-        minuteTickerProvider.overrideWith((ref) => Stream.value(testNow)),
+        clockProvider.overrideWithValue(() => clock),
+        minuteTickerProvider.overrideWith((ref) => Stream.value(clock)),
         appDatabaseProvider.overrideWithValue(db),
         stationRepositoryProvider.overrideWithValue(
           repo?.call(db) ??
@@ -124,7 +127,7 @@ Future<AppDatabase> pumpApp(
                 remote: FakeRemote(),
                 db: db,
                 loadAsset: loadFromDisk,
-                clock: () => testNow,
+                clock: () => clock,
               ),
         ),
         mapStyleProvider.overrideWith((ref, args) async => '{"layer":"${args.$2.name}"}'),

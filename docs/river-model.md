@@ -38,3 +38,42 @@
 - Chỉ đo được sai số tại các mốc 6 giờ; giờ đỉnh/chân chưa đối chiếu được với số đo từng giờ.
 - Lũ về hoặc hồ thủy điện xả gấp giữa 2 bản tin thì mô hình không thấy được.
 - Tọa độ các trạm KTTV là **gần đúng**, cần kiểm lại (P0-04).
+
+## 4. Mực nước theo vị trí dọc sông (10/11/2026)
+
+Mục tiêu: chạm vào chỗ nào trên sông Hồng hoặc sông Cả thì app ra số riêng cho chỗ đó, không chép số của trạm.
+
+### 4.1. Dữ liệu (đều thật)
+| Dữ liệu | Nguồn | Kết quả |
+|---|---|---|
+| Đường dòng chính sông Hồng, sông Cả (Lam) | OpenStreetMap, lấy qua Overpass ngày 10/11/2026 (`tools/rivers/data/raw`) | Hồng 309 km (Ba Lạt → trên Việt Trì), Cả 89 km (Cửa Hội → trên Nam Đàn) |
+| Vị trí trạm trên sông | Chiếu tọa độ trạm lên đường sông (`build_rivers.py`) | Hà Nội km 165,6; Nam Đàn km 58,5 (cách đường sông dưới 1,5 km) |
+| Triều Hòn Dấu so với cửa Ba Lạt | Open-Meteo Marine | Lệch 0 giờ, tương quan 0,995 → Hòn Dấu là đầu vào đúng cho cửa sông |
+| Độ trễ triều tới Hà Nội | Khớp riêng trên từng bản tin KTTV, bước 15 phút | 8,46 ± 0,34 giờ (6 bản tin) |
+| **Tốc độ con triều truyền ngược sông Hồng** | 165,6 km ÷ 8,46 giờ (`analyze_celerity.py`) | **≈ 19,6 km/giờ (5,4 m/s)**, hợp với sóng nước nông √(g·h) khi sông sâu 3–4 m |
+
+### 4.2. Công thức ([river_reach.dart](../app/lib/core/calc/river/river_reach.dart))
+Với điểm ở km x (tính từ cửa sông), trạm ở km X và f = x / X:
+- độ trễ triều(x) = độ trễ trạm · f
+- biên độ triều(x) = 1 + (biên độ trạm − 1) · f (ở cửa sông bằng 1, tức đúng triều biển)
+- mực nước trung bình(x, t) = mực nước trung bình trạm(t) · f (ở cửa sông bằng 0 = mốc cao độ quốc gia ≈ mực biển trung bình Hòn Dấu)
+
+Mô hình đi qua đúng **2 điều kiện biên có thật**: tại cửa sông ra đúng triều biển, tại trạm ra đúng mô hình của trạm. Có test kiểm tra cả hai.
+
+Ví dụ dữ liệu thật ngày 09/11, lúc 15:00 giờ VN:
+| Vị trí | Dọc sông | Chân nước | Đỉnh nước |
+|---|---|---|---|
+| Trạm Hà Nội | 0 | 23:49 · 1,18 m | 11:26 · 1,86 m |
+| Cầu Thanh Trì | 5,7 km hạ lưu | 23:34 · 1,13 m | 11:10 · 1,86 m |
+| Bãi Chèm | 10,3 km thượng lưu | 00:14 · 1,28 m | 12:00 · 1,86 m |
+
+### 4.3. Phạm vi áp dụng và giới hạn
+- **Chỉ áp dụng khi điểm chạm nằm trong vòng 1 km tính từ đường dòng chính**, từ 60 km hạ lưu tới 25 km thượng lưu của trạm. Ngoài phạm vi này app quay về cách cũ (lấy theo trạm gần nhất) và ghi rõ.
+- **Giả định độ trễ, biên độ và mực nước trung bình thay đổi đều theo km.** Thực tế sóng triều tắt dần không đều.
+- **Chưa kiểm chứng tại trạm thứ hai** vì đoạn sông này không có trạm khác trong bản tin. App ghi rõ điều này và hiện dải sai số đo tại trạm (±11,7 cm).
+- **Sông Đuống, sông Luộc và các nhánh khác chưa có đường sông riêng**: điểm trên các sông này dùng cách cũ.
+
+## 5. Dòng chảy (lưu lượng)
+- **Nguồn:** Open-Meteo Flood (mô hình GloFAS), lưu lượng ngày, ô lưới khoảng 5 km. App gọi 3×3 ô quanh điểm và **chọn ô có lưu lượng trung bình lớn nhất, đó là dòng chính**. Ví dụ ngày 10/11 quanh trạm Hà Nội: ô ngay tại trạm chỉ ~3 m³/s (rơi vào kênh nhỏ), ô trên dòng chính ~2.170 m³/s.
+- **Hiển thị:** lưu lượng hôm nay, ngày mai, xu hướng (thay đổi quá ±5% thì coi là tăng hoặc giảm), có nhãn "Ước tính".
+- **Không có vận tốc dòng chảy đo thật (m/s).** Muốn tính vận tốc cần mặt cắt ngang sông (độ sâu), mà dữ liệu này không có nguồn miễn phí. App không tự đặt ra con số này.

@@ -2,20 +2,24 @@ import 'dart:convert';
 
 import 'package:collection/collection.dart';
 import 'package:rivertide/core/cache/cached.dart';
+import 'package:rivertide/core/calc/river/river_line.dart';
 import 'package:rivertide/core/calc/tide/hourly_timeline.dart';
 import 'package:rivertide/core/clock/clock_provider.dart';
 import 'package:rivertide/core/config/cache_ttl.dart';
 import 'package:rivertide/core/db/app_database.dart';
 import 'package:rivertide/core/errors/app_exception.dart';
 import 'package:rivertide/features/stations/data/cached_fetcher.dart';
+import 'package:rivertide/features/stations/data/flood_parser.dart';
 import 'package:rivertide/features/stations/data/marine_series.dart';
 import 'package:rivertide/features/stations/data/observation_store.dart';
 import 'package:rivertide/features/stations/data/open_meteo_parser.dart';
 import 'package:rivertide/features/stations/data/point_tide_source.dart';
 import 'package:rivertide/features/stations/data/remote_sources.dart';
 import 'package:rivertide/features/stations/data/river_tide_source.dart';
+import 'package:rivertide/features/stations/data/rivers_parser.dart';
 import 'package:rivertide/features/stations/data/tide_asset_parser.dart';
 import 'package:rivertide/features/stations/domain/point_id.dart';
+import 'package:rivertide/features/stations/domain/river_flow.dart';
 import 'package:rivertide/features/stations/domain/station.dart';
 import 'package:rivertide/features/stations/domain/station_repository.dart';
 import 'package:rivertide/features/stations/domain/station_tide.dart';
@@ -37,7 +41,14 @@ class StationRepositoryImpl implements StationRepository {
       loadAsset: _loadAsset,
       clock: clock,
     );
-    _points = PointTideSource(catalog: getAll, sea: _modelTide, river: _river.tide);
+    _points = PointTideSource(
+      catalog: getAll,
+      sea: _modelTide,
+      river: _river.tide,
+      rivers: getRivers,
+      reach: _river.reachTide,
+      clock: clock,
+    );
   }
 
   final RemoteSources _remote;
@@ -51,6 +62,17 @@ class StationRepositoryImpl implements StationRepository {
 
   @override
   Future<List<Station>> getAll() async => _catalog ??= await _readCatalog();
+
+  List<RiverLine>? _riverLines;
+
+  /// Mapped main-stem river lines with station km (assets/data/rivers.json).
+  @override
+  Future<List<RiverLine>> getRivers() async {
+    final cached = _riverLines;
+    if (cached != null) return cached;
+    final body = await _loadAsset('assets/data/rivers.json');
+    return _riverLines = body == null ? const [] : parseRivers(body);
+  }
 
   Future<List<Station>> _readCatalog() async {
     final body = await _loadAsset('assets/data/stations.json');
@@ -140,6 +162,23 @@ class StationRepositoryImpl implements StationRepository {
         predictionKind: LevelDataKind.forecast,
         model: openMeteoMarineModel,
       ),
+      fetchedAtUtc: cached.fetchedAtUtc,
+      isStale: cached.isStale,
+    );
+  }
+
+  @override
+  Future<Cached<RiverFlow?>> getFlow(Station station, {bool forceRefresh = false}) async {
+    // Key on ~1 km so nearby taps share one request.
+    final key = 'flood:${station.lat.toStringAsFixed(2)},${station.lon.toStringAsFixed(2)}';
+    final cached = await _cachedFetch(
+      key,
+      CacheTtl.flood,
+      forceRefresh,
+      () => _remote.fetchFlood(station.lat, station.lon),
+    );
+    return Cached(
+      data: parseMainStemFlow(cached.data),
       fetchedAtUtc: cached.fetchedAtUtc,
       isStale: cached.isStale,
     );

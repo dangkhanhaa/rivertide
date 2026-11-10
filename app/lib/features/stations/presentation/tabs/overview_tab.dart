@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:rivertide/core/calc/tide/hourly_timeline.dart';
 import 'package:rivertide/core/format/level_format.dart';
 import 'package:rivertide/core/l10n/l10n_ext.dart';
 import 'package:rivertide/core/theme/app_spacing.dart';
 import 'package:rivertide/core/theme/app_text.dart';
 import 'package:rivertide/core/widgets/data_labels.dart';
 import 'package:rivertide/features/stations/application/station_view_providers.dart';
+import 'package:rivertide/features/stations/domain/station.dart';
 import 'package:rivertide/features/stations/presentation/widgets/countdown_card.dart';
 import 'package:rivertide/features/stations/presentation/widgets/daily_extremes_card.dart';
+import 'package:rivertide/features/stations/presentation/widgets/flow_card.dart';
 import 'package:rivertide/features/stations/presentation/widgets/source_line.dart';
 import 'package:rivertide/features/stations/presentation/widgets/tide_chart.dart';
 import 'package:rivertide/features/stations/presentation/widgets/tide_text.dart';
@@ -43,6 +46,7 @@ class OverviewTab extends StatelessWidget {
         CountdownCard(now: now, nowUtc: view.nowUtc),
         const SizedBox(height: AppSpacing.lg),
         TideChart(
+          bandCm: tide.predictionKind == LevelDataKind.estimate ? tide.model?.rmseCm : null,
           // Whole-hour window so axis ticks fall on 00:00, 06:00, …
           fromUtc: _hourFloor(view.nowUtc).subtract(const Duration(hours: 12)),
           toUtc: _hourFloor(view.nowUtc).add(const Duration(hours: 24)),
@@ -75,6 +79,8 @@ class OverviewTab extends StatelessWidget {
         ],
         const SizedBox(height: AppSpacing.md),
         SourceLine(view: view, showSource: false),
+        if (tide.station.kind == StationKind.river)
+          FlowCard(stationId: tide.station.id, nowUtc: view.nowUtc),
       ],
     );
   }

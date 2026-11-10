@@ -576,7 +576,12 @@ as DateTime,
 /// @nodoc
 mixin _$ReferenceStation {
 
- String get stationId; String get name; double get distanceKm; String? get river;
+ String get stationId; String get name; double get distanceKm; String? get river;/// Along-river position relative to the station (km, + upstream); null
+/// when the point is not on the station's river line.
+ double? get alongKm;/// Tide turns this many minutes later (+) / earlier (−) than at the station.
+ double? get lagShiftMinutes;/// River mean level difference to the station now (cm).
+ double? get meanShiftCm;/// Speed of the tide wave up this river (km/h).
+ double? get celerityKmH;
 /// Create a copy of ReferenceStation
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -588,20 +593,20 @@ $ReferenceStationCopyWith<ReferenceStation> get copyWith => _$ReferenceStationCo
 @override
 bool operator ==(Object other) {
   final _this = this as ReferenceStation;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ReferenceStation&&(identical(other.stationId, _this.stationId) || other.stationId == _this.stationId)&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.distanceKm, _this.distanceKm) || other.distanceKm == _this.distanceKm)&&(identical(other.river, _this.river) || other.river == _this.river));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ReferenceStation&&(identical(other.stationId, _this.stationId) || other.stationId == _this.stationId)&&(identical(other.name, _this.name) || other.name == _this.name)&&(identical(other.distanceKm, _this.distanceKm) || other.distanceKm == _this.distanceKm)&&(identical(other.river, _this.river) || other.river == _this.river)&&(identical(other.alongKm, _this.alongKm) || other.alongKm == _this.alongKm)&&(identical(other.lagShiftMinutes, _this.lagShiftMinutes) || other.lagShiftMinutes == _this.lagShiftMinutes)&&(identical(other.meanShiftCm, _this.meanShiftCm) || other.meanShiftCm == _this.meanShiftCm)&&(identical(other.celerityKmH, _this.celerityKmH) || other.celerityKmH == _this.celerityKmH));
 }
 
 
 @override
 int get hashCode {
   final _this = this as ReferenceStation;
-  return Object.hash(runtimeType,_this.stationId,_this.name,_this.distanceKm,_this.river);
+  return Object.hash(runtimeType,_this.stationId,_this.name,_this.distanceKm,_this.river,_this.alongKm,_this.lagShiftMinutes,_this.meanShiftCm,_this.celerityKmH);
 }
 
 @override
 String toString() {
   final _this = this as ReferenceStation;
-  return 'ReferenceStation(stationId: ${_this.stationId}, name: ${_this.name}, distanceKm: ${_this.distanceKm}, river: ${_this.river})';
+  return 'ReferenceStation(stationId: ${_this.stationId}, name: ${_this.name}, distanceKm: ${_this.distanceKm}, river: ${_this.river}, alongKm: ${_this.alongKm}, lagShiftMinutes: ${_this.lagShiftMinutes}, meanShiftCm: ${_this.meanShiftCm}, celerityKmH: ${_this.celerityKmH})';
 }
 
 
@@ -612,7 +617,7 @@ abstract mixin class $ReferenceStationCopyWith<$Res>  {
   factory $ReferenceStationCopyWith(ReferenceStation value, $Res Function(ReferenceStation) _then) = _$ReferenceStationCopyWithImpl;
 @useResult
 $Res call({
- String stationId, String name, double distanceKm, String? river
+ String stationId, String name, double distanceKm, String? river, double? alongKm, double? lagShiftMinutes, double? meanShiftCm, double? celerityKmH
 });
 
 
@@ -629,13 +634,17 @@ class _$ReferenceStationCopyWithImpl<$Res>
 
 /// Create a copy of ReferenceStation
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? stationId = null,Object? name = null,Object? distanceKm = null,Object? river = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? stationId = null,Object? name = null,Object? distanceKm = null,Object? river = freezed,Object? alongKm = freezed,Object? lagShiftMinutes = freezed,Object? meanShiftCm = freezed,Object? celerityKmH = freezed,}) {
   return _then(ReferenceStation(
 stationId: null == stationId ? _self.stationId : stationId // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,distanceKm: null == distanceKm ? _self.distanceKm : distanceKm // ignore: cast_nullable_to_non_nullable
 as double,river: freezed == river ? _self.river : river // ignore: cast_nullable_to_non_nullable
-as String?,
+as String?,alongKm: freezed == alongKm ? _self.alongKm : alongKm // ignore: cast_nullable_to_non_nullable
+as double?,lagShiftMinutes: freezed == lagShiftMinutes ? _self.lagShiftMinutes : lagShiftMinutes // ignore: cast_nullable_to_non_nullable
+as double?,meanShiftCm: freezed == meanShiftCm ? _self.meanShiftCm : meanShiftCm // ignore: cast_nullable_to_non_nullable
+as double?,celerityKmH: freezed == celerityKmH ? _self.celerityKmH : celerityKmH // ignore: cast_nullable_to_non_nullable
+as double?,
   ));
 }
 
@@ -720,10 +729,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String stationId,  String name,  double distanceKm,  String? river)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String stationId,  String name,  double distanceKm,  String? river,  double? alongKm,  double? lagShiftMinutes,  double? meanShiftCm,  double? celerityKmH)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ReferenceStation() when $default != null:
-return $default(_that.stationId,_that.name,_that.distanceKm,_that.river);case _:
+return $default(_that.stationId,_that.name,_that.distanceKm,_that.river,_that.alongKm,_that.lagShiftMinutes,_that.meanShiftCm,_that.celerityKmH);case _:
   return orElse();
 
 }
@@ -741,10 +750,10 @@ return $default(_that.stationId,_that.name,_that.distanceKm,_that.river);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String stationId,  String name,  double distanceKm,  String? river)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String stationId,  String name,  double distanceKm,  String? river,  double? alongKm,  double? lagShiftMinutes,  double? meanShiftCm,  double? celerityKmH)  $default,) {final _that = this;
 switch (_that) {
 case _ReferenceStation():
-return $default(_that.stationId,_that.name,_that.distanceKm,_that.river);case _:
+return $default(_that.stationId,_that.name,_that.distanceKm,_that.river,_that.alongKm,_that.lagShiftMinutes,_that.meanShiftCm,_that.celerityKmH);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -761,10 +770,10 @@ return $default(_that.stationId,_that.name,_that.distanceKm,_that.river);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String stationId,  String name,  double distanceKm,  String? river)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String stationId,  String name,  double distanceKm,  String? river,  double? alongKm,  double? lagShiftMinutes,  double? meanShiftCm,  double? celerityKmH)?  $default,) {final _that = this;
 switch (_that) {
 case _ReferenceStation() when $default != null:
-return $default(_that.stationId,_that.name,_that.distanceKm,_that.river);case _:
+return $default(_that.stationId,_that.name,_that.distanceKm,_that.river,_that.alongKm,_that.lagShiftMinutes,_that.meanShiftCm,_that.celerityKmH);case _:
   return null;
 
 }
@@ -776,13 +785,22 @@ return $default(_that.stationId,_that.name,_that.distanceKm,_that.river);case _:
 
 
 class _ReferenceStation implements ReferenceStation {
-  const _ReferenceStation({required this.stationId, required this.name, required this.distanceKm, this.river});
+  const _ReferenceStation({required this.stationId, required this.name, required this.distanceKm, this.river, this.alongKm, this.lagShiftMinutes, this.meanShiftCm, this.celerityKmH});
   
 
 @override final  String stationId;
 @override final  String name;
 @override final  double distanceKm;
 @override final  String? river;
+/// Along-river position relative to the station (km, + upstream); null
+/// when the point is not on the station's river line.
+@override final  double? alongKm;
+/// Tide turns this many minutes later (+) / earlier (−) than at the station.
+@override final  double? lagShiftMinutes;
+/// River mean level difference to the station now (cm).
+@override final  double? meanShiftCm;
+/// Speed of the tide wave up this river (km/h).
+@override final  double? celerityKmH;
 
 /// Create a copy of ReferenceStation
 /// with the given fields replaced by the non-null parameter values.
@@ -794,18 +812,18 @@ _$ReferenceStationCopyWith<_ReferenceStation> get copyWith => __$ReferenceStatio
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _ReferenceStation&&(identical(other.stationId, stationId) || other.stationId == stationId)&&(identical(other.name, name) || other.name == name)&&(identical(other.distanceKm, distanceKm) || other.distanceKm == distanceKm)&&(identical(other.river, river) || other.river == river));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _ReferenceStation&&(identical(other.stationId, stationId) || other.stationId == stationId)&&(identical(other.name, name) || other.name == name)&&(identical(other.distanceKm, distanceKm) || other.distanceKm == distanceKm)&&(identical(other.river, river) || other.river == river)&&(identical(other.alongKm, alongKm) || other.alongKm == alongKm)&&(identical(other.lagShiftMinutes, lagShiftMinutes) || other.lagShiftMinutes == lagShiftMinutes)&&(identical(other.meanShiftCm, meanShiftCm) || other.meanShiftCm == meanShiftCm)&&(identical(other.celerityKmH, celerityKmH) || other.celerityKmH == celerityKmH));
 }
 
 
 @override
 int get hashCode {
-    return Object.hash(runtimeType,stationId,name,distanceKm,river);
+    return Object.hash(runtimeType,stationId,name,distanceKm,river,alongKm,lagShiftMinutes,meanShiftCm,celerityKmH);
 }
 
 @override
 String toString() {
-    return 'ReferenceStation(stationId: $stationId, name: $name, distanceKm: $distanceKm, river: $river)';
+    return 'ReferenceStation(stationId: $stationId, name: $name, distanceKm: $distanceKm, river: $river, alongKm: $alongKm, lagShiftMinutes: $lagShiftMinutes, meanShiftCm: $meanShiftCm, celerityKmH: $celerityKmH)';
 }
 
 
@@ -816,7 +834,7 @@ abstract mixin class _$ReferenceStationCopyWith<$Res> implements $ReferenceStati
   factory _$ReferenceStationCopyWith(_ReferenceStation value, $Res Function(_ReferenceStation) _then) = __$ReferenceStationCopyWithImpl;
 @override @useResult
 $Res call({
- String stationId, String name, double distanceKm, String? river
+ String stationId, String name, double distanceKm, String? river, double? alongKm, double? lagShiftMinutes, double? meanShiftCm, double? celerityKmH
 });
 
 
@@ -833,13 +851,17 @@ class __$ReferenceStationCopyWithImpl<$Res>
 
 /// Create a copy of ReferenceStation
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? stationId = null,Object? name = null,Object? distanceKm = null,Object? river = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? stationId = null,Object? name = null,Object? distanceKm = null,Object? river = freezed,Object? alongKm = freezed,Object? lagShiftMinutes = freezed,Object? meanShiftCm = freezed,Object? celerityKmH = freezed,}) {
   return _then(_ReferenceStation(
 stationId: null == stationId ? _self.stationId : stationId // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,distanceKm: null == distanceKm ? _self.distanceKm : distanceKm // ignore: cast_nullable_to_non_nullable
 as double,river: freezed == river ? _self.river : river // ignore: cast_nullable_to_non_nullable
-as String?,
+as String?,alongKm: freezed == alongKm ? _self.alongKm : alongKm // ignore: cast_nullable_to_non_nullable
+as double?,lagShiftMinutes: freezed == lagShiftMinutes ? _self.lagShiftMinutes : lagShiftMinutes // ignore: cast_nullable_to_non_nullable
+as double?,meanShiftCm: freezed == meanShiftCm ? _self.meanShiftCm : meanShiftCm // ignore: cast_nullable_to_non_nullable
+as double?,celerityKmH: freezed == celerityKmH ? _self.celerityKmH : celerityKmH // ignore: cast_nullable_to_non_nullable
+as double?,
   ));
 }
 

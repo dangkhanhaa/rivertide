@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rivertide/core/calc/geo/vietnam_bounds.dart';
+import 'package:rivertide/core/calc/river/river_line.dart';
 import 'package:rivertide/core/l10n/l10n_ext.dart';
 import 'package:rivertide/core/navigation/map_focus.dart';
 import 'package:rivertide/core/theme/app_colors.dart';
@@ -12,6 +13,7 @@ import 'package:rivertide/features/map/application/map_providers.dart';
 import 'package:rivertide/features/map/domain/base_layer.dart';
 import 'package:rivertide/features/map/domain/location_service.dart';
 import 'package:rivertide/features/map/domain/map_marker.dart';
+import 'package:rivertide/features/map/domain/river_reach_geojson.dart';
 import 'package:rivertide/features/map/domain/water_layers.dart';
 import 'package:rivertide/features/map/presentation/locate_action.dart';
 import 'package:rivertide/features/map/presentation/map_detail_presenter.dart';
@@ -19,6 +21,7 @@ import 'package:rivertide/features/map/presentation/widgets/base_map.dart';
 import 'package:rivertide/features/map/presentation/widgets/map_controls.dart';
 import 'package:rivertide/features/map/presentation/widgets/map_notes.dart';
 import 'package:rivertide/features/map/presentation/widgets/map_search_bar.dart';
+import 'package:rivertide/features/map/presentation/widgets/marker_palette.dart';
 import 'package:rivertide/features/stations/stations.dart';
 
 /// S02 — station map on free OpenFreeMap tiles (FEATURES.md F-MAP-01 → 04).
@@ -161,20 +164,17 @@ class _MapScreenState extends ConsumerState<MapScreen> with MapDetailPresenter<M
     await _map?.flyTo(p.lat, p.lon, zoom: 11, offset: visibleOffset(detailOpen: false));
   }
 
-  MarkerPalette _palette(AppColors c) => (
-    status: {
-      MarkerStatus.stale: c.stale,
-      MarkerStatus.normal: c.ok,
-      MarkerStatus.alarm1: c.alarm1,
-      MarkerStatus.alarm2: c.alarm2,
-      MarkerStatus.alarm3: c.alarm3,
-    },
-    stroke: c.surface,
-    label: c.onSurface,
-    labelHalo: c.surface,
-    me: c.water,
-    pin: c.alarm2,
-  );
+  List<RiverLine>? _reachSource;
+  Map<String, Object?> _reachGeo = riverReachGeoJson(const []);
+
+  /// Same object while the river list is unchanged (the map syncs on identity).
+  Map<String, Object?> _reaches(List<RiverLine>? rivers) {
+    if (rivers != null && !identical(rivers, _reachSource)) {
+      _reachSource = rivers;
+      _reachGeo = riverReachGeoJson(rivers);
+    }
+    return _reachGeo;
+  }
 
   Widget _buildMap(BuildContext context, List<MapMarker> shown) {
     final l10n = context.l10n;
@@ -190,7 +190,8 @@ class _MapScreenState extends ConsumerState<MapScreen> with MapDetailPresenter<M
         BaseMapConfig(
           styleString: shownStyle,
           markers: shown,
-          palette: _palette(context.colors),
+          palette: markerPalette(context.colors),
+          riverReaches: _reaches(ref.watch(riverLinesProvider).value),
           fixedLabels: [
             (lat: 17.5, lon: 112, text: l10n.map_hoangSa),
             (lat: 10, lon: 112.8, text: l10n.map_truongSa),
@@ -199,6 +200,7 @@ class _MapScreenState extends ConsumerState<MapScreen> with MapDetailPresenter<M
           onReady: _onReady,
           onMapTap: _openPoint,
           blocksTapAt: _blocksTapAt,
+          gesturesEnabled: !sheetBusy,
           userPosition: _me,
           pin: _pin,
         ),
@@ -226,7 +228,15 @@ class _MapScreenState extends ConsumerState<MapScreen> with MapDetailPresenter<M
     return Scaffold(
       body: Stack(
         children: [
-          Positioned.fill(
+          // With the side panel open the map ends where the panel starts: on web
+          // the platform map would otherwise also get the panel's clicks, wheel
+          // and drags. MapLibre keeps the centre on resize, so a point flown to
+          // the centre lands in the middle of the visible map.
+          Positioned(
+            left: 0,
+            top: 0,
+            bottom: 0,
+            right: rightInset,
             child: KeyedSubtree(key: _mapKey, child: _buildMap(context, shown)),
           ),
           // Positioned so the top overlay is only as tall as its content.

@@ -124,10 +124,14 @@ void main() {
     expect(find.text('pin'), findsOneWidget);
     expect(find.text('Điểm đã chọn'), findsOneWidget);
     expect(find.textContaining('20.99500, 105.88000'), findsOneWidget);
+    // On the Red River line: position measured along the river, tide timing vs the station.
     expect(
-      find.textContaining(RegExp(r'Dựa theo trạm Hà Nội \(Long Biên\) \(sông Hồng\) · cách \d')),
+      find.textContaining(
+        RegExp(r'Cách trạm Hà Nội \(Long Biên\) [\d,]+ km về phía hạ lưu, đo dọc sông Hồng'),
+      ),
       findsOneWidget,
     );
+    expect(find.textContaining('sớm hơn trạm'), findsOneWidget);
     expect(find.text('Ước tính'), findsWidgets);
     expect(find.textContaining('Mặt trời mọc'), findsOneWidget);
     expect(find.text('Trạm gần nhất'), findsOneWidget);
@@ -242,7 +246,11 @@ void main() {
     await tester.tap(find.text('tap-river'));
     await settle(tester);
     final f = FakeBaseMap.flights.last;
-    expect(f.offset.dx, closeTo(420 / 2, 0.5)); // half the panel width
+    // The map shrinks beside the panel (no web click/scroll-through) and keeps
+    // its centre, so no sideways offset is needed.
+    expect(f.offset.dx, 0);
+    final mapBox = tester.getRect(find.byType(FakeBaseMap));
+    expect(mapBox.right, closeTo(1400 - 420, 1));
     expect(f.offset.dy, lessThan(0)); // nudged down below the search bar
     await disposeApp(tester, db);
   });
@@ -257,6 +265,29 @@ void main() {
     final f = FakeBaseMap.flights.last;
     expect(f.lat, closeTo(13.7751, 1e-3));
     expect(f.offset.dy, greaterThan(0));
+    await disposeApp(tester, db);
+  });
+
+  testWidgets('a point on the river shows the main-stem discharge (GloFAS)', (tester) async {
+    // Clock inside the real GloFAS extract (2026-11-07 → 16).
+    final db = await pumpApp(tester, startOnMap: true, now: DateTime.utc(2026, 11, 10, 2));
+    await tester.tap(find.text('tap-river'));
+    await settle(tester);
+    expect(find.text('Dòng chảy sông'), findsOneWidget);
+    expect(find.textContaining(RegExp(r'Lưu lượng hôm nay ≈ [\d.]+ m³/s')), findsOneWidget);
+    await disposeApp(tester, db);
+  });
+
+  testWidgets('map gestures are locked while a sheet covers it, then released', (tester) async {
+    final db = await pumpApp(tester, startOnMap: true);
+    expect(find.text('map-locked'), findsNothing);
+    await tester.tap(find.text('tap-river'));
+    await settle(tester);
+    expect(find.text('map-locked'), findsOneWidget); // drags on the sheet cannot pan the map
+    await tester.tap(find.byTooltip('Đóng'));
+    await settle(tester);
+    await tester.pump(const Duration(seconds: 1));
+    expect(find.text('map-locked'), findsNothing);
     await disposeApp(tester, db);
   });
 

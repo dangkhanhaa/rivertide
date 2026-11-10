@@ -41,6 +41,7 @@ class _MapLibreStationMapState extends State<MapLibreStationMap> implements Base
     }
     if (!_styleReady) return;
     if (!identical(old.config.markers, widget.config.markers)) unawaited(_syncMarkers());
+    if (!identical(old.config.riverReaches, widget.config.riverReaches)) unawaited(_syncRivers());
     if (old.config.userPosition != widget.config.userPosition ||
         old.config.pin != widget.config.pin) {
       unawaited(_syncMe());
@@ -99,6 +100,7 @@ class _MapLibreStationMapState extends State<MapLibreStationMap> implements Base
       await addStationOverlay(c, widget.config.palette, widget.config.fixedLabels);
       _styleReady = true;
       await _syncMarkers();
+      await _syncRivers();
       await _syncMe();
     } on Exception catch (e) {
       // A failed overlay must not take the base map down; the list tab still works.
@@ -119,6 +121,12 @@ class _MapLibreStationMapState extends State<MapLibreStationMap> implements Base
     if (c == null || !_styleReady) return;
     _shown = widget.config.markers;
     await c.setGeoJsonSource(stationSourceId, markersToGeoJson(_shown));
+  }
+
+  Future<void> _syncRivers() async {
+    final c = _controller;
+    if (c == null || !_styleReady) return;
+    await c.setGeoJsonSource(riverReachSourceId, widget.config.riverReaches);
   }
 
   Future<void> _syncMe() async {
@@ -152,6 +160,10 @@ class _MapLibreStationMapState extends State<MapLibreStationMap> implements Base
     initialCameraPosition: const CameraPosition(target: _vnCenter, zoom: _vnZoom),
     minMaxZoomPreference: const MinMaxZoomPreference(3, 17),
     rotateGesturesEnabled: false,
+    // All gesture flags are sent together; web applies them only as a group.
+    scrollGesturesEnabled: widget.config.gesturesEnabled,
+    zoomGesturesEnabled: widget.config.gesturesEnabled,
+    doubleClickZoomEnabled: widget.config.gesturesEnabled,
     // Needed for cameraPosition (current zoom) when re-centring on a tap.
     trackCameraPosition: true,
     // The screen draws its own one-line credit (licences need it visible) so the

@@ -435,6 +435,79 @@ class AppLocalizationsVi extends AppLocalizations {
   }
 
   @override
+  String point_alongDown(String station, String distance, String river) {
+    return 'Cách trạm $station $distance về phía hạ lưu, đo dọc sông $river';
+  }
+
+  @override
+  String point_alongUp(String station, String distance, String river) {
+    return 'Cách trạm $station $distance về phía thượng lưu, đo dọc sông $river';
+  }
+
+  @override
+  String point_lagEarlier(int minutes) {
+    return 'Nước lên/xuống sớm hơn trạm khoảng $minutes phút';
+  }
+
+  @override
+  String point_lagLater(int minutes) {
+    return 'Nước lên/xuống muộn hơn trạm khoảng $minutes phút';
+  }
+
+  @override
+  String get point_lagSame => 'Nước lên/xuống gần như cùng lúc với trạm';
+
+  @override
+  String point_meanLower(int cm) {
+    return 'Mặt nước thấp hơn ở trạm khoảng $cm cm';
+  }
+
+  @override
+  String point_meanHigher(int cm) {
+    return 'Mặt nước cao hơn ở trạm khoảng $cm cm';
+  }
+
+  @override
+  String point_celerity(String speed) {
+    return 'Con triều truyền ngược sông khoảng $speed km/giờ';
+  }
+
+  @override
+  String get point_reachNote =>
+      'Ước tính theo vị trí dọc sông, giữa triều ở cửa sông và trạm đo; chưa kiểm chứng bằng trạm thứ hai.';
+
+  @override
+  String get flow_title => 'Dòng chảy sông';
+
+  @override
+  String flow_today(String q) {
+    return 'Lưu lượng hôm nay ≈ $q m³/s';
+  }
+
+  @override
+  String flow_tomorrow(String q, String trend) {
+    return 'Ngày mai ≈ $q m³/s · $trend';
+  }
+
+  @override
+  String get flow_rising => 'đang tăng (nước sông lên dần)';
+
+  @override
+  String get flow_falling => 'đang giảm (nước sông rút dần)';
+
+  @override
+  String get flow_steady => 'ổn định';
+
+  @override
+  String get flow_note =>
+      'Mô hình GloFAS cho dòng chính, ô lưới khoảng 5 km. Chưa có số đo vận tốc dòng chảy thật.';
+
+  @override
+  String chart_band(String cm) {
+    return 'Dải mờ quanh đường: sai số khoảng ±$cm cm, đo khi kiểm thử tại trạm';
+  }
+
+  @override
   String point_reference(String station, String distance) {
     return 'Ước tính theo trạm $station, cách $distance';
   }

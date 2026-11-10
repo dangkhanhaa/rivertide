@@ -27,6 +27,16 @@ mixin MapDetailPresenter<T extends ConsumerStatefulWidget> on ConsumerState<T> {
 
   static const Duration _tapGrace = Duration(milliseconds: 500);
 
+  /// Also locks the map's own gestures (see BaseMapConfig.gesturesEnabled):
+  /// on web a drag on the sheet would otherwise pan the map underneath.
+  void _setBusy(bool busy) {
+    if (!mounted) {
+      sheetBusy = busy;
+      return;
+    }
+    setState(() => sheetBusy = busy);
+  }
+
   bool get isWide => MediaQuery.sizeOf(context).width >= wideLayoutMinWidth;
 
   /// The map area and the overlay at its top (search bar, notes).
@@ -50,9 +60,10 @@ mixin MapDetailPresenter<T extends ConsumerStatefulWidget> on ConsumerState<T> {
         size.height / 2,
       );
     }
-    var right = size.width;
+    final right = size.width;
     var bottom = size.height;
-    if (detailOpen && isWide) right = size.width - sidePanelWidth;
+    // Wide layout: the map itself shrinks beside the panel (see MapScreen),
+    // so only the search bar on top needs an offset.
     if (detailOpen && !isWide) {
       final sheetTop = MediaQuery.sizeOf(context).height * (1 - sheetInitialSize) - origin.dy;
       bottom = sheetTop.clamp(top + 1, size.height);
@@ -78,11 +89,11 @@ mixin MapDetailPresenter<T extends ConsumerStatefulWidget> on ConsumerState<T> {
   /// A plain sheet (legend, filter, layers) with the same click guard.
   Future<void> showGuardedSheet(WidgetBuilder builder) async {
     _releaseTimer?.cancel();
-    sheetBusy = true;
+    _setBusy(true);
     try {
       await showModalBottomSheet<void>(context: context, showDragHandle: true, builder: builder);
     } finally {
-      _releaseTimer = Timer(_tapGrace, () => sheetBusy = false);
+      _releaseTimer = Timer(_tapGrace, () => _setBusy(false));
     }
   }
 
@@ -92,7 +103,7 @@ mixin MapDetailPresenter<T extends ConsumerStatefulWidget> on ConsumerState<T> {
       return;
     }
     _releaseTimer?.cancel();
-    sheetBusy = true;
+    _setBusy(true);
     try {
       await showModalBottomSheet<void>(
         context: context,
@@ -112,7 +123,7 @@ mixin MapDetailPresenter<T extends ConsumerStatefulWidget> on ConsumerState<T> {
         ),
       );
     } finally {
-      _releaseTimer = Timer(_tapGrace, () => sheetBusy = false);
+      _releaseTimer = Timer(_tapGrace, () => _setBusy(false));
     }
     if (mounted) onDetailClosed();
   }
