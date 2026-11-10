@@ -13,6 +13,7 @@ import 'package:rivertide/core/widgets/detail_host.dart';
 import 'package:rivertide/features/stations/application/station_providers.dart';
 import 'package:rivertide/features/stations/application/station_view_providers.dart';
 import 'package:rivertide/features/stations/domain/station.dart';
+import 'package:rivertide/features/stations/domain/station_tide.dart';
 import 'package:rivertide/features/stations/presentation/widgets/daily_extremes_card.dart';
 import 'package:rivertide/features/stations/presentation/widgets/flow_card.dart';
 import 'package:rivertide/features/stations/presentation/widgets/location_extras.dart';
@@ -107,6 +108,18 @@ class StationSummaryBody extends StatelessWidget {
     final tide = view.tide.data;
     final daily = tide.dailyExtremes;
     final river = _isRiver(view);
+    if (levelUnknown(tide)) {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        spacing: AppSpacing.md,
+        children: [
+          if (place case final p?) Text(p, style: context.text.label),
+          FlowCard(stationId: tide.station.id, nowUtc: view.nowUtc, primary: true),
+          FishingNow(view: view),
+          Conditions(view: view),
+        ],
+      );
+    }
     if (tide.prediction == null && daily != null) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -151,6 +164,11 @@ class StationSummaryBody extends StatelessWidget {
     );
   }
 }
+
+/// A place no level source reaches (no curve, no readings, no bulletin):
+/// shown by flow, fishing and weather instead of a level.
+bool levelUnknown(StationTide t) =>
+    t.prediction == null && t.observations.isEmpty && t.dailyExtremes == null;
 
 bool _isRiver(StationView v) =>
     v.tide.data.station.kind == StationKind.river ||

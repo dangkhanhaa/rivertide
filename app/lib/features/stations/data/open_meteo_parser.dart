@@ -97,3 +97,26 @@ List<(DateTime, double?)> parseMarineSeaLevel(String body) {
       ),
   ];
 }
+
+/// Grid cell Open-Meteo answered for, and the terrain height (90 m DEM) at
+/// the requested point. The marine API gives sea level for land points too:
+/// it snaps to a sea cell (Thanh Hóa city → 16 km away) or its coarse sea mask
+/// covers delta land (Thái Bình city, 25 km inland, 11 m). Height > 0 is land.
+({double lat, double lon, double? elevationM})? parseOpenMeteoCell(String body) {
+  final Object? decoded;
+  try {
+    decoded = jsonDecode(body);
+  } on FormatException catch (e) {
+    throw ParseException('open-meteo json: ${e.message}');
+  }
+  if (decoded case {'latitude': final num lat, 'longitude': final num lon}
+      when decoded is Map<String, Object?> && lat.abs() <= 90 && lon.abs() <= 180) {
+    final elevation = decoded['elevation'];
+    return (
+      lat: lat.toDouble(),
+      lon: lon.toDouble(),
+      elevationM: elevation is num && elevation.abs() < 9000 ? elevation.toDouble() : null,
+    );
+  }
+  return null;
+}

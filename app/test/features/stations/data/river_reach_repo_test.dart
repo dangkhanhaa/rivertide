@@ -5,6 +5,7 @@ import 'package:rivertide/core/calc/tide/hourly_timeline.dart';
 import 'package:rivertide/core/db/app_database.dart';
 import 'package:rivertide/features/stations/data/station_repository_impl.dart';
 import 'package:rivertide/features/stations/domain/point_id.dart';
+import 'package:rivertide/features/stations/domain/station.dart';
 import 'package:rivertide/features/stations/domain/station_tide.dart';
 
 import 'station_repository_test.dart' show FakeRemote, loadFromDisk;
@@ -75,5 +76,42 @@ void main() {
     await expectLater(t, completes);
     final r = (await t).reference;
     expect(r?.alongKm, isNull);
+  });
+
+  test('Sông Mã at Thanh Hóa: the model snaps to a sea cell 16 km off, which is not '
+      '"sea here"; the Giàng station 2 km away answers', () async {
+    final t = await pointTide(19.86, 105.80);
+    expect(t.reference?.stationId, 'kttv-giang');
+  });
+
+  test('Thái Bình city: model has sea level on delta land (11 m) → coast estimate, '
+      'low confidence, not "sea here"', () async {
+    final t = await pointTide(20.45, 106.34);
+    expect(t.reference?.stationId, coastReferenceId);
+    expect(t.predictionKind, LevelDataKind.estimate);
+    expect(t.model?.confidence, TideConfidence.low);
+    expect(t.prediction, isNotNull);
+  });
+
+  test('open sea off Vũng Tàu: the model at the point itself', () async {
+    final t = await pointTide(10.3, 107.1);
+    expect(t.reference, isNull);
+    expect(t.prediction, isNotNull);
+  });
+
+  test('Sông Mã flow: main stem picked from the real 3×3 GloFAS cells', () async {
+    final p = await repo.getById(PointId.encode(19.86, 105.80));
+    final flow = (await repo.getFlow(p)).data!;
+    expect(flow.cellLon, closeTo(105.775, 0.001));
+    expect(flow.on(DateTime.utc(2026, 11, 10)), closeTo(708.58, 0.01));
+  });
+
+  test('Sông Đà at Hòa Bình: no sea, no station within 40 km → no level, no error', () async {
+    final t = await pointTide(20.82, 105.34);
+    expect(t.prediction, isNull);
+    expect(t.observations, isEmpty);
+    expect(t.dailyExtremes, isNull);
+    expect(t.reference, isNull);
+    expect(t.station.kind, StationKind.river);
   });
 }

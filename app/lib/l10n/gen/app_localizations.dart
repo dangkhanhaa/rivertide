@@ -878,6 +878,48 @@ abstract class AppLocalizations {
   /// **'Ước tính theo vị trí dọc sông, giữa triều ở cửa sông và trạm đo; chưa kiểm chứng bằng trạm thứ hai.'**
   String get point_reachNote;
 
+  /// No description provided for @flow_unknown.
+  ///
+  /// In vi, this message translates to:
+  /// **'Chỗ này không nằm trên dòng sông lớn nào nên chưa tính được mực nước và dòng chảy. Giờ câu và thời tiết vẫn tính theo đúng vị trí.'**
+  String get flow_unknown;
+
+  /// No description provided for @flow_headRising.
+  ///
+  /// In vi, this message translates to:
+  /// **'Nước sông đang lên'**
+  String get flow_headRising;
+
+  /// No description provided for @flow_headFalling.
+  ///
+  /// In vi, this message translates to:
+  /// **'Nước sông đang rút'**
+  String get flow_headFalling;
+
+  /// No description provided for @flow_headSteady.
+  ///
+  /// In vi, this message translates to:
+  /// **'Nước sông ổn định'**
+  String get flow_headSteady;
+
+  /// No description provided for @flow_dayValue.
+  ///
+  /// In vi, this message translates to:
+  /// **'{day}: {q} m³/s'**
+  String flow_dayValue(String day, String q);
+
+  /// No description provided for @loc_nearCoast.
+  ///
+  /// In vi, this message translates to:
+  /// **'Gần cửa biển'**
+  String get loc_nearCoast;
+
+  /// No description provided for @point_basisCoast.
+  ///
+  /// In vi, this message translates to:
+  /// **'Triều ước tính theo vùng biển ven bờ gần nhất; trong sông, giờ nước lên xuống thường muộn hơn và biên độ nhỏ hơn.'**
+  String get point_basisCoast;
+
   /// No description provided for @flow_title.
   ///
   /// In vi, this message translates to:
@@ -917,7 +959,7 @@ abstract class AppLocalizations {
   /// No description provided for @flow_note.
   ///
   /// In vi, this message translates to:
-  /// **'Mô hình GloFAS cho dòng chính, ô lưới khoảng 5 km. Chưa có số đo vận tốc dòng chảy thật.'**
+  /// **'Ước tính cho dòng chính đoạn sông này, theo ngày.'**
   String get flow_note;
 
   /// No description provided for @chart_band.
@@ -1169,7 +1211,7 @@ abstract class AppLocalizations {
   /// No description provided for @point_noData.
   ///
   /// In vi, this message translates to:
-  /// **'Chưa có dữ liệu mực nước cho điểm này: không có biển gần và không có trạm sông KTTV nào trong vòng 40 km.'**
+  /// **'Chưa tính được số liệu cho điểm này.'**
   String get point_noData;
 
   /// No description provided for @point_nearby.

@@ -3,11 +3,19 @@ import 'package:rivertide/core/cache/cached.dart';
 import 'package:rivertide/core/calc/geo/haversine.dart';
 import 'package:rivertide/core/calc/river/river_line.dart';
 import 'package:rivertide/core/calc/river/river_reach.dart';
+import 'package:rivertide/core/calc/tide/hourly_timeline.dart';
 import 'package:rivertide/core/errors/app_exception.dart';
+import 'package:rivertide/core/logging/log.dart';
 import 'package:rivertide/features/stations/domain/station.dart';
 import 'package:rivertide/features/stations/domain/station_tide.dart';
 
 typedef TideLoader = Future<Cached<StationTide>> Function(Station station, {bool forceRefresh});
+
+/// Ocean model at a point: how far away the cell it answered for lies, and
+/// whether the point itself is land (terrain above sea level).
+typedef SeaTide = ({Cached<StationTide> tide, double cellKm, bool onLand});
+
+typedef SeaLoader = Future<SeaTide> Function(Station station, {bool forceRefresh});
 
 typedef ReachLoader = Future<({Cached<StationTide> tide, RiverReach reach})?> Function(
   Station station,
@@ -27,9 +35,18 @@ const double maxRiverReferenceKm = 40;
 /// Beyond this the reference is shown with low confidence.
 const double nearRiverReferenceKm = 10;
 
-/// Water level for any map point: the ocean model at the point itself when it
-/// has sea there, otherwise the nearest KTTV river station (labelled with its
-/// distance). Never invents data for a point with neither.
+/// The marine grid is 1/12° (cells ≤ ~6,5 km from any sea point): a cell
+/// farther than this means the point itself is on land.
+const double seaAtPointKm = 8;
+
+/// For land/river points near the coast, a sea cell this close still gives
+/// the best tide signal (a low-confidence estimate, never "sea here").
+const double coastReferenceKm = 25;
+
+/// Water for any map point, best source first: the ocean model at the point,
+/// the along-river model, the nearest KTTV river station, the tide of the
+/// nearest sea cell. A point with none of these still gets a result without a
+/// level curve, so river flow, fishing and weather are computed for it.
 class PointTideSource {
   PointTideSource({
     required this._catalog,
@@ -41,22 +58,30 @@ class PointTideSource {
   });
 
   final Future<List<Station>> Function() _catalog;
-  final TideLoader _sea;
+  final SeaLoader _sea;
   final TideLoader _river;
   final Future<List<RiverLine>> Function() _rivers;
   final ReachLoader _reach;
   final DateTime Function() _clock;
 
   Future<Cached<StationTide>> tide(Station point, {bool forceRefresh = false}) async {
+    SeaTide? sea;
     try {
-      final sea = await _sea(point, forceRefresh: forceRefresh);
-      if (sea.data.prediction != null) return sea;
-    } on AppException {
-      // Inland or model unreachable: try the river network next.
+      sea = await _sea(point, forceRefresh: forceRefresh);
+      final hasTide = sea.tide.data.prediction != null;
+      if (hasTide && !sea.onLand && sea.cellKm <= seaAtPointKm) return sea.tide;
+    } on AppException catch (e) {
+      // Model unreachable: the river network may still answer.
+      log.info('point sea model unavailable', {'error': e.debugMessage});
     }
     if (await _alongRiver(point, forceRefresh) case final r?) return r;
     final ref = await nearestRiverStation(point.lat, point.lon);
-    if (ref == null) throw NotFoundException('no water data near ${point.id}');
+    if (ref == null) {
+      if (sea != null && sea.tide.data.prediction != null && sea.cellKm <= coastReferenceKm) {
+        return _nearCoast(sea.tide, sea.cellKm);
+      }
+      return _levelUnknown(point);
+    }
     final base = await _river(ref.station, forceRefresh: forceRefresh);
     final far = ref.km > nearRiverReferenceKm;
     final model = base.data.model;
@@ -114,6 +139,28 @@ class PointTideSource {
     }
     return null;
   }
+
+  Cached<StationTide> _nearCoast(Cached<StationTide> sea, double cellKm) => Cached(
+    data: sea.data.copyWith(
+      predictionKind: LevelDataKind.estimate,
+      model: sea.data.model?.copyWith(confidence: TideConfidence.low),
+      reference: ReferenceStation(stationId: coastReferenceId, name: '', distanceKm: cellKm),
+    ),
+    fetchedAtUtc: sea.fetchedAtUtc,
+    isStale: sea.isStale,
+  );
+
+  /// No level source reaches the point: no curve, but a river-kind place so
+  /// the sheet computes discharge, fishing and weather for it.
+  Cached<StationTide> _levelUnknown(Station point) => Cached(
+    data: StationTide(
+      station: point.copyWith(kind: StationKind.river),
+      observations: const [],
+      predictionKind: LevelDataKind.estimate,
+    ),
+    fetchedAtUtc: _clock(),
+    isStale: false,
+  );
 
   Station _asPoint(Station ref, Station point) => ref.copyWith(
     id: point.id,

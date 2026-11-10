@@ -18,6 +18,7 @@ import 'package:rivertide/features/stations/application/station_providers.dart';
 import 'package:rivertide/features/stations/application/station_view_providers.dart';
 import 'package:rivertide/features/stations/domain/point_id.dart';
 import 'package:rivertide/features/stations/domain/station.dart';
+import 'package:rivertide/features/stations/domain/station_tide.dart';
 import 'package:rivertide/features/stations/presentation/widgets/station_sheet.dart';
 import 'package:rivertide/features/stations/presentation/widgets/tide_text.dart';
 
@@ -38,6 +39,8 @@ class PointSheet extends ConsumerWidget {
     final ref = v.tide.data.reference;
     final river = ref?.river;
     if (ref?.alongKm != null && river != null) return l10n.loc_river(river);
+    if (ref?.stationId == coastReferenceId) return l10n.loc_nearCoast;
+    if (ref == null && levelUnknown(v.tide.data)) return (onWater ?? false) ? l10n.loc_water : null;
     if (ref == null) return onWater == false ? null : l10n.loc_sea;
     if (onWater ?? false) return l10n.loc_water;
     return river == null ? null : l10n.loc_nearRiver(river);

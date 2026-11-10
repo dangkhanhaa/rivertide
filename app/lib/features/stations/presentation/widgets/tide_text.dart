@@ -44,6 +44,9 @@ extension TideText on BuildContext {
   /// along-river position, tide timing, mean level and tide-wave speed.
   List<String> referenceLines(ReferenceStation ref) {
     final along = ref.alongKm;
+    if (ref.stationId == coastReferenceId) {
+      return [l10n.point_basisCoast];
+    }
     if (along == null) {
       return [
         if (ref.river case final river?)

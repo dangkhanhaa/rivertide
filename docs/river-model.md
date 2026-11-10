@@ -77,3 +77,15 @@ Ví dụ dữ liệu thật ngày 09/11, lúc 15:00 giờ VN:
 - **Nguồn:** Open-Meteo Flood (mô hình GloFAS), lưu lượng ngày, ô lưới khoảng 5 km. App gọi 3×3 ô quanh điểm và **chọn ô có lưu lượng trung bình lớn nhất, đó là dòng chính**. Ví dụ ngày 10/11 quanh trạm Hà Nội: ô ngay tại trạm chỉ ~3 m³/s (rơi vào kênh nhỏ), ô trên dòng chính ~2.170 m³/s.
 - **Hiển thị:** lưu lượng hôm nay, ngày mai, xu hướng (thay đổi quá ±5% thì coi là tăng hoặc giảm), có nhãn "Ước tính".
 - **Không có vận tốc dòng chảy đo thật (m/s).** Muốn tính vận tốc cần mặt cắt ngang sông (độ sâu), mà dữ liệu này không có nguồn miễn phí. App không tự đặt ra con số này.
+
+## 6. Điểm không có trạm (10/11/2026)
+
+Thứ tự nguồn cho một điểm bất kỳ ([point_tide_source.dart](../app/lib/features/stations/data/point_tide_source.dart)):
+
+1. **Biển tại điểm**: Open-Meteo Marine, chỉ khi `elevation` (DEM 90 m tại điểm hỏi) ≤ 0 m **và** ô lưới trả về cách ≤ 8 km. Khảo sát 10/11/2026: TP Thái Bình (20.45, 106.34) có `elevation` 11 m nhưng vẫn nhận mực nước biển; TP Thanh Hóa (19.86, 105.80) bị dời sang ô biển cách 16 km. Biển ngoài Vũng Tàu: `elevation` 0.
+2. **Dọc sông** (mục 4).
+3. **Trạm KTTV gần nhất** ≤ 40 km.
+4. **Triều ven bờ**: ô biển ≤ 25 km cho điểm đất liền/sông gần cửa biển, đánh dấu *ước tính*, độ tin cậy thấp.
+5. **Không có nguồn mực nước**: không vẽ đường mực nước. Thẻ chính là lưu lượng dòng chính (mục 5): hôm nay, ngày mai, xu hướng lên/rút, 7 ngày; kèm giờ câu và thời tiết theo đúng vị trí.
+
+Khảo sát lưu lượng GloFAS 10/11/2026 (trung bình 10 ngày của ô lớn nhất trong 3×3): sông Đà ở Hòa Bình ≈ 730 m³/s, sông Cầu ở Thái Nguyên ≈ 94, sông Thương ở Bắc Giang ≈ 81, sông Đồng Nai ở Biên Hòa ≈ 614, sông Đáy ở Phủ Lý ≈ 148. Riêng sông Tiền ở Cao Lãnh thì lưới 3×3 chỉ cho ≤ 25 m³/s, dưới ngưỡng 50, nên vùng đồng bằng sông Cửu Long chưa có lưu lượng. Đây là giới hạn đã biết.

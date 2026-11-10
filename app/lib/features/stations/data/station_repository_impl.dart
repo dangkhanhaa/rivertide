@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:collection/collection.dart';
 import 'package:rivertide/core/cache/cached.dart';
+import 'package:rivertide/core/calc/geo/haversine.dart';
 import 'package:rivertide/core/calc/river/river_line.dart';
 import 'package:rivertide/core/calc/tide/hourly_timeline.dart';
 import 'package:rivertide/core/clock/clock_provider.dart';
@@ -43,7 +44,7 @@ class StationRepositoryImpl implements StationRepository {
     );
     _points = PointTideSource(
       catalog: getAll,
-      sea: _modelTide,
+      sea: _pointSea,
       river: _river.tide,
       rivers: getRivers,
       reach: _river.reachTide,
@@ -147,13 +148,30 @@ class StationRepositoryImpl implements StationRepository {
     return current;
   }
 
-  Future<Cached<StationTide>> _modelTide(Station station, {bool forceRefresh = false}) async {
-    final cached = await _cachedFetch(
-      'marine:${station.id}',
-      CacheTtl.marine,
-      forceRefresh,
-      () => _remote.fetchMarine(station.lat, station.lon),
+  Future<Cached<String>> _marine(Station station, bool forceRefresh) => _cachedFetch(
+    'marine:${station.id}',
+    CacheTtl.marine,
+    forceRefresh,
+    () => _remote.fetchMarine(station.lat, station.lon),
+  );
+
+  /// Unknown cell position counts as far: never call a land point "sea".
+  Future<SeaTide> _pointSea(Station point, {bool forceRefresh = false}) async {
+    final cached = await _marine(point, forceRefresh);
+    final cell = parseOpenMeteoCell(cached.data);
+    return (
+      tide: _marineTide(point, cached),
+      cellKm: cell == null
+          ? double.infinity
+          : haversineKm(point.lat, point.lon, cell.lat, cell.lon),
+      onLand: (cell?.elevationM ?? 0) > 0,
     );
+  }
+
+  Future<Cached<StationTide>> _modelTide(Station station, {bool forceRefresh = false}) async =>
+      _marineTide(station, await _marine(station, forceRefresh));
+
+  Cached<StationTide> _marineTide(Station station, Cached<String> cached) {
     return Cached(
       data: StationTide(
         station: station,

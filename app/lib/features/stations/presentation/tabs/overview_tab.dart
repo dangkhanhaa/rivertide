@@ -11,6 +11,7 @@ import 'package:rivertide/features/stations/presentation/widgets/countdown_card.
 import 'package:rivertide/features/stations/presentation/widgets/daily_extremes_card.dart';
 import 'package:rivertide/features/stations/presentation/widgets/flow_card.dart';
 import 'package:rivertide/features/stations/presentation/widgets/source_line.dart';
+import 'package:rivertide/features/stations/presentation/widgets/station_sheet.dart';
 import 'package:rivertide/features/stations/presentation/widgets/tide_chart.dart';
 import 'package:rivertide/features/stations/presentation/widgets/tide_text.dart';
 
@@ -28,6 +29,12 @@ class OverviewTab extends StatelessWidget {
     final springNeap = now.springNeap;
     final range = now.dailyRangeCm;
     final daily = tide.dailyExtremes;
+    if (levelUnknown(tide)) {
+      return ListView(
+        padding: const EdgeInsets.all(AppSpacing.lg),
+        children: [FlowCard(stationId: tide.station.id, nowUtc: view.nowUtc, primary: true)],
+      );
+    }
     if (tide.prediction == null && daily != null) {
       return ListView(
         padding: const EdgeInsets.all(AppSpacing.lg),

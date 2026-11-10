@@ -35,6 +35,10 @@ abstract class DailyExtremes with _$DailyExtremes {
   }) = _DailyExtremes;
 }
 
+/// [ReferenceStation.stationId] when the stand-in is the nearest sea cell of
+/// the ocean model (a point up an estuary), not a station.
+const String coastReferenceId = 'coast';
+
 /// Station used for a map point that has no data of its own.
 @freezed
 abstract class ReferenceStation with _$ReferenceStation {

@@ -129,4 +129,14 @@ void main() {
       expect(decodeObservations('not json'), isEmpty);
     });
   });
+
+  test('Open-Meteo cell and terrain height: land vs sea', () {
+    final land = parseOpenMeteoCell(fixture('marine_thaibinh_20261110.json'))!;
+    expect(land.elevationM, 11);
+    expect(land.lat, closeTo(20.458, 0.001));
+    final sea = parseOpenMeteoCell(fixture('marine_sea_offvungtau_20261110.json'))!;
+    expect(sea.elevationM, 0);
+    expect(parseOpenMeteoCell('[]'), isNull);
+    expect(() => parseOpenMeteoCell('{'), throwsA(isA<ParseException>()));
+  });
 }

@@ -477,6 +477,31 @@ class AppLocalizationsVi extends AppLocalizations {
       'Ước tính theo vị trí dọc sông, giữa triều ở cửa sông và trạm đo; chưa kiểm chứng bằng trạm thứ hai.';
 
   @override
+  String get flow_unknown =>
+      'Chỗ này không nằm trên dòng sông lớn nào nên chưa tính được mực nước và dòng chảy. Giờ câu và thời tiết vẫn tính theo đúng vị trí.';
+
+  @override
+  String get flow_headRising => 'Nước sông đang lên';
+
+  @override
+  String get flow_headFalling => 'Nước sông đang rút';
+
+  @override
+  String get flow_headSteady => 'Nước sông ổn định';
+
+  @override
+  String flow_dayValue(String day, String q) {
+    return '$day: $q m³/s';
+  }
+
+  @override
+  String get loc_nearCoast => 'Gần cửa biển';
+
+  @override
+  String get point_basisCoast =>
+      'Triều ước tính theo vùng biển ven bờ gần nhất; trong sông, giờ nước lên xuống thường muộn hơn và biên độ nhỏ hơn.';
+
+  @override
   String get flow_title => 'Dòng chảy sông';
 
   @override
@@ -499,8 +524,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get flow_steady => 'ổn định';
 
   @override
-  String get flow_note =>
-      'Mô hình GloFAS cho dòng chính, ô lưới khoảng 5 km. Chưa có số đo vận tốc dòng chảy thật.';
+  String get flow_note => 'Ước tính cho dòng chính đoạn sông này, theo ngày.';
 
   @override
   String chart_band(String cm) {
@@ -651,8 +675,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get point_copied => 'Đã sao chép tọa độ';
 
   @override
-  String get point_noData =>
-      'Chưa có dữ liệu mực nước cho điểm này: không có biển gần và không có trạm sông KTTV nào trong vòng 40 km.';
+  String get point_noData => 'Chưa tính được số liệu cho điểm này.';
 
   @override
   String get point_nearby => 'Trạm gần nhất';

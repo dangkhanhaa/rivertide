@@ -299,12 +299,35 @@ void main() {
     await disposeApp(tester, db);
   });
 
-  testWidgets('tap far from any water data → says so instead of inventing', (tester) async {
+  testWidgets('tap far from any level source → still computes flow and fishing, no level', (
+    tester,
+  ) async {
     final db = await pumpApp(tester, startOnMap: true);
     await tester.tap(find.text('tap-none'));
     await settle(tester);
-    expect(find.textContaining('Chưa có dữ liệu mực nước cho điểm này'), findsOneWidget);
+    expect(find.textContaining('Chưa có dữ liệu'), findsNothing);
+    // 4 Nov is before the real flood snapshot (7–16 Nov): says plainly, invents nothing.
+    expect(find.textContaining('không nằm trên dòng sông lớn'), findsOneWidget);
+    expect(find.text('Mực nước hiện tại'), findsNothing);
     expect(find.text('Trạm gần nhất'), findsOneWidget);
+    expect(find.text('Câu cá tại đây'), findsOneWidget);
+    await disposeApp(tester, db);
+  });
+
+  testWidgets('river point without a level source: flow trend and week bars', (tester) async {
+    final db = await pumpApp(
+      tester,
+      startOnMap: true,
+      now: DateTime.utc(2026, 11, 10, 3),
+      textScale: 1.6,
+    );
+    await tester.tap(find.text('tap-none'));
+    await settle(tester);
+    expect(find.text('Dòng chảy sông'), findsOneWidget);
+    expect(find.textContaining('Nước sông'), findsOneWidget);
+    expect(find.textContaining('m³/s'), findsWidgets);
+    expect(find.text('Mực nước hiện tại'), findsNothing); // no invented level
+    expect(find.text('Câu cá tại đây'), findsOneWidget);
     await disposeApp(tester, db);
   });
 

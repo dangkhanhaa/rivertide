@@ -34,6 +34,18 @@ class FakeRemote extends RemoteSources {
     if ((lat - 20.67).abs() < 1e-6 && (lon - 106.81).abs() < 1e-6) {
       return File('test/fixtures/om_hondau_20261025_20261112.json').readAsStringSync();
     }
+    // Open sea off Vũng Tàu (the map test's sea tap).
+    if ((lat - 10.3).abs() < 1e-6 && (lon - 107.1).abs() < 1e-6) {
+      return File('test/fixtures/marine_sea_offvungtau_20261110.json').readAsStringSync();
+    }
+    // Thái Bình city: 25 km inland, yet the model has sea level here.
+    if ((lat - 20.45).abs() < 1e-6 && (lon - 106.34).abs() < 1e-6) {
+      return File('test/fixtures/marine_thaibinh_20261110.json').readAsStringSync();
+    }
+    // Thanh Hóa city: real answer snapped to a sea cell 16 km away.
+    if ((lat - 19.86).abs() < 1e-6 && (lon - 105.80).abs() < 1e-6) {
+      return File('test/fixtures/marine_land_thanhhoa_20261110.json').readAsStringSync();
+    }
     // Open-Meteo returns all-null sea level over land.
     final inland = (lat > 20.8 && lon < 106.5) || (lat > 12 && lat < 15 && lon < 108.5);
     return File(
@@ -56,6 +68,9 @@ class FakeRemote extends RemoteSources {
   @override
   Future<String> fetchFlood(double lat, double lon) async {
     if (offline) throw const NetworkException('offline');
+    if ((lat - 19.86).abs() < 1e-6 && (lon - 105.80).abs() < 1e-6) {
+      return File('test/fixtures/flood_thanhhoa_3x3_20261110.json').readAsStringSync();
+    }
     return File('test/fixtures/flood_hanoi_3x3_20261110.json').readAsStringSync();
   }
 

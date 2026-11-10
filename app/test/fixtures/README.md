@@ -11,6 +11,10 @@ Không có file nào được tự đặt số liệu. Mỗi file là phản h�
 | `forecast_cantho_20261106.json` | Open-Meteo Forecast, Cần Thơ | 06/11/2026 | Thời tiết |
 | `kttv_tvhn_20261109.json` | Bản tin thủy văn KTTV 09/11/2026, đọc bằng `tools/nchmf/tvhn_parser.py` | 09/11/2026 | |
 | `flood_hanoi_3x3_20261110.json` | Open-Meteo Flood (GloFAS), 3×3 ô quanh trạm Hà Nội | 10/11/2026 | Lưu lượng ngày |
+| `marine_land_thanhhoa_20261110.json` | Open-Meteo Marine tại 19.860, 105.800 (TP Thanh Hóa, sông Mã) | 10/11/2026 | Nguồn tự dời sang ô biển 19.79, 105.96 (cách 16 km) |
+| `marine_thaibinh_20261110.json` | Open-Meteo Marine tại 20.450, 106.340 (TP Thái Bình, đất liền) | 10/11/2026 | Nguồn vẫn trả mực nước biển; `elevation` 11 m cho biết là đất liền |
+| `marine_sea_offvungtau_20261110.json` | Open-Meteo Marine tại 10.300, 107.100 (biển ngoài Vũng Tàu) | 10/11/2026 | `elevation` 0 |
+| `flood_thanhhoa_3x3_20261110.json` | Open-Meteo Flood (GloFAS), 3×3 ô quanh 19.86, 105.80 | 10/11/2026 | Dòng chính sông Mã ở ô 19.825, 105.775 |
 | `openfreemap_liberty_20261109.json` | Kiểu bản đồ OpenFreeMap "liberty" | 09/11/2026 | |
 
 Test thuật toán thuần (`test/core/calc/**`) có dùng tín hiệu hình sin tự tính để kiểm tra công thức; đó là phép tính kiểm chứng, không phải dữ liệu hiển thị cho người dùng.
