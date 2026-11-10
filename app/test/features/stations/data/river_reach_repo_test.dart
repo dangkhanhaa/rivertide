@@ -70,8 +70,19 @@ void main() {
     expect(t.reference!.stationId, 'kttv-ha-noi');
   });
 
-  test('far downstream beyond the defensible range: fallback, no along-river claim', () async {
-    // Red River near Hưng Yên–Thái Bình, ~80 km below Hà Nội.
+  test(
+    'Nam Định, on the Red River 102 km below Hà Nội: along-river estimate to the mouth',
+    () async {
+      final t = await pointTide(20.4232, 106.2102);
+      expect(t.reference?.alongKm, closeTo(-101.6, 1));
+      expect(t.reference?.lagShiftMinutes, lessThan(-200)); // tide turns hours earlier than Hà Nội
+      expect(t.prediction, isNotNull);
+      expect(t.predictionKind, LevelDataKind.estimate);
+    },
+  );
+
+  test('1.8 km off the Red River line (fields beside it): no along-river claim', () async {
+    // Near Hưng Yên–Thái Bình, ~80 km below Hà Nội.
     final t = pointTide(20.55, 106.15);
     await expectLater(t, completes);
     final r = (await t).reference;

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:rivertide/core/navigation/map_focus.dart';
 import 'package:rivertide/features/map/domain/location_service.dart';
 import 'package:rivertide/features/map/domain/water_layers.dart';
+import 'package:rivertide/features/stations/domain/point_id.dart';
 
 import '../../helpers/app_harness.dart';
 
@@ -421,6 +424,29 @@ void main() {
     await tester.tap(find.textContaining('pin:ioc-vung:'));
     await settle(tester);
     expect(tester.takeException(), isNull);
+    await disposeApp(tester, db);
+  });
+
+  testWidgets('saved point from the watch list replaces an open sheet and flies there', (
+    tester,
+  ) async {
+    final db = await pumpApp(tester, startOnMap: true);
+    await tester.tap(find.text('tap-river'));
+    await settle(tester);
+    expect(find.text('Điểm đã chọn'), findsOneWidget);
+    FakeBaseMap.flights.clear();
+    // What a watch-list card does (StationCard → mapFocus), with the old sheet open.
+    ProviderScope.containerOf(tester.element(find.text('Điểm đã chọn')))
+        .read(mapFocusProvider.notifier)
+        .stationId = PointId.encode(
+      10.3,
+      107.1,
+    );
+    await settle(tester);
+    expect(find.textContaining('10.30000, 107.10000'), findsOneWidget);
+    expect(find.textContaining('20.99500'), findsNothing); // old sheet closed
+    final f = FakeBaseMap.flights.last;
+    expect((f.lat, f.lon), (10.3, 107.1));
     await disposeApp(tester, db);
   });
 }

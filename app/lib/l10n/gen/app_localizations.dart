@@ -521,7 +521,7 @@ abstract class AppLocalizations {
   /// No description provided for @map_satelliteCredit.
   ///
   /// In vi, this message translates to:
-  /// **'Ảnh vệ tinh: EOxCloudless (EOX IT Services) · chứa dữ liệu Copernicus Sentinel 2025 · chỉ dùng phi thương mại'**
+  /// **'Ảnh vệ tinh: EOxCloudless (EOX IT Services) · chứa dữ liệu Copernicus Sentinel 2025'**
   String get map_satelliteCredit;
 
   /// No description provided for @map_filter.
@@ -1673,7 +1673,7 @@ abstract class AppLocalizations {
   /// No description provided for @more_sourcesBody.
   ///
   /// In vi, this message translates to:
-  /// **'• IOC Sea Level Monitoring — thực đo mực nước biển Vũng Tàu, Quy Nhơn (mỗi phút). Dự báo triều tại 2 trạm này tính bằng phân tích điều hòa (utide) từ 12 tháng số liệu; kiểm thử ngược: sai số ±10 cm (Vũng Tàu), ±7 cm (Quy Nhơn).\n• Trung tâm Dự báo KTTV quốc gia — bản tin thủy văn hạn ngắn: mực nước sông 4 mốc/ngày + dự báo. Đường từng giờ do app ước tính (ghép triều cửa sông); kiểm thử ngược: ±12 cm (Hà Nội), ±11 cm (Nam Đàn).\n• Open-Meteo — thời tiết, sóng và mô hình mực nước biển tại điểm ven biển (gói miễn phí, phi thương mại).\n• Điểm bất kỳ trên bản đồ: mô hình biển tại điểm đó, hoặc trạm sông KTTV gần nhất (trong 40 km).\n• Bản đồ nền: OpenFreeMap · © OpenMapTiles · dữ liệu © OpenStreetMap.\n• Ảnh vệ tinh: EOxCloudless (EOX IT Services GmbH), chứa dữ liệu Copernicus Sentinel 2025, giấy phép CC BY-NC-SA 4.0.\nMọi số liệu dự báo/ước tính chỉ mang tính tham khảo. Chi tiết nguồn, mốc cao độ và độ tin cậy của từng trạm xem ở tab Thông tin của trạm.'**
+  /// **'• IOC Sea Level Monitoring — thực đo mực nước biển Vũng Tàu, Quy Nhơn (mỗi phút). Dự báo triều tại 2 trạm này tính bằng phân tích điều hòa (utide) từ 12 tháng số liệu; kiểm thử ngược: sai số ±10 cm (Vũng Tàu), ±7 cm (Quy Nhơn).\n• Trung tâm Dự báo KTTV quốc gia — bản tin thủy văn hạn ngắn: mực nước sông 4 mốc/ngày + dự báo. Đường từng giờ do app ước tính (ghép triều cửa sông); kiểm thử ngược: ±12 cm (Hà Nội), ±11 cm (Nam Đàn).\n• Open-Meteo — thời tiết, sóng và mô hình mực nước biển ven bờ.\n• GloFAS (qua Open-Meteo Flood) — lưu lượng dòng chính các sông, theo ngày.\n• Điểm bất kỳ trên bản đồ: mô hình biển tại điểm đó; trên sông Hồng, sông Cả thì tính theo vị trí dọc sông; nơi khác dùng trạm sông KTTV gần nhất (trong 40 km), triều ven bờ (ước tính) hoặc lưu lượng sông.\n• Bản đồ nền: OpenFreeMap · © OpenMapTiles · dữ liệu © OpenStreetMap.\n• Ảnh vệ tinh: EOxCloudless (EOX IT Services GmbH), chứa dữ liệu Copernicus Sentinel 2025.\nMọi số liệu dự báo/ước tính chỉ mang tính tham khảo. Chi tiết nguồn, mốc cao độ và độ tin cậy của từng trạm xem ở tab Thông tin của trạm.'**
   String get more_sourcesBody;
 
   /// No description provided for @more_version.

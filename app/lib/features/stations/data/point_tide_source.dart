@@ -142,6 +142,8 @@ class PointTideSource {
 
   Cached<StationTide> _nearCoast(Cached<StationTide> sea, double cellKm) => Cached(
     data: sea.data.copyWith(
+      // A land/river point: its river flow is shown too when there is one.
+      station: sea.data.station.copyWith(kind: StationKind.river),
       predictionKind: LevelDataKind.estimate,
       model: sea.data.model?.copyWith(confidence: TideConfidence.low),
       reference: ReferenceStation(stationId: coastReferenceId, name: '', distanceKm: cellKm),
@@ -170,15 +172,21 @@ class PointTideSource {
     coordApprox: false,
   );
 
-  /// Nearest KTTV river station within [maxRiverReferenceKm], or null.
+  /// Nearest KTTV river station within [maxRiverReferenceKm], or null. A
+  /// bulletin-only station (daily highs/lows, no curve) counts only within
+  /// [nearRiverReferenceKm]: farther away it is often another river (Đà Nẵng
+  /// would get Cầu Lâu on the Thu Bồn, 25 km off).
   Future<({Station station, double km})?> nearestRiverStation(double lat, double lon) async {
-    final rivers = (await _catalog()).where(
-      (s) => s.kind == StationKind.river || s.kind == StationKind.riverDaily,
-    );
-    final best = rivers
+    return (await _catalog())
         .map((s) => (station: s, km: haversineKm(lat, lon, s.lat, s.lon)))
+        .where(
+          (r) => switch (r.station.kind) {
+            StationKind.river => r.km <= maxRiverReferenceKm,
+            StationKind.riverDaily => r.km <= nearRiverReferenceKm,
+            StationKind.gauge || StationKind.model => false,
+          },
+        )
         .sortedBy<num>((r) => r.km)
         .firstOrNull;
-    return best == null || best.km > maxRiverReferenceKm ? null : best;
   }
 }

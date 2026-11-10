@@ -65,7 +65,9 @@ void main() {
   test('range limits', () {
     expect(RiverReach(fit: _fit(), stationKm: 165.6, pointKm: 190).inRange, isTrue);
     expect(RiverReach(fit: _fit(), stationKm: 165.6, pointKm: 191).inRange, isFalse);
-    expect(RiverReach(fit: _fit(), stationKm: 165.6, pointKm: 105).inRange, isFalse);
+    // Downstream all the way to the mouth: between two real boundaries.
+    expect(RiverReach(fit: _fit(), stationKm: 165.6, pointKm: 105).inRange, isTrue);
+    expect(RiverReach(fit: _fit(), stationKm: 165.6, pointKm: 0).inRange, isTrue);
   });
 
   group('RiverLine.project', () {

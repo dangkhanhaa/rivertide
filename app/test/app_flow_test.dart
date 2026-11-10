@@ -140,4 +140,17 @@ void main() {
   test('fixtures exist', () {
     expect(File('test/fixtures/vung_20261104.json').existsSync(), isTrue);
   });
+
+  testWidgets('bulletin-only river station sheet: highs/lows plus fishing and weather', (
+    tester,
+  ) async {
+    final db = await pumpApp(tester, now: DateTime.utc(2026, 11, 9, 8));
+    await tester.scrollUntilVisible(find.text('Giàng'), 300);
+    await tester.tap(find.text('Giàng'));
+    await settle(tester);
+    expect(find.text('Sông Mã'), findsOneWidget);
+    expect(find.text('Câu cá lúc này'), findsOneWidget);
+    expect(find.text('Câu cá tại đây'), findsOneWidget);
+    await disposeApp(tester, db);
+  });
 }

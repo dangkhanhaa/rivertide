@@ -68,7 +68,7 @@ Ví dụ dữ liệu thật ngày 09/11, lúc 15:00 giờ VN:
 | Bãi Chèm | 10,3 km thượng lưu | 00:14 · 1,28 m | 12:00 · 1,86 m |
 
 ### 4.3. Phạm vi áp dụng và giới hạn
-- **Chỉ áp dụng khi điểm chạm nằm trong vòng 1 km tính từ đường dòng chính**, từ 60 km hạ lưu tới 25 km thượng lưu của trạm. Ngoài phạm vi này app quay về cách cũ (lấy theo trạm gần nhất) và ghi rõ.
+- **Chỉ áp dụng khi điểm chạm nằm trong vòng 1 km tính từ đường dòng chính**, từ cửa sông tới 25 km thượng lưu của trạm. Phía hạ lưu là nội suy giữa 2 điều kiện biên thật (trạm và cửa sông) nên dùng tới tận cửa sông (sửa 10/11/2026, trước đây giới hạn 60 km khiến Hưng Yên, Nam Định không có số). Phía thượng lưu chỉ có 1 biên nên giới hạn 25 km. Ngoài phạm vi này app quay về các nguồn ở mục 6.
 - **Giả định độ trễ, biên độ và mực nước trung bình thay đổi đều theo km.** Thực tế sóng triều tắt dần không đều.
 - **Chưa kiểm chứng tại trạm thứ hai** vì đoạn sông này không có trạm khác trong bản tin. App ghi rõ điều này và hiện dải sai số đo tại trạm (±11,7 cm).
 - **Sông Đuống, sông Luộc và các nhánh khác chưa có đường sông riêng**: điểm trên các sông này dùng cách cũ.
@@ -84,8 +84,10 @@ Thứ tự nguồn cho một điểm bất kỳ ([point_tide_source.dart](../app
 
 1. **Biển tại điểm**: Open-Meteo Marine, chỉ khi `elevation` (DEM 90 m tại điểm hỏi) ≤ 0 m **và** ô lưới trả về cách ≤ 8 km. Khảo sát 10/11/2026: TP Thái Bình (20.45, 106.34) có `elevation` 11 m nhưng vẫn nhận mực nước biển; TP Thanh Hóa (19.86, 105.80) bị dời sang ô biển cách 16 km. Biển ngoài Vũng Tàu: `elevation` 0.
 2. **Dọc sông** (mục 4).
-3. **Trạm KTTV gần nhất** ≤ 40 km.
+3. **Trạm KTTV gần nhất**: trạm có đường mực nước theo giờ ≤ 40 km; trạm chỉ có bản tin cao/thấp theo ngày ≤ 10 km (xa hơn thường là sông khác, ví dụ Đà Nẵng cách Cầu Lâu trên sông Thu Bồn 25 km).
 4. **Triều ven bờ**: ô biển ≤ 25 km cho điểm đất liền/sông gần cửa biển, đánh dấu *ước tính*, độ tin cậy thấp.
 5. **Không có nguồn mực nước**: không vẽ đường mực nước. Thẻ chính là lưu lượng dòng chính (mục 5): hôm nay, ngày mai, xu hướng lên/rút, 7 ngày; kèm giờ câu và thời tiết theo đúng vị trí.
 
 Khảo sát lưu lượng GloFAS 10/11/2026 (trung bình 10 ngày của ô lớn nhất trong 3×3): sông Đà ở Hòa Bình ≈ 730 m³/s, sông Cầu ở Thái Nguyên ≈ 94, sông Thương ở Bắc Giang ≈ 81, sông Đồng Nai ở Biên Hòa ≈ 614, sông Đáy ở Phủ Lý ≈ 148. Riêng sông Tiền ở Cao Lãnh thì lưới 3×3 chỉ cho ≤ 25 m³/s, dưới ngưỡng 50, nên vùng đồng bằng sông Cửu Long chưa có lưu lượng. Đây là giới hạn đã biết.
+
+Kiểm tra với mạng thật ngày 10/11/2026 trên 26 điểm sông khắp cả nước: điểm nào cũng có thời tiết và giờ câu (7 ngày). Mực nước có ở các điểm trên sông Hồng, sông Cả, gần trạm KTTV, hoặc gần cửa biển. Các điểm còn lại hiện lưu lượng. Còn **Mỹ Tho, Cao Lãnh** (sông Tiền) và **Lạng Sơn** (sông Kỳ Cùng, lưu lượng chỉ khoảng 20 m³/s) chưa có mực nước lẫn lưu lượng.

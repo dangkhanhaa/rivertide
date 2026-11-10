@@ -25,6 +25,10 @@ mixin MapDetailPresenter<T extends ConsumerStatefulWidget> on ConsumerState<T> {
   bool sheetBusy = false;
   Timer? _releaseTimer;
 
+  /// The open phone detail sheet, so a list's "show on map" can replace it.
+  BuildContext? _sheetContext;
+  Completer<void>? _sheetClosed;
+
   static const Duration _tapGrace = Duration(milliseconds: 500);
 
   /// Also locks the map's own gestures (see BaseMapConfig.gesturesEnabled):
@@ -86,6 +90,20 @@ mixin MapDetailPresenter<T extends ConsumerStatefulWidget> on ConsumerState<T> {
     onDetailClosed();
   }
 
+  /// Closes whatever detail is open so another place can be shown. Used by
+  /// "show on map" from the lists: the old sheet stays open while the user is
+  /// on another tab and would otherwise block the new point (and its zoom).
+  Future<void> dismissDetail() async {
+    if (sidePanel != null) closeSidePanel();
+    final sheet = _sheetContext;
+    final closed = _sheetClosed;
+    if (sheet != null && sheet.mounted) Navigator.of(sheet).pop();
+    if (closed != null) await closed.future;
+    // Not a click on the map, so no click-through grace is needed.
+    _releaseTimer?.cancel();
+    if (mounted && sheetBusy) _setBusy(false);
+  }
+
   /// A plain sheet (legend, filter, layers) with the same click guard.
   Future<void> showGuardedSheet(WidgetBuilder builder) async {
     _releaseTimer?.cancel();
@@ -104,6 +122,7 @@ mixin MapDetailPresenter<T extends ConsumerStatefulWidget> on ConsumerState<T> {
     }
     _releaseTimer?.cancel();
     _setBusy(true);
+    final closed = _sheetClosed = Completer<void>();
     try {
       await showModalBottomSheet<void>(
         context: context,
@@ -115,17 +134,23 @@ mixin MapDetailPresenter<T extends ConsumerStatefulWidget> on ConsumerState<T> {
           initialChildSize: sheetInitialSize,
           minChildSize: 0.3,
           maxChildSize: 0.95,
-          builder: (ctx, controller) => MapDetailPanel(
-            scrollController: controller,
-            onClose: () => Navigator.of(ctx).pop(),
-            child: child,
-          ),
+          builder: (ctx, controller) {
+            _sheetContext = ctx;
+            return MapDetailPanel(
+              scrollController: controller,
+              onClose: () => Navigator.of(ctx).pop(),
+              child: child,
+            );
+          },
         ),
       );
     } finally {
+      _sheetContext = null;
       _releaseTimer = Timer(_tapGrace, () => _setBusy(false));
     }
     if (mounted) onDetailClosed();
+    if (identical(_sheetClosed, closed)) _sheetClosed = null;
+    closed.complete();
   }
 
   /// True when [global] falls on the open side panel.

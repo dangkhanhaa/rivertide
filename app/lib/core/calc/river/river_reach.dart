@@ -2,10 +2,11 @@ import 'package:rivertide/core/calc/river/river_curve.dart';
 import 'package:rivertide/core/calc/tide/extreme_finder.dart';
 import 'package:rivertide/core/calc/tide/tide_series.dart';
 
-/// How far up- or downstream of the station a reach estimate may go. Beyond
-/// this the linear blend below is no longer defensible.
+/// How far upstream of the station a reach estimate may go: above the station
+/// there is no second boundary, so the blend below is an extrapolation.
+/// Downstream it interpolates between two real boundaries (station, mouth)
+/// and is used all the way to the mouth.
 const double maxReachUpstreamKm = 25;
-const double maxReachDownstreamKm = 60;
 
 /// Water level at another point of the same tidal river, between the mouth
 /// (km 0) and the station (km [stationKm]), from two real boundary conditions:
@@ -41,8 +42,7 @@ class RiverReach {
 
   double get celerityKmH => fit.celerityKmH(stationKm);
 
-  bool get inRange =>
-      pointKm > 0 && alongKm <= maxReachUpstreamKm && alongKm >= -maxReachDownstreamKm;
+  bool get inRange => pointKm >= 0 && alongKm <= maxReachUpstreamKm;
 
   /// River mean-level difference to the station at time [t] (negative downstream).
   double meanShiftCm(DateTime t) => fit.meanAt(t) * (_f - 1);

@@ -105,6 +105,8 @@ class _MapScreenState extends ConsumerState<MapScreen> with MapDetailPresenter<M
   /// "Show on map" from the station or watch list: zoom in and open its details.
   Future<void> _focusStation(String id) async {
     ref.read(mapFocusProvider.notifier).stationId = null;
+    await dismissDetail();
+    if (!mounted) return;
     // A saved map point (from the watch list): fly there and reopen it.
     if (PointId.decode(id) case final p?) {
       await _openPoint(p.lat, p.lon, PointSurface.unknown, zoom: 12);

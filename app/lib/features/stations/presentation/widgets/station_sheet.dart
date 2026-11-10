@@ -125,8 +125,10 @@ class StationSummaryBody extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         spacing: AppSpacing.sm,
         children: [
+          if (place case final p?) Text(p, style: context.text.label),
           DailyExtremesCard(extremes: daily),
           FlowCard(stationId: tide.station.id, nowUtc: view.nowUtc),
+          FishingNow(view: view),
           Conditions(view: view),
         ],
       );
