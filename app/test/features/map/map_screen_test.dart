@@ -449,4 +449,22 @@ void main() {
     expect((f.lat, f.lon), (10.3, 107.1));
     await disposeApp(tester, db);
   });
+
+  testWidgets('detail of a river point without level: hourly fishing + weather, no tide calendar', (
+    tester,
+  ) async {
+    final db = await pumpApp(tester, startOnMap: true, now: DateTime.utc(2026, 11, 10, 3));
+    await tester.tap(find.text('tap-none'));
+    await settle(tester);
+    final open = find.text('Xem chi tiết theo giờ');
+    await tester.ensureVisible(open);
+    await tester.tap(open);
+    await settle(tester);
+    expect(find.text('Lịch triều'), findsNothing);
+    await tester.tap(find.text('Theo giờ'));
+    await settle(tester);
+    expect(find.textContaining('/10 ·'), findsWidgets);
+    expect(find.textContaining('°C'), findsWidgets);
+    await disposeApp(tester, db);
+  });
 }

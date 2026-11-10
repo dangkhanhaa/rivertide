@@ -5,6 +5,7 @@ import 'package:rivertide/core/theme/app_spacing.dart';
 import 'package:rivertide/core/theme/app_text.dart';
 import 'package:rivertide/features/stations/application/station_view_providers.dart';
 import 'package:rivertide/features/stations/presentation/widgets/source_line.dart';
+import 'package:rivertide/features/stations/presentation/widgets/station_sheet.dart';
 
 /// Coordinates, source, datum, confidence and measured error (S03 Thông tin, F-TIDE-09).
 class InfoTab extends StatelessWidget {
@@ -16,6 +17,21 @@ class InfoTab extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     final station = view.tide.data.station;
+    if (levelUnknown(view.tide.data)) {
+      return ListView(
+        padding: const EdgeInsets.all(AppSpacing.lg),
+        children: [
+          Text(station.name, style: context.text.headline),
+          const SizedBox(height: AppSpacing.md),
+          Text(
+            l10n.station_coords(station.lat.toStringAsFixed(3), station.lon.toStringAsFixed(3)),
+            style: context.text.body,
+          ),
+          const SizedBox(height: AppSpacing.sm),
+          Text(l10n.info_noLevelSources, style: context.text.caption),
+        ],
+      );
+    }
     final model = view.tide.data.model;
     final live = view.now.liveSkill;
     final liveTime = live?.meanAbsExtremeTimeMin;

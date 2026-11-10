@@ -502,6 +502,10 @@ class AppLocalizationsVi extends AppLocalizations {
       'Triều ước tính theo vùng biển ven bờ gần nhất; trong sông, giờ nước lên xuống thường muộn hơn và biên độ nhỏ hơn.';
 
   @override
+  String get info_noLevelSources =>
+      'Chỗ này chưa có nguồn mực nước. Lưu lượng sông: mô hình GloFAS (qua Open-Meteo Flood), theo ngày. Thời tiết, giờ câu: Open-Meteo và tính toán thiên văn tại đúng tọa độ. Mọi số liệu chỉ mang tính tham khảo.';
+
+  @override
   String get flow_title => 'Dòng chảy sông';
 
   @override

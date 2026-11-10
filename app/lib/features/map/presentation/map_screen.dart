@@ -106,6 +106,7 @@ class _MapScreenState extends ConsumerState<MapScreen> with MapDetailPresenter<M
   Future<void> _focusStation(String id) async {
     ref.read(mapFocusProvider.notifier).stationId = null;
     await dismissDetail();
+    await untilMapShown();
     if (!mounted) return;
     // A saved map point (from the watch list): fly there and reopen it.
     if (PointId.decode(id) case final p?) {
@@ -131,8 +132,7 @@ class _MapScreenState extends ConsumerState<MapScreen> with MapDetailPresenter<M
       _hintDismissed = true;
     });
     // Bring the point to the middle of what stays visible beside the details.
-    unawaited(_map?.flyTo(lat, lon, zoom: zoom, offset: visibleOffset(detailOpen: true)));
-    await showDetail(
+    await showDetailAt(
       PointSheet(
         key: ValueKey('$lat,$lon'),
         lat: lat,
@@ -143,6 +143,7 @@ class _MapScreenState extends ConsumerState<MapScreen> with MapDetailPresenter<M
           PointSurface.unknown => null,
         },
       ),
+      (offset) async => await _map?.flyTo(lat, lon, zoom: zoom, offset: offset),
     );
   }
 
@@ -151,16 +152,14 @@ class _MapScreenState extends ConsumerState<MapScreen> with MapDetailPresenter<M
     final station = ref.read(stationListProvider).value?.where((s) => s.id == id).firstOrNull;
     if (station == null) return;
     setState(() => _pin = null);
-    unawaited(
-      _map?.flyTo(station.lat, station.lon, zoom: zoom, offset: visibleOffset(detailOpen: true)),
+    await showDetailAt(
+      StationSheet(key: ValueKey(id), station: station),
+      (offset) async => await _map?.flyTo(station.lat, station.lon, zoom: zoom, offset: offset),
     );
-    await showDetail(StationSheet(key: ValueKey(id), station: station));
   }
 
-  Future<void> _selectStation(Station s) => _openStation(s.id, zoom: 11);
-
   Future<void> _locate() async {
-    final p = await runLocateFlow(context, ref.read(locationServiceProvider));
+    final p = await whileMapLocked(() => runLocateFlow(context, ref.read(locationServiceProvider)));
     if (p == null || !mounted) return;
     setState(() => _me = p);
     await _map?.flyTo(p.lat, p.lon, zoom: 11, offset: visibleOffset(detailOpen: false));
@@ -258,7 +257,7 @@ class _MapScreenState extends ConsumerState<MapScreen> with MapDetailPresenter<M
                   children: [
                     MapSearchBar(
                       stations: stationList.value ?? const [],
-                      onSelected: _selectStation,
+                      onSelected: (s) => _openStation(s.id, zoom: 11),
                     ),
                     // Riverpod retries failed providers: show the error, not a spinner, meanwhile.
                     if (stationList.hasError && !stationList.hasValue)

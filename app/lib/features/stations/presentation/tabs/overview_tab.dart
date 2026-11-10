@@ -10,6 +10,7 @@ import 'package:rivertide/features/stations/domain/station.dart';
 import 'package:rivertide/features/stations/presentation/widgets/countdown_card.dart';
 import 'package:rivertide/features/stations/presentation/widgets/daily_extremes_card.dart';
 import 'package:rivertide/features/stations/presentation/widgets/flow_card.dart';
+import 'package:rivertide/features/stations/presentation/widgets/location_extras.dart';
 import 'package:rivertide/features/stations/presentation/widgets/source_line.dart';
 import 'package:rivertide/features/stations/presentation/widgets/station_sheet.dart';
 import 'package:rivertide/features/stations/presentation/widgets/tide_chart.dart';
@@ -32,7 +33,13 @@ class OverviewTab extends StatelessWidget {
     if (levelUnknown(tide)) {
       return ListView(
         padding: const EdgeInsets.all(AppSpacing.lg),
-        children: [FlowCard(stationId: tide.station.id, nowUtc: view.nowUtc, primary: true)],
+        children: [
+          FlowCard(stationId: tide.station.id, nowUtc: view.nowUtc, primary: true),
+          const SizedBox(height: AppSpacing.md),
+          FishingNow(view: view),
+          const SizedBox(height: AppSpacing.md),
+          Conditions(view: view),
+        ],
       );
     }
     if (tide.prediction == null && daily != null) {

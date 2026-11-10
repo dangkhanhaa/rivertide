@@ -176,6 +176,7 @@
   "@flow_dayValue": {"placeholders": {"day": {"type": "String"}, "q": {"type": "String"}}},
   "loc_nearCoast": "Gần cửa biển",
   "point_basisCoast": "Triều ước tính theo vùng biển ven bờ gần nhất; trong sông, giờ nước lên xuống thường muộn hơn và biên độ nhỏ hơn.",
+  "info_noLevelSources": "Chỗ này chưa có nguồn mực nước. Lưu lượng sông: mô hình GloFAS (qua Open-Meteo Flood), theo ngày. Thời tiết, giờ câu: Open-Meteo và tính toán thiên văn tại đúng tọa độ. Mọi số liệu chỉ mang tính tham khảo.",
   "flow_title": "Dòng chảy sông",
   "flow_today": "Lưu lượng hôm nay ≈ {q} m³/s",
   "@flow_today": {"placeholders": {"q": {"type": "String"}}},

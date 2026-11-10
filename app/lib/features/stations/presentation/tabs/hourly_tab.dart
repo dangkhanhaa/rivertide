@@ -6,6 +6,8 @@ import 'package:rivertide/core/widgets/state_views.dart';
 import 'package:rivertide/features/stations/application/station_view_providers.dart';
 import 'package:rivertide/features/stations/presentation/widgets/hour_detail_panel.dart';
 import 'package:rivertide/features/stations/presentation/widgets/hourly_rows.dart';
+import 'package:rivertide/features/stations/presentation/widgets/hourly_weather_list.dart';
+import 'package:rivertide/features/stations/presentation/widgets/station_sheet.dart';
 import 'package:rivertide/features/stations/presentation/widgets/tide_chart.dart';
 
 /// F-TIDE-09: chart + hourly list kept in sync; tapping the chart scrolls the list
@@ -57,6 +59,7 @@ class _HourlyTabState extends State<HourlyTab> {
 
   @override
   Widget build(BuildContext context) {
+    if (levelUnknown(widget.view.tide.data)) return HourlyWeatherList(view: widget.view);
     final entries = _entries();
     if (entries.isEmpty) return EmptyView(message: context.l10n.hourly_empty);
     final view = widget.view;

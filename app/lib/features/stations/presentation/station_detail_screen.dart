@@ -12,6 +12,7 @@ import 'package:rivertide/features/stations/presentation/tabs/calendar_tab.dart'
 import 'package:rivertide/features/stations/presentation/tabs/hourly_tab.dart';
 import 'package:rivertide/features/stations/presentation/tabs/info_tab.dart';
 import 'package:rivertide/features/stations/presentation/tabs/overview_tab.dart';
+import 'package:rivertide/features/stations/presentation/widgets/station_sheet.dart';
 
 /// S03 station detail with tabs Tổng quan · Theo giờ · Lịch triều · Thông tin.
 class StationDetailScreen extends ConsumerWidget {
@@ -40,8 +41,11 @@ class _DetailScaffold extends ConsumerWidget {
     final l10n = context.l10n;
     final view = ref.watch(stationViewProvider(station.id));
     final isFavorite = ref.watch(favoriteIdsProvider).value?.contains(station.id) ?? false;
+    // No tide here: a tide calendar would only ever be empty.
+    final loaded = view.value;
+    final calendar = loaded == null || !levelUnknown(loaded.tide.data);
     return DefaultTabController(
-      length: 4,
+      length: calendar ? 4 : 3,
       child: Scaffold(
         appBar: AppBar(
           title: Text(station.name),
@@ -58,7 +62,7 @@ class _DetailScaffold extends ConsumerWidget {
             tabs: [
               Tab(text: l10n.station_tabOverview),
               Tab(text: l10n.station_tabHourly),
-              Tab(text: l10n.station_tabCalendar),
+              if (calendar) Tab(text: l10n.station_tabCalendar),
               Tab(text: l10n.station_tabInfo),
             ],
           ),
@@ -76,7 +80,7 @@ class _DetailScaffold extends ConsumerWidget {
                     children: [
                       OverviewTab(view: v),
                       HourlyTab(view: v),
-                      CalendarTab(view: v),
+                      if (calendar) CalendarTab(view: v),
                       InfoTab(view: v),
                     ],
                   ),

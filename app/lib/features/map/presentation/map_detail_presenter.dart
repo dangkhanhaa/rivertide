@@ -104,6 +104,21 @@ mixin MapDetailPresenter<T extends ConsumerStatefulWidget> on ConsumerState<T> {
     if (mounted && sheetBusy) _setBusy(false);
   }
 
+  /// Runs [action] (e.g. a dialog flow) with the map locked like for a sheet:
+  /// on web the press on a dialog button also reaches the map, which then
+  /// believes a drag started and swallows the next taps.
+  Future<R> whileMapLocked<R>(Future<R> Function() action) async {
+    _releaseTimer?.cancel();
+    _setBusy(true);
+    // Let the map apply the lock before the dialog can be pressed.
+    await WidgetsBinding.instance.endOfFrame;
+    try {
+      return await action();
+    } finally {
+      _releaseTimer = Timer(_tapGrace, () => _setBusy(false));
+    }
+  }
+
   /// A plain sheet (legend, filter, layers) with the same click guard.
   Future<void> showGuardedSheet(WidgetBuilder builder) async {
     _releaseTimer?.cancel();
@@ -151,6 +166,37 @@ mixin MapDetailPresenter<T extends ConsumerStatefulWidget> on ConsumerState<T> {
     if (mounted) onDetailClosed();
     if (identical(_sheetClosed, closed)) _sheetClosed = null;
     closed.complete();
+  }
+
+  /// Opens [child] and moves the camera with [fly] so the place lands in the
+  /// middle of the map part left visible. Wide: the panel opens first and the
+  /// camera moves once the map has shrunk beside it (measured on web: a move
+  /// made before that resize ends up off-centre by the panel's half width).
+  /// Phone: the camera moves while the sheet opens.
+  Future<void> showDetailAt(Widget child, Future<void> Function(Offset offset) fly) async {
+    if (isWide) {
+      final resizes = sidePanel == null;
+      await showDetail(child);
+      if (resizes) {
+        await WidgetsBinding.instance.endOfFrame;
+        await Future<void>.delayed(const Duration(milliseconds: 120));
+      }
+      if (mounted) await fly(visibleOffset(detailOpen: true));
+      return;
+    }
+    unawaited(fly(visibleOffset(detailOpen: true)));
+    await showDetail(child);
+  }
+
+  /// Lists set the focus before switching to the map tab. On web a camera move
+  /// made while the map is hidden ends up off-centre once it is shown, so wait
+  /// until this tab is visible (tickers on) and its new size has settled.
+  Future<void> untilMapShown() async {
+    for (var i = 0; i < 40 && mounted && !TickerMode.valuesOf(context).enabled; i++) {
+      await Future<void>.delayed(const Duration(milliseconds: 50));
+    }
+    await WidgetsBinding.instance.endOfFrame;
+    await Future<void>.delayed(const Duration(milliseconds: 150));
   }
 
   /// True when [global] falls on the open side panel.
