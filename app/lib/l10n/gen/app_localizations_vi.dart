@@ -360,6 +360,30 @@ class AppLocalizationsVi extends AppLocalizations {
   }
 
   @override
+  String get calendar_prev => 'Tháng trước';
+
+  @override
+  String get calendar_next => 'Tháng sau';
+
+  @override
+  String calendar_month(int month, int year) {
+    return 'Tháng $month/$year';
+  }
+
+  @override
+  String get calendar_noTideDay => 'Chưa có dự báo triều cho ngày này';
+
+  @override
+  String get calendar_noTideMonth =>
+      'Tháng này chưa có dự báo triều, vẫn xem được ngày âm và trăng';
+
+  @override
+  String get calendar_rangeLegend => 'Biên độ ngày';
+
+  @override
+  String get calendar_lunarLegend => 'Chữ đỏ: mùng 1, rằm';
+
+  @override
   String get station_levelNow => 'Mực nước hiện tại';
 
   @override

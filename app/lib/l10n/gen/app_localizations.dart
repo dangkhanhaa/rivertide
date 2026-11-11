@@ -710,6 +710,48 @@ abstract class AppLocalizations {
   /// **'Số mới nhất lúc {time} · chưa có số cho giờ này'**
   String level_lastKnown(String time);
 
+  /// No description provided for @calendar_prev.
+  ///
+  /// In vi, this message translates to:
+  /// **'Tháng trước'**
+  String get calendar_prev;
+
+  /// No description provided for @calendar_next.
+  ///
+  /// In vi, this message translates to:
+  /// **'Tháng sau'**
+  String get calendar_next;
+
+  /// No description provided for @calendar_month.
+  ///
+  /// In vi, this message translates to:
+  /// **'Tháng {month}/{year}'**
+  String calendar_month(int month, int year);
+
+  /// No description provided for @calendar_noTideDay.
+  ///
+  /// In vi, this message translates to:
+  /// **'Chưa có dự báo triều cho ngày này'**
+  String get calendar_noTideDay;
+
+  /// No description provided for @calendar_noTideMonth.
+  ///
+  /// In vi, this message translates to:
+  /// **'Tháng này chưa có dự báo triều, vẫn xem được ngày âm và trăng'**
+  String get calendar_noTideMonth;
+
+  /// No description provided for @calendar_rangeLegend.
+  ///
+  /// In vi, this message translates to:
+  /// **'Biên độ ngày'**
+  String get calendar_rangeLegend;
+
+  /// No description provided for @calendar_lunarLegend.
+  ///
+  /// In vi, this message translates to:
+  /// **'Chữ đỏ: mùng 1, rằm'**
+  String get calendar_lunarLegend;
+
   /// No description provided for @station_levelNow.
   ///
   /// In vi, this message translates to:

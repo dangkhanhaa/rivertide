@@ -1479,7 +1479,7 @@ Hoãn tới khi cần máy chủ: P1-05 → P1-12, P1-18, P1-30, P1-32 (phần D
 - [ ] **P1-26 · S06 Câu cá** (F-FISH-01 → 05, F-SAFE-01)
   DoD: chọn điểm → điểm ngày, giờ vàng có lý do, biểu đồ 24h, 7 ngày, băng dông/sét.
 
-- [ ] **P1-27 · S09 Lịch triều tháng** (F-TIDE-04)
+- [x] **P1-27 · S09 Lịch triều tháng** (F-TIDE-04) ✅ 2026-11-11 — tab "Lịch triều": lưới tháng (tháng trước → +12), ngày âm (mùng 1, rằm kèm tháng), trăng vẽ theo độ sáng tính được, ● rong / ○ kém, thanh biên độ; chạm ngày → đỉnh/chân + biểu đồ ngày. Trạm không có dự báo: vẫn có ngày âm + trăng.
   DoD: lưới tháng có âm lịch, pha trăng, con nước; chạm ngày xem chi tiết.
 
 - [ ] **P1-28 · S08 Thông báo cục bộ** (F-ALERT-01)
