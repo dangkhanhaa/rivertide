@@ -151,7 +151,10 @@ class StationSummaryBody extends StatelessWidget {
         TideChart(
           bandCm: tide.predictionKind == LevelDataKind.estimate ? tide.model?.rmseCm : null,
           height: 140,
-          fromUtc: hour.subtract(const Duration(hours: 6)),
+          fromUtc: TideChart.windowStart(
+            hour.subtract(const Duration(hours: 6)),
+            view.now.lastKnown?.timeUtc,
+          ),
           toUtc: hour.add(const Duration(hours: 18)),
           nowUtc: view.nowUtc,
           observed: {for (final o in tide.observations) o.timeUtc: o.levelCm},

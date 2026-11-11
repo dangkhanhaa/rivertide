@@ -88,6 +88,14 @@ extension TideText on BuildContext {
     return '${TimeFormat.dayShort(utc)} $hm';
   }
 
+  /// "Số mới nhất lúc 07:00 · …" for a value that is not for now any more.
+  String lastKnownText(DateTime utc, DateTime nowUtc) {
+    final hm = TimeFormat.hm(utc);
+    return l10n.level_lastKnown(
+      TimeFormat.sameVnDay(utc, nowUtc) ? hm : '$hm ${TimeFormat.dayShort(utc)}',
+    );
+  }
+
   String springNeapName(SpringNeap s) => switch (s) {
     SpringNeap.spring => l10n.tide_spring,
     SpringNeap.neap => l10n.tide_neap,

@@ -22,7 +22,8 @@ class LocationHero extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final now = view.now;
-    final level = now.levelCm;
+    final last = now.levelCm == null ? now.lastKnown : null;
+    final level = now.levelCm ?? last?.levelCm;
     final state = now.state;
     final rate = now.rateCmPerH;
     final c = context.colors;
@@ -56,6 +57,8 @@ class LocationHero extends StatelessWidget {
               if (rate != null) Text(LevelFormat.rate(rate), style: context.text.body),
             ],
           ),
+          if (last != null)
+            Text(context.lastKnownText(last.timeUtc, view.nowUtc), style: context.text.caption),
         ],
       ),
     );
@@ -149,7 +152,8 @@ class DayStats extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final p = view.tide.data.prediction;
-    if (p == null) return const SizedBox.shrink();
+    // A forecast that ended earlier today would give a half-day "today" range.
+    if (p == null || !p.covers(view.nowUtc)) return const SizedBox.shrink();
     final start = TimeFormat.vnDayStartUtc(view.nowUtc);
     final end = start.add(const Duration(days: 1));
     ({DateTime t, double v})? hi;

@@ -89,7 +89,8 @@ class _Summary extends ConsumerWidget {
 
   Widget _content(BuildContext context, StationView view) {
     final now = view.now;
-    final level = now.levelCm;
+    final last = now.levelCm == null ? now.lastKnown : null;
+    final level = now.levelCm ?? last?.levelCm;
     final state = now.state;
     final next = now.nextExtreme;
     return Wrap(
@@ -104,6 +105,8 @@ class _Summary extends ConsumerWidget {
             '${context.extremeName(next.kind)} ${context.relativeTime(next.timeUtc, view.nowUtc)}',
             style: context.text.caption,
           ),
+        if (last != null)
+          Text(context.lastKnownText(last.timeUtc, view.nowUtc), style: context.text.caption),
         DataKindBadge(kind: now.kind),
       ],
     );

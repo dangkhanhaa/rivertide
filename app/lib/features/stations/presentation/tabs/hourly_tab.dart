@@ -78,7 +78,10 @@ class _HourlyTabState extends State<HourlyTab> {
         Padding(
           padding: const EdgeInsets.fromLTRB(AppSpacing.lg, AppSpacing.md, AppSpacing.lg, 0),
           child: TideChart(
-            fromUtc: nowHour.subtract(const Duration(hours: 6)),
+            fromUtc: TideChart.windowStart(
+              nowHour.subtract(const Duration(hours: 6)),
+              view.now.lastKnown?.timeUtc,
+            ),
             toUtc: nowHour.add(const Duration(hours: 18)),
             nowUtc: view.nowUtc,
             // Hourly means here, so the chart matches the list rows exactly.

@@ -12,6 +12,11 @@ import 'package:rivertide/features/stations/domain/station_tide.dart';
 /// An observation older than this is not "now" any more; fall back to the forecast.
 const Duration observationFreshness = Duration(minutes: 40);
 
+/// How long after the data ends its last value is still shown (with its time).
+/// KTTV forecasts end at 07:00 VN and the next bulletin comes ~10:30 VN; a
+/// missed day still shows yesterday's level, older than this shows nothing.
+const Duration lastKnownMaxAge = Duration(hours: 36);
+
 /// Everything the overview card shows, derived from [StationTide] at one instant.
 class StationNow {
   const StationNow({
@@ -28,6 +33,7 @@ class StationNow {
     this.correctionCm,
     this.liveSkill,
     this.lastObservationUtc,
+    this.lastKnown,
   });
 
   final double? levelCm;
@@ -46,6 +52,10 @@ class StationNow {
 
   /// Time of the newest measurement, null for model points.
   final DateTime? lastObservationUtc;
+
+  /// When there is no value for now (forecast ran out, readings stopped): the
+  /// newest value there is and its time, so screens show it as old data.
+  final ({DateTime timeUtc, double levelCm})? lastKnown;
   final LunarDate lunar;
 
   TideState? get state {
@@ -75,14 +85,16 @@ StationNow computeStationNow(StationTide tide, DateTime nowUtc) {
   final next = prediction?.nextExtreme(nowUtc);
   final dayStart = TimeFormat.vnDayStartUtc(nowUtc);
   final vn = TimeFormat.toVn(nowUtc);
+  final level = hasFreshObs
+      ? latest.levelCm
+      : prediction?.correctedLevelAt(
+          nowUtc,
+          obsTimeUtc: anchor?.timeUtc,
+          obsLevelCm: anchor?.levelCm,
+        );
   return StationNow(
-    levelCm: hasFreshObs
-        ? latest.levelCm
-        : prediction?.correctedLevelAt(
-            nowUtc,
-            obsTimeUtc: anchor?.timeUtc,
-            obsLevelCm: anchor?.levelCm,
-          ),
+    levelCm: level,
+    lastKnown: level == null ? _lastKnown(prediction, latest, nowUtc) : null,
     kind: hasFreshObs ? LevelDataKind.observed : tide.predictionKind,
     rateCmPerH: prediction?.rateCmPerHAt(nowUtc),
     nextExtreme: next,
@@ -96,4 +108,19 @@ StationNow computeStationNow(StationTide tide, DateTime nowUtc) {
     lunar: solarToLunar(vn.year, vn.month, vn.day),
     lastObservationUtc: latest?.timeUtc,
   );
+}
+
+({DateTime timeUtc, double levelCm})? _lastKnown(
+  TideSeries? prediction,
+  WaterObservation? latest,
+  DateTime nowUtc,
+) {
+  final candidates = [
+    if (latest != null) (timeUtc: latest.timeUtc, levelCm: latest.levelCm),
+    if (prediction != null && prediction.levelsCm.isNotEmpty && prediction.endUtc.isBefore(nowUtc))
+      (timeUtc: prediction.endUtc, levelCm: prediction.levelsCm.last.toDouble()),
+  ];
+  if (candidates.isEmpty) return null;
+  final newest = candidates.reduce((a, b) => b.timeUtc.isAfter(a.timeUtc) ? b : a);
+  return nowUtc.difference(newest.timeUtc) > lastKnownMaxAge ? null : newest;
 }

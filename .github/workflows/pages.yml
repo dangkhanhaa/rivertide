@@ -5,11 +5,11 @@ name: KTTV data + web app
 
 on:
   schedule:
-    # KTTV issues around 10:30 VN (03:30 UTC). Retry later in the day: a missed
-    # day is lost forever because old bulletins are not listed.
-    - cron: "30 4 * * *"   # 11:30 VN
-    - cron: "30 6 * * *"   # 13:30 VN
-    - cron: "30 9 * * *"   # 16:30 VN
+    # KTTV issues around 10:30 VN (03:30 UTC). Retry every 2 h through the day:
+    # a missed day is lost forever because old bulletins are not listed, and
+    # GitHub may delay or drop scheduled runs (none ran on 10/11/2026).
+    # Off the hour, when GitHub's scheduler is least busy.
+    - cron: "17 3-15/2 * * *"   # 10:17, 12:17 … 22:17 VN
   workflow_dispatch:
   push:
     branches: [main]

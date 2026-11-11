@@ -29,8 +29,9 @@ STATE_FILE = "state.json"
 POST_RE = re.compile(
     r'href="(https://www\.nchmf\.gov\.vn/kttv/vi-VN/1/ban-tin-du-bao-canh-bao-thuy-van-thoi-han-ngan-post\d+\.html)"'
 )
+# The upload folder number changes (thuyvan2 until 09/11/2026, thuyvan1 from 10/11).
 PDF_RE = re.compile(
-    r"(upload/thuyvan2/\d{4}/\d{1,2}/\d{1,2}/dbqg_tvhn_(\d{8})_\d{4}\.pdf)"
+    r"(upload/thuyvan\d+/\d{4}/\d{1,2}/\d{1,2}/dbqg_tvhn_(\d{8})_\d{4}\.pdf)"
 )
 USER_AGENT = "RiverTide-bulletin-archiver/0.1 (+https://github.com/dangkhanhaa)"
 MAX_PDF_BYTES = 20 * 1024 * 1024

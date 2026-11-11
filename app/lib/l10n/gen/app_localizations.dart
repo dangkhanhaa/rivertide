@@ -704,6 +704,12 @@ abstract class AppLocalizations {
   /// **'Thông tin'**
   String get station_tabInfo;
 
+  /// No description provided for @level_lastKnown.
+  ///
+  /// In vi, this message translates to:
+  /// **'Số mới nhất lúc {time} · chưa có số cho giờ này'**
+  String level_lastKnown(String time);
+
   /// No description provided for @station_levelNow.
   ///
   /// In vi, this message translates to:

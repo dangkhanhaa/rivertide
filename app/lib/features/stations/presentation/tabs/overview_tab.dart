@@ -62,7 +62,10 @@ class OverviewTab extends StatelessWidget {
         TideChart(
           bandCm: tide.predictionKind == LevelDataKind.estimate ? tide.model?.rmseCm : null,
           // Whole-hour window so axis ticks fall on 00:00, 06:00, …
-          fromUtc: _hourFloor(view.nowUtc).subtract(const Duration(hours: 12)),
+          fromUtc: TideChart.windowStart(
+            _hourFloor(view.nowUtc).subtract(const Duration(hours: 12)),
+            now.lastKnown?.timeUtc,
+          ),
           toUtc: _hourFloor(view.nowUtc).add(const Duration(hours: 24)),
           nowUtc: view.nowUtc,
           observed: {for (final o in tide.observations) o.timeUtc: o.levelCm},
@@ -124,7 +127,8 @@ class LevelHeroContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final level = view.now.levelCm;
+    final last = view.now.levelCm == null ? view.now.lastKnown : null;
+    final level = view.now.levelCm ?? last?.levelCm;
     final state = view.now.state;
     final rate = view.now.rateCmPerH;
     return Column(
@@ -143,6 +147,7 @@ class LevelHeroContent extends StatelessWidget {
             context.l10n.station_levelNow,
             if (level != null) LevelFormat.meters(level),
             if (rate != null) LevelFormat.rate(rate),
+            if (last != null) context.lastKnownText(last.timeUtc, view.nowUtc),
           ].join(', '),
           excludeSemantics: true,
           child: Text(
@@ -159,6 +164,8 @@ class LevelHeroContent extends StatelessWidget {
               if (rate != null) Text('(${LevelFormat.rate(rate)})', style: context.text.body),
             ],
           ),
+        if (last != null)
+          Text(context.lastKnownText(last.timeUtc, view.nowUtc), style: context.text.caption),
       ],
     );
   }

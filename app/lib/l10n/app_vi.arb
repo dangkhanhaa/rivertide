@@ -124,6 +124,8 @@
   "station_tabHourly": "Theo giờ",
   "station_tabCalendar": "Lịch triều",
   "station_tabInfo": "Thông tin",
+  "level_lastKnown": "Số mới nhất lúc {time} · chưa có số cho giờ này",
+  "@level_lastKnown": {"placeholders": {"time": {"type": "String"}}},
   "station_levelNow": "Mực nước hiện tại",
   "station_follow": "Theo dõi trạm",
   "station_unfollow": "Bỏ theo dõi",

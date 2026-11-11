@@ -46,6 +46,18 @@ class TideChart extends StatelessWidget {
 
   static const double _axisStepM = 0.5;
 
+  /// Start of the chart window: [usual], or earlier when the data ends before it
+  /// ([lastKnownUtc]) so the newest values are still on screen.
+  /// Moves back in whole 6-hour steps so axis ticks stay on the same hours
+  /// and the last label never crowds the one before it.
+  static DateTime windowStart(DateTime usual, DateTime? lastKnownUtc) {
+    if (lastKnownUtc == null) return usual;
+    final wanted = lastKnownUtc.subtract(const Duration(hours: 6));
+    if (!wanted.isBefore(usual)) return usual;
+    final steps = (usual.difference(wanted).inMinutes / (6 * 60)).ceil();
+    return usual.subtract(Duration(hours: 6 * steps));
+  }
+
   double _x(DateTime t) => t.difference(fromUtc).inMinutes / 60;
 
   List<FlSpot> _forecastSpots() {

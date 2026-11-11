@@ -355,6 +355,11 @@ class AppLocalizationsVi extends AppLocalizations {
   String get station_tabInfo => 'Thông tin';
 
   @override
+  String level_lastKnown(String time) {
+    return 'Số mới nhất lúc $time · chưa có số cho giờ này';
+  }
+
+  @override
   String get station_levelNow => 'Mực nước hiện tại';
 
   @override

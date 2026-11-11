@@ -153,4 +153,19 @@ void main() {
     expect(find.text('Câu cá tại đây'), findsOneWidget);
     await disposeApp(tester, db);
   });
+
+  testWidgets('forecast ran out (17:06, bulletin not yet fetched): last level with its time', (
+    tester,
+  ) async {
+    final db = await pumpApp(tester, now: DateTime.utc(2026, 11, 10, 10, 6));
+    await tester.scrollUntilVisible(find.text('Phú Thọ'), 300);
+    // List card: the 07:00 value instead of a dash.
+    expect(find.textContaining('Số mới nhất lúc 07:00'), findsWidgets);
+    await tester.tap(find.text('Phú Thọ'));
+    await settle(tester);
+    expect(find.text('—'), findsNothing);
+    expect(find.textContaining('Số mới nhất lúc 07:00'), findsWidgets);
+    expect(find.textContaining('Hôm nay'), findsNothing); // no half-day high/low
+    await disposeApp(tester, db);
+  });
 }

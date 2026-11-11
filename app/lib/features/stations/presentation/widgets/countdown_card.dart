@@ -19,6 +19,9 @@ class CountdownCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     final next = now.nextExtreme;
+    // Data ran out: the hero already says when the last value was; "no
+    // forecast for this station" would read as if there never is one.
+    if (next == null && now.lastKnown != null) return const SizedBox.shrink();
     if (next == null) {
       return Card(
         child: Padding(

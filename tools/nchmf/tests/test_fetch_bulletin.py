@@ -24,6 +24,18 @@ def test_finds_post_and_pdf_links():
     assert day == "20261109"
 
 
+def test_finds_pdf_in_any_upload_folder():
+    # 10/11/2026: KTTV moved the PDF from upload/thuyvan2 to upload/thuyvan1.
+    url, day = find_pdf(
+        (FIX / "nchmf_tvhn_post_20261110.html").read_text(encoding="utf-8")
+    )
+    assert (
+        url
+        == "https://kttv.gov.vn/upload/thuyvan1/2026/11/10/dbqg_tvhn_20261110_1030.pdf"
+    )
+    assert day == "20261110"
+
+
 def test_missing_links_raise():
     with pytest.raises(BulletinError):
         find_post_url("<html></html>")
