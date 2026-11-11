@@ -20,6 +20,7 @@ import 'package:rivertide/features/stations/presentation/widgets/hazard_banner.d
 import 'package:rivertide/features/stations/presentation/widgets/location_extras.dart';
 import 'package:rivertide/features/stations/presentation/widgets/location_summary.dart';
 import 'package:rivertide/features/stations/presentation/widgets/quick_summary.dart';
+import 'package:rivertide/features/stations/presentation/widgets/share_place.dart';
 import 'package:rivertide/features/stations/presentation/widgets/tide_chart.dart';
 
 /// Station summary shown when a map marker is tapped (FEATURES.md F-MAP-02).
@@ -51,6 +52,7 @@ class StationSheet extends ConsumerWidget {
                   ],
                 ),
               ),
+              SharePlaceButton(stationId: station.id, title: station.name),
               IconButton(
                 tooltip: isFavorite ? l10n.station_unfollow : l10n.station_follow,
                 icon: Icon(isFavorite ? Icons.star_rounded : Icons.star_outline_rounded),

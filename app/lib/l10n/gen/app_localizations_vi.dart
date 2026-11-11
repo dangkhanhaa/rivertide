@@ -676,6 +676,30 @@ class AppLocalizationsVi extends AppLocalizations {
   }
 
   @override
+  String get share_action => 'Chia sẻ';
+
+  @override
+  String share_text(String place) {
+    return 'Con Nước · $place';
+  }
+
+  @override
+  String share_level(String level) {
+    return 'Mực nước $level';
+  }
+
+  @override
+  String share_score(String score) {
+    return 'Điểm câu $score/10';
+  }
+
+  @override
+  String get share_copied => 'Đã chép nội dung và đường link, dán vào Zalo/Facebook để gửi';
+
+  @override
+  String get share_footer => 'Số liệu tính toán, chỉ để tham khảo · Con Nước';
+
+  @override
   String get station_levelNow => 'Mực nước hiện tại';
 
   @override

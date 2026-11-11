@@ -1232,6 +1232,42 @@ abstract class AppLocalizations {
   /// **'{kind} · gần {town}'**
   String place_near(String kind, String town);
 
+  /// No description provided for @share_action.
+  ///
+  /// In vi, this message translates to:
+  /// **'Chia sẻ'**
+  String get share_action;
+
+  /// No description provided for @share_text.
+  ///
+  /// In vi, this message translates to:
+  /// **'Con Nước · {place}'**
+  String share_text(String place);
+
+  /// No description provided for @share_level.
+  ///
+  /// In vi, this message translates to:
+  /// **'Mực nước {level}'**
+  String share_level(String level);
+
+  /// No description provided for @share_score.
+  ///
+  /// In vi, this message translates to:
+  /// **'Điểm câu {score}/10'**
+  String share_score(String score);
+
+  /// No description provided for @share_copied.
+  ///
+  /// In vi, this message translates to:
+  /// **'Đã chép nội dung và đường link, dán vào Zalo/Facebook để gửi'**
+  String get share_copied;
+
+  /// No description provided for @share_footer.
+  ///
+  /// In vi, this message translates to:
+  /// **'Số liệu tính toán, chỉ để tham khảo · Con Nước'**
+  String get share_footer;
+
   /// No description provided for @station_levelNow.
   ///
   /// In vi, this message translates to:

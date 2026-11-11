@@ -10,4 +10,7 @@ abstract final class Env {
   /// Commit the web build was made from (CI: --dart-define=BUILD_SHA=...);
   /// empty in local builds, which then never report an update.
   static const String buildSha = String.fromEnvironment('BUILD_SHA');
+
+  /// Public web app; shared links open a place there (hash routes).
+  static const String webAppUrl = 'https://dangkhanhaa.github.io/rivertide/';
 }

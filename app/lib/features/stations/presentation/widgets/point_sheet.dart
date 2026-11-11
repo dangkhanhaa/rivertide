@@ -19,6 +19,7 @@ import 'package:rivertide/features/stations/application/station_view_providers.d
 import 'package:rivertide/features/stations/domain/point_id.dart';
 import 'package:rivertide/features/stations/domain/station.dart';
 import 'package:rivertide/features/stations/domain/station_tide.dart';
+import 'package:rivertide/features/stations/presentation/widgets/share_place.dart';
 import 'package:rivertide/features/stations/presentation/widgets/station_sheet.dart';
 import 'package:rivertide/features/stations/presentation/widgets/tide_text.dart';
 
@@ -70,6 +71,7 @@ class PointSheet extends ConsumerWidget {
                   ],
                 ),
               ),
+              SharePlaceButton(stationId: id, title: l10n.point_coords(coords)),
               IconButton(
                 tooltip: isFavorite ? l10n.station_unfollow : l10n.station_follow,
                 icon: Icon(isFavorite ? Icons.star_rounded : Icons.star_outline_rounded),

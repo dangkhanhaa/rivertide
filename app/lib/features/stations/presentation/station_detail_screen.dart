@@ -12,6 +12,7 @@ import 'package:rivertide/features/stations/presentation/tabs/calendar_tab.dart'
 import 'package:rivertide/features/stations/presentation/tabs/hourly_tab.dart';
 import 'package:rivertide/features/stations/presentation/tabs/info_tab.dart';
 import 'package:rivertide/features/stations/presentation/tabs/overview_tab.dart';
+import 'package:rivertide/features/stations/presentation/widgets/share_place.dart';
 import 'package:rivertide/features/stations/presentation/widgets/station_sheet.dart';
 
 /// S03 station detail with tabs Tổng quan · Theo giờ · Lịch triều · Thông tin.
@@ -55,6 +56,7 @@ class _DetailScaffold extends ConsumerWidget {
         appBar: AppBar(
           title: Text(station.name),
           actions: [
+            SharePlaceButton(stationId: station.id, title: station.name),
             IconButton(
               tooltip: isFavorite ? l10n.station_unfollow : l10n.station_follow,
               icon: Icon(isFavorite ? Icons.star_rounded : Icons.star_outline_rounded),
