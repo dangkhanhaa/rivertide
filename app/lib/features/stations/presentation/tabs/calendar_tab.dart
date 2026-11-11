@@ -120,7 +120,13 @@ class _CalendarTabState extends State<CalendarTab> {
           ),
         const SizedBox(height: AppSpacing.md),
         if (selected != null)
-          DayDetail(day: selected, prediction: _prediction, nowUtc: widget.view.nowUtc),
+          DayDetail(
+            day: selected,
+            prediction: _prediction,
+            nowUtc: widget.view.nowUtc,
+            lat: widget.view.tide.data.station.lat,
+            lon: widget.view.tide.data.station.lon,
+          ),
       ],
     );
   }

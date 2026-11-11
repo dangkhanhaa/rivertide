@@ -9,14 +9,24 @@ import 'package:rivertide/core/theme/app_text.dart';
 import 'package:rivertide/features/stations/presentation/widgets/calendar/calendar_month.dart';
 import 'package:rivertide/features/stations/presentation/widgets/calendar/moon_glyph.dart';
 import 'package:rivertide/features/stations/presentation/widgets/moon_text.dart';
+import 'package:rivertide/features/stations/presentation/widgets/sun_moon_lines.dart';
 import 'package:rivertide/features/stations/presentation/widgets/tide_chart.dart';
 import 'package:rivertide/features/stations/presentation/widgets/tide_text.dart';
 
 /// Panel under the grid for the tapped day: highs/lows and that day's curve.
 class DayDetail extends StatelessWidget {
-  const DayDetail({required this.day, required this.prediction, required this.nowUtc, super.key});
+  const DayDetail({
+    required this.day,
+    required this.prediction,
+    required this.nowUtc,
+    required this.lat,
+    required this.lon,
+    super.key,
+  });
 
   final CalendarDay day;
+  final double lat;
+  final double lon;
   final TideSeries? prediction;
   final DateTime nowUtc;
 
@@ -72,6 +82,14 @@ class DayDetail extends StatelessWidget {
                 prediction: p,
               ),
             ],
+            const Divider(),
+            SunMoonLines(
+              lat: lat,
+              lon: lon,
+              dayStartUtc: day.dayStartUtc,
+              nowUtc: nowUtc,
+              showPhase: false,
+            ),
           ],
         ),
       ),

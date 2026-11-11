@@ -752,6 +752,54 @@ abstract class AppLocalizations {
   /// **'Chữ đỏ: mùng 1, rằm'**
   String get calendar_lunarLegend;
 
+  /// No description provided for @moon_times.
+  ///
+  /// In vi, this message translates to:
+  /// **'Trăng mọc {rise} · lặn {set}'**
+  String moon_times(String rise, String set);
+
+  /// No description provided for @moon_alwaysUp.
+  ///
+  /// In vi, this message translates to:
+  /// **'Trăng ở trên trời cả ngày'**
+  String get moon_alwaysUp;
+
+  /// No description provided for @moon_alwaysDown.
+  ///
+  /// In vi, this message translates to:
+  /// **'Hôm nay trăng không mọc'**
+  String get moon_alwaysDown;
+
+  /// No description provided for @solunar_title.
+  ///
+  /// In vi, this message translates to:
+  /// **'Giờ cá ăn theo trăng'**
+  String get solunar_title;
+
+  /// No description provided for @solunar_titleGood.
+  ///
+  /// In vi, this message translates to:
+  /// **'Giờ cá ăn theo trăng · ngày tốt (gần trăng tròn/non)'**
+  String get solunar_titleGood;
+
+  /// No description provided for @solunar_major.
+  ///
+  /// In vi, this message translates to:
+  /// **'Giờ chính {range}'**
+  String solunar_major(String range);
+
+  /// No description provided for @solunar_minor.
+  ///
+  /// In vi, this message translates to:
+  /// **'Giờ phụ {range}'**
+  String solunar_minor(String range);
+
+  /// No description provided for @solunar_now.
+  ///
+  /// In vi, this message translates to:
+  /// **'đang diễn ra'**
+  String get solunar_now;
+
   /// No description provided for @station_levelNow.
   ///
   /// In vi, this message translates to:

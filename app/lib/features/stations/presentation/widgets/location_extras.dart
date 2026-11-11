@@ -1,8 +1,6 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:rivertide/core/calc/astro/moon.dart';
-import 'package:rivertide/core/calc/astro/sun.dart';
 import 'package:rivertide/core/calc/fishing/fishing_score.dart';
 import 'package:rivertide/core/calc/fishing/golden_window.dart';
 import 'package:rivertide/core/format/level_format.dart';
@@ -13,7 +11,7 @@ import 'package:rivertide/core/theme/app_spacing.dart';
 import 'package:rivertide/core/theme/app_text.dart';
 import 'package:rivertide/features/stations/application/hour_extras_provider.dart';
 import 'package:rivertide/features/stations/application/station_view_providers.dart';
-import 'package:rivertide/features/stations/presentation/widgets/moon_text.dart';
+import 'package:rivertide/features/stations/presentation/widgets/sun_moon_lines.dart';
 
 /// Fishing score for the current hour at this place + today's best window.
 class FishingNow extends ConsumerWidget {
@@ -96,10 +94,6 @@ class Conditions extends ConsumerWidget {
     final fishing = ref.watch(stationFishingProvider(st.id)).value;
     final hour = DateTime.utc(now.year, now.month, now.day, now.hour);
     final w = fishing?.weather.firstWhereOrNull((x) => x.timeUtc == hour);
-    final vn = TimeFormat.toVn(now);
-    final sun = sunTimes(year: vn.year, month: vn.month, day: vn.day, lat: st.lat, lon: st.lon);
-    final moon = moonIllumination(now);
-    final (rise, set) = (sun.sunrise, sun.sunset);
     return _Section(
       icon: Icons.wb_sunny_outlined,
       title: l10n.cond_title,
@@ -113,11 +107,11 @@ class Conditions extends ConsumerWidget {
             ),
             style: context.text.body,
           ),
-        if (rise != null && set != null)
-          Text(l10n.point_sun(TimeFormat.hm(rise), TimeFormat.hm(set)), style: context.text.body),
-        Text(
-          l10n.fishing_moon(context.moonPhaseName(moon.phaseName), (moon.fraction * 100).round()),
-          style: context.text.body,
+        SunMoonLines(
+          lat: st.lat,
+          lon: st.lon,
+          dayStartUtc: TimeFormat.vnDayStartUtc(now),
+          nowUtc: now,
         ),
       ],
     );

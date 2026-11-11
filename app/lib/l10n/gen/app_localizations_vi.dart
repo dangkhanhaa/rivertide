@@ -384,6 +384,36 @@ class AppLocalizationsVi extends AppLocalizations {
   String get calendar_lunarLegend => 'Chữ đỏ: mùng 1, rằm';
 
   @override
+  String moon_times(String rise, String set) {
+    return 'Trăng mọc $rise · lặn $set';
+  }
+
+  @override
+  String get moon_alwaysUp => 'Trăng ở trên trời cả ngày';
+
+  @override
+  String get moon_alwaysDown => 'Hôm nay trăng không mọc';
+
+  @override
+  String get solunar_title => 'Giờ cá ăn theo trăng';
+
+  @override
+  String get solunar_titleGood => 'Giờ cá ăn theo trăng · ngày tốt (gần trăng tròn/non)';
+
+  @override
+  String solunar_major(String range) {
+    return 'Giờ chính $range';
+  }
+
+  @override
+  String solunar_minor(String range) {
+    return 'Giờ phụ $range';
+  }
+
+  @override
+  String get solunar_now => 'đang diễn ra';
+
+  @override
   String get station_levelNow => 'Mực nước hiện tại';
 
   @override
