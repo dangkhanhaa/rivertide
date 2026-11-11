@@ -15,9 +15,15 @@ import 'package:rivertide/features/stations/presentation/widgets/tide_text.dart'
 
 /// Summary row used by the station list and the watch list.
 class StationCard extends ConsumerWidget {
-  const StationCard({required this.station, super.key});
+  const StationCard({required this.station, this.label, this.note, this.onEdit, super.key});
 
   final Station station;
+
+  /// Watch list: the user's own name for the place (shown instead of the
+  /// station name, which moves below), their note, and the edit action.
+  final String? label;
+  final String? note;
+  final VoidCallback? onEdit;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -40,7 +46,7 @@ class StationCard extends ConsumerWidget {
               children: [
                 Row(
                   children: [
-                    Expanded(child: Text(station.name, style: context.text.title)),
+                    Expanded(child: Text(label ?? station.name, style: context.text.title)),
                     Icon(
                       stationKindIcon(station.kind),
                       size: AppIconSize.sm,
@@ -54,6 +60,12 @@ class StationCard extends ConsumerWidget {
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
+                    if (onEdit case final edit?)
+                      IconButton(
+                        tooltip: l10n.watch_edit,
+                        icon: const Icon(Icons.edit_outlined),
+                        onPressed: edit,
+                      ),
                     IconButton(
                       tooltip: isFavorite ? l10n.station_unfollow : l10n.station_follow,
                       icon: Icon(isFavorite ? Icons.star_rounded : Icons.star_outline_rounded),
@@ -61,6 +73,8 @@ class StationCard extends ConsumerWidget {
                     ),
                   ],
                 ),
+                if (label != null) Text(station.name, style: context.text.caption),
+                if (note case final n?) Text(n, style: context.text.body),
                 const SizedBox(height: AppSpacing.xs),
                 _Summary(stationId: station.id),
               ],

@@ -890,6 +890,72 @@ abstract class AppLocalizations {
   /// **'Lưu lượng sông ngày mai tăng mạnh (mưa lớn thượng nguồn): nước lên, đục, chảy xiết'**
   String get hazard_flood;
 
+  /// No description provided for @watch_edit.
+  ///
+  /// In vi, this message translates to:
+  /// **'Đặt tên, ghi chú, nhóm'**
+  String get watch_edit;
+
+  /// No description provided for @watch_editTitle.
+  ///
+  /// In vi, this message translates to:
+  /// **'Điểm của bạn'**
+  String get watch_editTitle;
+
+  /// No description provided for @watch_label.
+  ///
+  /// In vi, this message translates to:
+  /// **'Tên riêng'**
+  String get watch_label;
+
+  /// No description provided for @watch_labelHint.
+  ///
+  /// In vi, this message translates to:
+  /// **'vd Hố sâu gốc si'**
+  String get watch_labelHint;
+
+  /// No description provided for @watch_note.
+  ///
+  /// In vi, this message translates to:
+  /// **'Ghi chú'**
+  String get watch_note;
+
+  /// No description provided for @watch_noteHint.
+  ///
+  /// In vi, this message translates to:
+  /// **'vd Câu mồi giun, chỗ nước xoáy'**
+  String get watch_noteHint;
+
+  /// No description provided for @watch_group.
+  ///
+  /// In vi, this message translates to:
+  /// **'Nhóm'**
+  String get watch_group;
+
+  /// No description provided for @watch_groupHint.
+  ///
+  /// In vi, this message translates to:
+  /// **'vd Sông Hồng, Hồ'**
+  String get watch_groupHint;
+
+  /// No description provided for @watch_noGroup.
+  ///
+  /// In vi, this message translates to:
+  /// **'Chưa xếp nhóm'**
+  String get watch_noGroup;
+
+  /// No description provided for @common_save.
+  ///
+  /// In vi, this message translates to:
+  /// **'Lưu'**
+  String get common_save;
+
+  /// No description provided for @common_cancel.
+  ///
+  /// In vi, this message translates to:
+  /// **'Hủy'**
+  String get common_cancel;
+
   /// No description provided for @station_levelNow.
   ///
   /// In vi, this message translates to:

@@ -9,6 +9,7 @@ import 'package:rivertide/core/network/dio_client.dart';
 import 'package:rivertide/features/stations/data/remote_sources.dart';
 import 'package:rivertide/features/stations/data/station_repository_impl.dart';
 import 'package:rivertide/features/stations/domain/river_flow.dart';
+import 'package:rivertide/features/stations/domain/saved_place.dart';
 import 'package:rivertide/features/stations/domain/station.dart';
 import 'package:rivertide/features/stations/domain/station_repository.dart';
 import 'package:rivertide/features/stations/domain/station_tide.dart';
@@ -77,6 +78,28 @@ Future<void> refreshStation(WidgetRef ref, String id) async {
 
 @riverpod
 Stream<List<String>> favoriteIds(Ref ref) => ref.watch(appDatabaseProvider).watchFavoriteIds();
+
+/// Saved places with the user's name, note and group.
+@riverpod
+Stream<List<SavedPlace>> favorites(Ref ref) => ref
+    .watch(appDatabaseProvider)
+    .watchFavorites()
+    .map(
+      (rows) => [
+        for (final f in rows)
+          SavedPlace(stationId: f.stationId, label: f.label, note: f.note, group: f.groupName),
+      ],
+    );
+
+Future<void> updateFavoriteMeta(
+  WidgetRef ref,
+  String stationId, {
+  String? label,
+  String? note,
+  String? group,
+}) => ref
+    .read(appDatabaseProvider)
+    .updateFavoriteMeta(stationId, label: label, note: note, group: group);
 
 Future<void> toggleFavorite(WidgetRef ref, String stationId) =>
     ref.read(appDatabaseProvider).toggleFavorite(stationId);

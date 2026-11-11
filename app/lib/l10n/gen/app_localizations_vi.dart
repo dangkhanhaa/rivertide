@@ -471,6 +471,39 @@ class AppLocalizationsVi extends AppLocalizations {
       'Lưu lượng sông ngày mai tăng mạnh (mưa lớn thượng nguồn): nước lên, đục, chảy xiết';
 
   @override
+  String get watch_edit => 'Đặt tên, ghi chú, nhóm';
+
+  @override
+  String get watch_editTitle => 'Điểm của bạn';
+
+  @override
+  String get watch_label => 'Tên riêng';
+
+  @override
+  String get watch_labelHint => 'vd Hố sâu gốc si';
+
+  @override
+  String get watch_note => 'Ghi chú';
+
+  @override
+  String get watch_noteHint => 'vd Câu mồi giun, chỗ nước xoáy';
+
+  @override
+  String get watch_group => 'Nhóm';
+
+  @override
+  String get watch_groupHint => 'vd Sông Hồng, Hồ';
+
+  @override
+  String get watch_noGroup => 'Chưa xếp nhóm';
+
+  @override
+  String get common_save => 'Lưu';
+
+  @override
+  String get common_cancel => 'Hủy';
+
+  @override
   String get station_levelNow => 'Mực nước hiện tại';
 
   @override

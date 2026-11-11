@@ -430,3 +430,46 @@ final class FavoriteIdsProvider
 }
 
 String _$favoriteIdsHash() => r'080280b68bb83c201ca5f0c62a7c9b2b73a5ee77';
+
+/// Saved places with the user's name, note and group.
+
+@ProviderFor(favorites)
+final favoritesProvider = FavoritesProvider._();
+
+/// Saved places with the user's name, note and group.
+
+final class FavoritesProvider
+    extends
+        $FunctionalProvider<
+          AsyncValue<List<SavedPlace>>,
+          List<SavedPlace>,
+          Stream<List<SavedPlace>>
+        >
+    with $FutureModifier<List<SavedPlace>>, $StreamProvider<List<SavedPlace>> {
+  /// Saved places with the user's name, note and group.
+  FavoritesProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'favoritesProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$favoritesHash();
+
+  @$internal
+  @override
+  $StreamProviderElement<List<SavedPlace>> $createElement($ProviderPointer pointer) =>
+      $StreamProviderElement(pointer);
+
+  @override
+  Stream<List<SavedPlace>> create(Ref ref) {
+    return favorites(ref);
+  }
+}
+
+String _$favoritesHash() => r'c13c821c6f58faad7519fe2af654b87b51394bb8';
