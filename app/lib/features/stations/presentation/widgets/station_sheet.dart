@@ -16,6 +16,7 @@ import 'package:rivertide/features/stations/domain/station.dart';
 import 'package:rivertide/features/stations/domain/station_tide.dart';
 import 'package:rivertide/features/stations/presentation/widgets/daily_extremes_card.dart';
 import 'package:rivertide/features/stations/presentation/widgets/flow_card.dart';
+import 'package:rivertide/features/stations/presentation/widgets/hazard_banner.dart';
 import 'package:rivertide/features/stations/presentation/widgets/location_extras.dart';
 import 'package:rivertide/features/stations/presentation/widgets/location_summary.dart';
 import 'package:rivertide/features/stations/presentation/widgets/quick_summary.dart';
@@ -115,6 +116,7 @@ class StationSummaryBody extends StatelessWidget {
         spacing: AppSpacing.md,
         children: [
           if (place case final p?) Text(p, style: context.text.label),
+          HazardBanner(view: view),
           QuickSummary(view: view),
           FlowCard(stationId: tide.station.id, nowUtc: view.nowUtc, primary: true),
           FishingNow(view: view),
@@ -128,6 +130,7 @@ class StationSummaryBody extends StatelessWidget {
         spacing: AppSpacing.sm,
         children: [
           if (place case final p?) Text(p, style: context.text.label),
+          HazardBanner(view: view),
           QuickSummary(view: view),
           DailyExtremesCard(extremes: daily),
           FlowCard(stationId: tide.station.id, nowUtc: view.nowUtc),
@@ -147,6 +150,7 @@ class StationSummaryBody extends StatelessWidget {
       spacing: AppSpacing.md,
       children: [
         LocationHero(view: view, place: place),
+        HazardBanner(view: view),
         QuickSummary(view: view),
         if (tide.prediction == null)
           Text(context.l10n.tide_noPrediction, style: context.text.caption)

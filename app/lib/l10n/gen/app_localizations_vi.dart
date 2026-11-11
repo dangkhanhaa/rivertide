@@ -435,6 +435,42 @@ class AppLocalizationsVi extends AppLocalizations {
   String get map_goFishing => 'Đi câu ngay';
 
   @override
+  String get hazard_title => 'Cần chú ý';
+
+  @override
+  String get hazard_titleSevere => 'Nguy hiểm — không nên ra sông';
+
+  @override
+  String hazard_at(String time) {
+    return 'lúc $time';
+  }
+
+  @override
+  String hazard_between(String from, String to) {
+    return '$from–$to';
+  }
+
+  @override
+  String get hazard_thunderstorm => 'Dông, sét: lên bờ, tránh chỗ trống và cần câu';
+
+  @override
+  String get hazard_gust => 'Gió giật trên 50 km/h: không ra thuyền';
+
+  @override
+  String get hazard_heavyRain => 'Mưa to trên 20 mm/giờ';
+
+  @override
+  String get hazard_possibleStorm => 'Trời không ổn định, có thể có dông';
+
+  @override
+  String get hazard_risingFast =>
+      'Nước đang lên nhanh bất thường (nhanh hơn hẳn mấy ngày qua): tránh bãi thấp, cồn cát';
+
+  @override
+  String get hazard_flood =>
+      'Lưu lượng sông ngày mai tăng mạnh (mưa lớn thượng nguồn): nước lên, đục, chảy xiết';
+
+  @override
   String get station_levelNow => 'Mực nước hiện tại';
 
   @override

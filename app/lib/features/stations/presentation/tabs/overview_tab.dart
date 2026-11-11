@@ -10,6 +10,7 @@ import 'package:rivertide/features/stations/domain/station.dart';
 import 'package:rivertide/features/stations/presentation/widgets/countdown_card.dart';
 import 'package:rivertide/features/stations/presentation/widgets/daily_extremes_card.dart';
 import 'package:rivertide/features/stations/presentation/widgets/flow_card.dart';
+import 'package:rivertide/features/stations/presentation/widgets/hazard_banner.dart';
 import 'package:rivertide/features/stations/presentation/widgets/location_extras.dart';
 import 'package:rivertide/features/stations/presentation/widgets/quick_summary.dart';
 import 'package:rivertide/features/stations/presentation/widgets/source_line.dart';
@@ -35,6 +36,9 @@ class OverviewTab extends StatelessWidget {
       return ListView(
         padding: const EdgeInsets.all(AppSpacing.lg),
         children: [
+          HazardBanner(view: view, bottomGap: AppSpacing.md),
+          QuickSummary(view: view),
+          const SizedBox(height: AppSpacing.md),
           FlowCard(stationId: tide.station.id, nowUtc: view.nowUtc, primary: true),
           const SizedBox(height: AppSpacing.md),
           FishingNow(view: view),
@@ -47,7 +51,16 @@ class OverviewTab extends StatelessWidget {
       return ListView(
         padding: const EdgeInsets.all(AppSpacing.lg),
         children: [
+          HazardBanner(view: view, bottomGap: AppSpacing.md),
+          QuickSummary(view: view),
+          const SizedBox(height: AppSpacing.md),
           DailyExtremesCard(extremes: daily),
+          const SizedBox(height: AppSpacing.md),
+          FlowCard(stationId: tide.station.id, nowUtc: view.nowUtc),
+          const SizedBox(height: AppSpacing.md),
+          FishingNow(view: view),
+          const SizedBox(height: AppSpacing.md),
+          Conditions(view: view),
           const SizedBox(height: AppSpacing.md),
           SourceLine(view: view, showSource: false, showReference: false),
         ],
@@ -58,6 +71,7 @@ class OverviewTab extends StatelessWidget {
       children: [
         LevelHeroBlock(view: view),
         const SizedBox(height: AppSpacing.md),
+        HazardBanner(view: view, bottomGap: AppSpacing.md),
         QuickSummary(view: view),
         const SizedBox(height: AppSpacing.lg),
         CountdownCard(now: now, nowUtc: view.nowUtc),

@@ -830,6 +830,66 @@ abstract class AppLocalizations {
   /// **'Đi câu ngay'**
   String get map_goFishing;
 
+  /// No description provided for @hazard_title.
+  ///
+  /// In vi, this message translates to:
+  /// **'Cần chú ý'**
+  String get hazard_title;
+
+  /// No description provided for @hazard_titleSevere.
+  ///
+  /// In vi, this message translates to:
+  /// **'Nguy hiểm — không nên ra sông'**
+  String get hazard_titleSevere;
+
+  /// No description provided for @hazard_at.
+  ///
+  /// In vi, this message translates to:
+  /// **'lúc {time}'**
+  String hazard_at(String time);
+
+  /// No description provided for @hazard_between.
+  ///
+  /// In vi, this message translates to:
+  /// **'{from}–{to}'**
+  String hazard_between(String from, String to);
+
+  /// No description provided for @hazard_thunderstorm.
+  ///
+  /// In vi, this message translates to:
+  /// **'Dông, sét: lên bờ, tránh chỗ trống và cần câu'**
+  String get hazard_thunderstorm;
+
+  /// No description provided for @hazard_gust.
+  ///
+  /// In vi, this message translates to:
+  /// **'Gió giật trên 50 km/h: không ra thuyền'**
+  String get hazard_gust;
+
+  /// No description provided for @hazard_heavyRain.
+  ///
+  /// In vi, this message translates to:
+  /// **'Mưa to trên 20 mm/giờ'**
+  String get hazard_heavyRain;
+
+  /// No description provided for @hazard_possibleStorm.
+  ///
+  /// In vi, this message translates to:
+  /// **'Trời không ổn định, có thể có dông'**
+  String get hazard_possibleStorm;
+
+  /// No description provided for @hazard_risingFast.
+  ///
+  /// In vi, this message translates to:
+  /// **'Nước đang lên nhanh bất thường (nhanh hơn hẳn mấy ngày qua): tránh bãi thấp, cồn cát'**
+  String get hazard_risingFast;
+
+  /// No description provided for @hazard_flood.
+  ///
+  /// In vi, this message translates to:
+  /// **'Lưu lượng sông ngày mai tăng mạnh (mưa lớn thượng nguồn): nước lên, đục, chảy xiết'**
+  String get hazard_flood;
+
   /// No description provided for @station_levelNow.
   ///
   /// In vi, this message translates to:
