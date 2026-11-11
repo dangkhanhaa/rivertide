@@ -13,4 +13,7 @@ abstract final class Env {
 
   /// Public web app; shared links open a place there (hash routes).
   static const String webAppUrl = 'https://dangkhanhaa.github.io/rivertide/';
+
+  /// Android app file published next to the web app (sideload, no store).
+  static const String apkUrl = '${webAppUrl}con-nuoc.apk';
 }

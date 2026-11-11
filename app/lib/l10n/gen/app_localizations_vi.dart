@@ -786,6 +786,13 @@ class AppLocalizationsVi extends AppLocalizations {
       'Báo thức chỉ có trên app Android (trình duyệt không kêu được khi đóng)';
 
   @override
+  String get more_apk => 'Tải app Android (APK)';
+
+  @override
+  String get more_apkHint =>
+      'Có thêm báo thức con nước và widget màn hình chính. Mở file sau khi tải, cho phép cài từ nguồn này.';
+
+  @override
   String get station_levelNow => 'Mực nước hiện tại';
 
   @override

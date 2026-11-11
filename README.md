@@ -41,6 +41,19 @@ Bản đồ nền: OpenFreeMap (miễn phí, không cần khóa hay đăng ký) 
 
 Cập nhật dự báo triều (hằng tháng): xem [docs/tide-validation.md](docs/tide-validation.md). Mực nước sông: xem [docs/river-model.md](docs/river-model.md).
 
+### App Android (APK)
+
+`app/web/con-nuoc.apk` được đăng cùng bản web: https://dangkhanhaa.github.io/rivertide/con-nuoc.apk (nút "Tải app Android" trong mục Thêm của bản web). Bản Android có thêm báo thức con nước và widget màn hình chính.
+
+Build lại khi code đổi (máy có Android SDK):
+
+```powershell
+cd app; flutter build apk --release --target-platform android-arm64
+copy buildpp\outputslutter-apkpp-release.apk web\con-nuoc.apk
+```
+
+APK hiện ký bằng khóa debug của máy build. Muốn người dùng cập nhật đè lên bản cũ, mọi bản sau phải ký cùng một khóa: nên tạo khóa phát hành riêng (giữ bí mật, không đưa vào kho) trước khi phát hành rộng.
+
 ### Đưa lên mạng miễn phí (GitHub Pages)
 
 Workflow [.github/workflows/pages.yml](.github/workflows/pages.yml) chạy 2 giờ một lần từ 10:17 đến 22:17 giờ VN, và mỗi khi đẩy code. Mỗi lần chạy, workflow:

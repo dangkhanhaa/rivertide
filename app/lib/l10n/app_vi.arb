@@ -275,6 +275,8 @@
   "alert_onSnack": "Đã bật: nhắc trước 30 phút mỗi lần đỉnh, chân triều và giờ câu đẹp",
   "alert_denied": "Chưa được phép gửi thông báo. Bật trong Cài đặt > Ứng dụng > Con Nước > Thông báo.",
   "alert_webOnly": "Báo thức chỉ có trên app Android (trình duyệt không kêu được khi đóng)",
+  "more_apk": "Tải app Android (APK)",
+  "more_apkHint": "Có thêm báo thức con nước và widget màn hình chính. Mở file sau khi tải, cho phép cài từ nguồn này.",
   "station_levelNow": "Mực nước hiện tại",
   "station_follow": "Theo dõi trạm",
   "station_unfollow": "Bỏ theo dõi",

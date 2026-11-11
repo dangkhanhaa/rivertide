@@ -9,6 +9,7 @@ import 'package:rivertide/core/theme/app_text.dart';
 import 'package:rivertide/features/more/application/outdoor_mode_provider.dart';
 import 'package:rivertide/features/more/application/theme_mode_provider.dart';
 import 'package:rivertide/features/more/application/update_provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 /// S13: settings only; version and data sources sit behind the ⓘ button.
 class MoreScreen extends ConsumerWidget {
@@ -75,6 +76,16 @@ class MoreScreen extends ConsumerWidget {
                 leading: const Icon(Icons.install_mobile_rounded),
                 title: Text(l10n.more_install),
                 subtitle: Text(l10n.more_installHow),
+              ),
+            ),
+            const SizedBox(height: AppSpacing.sm),
+            Card(
+              child: ListTile(
+                leading: const Icon(Icons.android_rounded),
+                title: Text(l10n.more_apk),
+                subtitle: Text(l10n.more_apkHint),
+                trailing: const Icon(Icons.download_rounded),
+                onTap: () => launchUrl(Uri.parse(Env.apkUrl)),
               ),
             ),
           ],

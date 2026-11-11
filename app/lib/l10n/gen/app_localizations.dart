@@ -1406,6 +1406,18 @@ abstract class AppLocalizations {
   /// **'Báo thức chỉ có trên app Android (trình duyệt không kêu được khi đóng)'**
   String get alert_webOnly;
 
+  /// No description provided for @more_apk.
+  ///
+  /// In vi, this message translates to:
+  /// **'Tải app Android (APK)'**
+  String get more_apk;
+
+  /// No description provided for @more_apkHint.
+  ///
+  /// In vi, this message translates to:
+  /// **'Có thêm báo thức con nước và widget màn hình chính. Mở file sau khi tải, cho phép cài từ nguồn này.'**
+  String get more_apkHint;
+
   /// No description provided for @station_levelNow.
   ///
   /// In vi, this message translates to:
