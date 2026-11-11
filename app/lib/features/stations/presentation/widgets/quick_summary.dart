@@ -2,6 +2,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rivertide/core/calc/fishing/fishing_advice.dart';
+import 'package:rivertide/core/calc/tide/tide_series.dart';
 import 'package:rivertide/core/calc/tide/tide_state.dart';
 import 'package:rivertide/core/format/level_format.dart';
 import 'package:rivertide/core/format/time_format.dart';
@@ -19,16 +20,16 @@ import 'package:rivertide/features/stations/presentation/widgets/tide_text.dart'
 extension AdviceText on BuildContext {
   (IconData, String, Color) adviceLine(AdviceKind k, StationView view) {
     final c = colors;
-    final next = view.now.nextExtreme;
     return switch (k) {
       AdviceKind.unsafe => (Icons.thunderstorm_rounded, l10n.advice_unsafe, c.alarm3),
       AdviceKind.risingNearBank => (Icons.north_east_rounded, l10n.advice_rising, c.primary),
       AdviceKind.fallingDeeper => (Icons.south_west_rounded, l10n.advice_falling, c.primary),
       AdviceKind.slackWait => (
         Icons.pause_circle_outline_rounded,
-        next == null
-            ? l10n.advice_slack
-            : l10n.advice_slackAt(TimeFormat.hm(next.timeUtc.add(const Duration(minutes: 30)))),
+        switch (slackResumeUtc(view)) {
+          final t? => l10n.advice_slackAt(TimeFormat.hm(t)),
+          null => l10n.advice_slack,
+        },
         c.onSurfaceMuted,
       ),
       AdviceKind.windStrong => (Icons.air_rounded, l10n.advice_windStrong, c.alarm2),
@@ -39,6 +40,25 @@ extension AdviceText on BuildContext {
       AdviceKind.goodNow => (Icons.check_circle_outline_rounded, l10n.advice_good, c.fishHigh),
     };
   }
+}
+
+/// When slack water around a high/low ends and the water moves again: about
+/// 30 min after the turn that is (or was) within the hour. Null when no turn
+/// is that close or the estimate is already past.
+DateTime? slackResumeUtc(StationView view) {
+  final now = view.nowUtc;
+  const near = Duration(hours: 1);
+  const settle = Duration(minutes: 30);
+  final extremes = view.tide.data.prediction?.extremes ?? const <TideExtreme>[];
+  final prev = extremes.lastWhereOrNull((e) => !e.timeUtc.isAfter(now));
+  final next = extremes.firstWhereOrNull((e) => e.timeUtc.isAfter(now));
+  final turn = switch ((prev, next)) {
+    (_, final n?) when n.timeUtc.difference(now) <= near => n.timeUtc,
+    (final p?, _) when now.difference(p.timeUtc) <= near => p.timeUtc,
+    _ => null,
+  };
+  final resume = turn?.add(settle);
+  return resume == null || !resume.isAfter(now) ? null : resume;
 }
 
 /// "Lúc này ở đây": water, fishing and wind in one glance, plus the most
