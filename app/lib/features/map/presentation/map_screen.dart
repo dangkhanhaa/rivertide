@@ -252,6 +252,7 @@ class _MapScreenState extends ConsumerState<MapScreen> with MapDetailPresenter<M
                     MapSearchBar(
                       stations: stationList.value ?? const [],
                       onSelected: (s) => _openStation(s.id, zoom: 11),
+                      onPlace: (p) => _openPoint(p.lat, p.lon, PointSurface.unknown, zoom: 13),
                     ),
                     // Riverpod retries failed providers: show the error, not a spinner, meanwhile.
                     if (stationList.hasError && !stationList.hasValue)

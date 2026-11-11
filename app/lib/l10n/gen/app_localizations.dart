@@ -383,7 +383,7 @@ abstract class AppLocalizations {
   /// No description provided for @map_searchHint.
   ///
   /// In vi, this message translates to:
-  /// **'Tìm trạm (gõ không dấu cũng được)'**
+  /// **'Tìm trạm, cầu, bến, xã (gõ không dấu được)'**
   String get map_searchHint;
 
   /// No description provided for @map_searchNone.
@@ -1195,6 +1195,42 @@ abstract class AppLocalizations {
   /// In vi, this message translates to:
   /// **'Xóa mẻ cá này khỏi nhật ký?'**
   String get journal_deleteTitle;
+
+  /// No description provided for @place_city.
+  ///
+  /// In vi, this message translates to:
+  /// **'Thành phố, thị xã'**
+  String get place_city;
+
+  /// No description provided for @place_ward.
+  ///
+  /// In vi, this message translates to:
+  /// **'Phường, xã, làng'**
+  String get place_ward;
+
+  /// No description provided for @place_bridge.
+  ///
+  /// In vi, this message translates to:
+  /// **'Cầu'**
+  String get place_bridge;
+
+  /// No description provided for @place_ferry.
+  ///
+  /// In vi, this message translates to:
+  /// **'Bến phà'**
+  String get place_ferry;
+
+  /// No description provided for @place_wharf.
+  ///
+  /// In vi, this message translates to:
+  /// **'Bến'**
+  String get place_wharf;
+
+  /// No description provided for @place_near.
+  ///
+  /// In vi, this message translates to:
+  /// **'{kind} · gần {town}'**
+  String place_near(String kind, String town);
 
   /// No description provided for @station_levelNow.
   ///

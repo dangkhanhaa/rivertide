@@ -180,7 +180,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get nav_map => 'Bản đồ';
 
   @override
-  String get map_searchHint => 'Tìm trạm (gõ không dấu cũng được)';
+  String get map_searchHint => 'Tìm trạm, cầu, bến, xã (gõ không dấu được)';
 
   @override
   String get map_searchNone => 'Không tìm thấy trạm phù hợp';
@@ -654,6 +654,26 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get journal_deleteTitle => 'Xóa mẻ cá này khỏi nhật ký?';
+
+  @override
+  String get place_city => 'Thành phố, thị xã';
+
+  @override
+  String get place_ward => 'Phường, xã, làng';
+
+  @override
+  String get place_bridge => 'Cầu';
+
+  @override
+  String get place_ferry => 'Bến phà';
+
+  @override
+  String get place_wharf => 'Bến';
+
+  @override
+  String place_near(String kind, String town) {
+    return '$kind · gần $town';
+  }
 
   @override
   String get station_levelNow => 'Mực nước hiện tại';
