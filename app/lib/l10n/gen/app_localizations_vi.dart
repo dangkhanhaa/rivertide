@@ -731,6 +731,13 @@ class AppLocalizationsVi extends AppLocalizations {
   }
 
   @override
+  String get more_install => 'Cài Con Nước lên màn hình chính';
+
+  @override
+  String get more_installHow =>
+      'Android (Chrome): bấm ⋮ rồi chọn Cài đặt ứng dụng. iPhone (Safari): bấm nút Chia sẻ rồi chọn Thêm vào MH chính. App mở nhanh như app thật, không cần cửa hàng.';
+
+  @override
   String get station_levelNow => 'Mực nước hiện tại';
 
   @override

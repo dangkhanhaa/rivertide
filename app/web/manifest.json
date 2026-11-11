@@ -1,11 +1,11 @@
 {
-    "name": "rivertide",
-    "short_name": "rivertide",
+    "name": "Con Nước",
+    "short_name": "Con Nước",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#0175C2",
-    "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "background_color": "#F1F5F8",
+    "theme_color": "#0B6E99",
+    "description": "Mực nước, con nước, giờ câu cá cho mọi điểm sông, biển Việt Nam",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
@@ -31,5 +31,6 @@
             "type": "image/png",
             "purpose": "maskable"
         }
-    ]
+    ],
+    "lang": "vi"
 }

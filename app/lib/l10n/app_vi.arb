@@ -256,6 +256,8 @@
   "map_layerWeatherHint": "Chấm xanh: mưa 1 giờ tới (càng to càng nhiều). Mũi tên: hướng gió thổi tới. Phóng to vùng muốn xem.",
   "hazard_surge": "Nước biển đang cao hơn thủy triều thường {cm} cm (gió mạnh hoặc bão đẩy nước vào): bãi thấp, cửa sông dễ ngập",
   "@hazard_surge": {"placeholders": {"cm": {"type": "int"}}},
+  "more_install": "Cài Con Nước lên màn hình chính",
+  "more_installHow": "Android (Chrome): bấm ⋮ rồi chọn Cài đặt ứng dụng. iPhone (Safari): bấm nút Chia sẻ rồi chọn Thêm vào MH chính. App mở nhanh như app thật, không cần cửa hàng.",
   "station_levelNow": "Mực nước hiện tại",
   "station_follow": "Theo dõi trạm",
   "station_unfollow": "Bỏ theo dõi",

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rivertide/core/config/env.dart';
@@ -67,6 +68,16 @@ class MoreScreen extends ConsumerWidget {
             value: ref.watch(outdoorModeProvider).value ?? false,
             onChanged: (v) => ref.read(outdoorModeProvider.notifier).set(on: v),
           ),
+          if (kIsWeb) ...[
+            const SizedBox(height: AppSpacing.lg),
+            Card(
+              child: ListTile(
+                leading: const Icon(Icons.install_mobile_rounded),
+                title: Text(l10n.more_install),
+                subtitle: Text(l10n.more_installHow),
+              ),
+            ),
+          ],
         ],
       ),
     );

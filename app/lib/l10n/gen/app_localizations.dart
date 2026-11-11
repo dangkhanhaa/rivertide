@@ -1322,6 +1322,18 @@ abstract class AppLocalizations {
   /// **'Nước biển đang cao hơn thủy triều thường {cm} cm (gió mạnh hoặc bão đẩy nước vào): bãi thấp, cửa sông dễ ngập'**
   String hazard_surge(int cm);
 
+  /// No description provided for @more_install.
+  ///
+  /// In vi, this message translates to:
+  /// **'Cài Con Nước lên màn hình chính'**
+  String get more_install;
+
+  /// No description provided for @more_installHow.
+  ///
+  /// In vi, this message translates to:
+  /// **'Android (Chrome): bấm ⋮ rồi chọn Cài đặt ứng dụng. iPhone (Safari): bấm nút Chia sẻ rồi chọn Thêm vào MH chính. App mở nhanh như app thật, không cần cửa hàng.'**
+  String get more_installHow;
+
   /// No description provided for @station_levelNow.
   ///
   /// In vi, this message translates to:
