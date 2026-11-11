@@ -43,10 +43,9 @@ Cập nhật dự báo triều (hằng tháng): xem [docs/tide-validation.md](do
 
 ### Đưa lên mạng miễn phí (GitHub Pages)
 
-Workflow [.github/workflows/pages.yml](.github/workflows/pages.yml) chạy 3 lần mỗi ngày (11:30, 13:30, 16:30 giờ VN). Mỗi lần chạy, workflow:
-1. lấy bản tin KTTV và lưu vào kho;
-2. chạy `flutter test`;
-3. build bản web và đăng lên `https://dangkhanhaa.github.io/rivertide/`.
+Workflow [.github/workflows/pages.yml](.github/workflows/pages.yml) chạy 2 giờ một lần từ 10:17 đến 22:17 giờ VN, và mỗi khi đẩy code. Mỗi lần chạy, workflow:
+1. lấy bản tin KTTV mới nhất (và các ngày còn sót) rồi lưu vào kho;
+2. build bản web và đăng lên `https://dangkhanhaa.github.io/rivertide/`.
 
 App tải số liệu sông mới tại `https://dangkhanhaa.github.io/rivertide/data/kttv_tvhn.json`.
 

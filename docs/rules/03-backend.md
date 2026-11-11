@@ -128,5 +128,5 @@ const round4 = (n: number) => Math.round(n * 1e4) / 1e4;
 - Python 3.11+, định dạng `ruff format`, lint `ruff check`, kiểu `mypy --strict` cho module chính.
 - Mỗi script có `main()` + `argparse`, không chạy logic khi import.
 - Secrets đọc từ biến môi trường (`SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`), KHÔNG hard-code, KHÔNG in ra log.
-- Test `pytest` trong `tools/tide/tests/` (ít nhất: dự báo một chuỗi sin tổng hợp phải khôi phục đúng biên độ/pha; tìm đỉnh/chân đúng).
+- Kiểm định bằng dữ liệu IOC thật (`tools/tide/validate.py`); không có test tự động (docs/rules/05).
 - Đầu ra file triều PHẢI đúng định dạng PROJECT.md 8.5 và có `model.version`, `rmse_cm`.

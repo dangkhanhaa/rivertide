@@ -46,9 +46,8 @@ cd app
 dart run build_runner build --delete-conflicting-outputs
 dart format --set-exit-if-changed .
 flutter analyze
-flutter test
 cd ..\supabase\functions
-deno fmt --check; deno lint; deno test -A
+deno fmt --check; deno lint
 cd ..\..
 git grep -n -I -i -E "service_role|PRIVATE KEY|client_secret"
 git status   # kiểm tra không có file lạ / file env

@@ -17,7 +17,7 @@
 | Chuẩn code Dart/Flutter | [docs/rules/02-flutter-dart.md](docs/rules/02-flutter-dart.md) |
 | Chuẩn SQL, Supabase, Edge Functions | [docs/rules/03-backend.md](docs/rules/03-backend.md) |
 | Bảo mật | [docs/rules/04-security.md](docs/rules/04-security.md) |
-| Kiểm thử | [docs/rules/05-testing.md](docs/rules/05-testing.md) |
+| Kiểm tra (bằng dữ liệu thật, không có test tự động) | [docs/rules/05-testing.md](docs/rules/05-testing.md) |
 | Giao diện, chữ tiếng Việt, khả năng tiếp cận | [docs/rules/06-ui-copy.md](docs/rules/06-ui-copy.md) |
 | Git, commit, quy trình | [docs/rules/07-git-workflow.md](docs/rules/07-git-workflow.md) |
 
@@ -31,12 +31,13 @@ Thứ tự ưu tiên khi các file mâu thuẫn: **CLAUDE.md > docs/rules/* > PR
 2. **Đọc spec:** đọc mục PROJECT.md + FEATURES.md + docs/rules liên quan. Ghi rõ trong câu trả lời đã đọc những mục nào.
 3. **Kiểm tra phụ thuộc:** task phụ thuộc task chưa xong → dừng, báo.
 4. **Lập kế hoạch ngắn:** liệt kê file sẽ tạo/sửa/xóa + cách kiểm tra. Task > 10 file hoặc có thay đổi CSDL/bảo mật → **chờ người dùng đồng ý** rồi mới code.
-5. **Test trước** cho mọi logic thuần (`core/calc`, parser, validate, rule).
+5. **Không viết test tự động** (quyết định của chủ dự án 11/11/2026). Kiểm tra bằng **dữ liệu thật**: chạy app với nguồn thật và xem tận mắt (docs/rules/05).
 6. **Code** theo docs/rules.
 7. **Tự kiểm tra** — chạy và PHẢI pass hết:
    ```
-   cd app;  dart format --set-exit-if-changed .;  flutter analyze;  flutter test
-   cd supabase/functions;  deno fmt --check;  deno lint;  deno test -A
+   cd app;  dart format --set-exit-if-changed .;  flutter analyze;  flutter build web --release
+   cd supabase/functions;  deno fmt --check;  deno lint
+   + mở bản build với dữ liệu thật, kiểm đúng các điểm/màn hình đã sửa (docs/rules/05)
    supabase db reset   (khi có đổi migration)
    ```
    Lệnh nào chưa chạy được (chưa cài công cụ…) → **nói rõ là chưa chạy**, KHÔNG được báo "đã pass".
@@ -84,7 +85,7 @@ Thứ tự ưu tiên khi các file mâu thuẫn: **CLAUDE.md > docs/rules/* > PR
 - **KHÔNG ĐƯỢC** bắt lỗi rồi nuốt (`catch (_) {}`) — phải chuyển thành `AppException` hoặc log + xử lý.
 - **KHÔNG ĐƯỢC** sửa file sinh tự động (`*.g.dart`, `*.freezed.dart`, `database.types.ts`) — chạy lại generator.
 - **KHÔNG ĐƯỢC** sửa migration SQL đã tồn tại — tạo migration mới.
-- **KHÔNG ĐƯỢC** xóa/vô hiệu hóa test đang fail để "cho qua". Sửa code hoặc báo người dùng.
+- **KHÔNG ĐƯỢC** báo "đã kiểm tra" khi chưa chạy app với dữ liệu thật và xem kết quả.
 - **KHÔNG ĐƯỢC** thêm tính năng, refactor, đổi định dạng ngoài phạm vi task.
 
 ### 3.6. Trung thực
@@ -116,18 +117,16 @@ flutter gen-l10n
 flutter run --dart-define-from-file=env/dev.json
 dart format .
 flutter analyze
-flutter test
-flutter test --coverage
 
 # Backend
 supabase start
 supabase db reset
 supabase migration new <snake_case_name>
 supabase functions serve --env-file supabase/functions/.env
-cd supabase/functions; deno fmt; deno lint; deno test -A
+cd supabase/functions; deno fmt; deno lint
 
-# Thủy triều
-cd tools/tide; .\.venv\Scripts\Activate.ps1; python -m pytest
+# Thủy triều (kiểm định bằng dữ liệu IOC thật)
+cd tools/tide; .\.venv\Scripts\Activate.ps1; python validate.py
 ```
 
 ---
@@ -174,7 +173,7 @@ catch (_) {}    → không nuốt lỗi
 | Lệnh | Kết quả |
 |---|---|
 | flutter analyze | ✅ 0 issues / ❌ … / ⏭ chưa chạy (lý do) |
-| flutter test | ✅ 24 passed |
+| Dữ liệu thật (web) | ✅ đã xem: … |
 
 **Tiêu chí xong (DoD):**
 - [x] …

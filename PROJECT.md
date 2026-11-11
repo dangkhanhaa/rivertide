@@ -1286,6 +1286,8 @@ git grep -n -i -E "service_role|BEGIN PRIVATE KEY|sk_live|eyJhbGciOiJIUzI1NiIsIn
 
 ## 13. Kiểm thử
 
+> **11/11/2026: bỏ toàn bộ test tự động** theo quyết định chủ dự án. Kiểm tra bằng dữ liệu thật theo [docs/rules/05-testing.md](docs/rules/05-testing.md). Bảng dưới chỉ còn giá trị lịch sử, trừ dòng kiểm chứng triều.
+
 | Loại | Phạm vi | Công cụ | Bắt buộc ở |
 |---|---|---|---|
 | Unit (Dart) | `core/calc/*` — tide, lunar, astro, solunar, fishing score, geo | `flutter test` | P1 |
@@ -1547,8 +1549,7 @@ Hoãn tới khi cần máy chủ: P1-05 → P1-12, P1-18, P1-30, P1-32 (phần D
 Đọc CLAUDE.md và PROJECT.md. Thực hiện task <MÃ TASK> trong mục 14.
 - Đọc các mục spec liên quan (ghi rõ mục nào bạn đã đọc).
 - Lập kế hoạch ngắn (các file sẽ tạo/sửa) rồi mới code.
-- Viết test trước cho phần logic.
-- Chạy flutter analyze / flutter test (hoặc deno lint / deno test) và sửa hết lỗi.
+- Chạy flutter analyze, build web, rồi kiểm bằng dữ liệu thật (docs/rules/05).
 - Cuối cùng: tóm tắt đã làm gì, cách tôi tự kiểm tra theo Tiêu chí xong, và những gì còn thiếu.
 ```
 
@@ -1659,3 +1660,4 @@ Theo yêu cầu, các mục dưới **chưa làm** ở bản dev — ghi lại �
 | 2026-11-10 | **Khung điểm/trạm chỉ hiện số của chính vị trí** (không giải thích "dựa theo trạm"); **tab Câu cá tính theo điểm câu** người dùng chọn (vị trí của tôi / điểm trên bản đồ / điểm đã lưu) + gợi ý gần bờ/xa bờ theo con nước, gió, dông, mưa, ánh sáng; **tab Thêm** chỉ còn cài đặt, phiên bản + nguồn trong ⓘ, báo "có phiên bản mới" chỉ khi bản web khác bản đang chạy | Chủ dự án muốn giao diện trực quan, thương mại. Phương pháp và sai số vẫn ở docs/river-model.md và tab Thông tin |
 | 2026-11-10 | **Điểm nào cũng có số liệu**: thứ tự nguồn cho 1 điểm = mô hình biển tại điểm (chỉ khi độ cao địa hình ≤ 0 m và ô lưới ≤ 8 km) → mô hình dọc sông → trạm KTTV ≤ 40 km → triều ven bờ ≤ 25 km (ước tính, độ tin cậy thấp) → không có mực nước: hiện lưu lượng + xu hướng lên/rút + 7 ngày, giờ câu, thời tiết | Người dùng: "bất cứ điểm nào trên sông đều phải có". Open-Meteo Marine trả mực nước biển cho cả đất liền (TP Thái Bình 11 m, TP Thanh Hóa dời ô 16 km) nên trước đây gọi nhầm là "Vùng biển". Không bịa mực nước khi không có nguồn |
 | 2026-11-10 | **Dữ liệu hết hạn vẫn hiện số mới nhất kèm giờ** ("Số mới nhất lúc 07:00 · chưa có số cho giờ này", tối đa 36 giờ), biểu đồ lùi về đoạn có số; không tính "hôm nay cao/thấp" từ nửa ngày. Bộ tải bản tin KTTV nhận mọi thư mục `upload/thuyvanN`; lịch GitHub chạy 2 giờ/lần (10:17–22:17 VN) | Dự báo trạm KTTV (vd Phú Thọ) chỉ đến 07:00 VN hôm sau, bản tin mới ~10:30. Ngày 10/11 KTTV đổi thư mục PDF từ thuyvan2 → thuyvan1 và GitHub không chạy lịch nào → điểm trên sông Hồng hiện "—" + biểu đồ trống |
+| 2026-11-11 | **Bỏ toàn bộ test tự động** (app/test, tools/*/tests, fixtures đi kèm); kiểm tra bằng dữ liệu thật + xem bản build. CI không chạy test, chỉ lấy bản tin + build + đăng. Bộ tải bản tin đọc tới 12 trang danh sách, lưu mọi ngày còn sót | Chủ dự án chọn sau khi được báo luật cũ cấm xóa test. Lượt cập nhật dữ liệu 11/11 bị chặn vì test đọc file dữ liệu mà CI vừa thay |
