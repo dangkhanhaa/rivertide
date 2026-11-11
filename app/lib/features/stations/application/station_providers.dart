@@ -20,12 +20,18 @@ part 'station_providers.g.dart';
 Set<String>? _assetNames;
 
 /// Loads a bundled asset, or null when it is not in the manifest (e.g. next year's tide file).
+/// Bundled files already read this session. On the web they are fetched over
+/// the network, so keeping them lets saved places open with no signal once
+/// they were loaded (prefetch at start). Failures are not kept.
+final Map<String, String> _assetText = {};
+
 Future<String?> _loadBundleAsset(String path) async {
+  if (_assetText[path] case final hit?) return hit;
   final names = _assetNames ??= (await AssetManifest.loadFromAssetBundle(rootBundle))
       .listAssets()
       .toSet();
   if (!names.contains(path)) return null;
-  return await rootBundle.loadString(path);
+  return _assetText[path] = await rootBundle.loadString(path, cache: false);
 }
 
 @Riverpod(keepAlive: true)

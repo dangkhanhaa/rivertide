@@ -1,9 +1,12 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:rivertide/core/theme/app_theme.dart';
 import 'package:rivertide/features/more/application/theme_mode_provider.dart';
+import 'package:rivertide/features/stations/stations.dart';
 import 'package:rivertide/l10n/gen/app_localizations.dart';
 import 'package:rivertide/router.dart';
 
@@ -16,6 +19,13 @@ class RiverTideApp extends ConsumerStatefulWidget {
 
 class _RiverTideAppState extends ConsumerState<RiverTideApp> {
   late final GoRouter _router = buildRouter();
+
+  @override
+  void initState() {
+    super.initState();
+    // After the first frame so it never delays opening the app.
+    WidgetsBinding.instance.addPostFrameCallback((_) => unawaited(prefetchSavedPlaces(ref)));
+  }
 
   @override
   void dispose() {

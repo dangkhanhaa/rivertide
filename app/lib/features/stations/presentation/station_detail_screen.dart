@@ -23,10 +23,15 @@ class StationDetailScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final station = ref.watch(stationByIdProvider(stationId));
-    return AsyncValueView(
-      value: station,
-      onRetry: () => ref.invalidate(stationByIdProvider(stationId)),
-      data: (s) => _DetailScaffold(station: s),
+    if (station.value case final s?) return _DetailScaffold(station: s);
+    // Loading / error still need a page (back button, Material text style).
+    return Scaffold(
+      appBar: AppBar(),
+      body: AsyncValueView(
+        value: station,
+        onRetry: () => ref.invalidate(stationByIdProvider(stationId)),
+        data: (s) => const SizedBox.shrink(),
+      ),
     );
   }
 }

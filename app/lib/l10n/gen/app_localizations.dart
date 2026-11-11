@@ -467,7 +467,7 @@ abstract class AppLocalizations {
   /// No description provided for @map_locDeniedForeverBody.
   ///
   /// In vi, this message translates to:
-  /// **'Vào Cài đặt → Ứng dụng → Con Nước → Quyền → Vị trí để bật lại.'**
+  /// **'Vào Cài đặt > Ứng dụng > Con Nước > Quyền > Vị trí để bật lại.'**
   String get map_locDeniedForeverBody;
 
   /// No description provided for @map_openSettings.
@@ -1373,13 +1373,13 @@ abstract class AppLocalizations {
   /// No description provided for @advice_rising.
   ///
   /// In vi, this message translates to:
-  /// **'Nước đang lên: cá vào gần bờ, mép cỏ, bãi nông kiếm ăn → câu gần bờ'**
+  /// **'Nước đang lên: cá vào gần bờ, mép cỏ, bãi nông kiếm ăn, nên câu gần bờ'**
   String get advice_rising;
 
   /// No description provided for @advice_falling.
   ///
   /// In vi, this message translates to:
-  /// **'Nước đang rút: cá ra chỗ sâu, mép luồng, cửa lạch → câu xa bờ hơn'**
+  /// **'Nước đang rút: cá ra chỗ sâu, mép luồng, cửa lạch, nên câu xa bờ hơn'**
   String get advice_falling;
 
   /// No description provided for @advice_slack.
@@ -1607,7 +1607,7 @@ abstract class AppLocalizations {
   /// No description provided for @station_modelFit.
   ///
   /// In vi, this message translates to:
-  /// **'Hằng số triều tính từ số liệu {from} → {to}'**
+  /// **'Hằng số triều tính từ số liệu {from} đến {to}'**
   String station_modelFit(String from, String to);
 
   /// No description provided for @station_sourceGauge.

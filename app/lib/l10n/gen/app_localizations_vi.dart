@@ -230,7 +230,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get map_locDeniedForeverBody =>
-      'Vào Cài đặt → Ứng dụng → Con Nước → Quyền → Vị trí để bật lại.';
+      'Vào Cài đặt > Ứng dụng > Con Nước > Quyền > Vị trí để bật lại.';
 
   @override
   String get map_openSettings => 'Mở Cài đặt';
@@ -771,10 +771,12 @@ class AppLocalizationsVi extends AppLocalizations {
   String get advice_unsafe => 'Có dông hoặc gió giật mạnh — không nên câu lúc này';
 
   @override
-  String get advice_rising => 'Nước đang lên: cá vào gần bờ, mép cỏ, bãi nông kiếm ăn → câu gần bờ';
+  String get advice_rising =>
+      'Nước đang lên: cá vào gần bờ, mép cỏ, bãi nông kiếm ăn, nên câu gần bờ';
 
   @override
-  String get advice_falling => 'Nước đang rút: cá ra chỗ sâu, mép luồng, cửa lạch → câu xa bờ hơn';
+  String get advice_falling =>
+      'Nước đang rút: cá ra chỗ sâu, mép luồng, cửa lạch, nên câu xa bờ hơn';
 
   @override
   String get advice_slack => 'Nước đứng: cá ít ăn, chờ nước chảy lại';
@@ -914,7 +916,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String station_modelFit(String from, String to) {
-    return 'Hằng số triều tính từ số liệu $from → $to';
+    return 'Hằng số triều tính từ số liệu $from đến $to';
   }
 
   @override
