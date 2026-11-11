@@ -21,4 +21,13 @@ abstract interface class StationRepository {
   /// Main-stem discharge near the station (GloFAS); data null where no river
   /// channel is found nearby.
   Future<Cached<RiverFlow?>> getFlow(Station station, {bool forceRefresh = false});
+
+  /// Level change (cm/h) now at points [pointKms] (km from the mouth) of the
+  /// river through [station]; empty when the station has no tide model.
+  Future<List<double?>> reachRates(
+    Station station, {
+    required double stationKm,
+    required List<double> pointKms,
+    required DateTime atUtc,
+  });
 }

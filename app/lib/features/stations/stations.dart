@@ -12,6 +12,7 @@ export 'application/station_providers.dart'
         stationByIdProvider,
         stationFlowProvider,
         stationListProvider,
+        stationRepositoryProvider,
         stationTideProvider,
         updateFavoriteMeta;
 export 'application/station_view_providers.dart' show StationView, stationViewProvider;

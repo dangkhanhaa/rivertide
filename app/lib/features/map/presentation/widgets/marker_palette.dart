@@ -17,4 +17,7 @@ MarkerPalette markerPalette(AppColors c) => (
   me: c.water,
   pin: c.alarm2,
   river: c.water,
+  flowRising: c.water,
+  flowFalling: c.alarm2,
+  flowSlack: c.stale,
 );

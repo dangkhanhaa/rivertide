@@ -223,4 +223,12 @@ class StationRepositoryImpl implements StationRepository {
     bool forceRefresh,
     Future<String> Function() fetch,
   ) => _fetcher.get(key, ttl, fetch, forceRefresh: forceRefresh);
+
+  @override
+  Future<List<double?>> reachRates(
+    Station station, {
+    required double stationKm,
+    required List<double> pointKms,
+    required DateTime atUtc,
+  }) => _river.reachRates(station, stationKm: stationKm, pointKms: pointKms, atUtc: atUtc);
 }

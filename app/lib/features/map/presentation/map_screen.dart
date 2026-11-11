@@ -9,9 +9,11 @@ import 'package:rivertide/core/theme/app_colors.dart';
 import 'package:rivertide/core/theme/app_spacing.dart';
 import 'package:rivertide/core/widgets/state_views.dart';
 import 'package:rivertide/features/map/application/map_providers.dart';
+import 'package:rivertide/features/map/application/river_flow_provider.dart';
 import 'package:rivertide/features/map/domain/base_layer.dart';
 import 'package:rivertide/features/map/domain/location_service.dart';
 import 'package:rivertide/features/map/domain/map_marker.dart';
+import 'package:rivertide/features/map/domain/river_flow_geojson.dart';
 import 'package:rivertide/features/map/domain/river_reach_geojson.dart';
 import 'package:rivertide/features/map/domain/water_layers.dart';
 import 'package:rivertide/features/map/presentation/locate_action.dart';
@@ -187,6 +189,7 @@ class _MapScreenState extends ConsumerState<MapScreen> with MapDetailPresenter<M
           markers: shown,
           palette: markerPalette(context.colors),
           riverReaches: _reaches.of(ref.watch(riverLinesProvider).value),
+          riverFlow: ref.watch(riverFlowProvider).value ?? emptyFlowGeoJson,
           fixedLabels: [
             (lat: 17.5, lon: 112, text: l10n.map_hoangSa),
             (lat: 10, lon: 112.8, text: l10n.map_truongSa),

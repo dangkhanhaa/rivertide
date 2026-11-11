@@ -164,6 +164,16 @@ class _Legend extends StatelessWidget {
       ),
       title: Text(text),
     );
+    Widget line(Color color, String text) => ListTile(
+      dense: true,
+      leading: SizedBox(
+        width: AppSpacing.xl,
+        child: Center(
+          child: Container(height: AppSpacing.xs, color: color),
+        ),
+      ),
+      title: Text(text),
+    );
     return SafeArea(
       child: SingleChildScrollView(
         padding: const EdgeInsets.only(bottom: AppSpacing.lg),
@@ -178,11 +188,16 @@ class _Legend extends StatelessWidget {
             dot(c.ok, l10n.tide_rising, Icons.arrow_drop_up_rounded),
             dot(c.ok, l10n.tide_falling, Icons.arrow_drop_down_rounded),
             dot(c.ok, l10n.tide_slack, Icons.remove_rounded),
+            line(c.water, l10n.map_legendFlowRising),
+            line(c.alarm2, l10n.map_legendFlowFalling),
+            line(c.stale, l10n.map_legendFlowSlack),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  Text(l10n.map_legendFlowNote, style: context.text.caption),
+                  const SizedBox(height: AppSpacing.sm),
                   Text(l10n.map_legendCluster, style: context.text.body),
                   const SizedBox(height: AppSpacing.sm),
                   Text(l10n.map_legendNote, style: context.text.caption),

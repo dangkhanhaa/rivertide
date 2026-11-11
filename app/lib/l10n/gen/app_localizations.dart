@@ -1280,6 +1280,30 @@ abstract class AppLocalizations {
   /// **'Tương phản cao, chữ to hơn: đọc rõ dưới nắng gắt'**
   String get more_outdoorHint;
 
+  /// No description provided for @map_legendFlowRising.
+  ///
+  /// In vi, this message translates to:
+  /// **'Đoạn sông nước đang lên'**
+  String get map_legendFlowRising;
+
+  /// No description provided for @map_legendFlowFalling.
+  ///
+  /// In vi, this message translates to:
+  /// **'Đoạn sông nước đang rút'**
+  String get map_legendFlowFalling;
+
+  /// No description provided for @map_legendFlowSlack.
+  ///
+  /// In vi, this message translates to:
+  /// **'Đoạn sông nước đứng'**
+  String get map_legendFlowSlack;
+
+  /// No description provided for @map_legendFlowNote.
+  ///
+  /// In vi, this message translates to:
+  /// **'Màu đoạn sông tính cho từng đoạn (con nước đến mỗi đoạn một giờ khác nhau), cập nhật 10 phút/lần. Vệt chạy chỉ hướng dòng sông ra biển.'**
+  String get map_legendFlowNote;
+
   /// No description provided for @station_levelNow.
   ///
   /// In vi, this message translates to:

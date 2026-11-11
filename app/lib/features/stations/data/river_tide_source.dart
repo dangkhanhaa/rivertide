@@ -138,6 +138,34 @@ class RiverTideSource {
     );
   }
 
+  /// Rate of level change (cm/h) at [atUtc] for points [pointKms] of the
+  /// station's river, each with its own tide lag (map flow layer). Null
+  /// entries: out of range or no sea data; empty: no tide fit.
+  Future<List<double?>> reachRates(
+    Station station, {
+    required double stationKm,
+    required List<double> pointKms,
+    required DateTime atUtc,
+  }) async {
+    final m = await _build(station, false);
+    final (fit, sea) = (m.fit, m.sea);
+    if (fit == null || sea == null) return const [];
+    const half = Duration(minutes: 30);
+    return [
+      for (final km in pointKms)
+        switch (RiverReach(fit: fit, stationKm: stationKm, pointKm: km)) {
+          final r when !r.inRange => null,
+          final r => switch ((
+            r.levelAt(atUtc.add(half), sea),
+            r.levelAt(atUtc.subtract(half), sea),
+          )) {
+            (final a?, final b?) => a - b,
+            _ => null,
+          },
+        },
+    ];
+  }
+
   Future<({Cached<StationTide> tide, RiverFit? fit, HourlySignal? sea})> _build(
     Station station,
     bool forceRefresh,

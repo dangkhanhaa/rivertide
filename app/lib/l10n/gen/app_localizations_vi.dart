@@ -706,6 +706,19 @@ class AppLocalizationsVi extends AppLocalizations {
   String get more_outdoorHint => 'Tương phản cao, chữ to hơn: đọc rõ dưới nắng gắt';
 
   @override
+  String get map_legendFlowRising => 'Đoạn sông nước đang lên';
+
+  @override
+  String get map_legendFlowFalling => 'Đoạn sông nước đang rút';
+
+  @override
+  String get map_legendFlowSlack => 'Đoạn sông nước đứng';
+
+  @override
+  String get map_legendFlowNote =>
+      'Màu đoạn sông tính cho từng đoạn (con nước đến mỗi đoạn một giờ khác nhau), cập nhật 10 phút/lần. Vệt chạy chỉ hướng dòng sông ra biển.';
+
+  @override
   String get station_levelNow => 'Mực nước hiện tại';
 
   @override

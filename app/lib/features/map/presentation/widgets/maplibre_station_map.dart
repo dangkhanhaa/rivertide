@@ -9,6 +9,7 @@ import 'package:rivertide/features/map/domain/map_marker.dart';
 import 'package:rivertide/features/map/domain/water_layers.dart';
 import 'package:rivertide/features/map/presentation/widgets/base_map.dart';
 import 'package:rivertide/features/map/presentation/widgets/marker_icons.dart';
+import 'package:rivertide/features/map/presentation/widgets/river_flow_layer.dart';
 import 'package:rivertide/features/map/presentation/widgets/station_layers.dart';
 
 /// Whole Vietnam incl. Hoàng Sa and Trường Sa on a phone screen.
@@ -41,7 +42,10 @@ class _MapLibreStationMapState extends State<MapLibreStationMap> implements Base
     }
     if (!_styleReady) return;
     if (!identical(old.config.markers, widget.config.markers)) unawaited(_syncMarkers());
-    if (!identical(old.config.riverReaches, widget.config.riverReaches)) unawaited(_syncRivers());
+    if (!identical(old.config.riverReaches, widget.config.riverReaches) ||
+        !identical(old.config.riverFlow, widget.config.riverFlow)) {
+      unawaited(_syncRivers());
+    }
     if (old.config.userPosition != widget.config.userPosition ||
         old.config.pin != widget.config.pin) {
       unawaited(_syncMe());
@@ -127,6 +131,44 @@ class _MapLibreStationMapState extends State<MapLibreStationMap> implements Base
     final c = _controller;
     if (c == null || !_styleReady) return;
     await c.setGeoJsonSource(riverReachSourceId, widget.config.riverReaches);
+    await c.setGeoJsonSource(riverFlowSourceId, widget.config.riverFlow);
+    _startFlowAnimation();
+  }
+
+  Timer? _flowTimer;
+  int _flowFrame = 0;
+  bool _flowBusy = false;
+  bool _flowErrorLogged = false;
+
+  @override
+  void dispose() {
+    _flowTimer?.cancel();
+    super.dispose();
+  }
+
+  /// Steps the dash frames while the map is shown; off with reduced motion.
+  void _startFlowAnimation() {
+    if (_flowTimer != null || MediaQuery.disableAnimationsOf(context)) return;
+    _flowTimer = Timer.periodic(const Duration(milliseconds: 120), (_) async {
+      final c = _controller;
+      // Skip while hidden (other tab) or while the last update is in flight.
+      if (c == null || !_styleReady || _flowBusy || !TickerMode.valuesOf(context).enabled) return;
+      _flowBusy = true;
+      _flowFrame = (_flowFrame + 1) % flowDashFrames.length;
+      try {
+        await c.setLayerProperties(
+          riverFlowLayerId,
+          riverFlowProps(widget.config.palette, flowDashFrames[_flowFrame]),
+        );
+      } on Exception catch (e) {
+        // Expected while a new base style loads (layer re-added afterwards):
+        // skip the frame, log only the first failure.
+        if (!_flowErrorLogged) log.info('flow frame skipped', {'error': '$e'});
+        _flowErrorLogged = true;
+      } finally {
+        _flowBusy = false;
+      }
+    });
   }
 
   Future<void> _syncMe() async {

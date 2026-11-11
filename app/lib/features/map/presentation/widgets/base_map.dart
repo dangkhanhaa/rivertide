@@ -23,6 +23,9 @@ typedef MarkerPalette = ({
   Color me,
   Color pin,
   Color river,
+  Color flowRising,
+  Color flowFalling,
+  Color flowSlack,
 });
 
 class BaseMapConfig {
@@ -35,6 +38,7 @@ class BaseMapConfig {
     required this.onReady,
     required this.onMapTap,
     this.riverReaches = const {'type': 'FeatureCollection', 'features': <Object>[]},
+    this.riverFlow = const {'type': 'FeatureCollection', 'features': <Object>[]},
     this.blocksTapAt,
     this.gesturesEnabled = true,
     this.userPosition,
@@ -48,6 +52,9 @@ class BaseMapConfig {
 
   /// River segments with along-river estimates (`conf` 0-1), GeoJSON.
   final Map<String, Object?> riverReaches;
+
+  /// River segments by water state now (`state`), drawn towards the sea.
+  final Map<String, Object?> riverFlow;
   final ValueChanged<String> onStationTap;
   final ValueChanged<BaseMapHandle> onReady;
   final ({double lat, double lon})? userPosition;
