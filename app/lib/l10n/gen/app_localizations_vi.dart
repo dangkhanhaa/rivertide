@@ -719,6 +719,13 @@ class AppLocalizationsVi extends AppLocalizations {
       'Màu đoạn sông tính cho từng đoạn (con nước đến mỗi đoạn một giờ khác nhau), cập nhật 10 phút/lần. Vệt chạy chỉ hướng dòng sông ra biển.';
 
   @override
+  String get map_layerWeather => 'Mưa và gió quanh đây';
+
+  @override
+  String get map_layerWeatherHint =>
+      'Chấm xanh: mưa 1 giờ tới (càng to càng nhiều). Mũi tên: hướng gió thổi tới. Phóng to vùng muốn xem.';
+
+  @override
   String get station_levelNow => 'Mực nước hiện tại';
 
   @override

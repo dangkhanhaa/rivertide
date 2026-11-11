@@ -39,6 +39,8 @@ class BaseMapConfig {
     required this.onMapTap,
     this.riverReaches = const {'type': 'FeatureCollection', 'features': <Object>[]},
     this.riverFlow = const {'type': 'FeatureCollection', 'features': <Object>[]},
+    this.weather = const {'type': 'FeatureCollection', 'features': <Object>[]},
+    this.onCameraIdle,
     this.blocksTapAt,
     this.gesturesEnabled = true,
     this.userPosition,
@@ -55,6 +57,12 @@ class BaseMapConfig {
 
   /// River segments by water state now (`state`), drawn towards the sea.
   final Map<String, Object?> riverFlow;
+
+  /// Rain/wind grid points (`rain`, `wind`, `toDeg`), GeoJSON.
+  final Map<String, Object?> weather;
+
+  /// Centre and zoom whenever the camera stops moving.
+  final void Function(double lat, double lon, double zoom)? onCameraIdle;
   final ValueChanged<String> onStationTap;
   final ValueChanged<BaseMapHandle> onReady;
   final ({double lat, double lon})? userPosition;

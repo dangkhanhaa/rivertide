@@ -11,6 +11,7 @@ import 'package:rivertide/features/map/presentation/widgets/base_map.dart';
 import 'package:rivertide/features/map/presentation/widgets/marker_icons.dart';
 import 'package:rivertide/features/map/presentation/widgets/river_flow_layer.dart';
 import 'package:rivertide/features/map/presentation/widgets/station_layers.dart';
+import 'package:rivertide/features/map/presentation/widgets/weather_map_layer.dart';
 
 /// Whole Vietnam incl. Hoàng Sa and Trường Sa on a phone screen.
 const _vnCenter = LatLng(15.8, 108.2);
@@ -42,6 +43,7 @@ class _MapLibreStationMapState extends State<MapLibreStationMap> implements Base
     }
     if (!_styleReady) return;
     if (!identical(old.config.markers, widget.config.markers)) unawaited(_syncMarkers());
+    if (!identical(old.config.weather, widget.config.weather)) unawaited(_syncWeather());
     if (!identical(old.config.riverReaches, widget.config.riverReaches) ||
         !identical(old.config.riverFlow, widget.config.riverFlow)) {
       unawaited(_syncRivers());
@@ -105,6 +107,7 @@ class _MapLibreStationMapState extends State<MapLibreStationMap> implements Base
       _styleReady = true;
       await _syncMarkers();
       await _syncRivers();
+      await _syncWeather();
       await _syncMe();
     } on Exception catch (e) {
       // A failed overlay must not take the base map down; the list tab still works.
@@ -117,6 +120,11 @@ class _MapLibreStationMapState extends State<MapLibreStationMap> implements Base
     final color = widget.config.palette.stroke;
     for (final t in MarkerTrend.values) {
       await c.addImage('arrow-${t.name}', await arrowPng(t, color, ratio), false, ratio);
+    }
+    final p = widget.config.palette;
+    for (var i = 0; i < windArrowDirections; i++) {
+      final png = await windArrowPng(i * 360 / windArrowDirections, p.label, p.labelHalo, ratio);
+      await c.addImage(windArrowName(i), png, false, ratio);
     }
   }
 
@@ -171,6 +179,12 @@ class _MapLibreStationMapState extends State<MapLibreStationMap> implements Base
     });
   }
 
+  Future<void> _syncWeather() async {
+    final c = _controller;
+    if (c == null || !_styleReady) return;
+    await c.setGeoJsonSource(weatherSourceId, widget.config.weather);
+  }
+
   Future<void> _syncMe() async {
     final c = _controller;
     if (c == null || !_styleReady) return;
@@ -216,5 +230,11 @@ class _MapLibreStationMapState extends State<MapLibreStationMap> implements Base
     onStyleLoadedCallback: () => unawaited(_onStyleLoaded()),
     onMapClick: (p, at) => unawaited(_tapped(p, at)),
     onMapLongClick: (p, at) => unawaited(_tapped(p, at)),
+    onCameraIdle: () {
+      final cam = _controller?.cameraPosition;
+      if (cam != null) {
+        widget.config.onCameraIdle?.call(cam.target.latitude, cam.target.longitude, cam.zoom);
+      }
+    },
   );
 }

@@ -10,6 +10,7 @@ import 'package:rivertide/core/theme/app_spacing.dart';
 import 'package:rivertide/core/widgets/state_views.dart';
 import 'package:rivertide/features/map/application/map_providers.dart';
 import 'package:rivertide/features/map/application/river_flow_provider.dart';
+import 'package:rivertide/features/map/application/weather_layer.dart';
 import 'package:rivertide/features/map/domain/base_layer.dart';
 import 'package:rivertide/features/map/domain/location_service.dart';
 import 'package:rivertide/features/map/domain/map_marker.dart';
@@ -116,8 +117,7 @@ class _MapScreenState extends ConsumerState<MapScreen> with MapDetailPresenter<M
     }
     final stations = await ref.read(stationListProvider.future);
     final s = stations.where((x) => x.id == id).firstOrNull;
-    if (s == null || !mounted) return;
-    if (mounted) await _openStation(s.id, zoom: 11);
+    if (s != null && mounted) await _openStation(s.id, zoom: 11);
   }
 
   Future<void> _openPoint(double lat, double lon, PointSurface surface, {double? zoom}) async {
@@ -190,6 +190,8 @@ class _MapScreenState extends ConsumerState<MapScreen> with MapDetailPresenter<M
           palette: markerPalette(context.colors),
           riverReaches: _reaches.of(ref.watch(riverLinesProvider).value),
           riverFlow: ref.watch(riverFlowProvider).value ?? emptyFlowGeoJson,
+          weather: ref.watch(weatherLayerGeoJsonProvider),
+          onCameraIdle: reportCamera(ref),
           fixedLabels: [
             (lat: 17.5, lon: 112, text: l10n.map_hoangSa),
             (lat: 10, lon: 112.8, text: l10n.map_truongSa),

@@ -7,6 +7,7 @@ import 'package:rivertide/core/theme/app_colors.dart';
 import 'package:rivertide/core/theme/app_spacing.dart';
 import 'package:rivertide/core/theme/app_text.dart';
 import 'package:rivertide/features/map/application/map_providers.dart';
+import 'package:rivertide/features/map/application/weather_layer.dart';
 import 'package:rivertide/features/map/domain/base_layer.dart';
 
 /// Legend, filter and "my location" buttons stacked on the map's right edge.
@@ -108,6 +109,14 @@ class _LayerSheet extends ConsumerWidget {
             Icons.satellite_alt_rounded,
             l10n.map_layerSatellite,
             l10n.map_layerSatelliteHint,
+          ),
+          const Divider(),
+          SwitchListTile(
+            secondary: const Icon(Icons.thunderstorm_outlined),
+            title: Text(l10n.map_layerWeather),
+            subtitle: Text(l10n.map_layerWeatherHint),
+            value: ref.watch(weatherLayerOnProvider),
+            onChanged: (v) => ref.read(weatherLayerOnProvider.notifier).on = v,
           ),
         ],
       ),

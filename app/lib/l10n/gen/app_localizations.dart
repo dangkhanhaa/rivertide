@@ -1304,6 +1304,18 @@ abstract class AppLocalizations {
   /// **'Màu đoạn sông tính cho từng đoạn (con nước đến mỗi đoạn một giờ khác nhau), cập nhật 10 phút/lần. Vệt chạy chỉ hướng dòng sông ra biển.'**
   String get map_legendFlowNote;
 
+  /// No description provided for @map_layerWeather.
+  ///
+  /// In vi, this message translates to:
+  /// **'Mưa và gió quanh đây'**
+  String get map_layerWeather;
+
+  /// No description provided for @map_layerWeatherHint.
+  ///
+  /// In vi, this message translates to:
+  /// **'Chấm xanh: mưa 1 giờ tới (càng to càng nhiều). Mũi tên: hướng gió thổi tới. Phóng to vùng muốn xem.'**
+  String get map_layerWeatherHint;
+
   /// No description provided for @station_levelNow.
   ///
   /// In vi, this message translates to:
