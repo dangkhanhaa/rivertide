@@ -22,7 +22,6 @@ from tvhn_parser import BulletinError, parse
 
 HERE = Path(__file__).parent
 LIST_URL = "https://www.nchmf.gov.vn/kttv/vi-VN/1/thuy-van-12-18.html"
-HOME_URL = "https://www.nchmf.gov.vn/kttv/"
 # KTTV reuses one post URL and replaces its content daily (docs/data-sources.md);
 # the list page only shows the 10 newest posts, so remember the URL that worked.
 STATE_FILE = "state.json"
@@ -36,6 +35,9 @@ PDF_RE = re.compile(
 USER_AGENT = "RiverTide-bulletin-archiver/0.1 (+https://github.com/dangkhanhaa)"
 MAX_PDF_BYTES = 20 * 1024 * 1024
 MAX_HTML_BYTES = 2 * 1024 * 1024
+MAX_LIST_PAGES = 12
+# Bulletin posts to open: today's plus a couple of missed days.
+MAX_POSTS = 3
 
 
 def _get(url: str, limit: int) -> bytes:
@@ -64,33 +66,40 @@ def find_pdf(post_html: str) -> tuple[str, str]:
     return "https://kttv.gov.vn/" + m.group(1), m.group(2)
 
 
-def _locate_pdf(state_path: Path) -> tuple[str, str]:
+def _locate_pdfs(state_path: Path) -> list[tuple[str, str]]:
+    """Newest bulletins first, as (pdf_url, yyyymmdd), from the posts still listed."""
     candidates: list[str] = []
     if state_path.exists():
         candidates.append(
             json.loads(state_path.read_text(encoding="utf-8"))["post_url"]
         )
-    # The list is paged 10 per page (?pageindex=N); a day has ~15 hydrology posts.
-    for page in (HOME_URL, *(f"{LIST_URL}?pageindex={i}" for i in range(1, 4))):
+    # Paged 10 per page (?pageindex=N). In the flood season dozens of warnings a
+    # day push the bulletin to page 4-7 (10-11/11/2026), so look further and
+    # stop once enough bulletin posts are found.
+    for i in range(1, MAX_LIST_PAGES + 1):
+        page = f"{LIST_URL}?pageindex={i}"
         try:
-            candidates.append(
-                find_post_url(_get(page, MAX_HTML_BYTES).decode("utf-8", "replace"))
-            )
-        except (BulletinError, OSError) as e:
-            print(f"no post link on {page}: {e}")
-    best: tuple[str, str, str] | None = None
-    for post in dict.fromkeys(candidates):  # unique, in order
+            html = _get(page, MAX_HTML_BYTES).decode("utf-8", "replace")
+        except OSError as e:
+            print(f"list page {i} failed: {e}")
+            continue
+        candidates.extend(POST_RE.findall(html))
+        if len(dict.fromkeys(candidates)) > MAX_POSTS:
+            break
+    found: dict[str, tuple[str, str]] = {}
+    for post in list(dict.fromkeys(candidates))[: MAX_POSTS + 1]:
         try:
             url, day = find_pdf(_get(post, MAX_HTML_BYTES).decode("utf-8", "replace"))
         except (BulletinError, OSError) as e:
             print(f"no PDF in {post}: {e}")
             continue
-        if best is None or day > best[1]:
-            best = (url, day, post)
-    if best is None:
+        if day not in found:
+            found[day] = (url, post)
+    if not found:
         raise BulletinError("no TVHN bulletin found")
-    state_path.write_text(json.dumps({"post_url": best[2]}), encoding="utf-8")
-    return best[0], best[1]
+    days = sorted(found, reverse=True)
+    state_path.write_text(json.dumps({"post_url": found[days[0]][1]}), encoding="utf-8")
+    return [(found[d][0], d) for d in days]
 
 
 def main() -> int:
@@ -101,9 +110,11 @@ def main() -> int:
     archive, site = Path(args.archive), Path(args.site)
     archive.mkdir(parents=True, exist_ok=True)
 
-    pdf_url, day = _locate_pdf(archive / STATE_FILE)
-    target = archive / f"dbqg_tvhn_{day}.json"
-    if not target.exists():
+    for pdf_url, day in _locate_pdfs(archive / STATE_FILE):
+        target = archive / f"dbqg_tvhn_{day}.json"
+        if target.exists():
+            print(f"{target.name} already archived")
+            continue
         with tempfile.TemporaryDirectory() as tmp:
             pdf = Path(tmp) / "b.pdf"
             pdf.write_bytes(_get(pdf_url, MAX_PDF_BYTES))
@@ -111,8 +122,6 @@ def main() -> int:
                 json.dumps(parse(pdf), ensure_ascii=False, indent=1), encoding="utf-8"
             )
         print(f"archived {target.name} from {pdf_url}")
-    else:
-        print(f"{target.name} already archived")
 
     bulletins = [
         json.loads(p.read_text(encoding="utf-8"))
