@@ -1316,6 +1316,12 @@ abstract class AppLocalizations {
   /// **'Chấm xanh: mưa 1 giờ tới (càng to càng nhiều). Mũi tên: hướng gió thổi tới. Phóng to vùng muốn xem.'**
   String get map_layerWeatherHint;
 
+  /// No description provided for @hazard_surge.
+  ///
+  /// In vi, this message translates to:
+  /// **'Nước biển đang cao hơn thủy triều thường {cm} cm (gió mạnh hoặc bão đẩy nước vào): bãi thấp, cửa sông dễ ngập'**
+  String hazard_surge(int cm);
+
   /// No description provided for @station_levelNow.
   ///
   /// In vi, this message translates to:

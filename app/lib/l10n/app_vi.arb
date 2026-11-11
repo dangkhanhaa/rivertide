@@ -254,6 +254,8 @@
   "map_legendFlowNote": "Màu đoạn sông tính cho từng đoạn (con nước đến mỗi đoạn một giờ khác nhau), cập nhật 10 phút/lần. Vệt chạy chỉ hướng dòng sông ra biển.",
   "map_layerWeather": "Mưa và gió quanh đây",
   "map_layerWeatherHint": "Chấm xanh: mưa 1 giờ tới (càng to càng nhiều). Mũi tên: hướng gió thổi tới. Phóng to vùng muốn xem.",
+  "hazard_surge": "Nước biển đang cao hơn thủy triều thường {cm} cm (gió mạnh hoặc bão đẩy nước vào): bãi thấp, cửa sông dễ ngập",
+  "@hazard_surge": {"placeholders": {"cm": {"type": "int"}}},
   "station_levelNow": "Mực nước hiện tại",
   "station_follow": "Theo dõi trạm",
   "station_unfollow": "Bỏ theo dõi",

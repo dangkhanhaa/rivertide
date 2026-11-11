@@ -22,16 +22,22 @@ enum HazardKind {
 
   /// River discharge up sharply from today to tomorrow: rain upstream, flood.
   floodComing,
+
+  /// Sea measured well above the astronomical tide (wind/storm set-up).
+  surge,
 }
 
 class Hazard {
-  const Hazard({required this.kind, this.fromUtc, this.toUtc});
+  const Hazard({required this.kind, this.fromUtc, this.toUtc, this.cm});
 
   final HazardKind kind;
 
   /// First and last forecast hour it applies to; null for "now"/"tomorrow".
   final DateTime? fromUtc;
   final DateTime? toUtc;
+
+  /// Size of the surge for [HazardKind.surge] (measured − tide), cm.
+  final int? cm;
 
   /// Thunderstorm and gusts: get off the water.
   bool get isSevere => kind == HazardKind.thunderstorm || kind == HazardKind.strongGust;
@@ -42,6 +48,10 @@ const Duration hazardHorizon = Duration(hours: 12);
 
 /// Discharge growth (tomorrow vs today) treated as a flood coming.
 const double floodGrowthShare = 0.3;
+
+/// Measured − predicted tide from which the sea counts as surging (storm or
+/// strong onshore wind); normal weather stays within about ±20 cm.
+const double surgeThresholdCm = 30;
 
 /// How much faster than the past days' fastest rise counts as abnormal.
 const double abnormalRiseFactor = 1.5;
@@ -65,6 +75,7 @@ List<Hazard> hazardsAhead({
   bool waterRisingFast = false,
   double? flowTodayM3s,
   double? flowTomorrowM3s,
+  double? measuredMinusTideCm,
 }) {
   final from = DateTime.utc(nowUtc.year, nowUtc.month, nowUtc.day, nowUtc.hour);
   final until = nowUtc.add(hazardHorizon);
@@ -92,6 +103,8 @@ List<Hazard> hazardsAhead({
         today > 0 &&
         (tomorrow - today) / today >= floodGrowthShare)
       const Hazard(kind: HazardKind.floodComing),
+    if (measuredMinusTideCm case final s? when s >= surgeThresholdCm)
+      Hazard(kind: HazardKind.surge, cm: s.round()),
   ];
   // A real storm makes "possible storm" redundant.
   if (spans.containsKey(HazardKind.thunderstorm)) {

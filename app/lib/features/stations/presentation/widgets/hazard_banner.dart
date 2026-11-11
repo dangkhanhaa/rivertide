@@ -9,6 +9,7 @@ import 'package:rivertide/core/theme/app_text.dart';
 import 'package:rivertide/features/stations/application/hour_extras_provider.dart';
 import 'package:rivertide/features/stations/application/station_providers.dart';
 import 'package:rivertide/features/stations/application/station_view_providers.dart';
+import 'package:rivertide/features/stations/domain/station.dart';
 
 /// Red/amber card at the top of a place when something is dangerous in the
 /// next 12 hours (storm, gusts, heavy rain, water rising fast, flood coming).
@@ -36,6 +37,7 @@ class HazardBanner extends ConsumerWidget {
       },
       flowTodayM3s: flow?.on(now),
       flowTomorrowM3s: flow?.on(now.add(const Duration(days: 1))),
+      measuredMinusTideCm: _surge(view),
     );
     if (hazards.isEmpty) return const SizedBox.shrink();
     final c = context.colors;
@@ -76,6 +78,14 @@ class HazardBanner extends ConsumerWidget {
     );
   }
 
+  /// Only from a fresh reading at a sea gauge against its tide prediction.
+  static double? _surge(StationView view) {
+    final last = view.now.lastObservationUtc;
+    if (view.tide.data.station.kind != StationKind.gauge || last == null) return null;
+    if (view.nowUtc.difference(last) > const Duration(hours: 2)) return null;
+    return view.now.correctionCm;
+  }
+
   String _text(BuildContext context, Hazard h) {
     final l10n = context.l10n;
     final (from, to) = (h.fromUtc, h.toUtc);
@@ -94,6 +104,7 @@ class HazardBanner extends ConsumerWidget {
       HazardKind.possibleThunderstorm => l10n.hazard_possibleStorm,
       HazardKind.waterRisingFast => l10n.hazard_risingFast,
       HazardKind.floodComing => l10n.hazard_flood,
+      HazardKind.surge => l10n.hazard_surge(h.cm ?? 0),
     };
     return when.isEmpty ? what : '$what $when';
   }

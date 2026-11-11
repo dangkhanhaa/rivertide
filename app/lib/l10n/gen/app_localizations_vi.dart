@@ -726,6 +726,11 @@ class AppLocalizationsVi extends AppLocalizations {
       'Chấm xanh: mưa 1 giờ tới (càng to càng nhiều). Mũi tên: hướng gió thổi tới. Phóng to vùng muốn xem.';
 
   @override
+  String hazard_surge(int cm) {
+    return 'Nước biển đang cao hơn thủy triều thường $cm cm (gió mạnh hoặc bão đẩy nước vào): bãi thấp, cửa sông dễ ngập';
+  }
+
+  @override
   String get station_levelNow => 'Mực nước hiện tại';
 
   @override
