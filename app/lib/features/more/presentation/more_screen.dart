@@ -5,6 +5,7 @@ import 'package:rivertide/core/l10n/l10n_ext.dart';
 import 'package:rivertide/core/theme/app_colors.dart';
 import 'package:rivertide/core/theme/app_spacing.dart';
 import 'package:rivertide/core/theme/app_text.dart';
+import 'package:rivertide/features/more/application/outdoor_mode_provider.dart';
 import 'package:rivertide/features/more/application/theme_mode_provider.dart';
 import 'package:rivertide/features/more/application/update_provider.dart';
 
@@ -56,6 +57,15 @@ class MoreScreen extends ConsumerWidget {
             ],
             selected: {mode},
             onSelectionChanged: (s) => ref.read(appThemeModeProvider.notifier).set(s.first),
+          ),
+          const SizedBox(height: AppSpacing.lg),
+          SwitchListTile(
+            contentPadding: EdgeInsets.zero,
+            secondary: const Icon(Icons.wb_sunny_rounded),
+            title: Text(l10n.more_outdoor),
+            subtitle: Text(l10n.more_outdoorHint),
+            value: ref.watch(outdoorModeProvider).value ?? false,
+            onChanged: (v) => ref.read(outdoorModeProvider.notifier).set(on: v),
           ),
         ],
       ),

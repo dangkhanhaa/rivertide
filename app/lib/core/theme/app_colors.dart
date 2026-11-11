@@ -37,6 +37,25 @@ class AppColors extends ThemeExtension<AppColors> {
     estimateHatch: Color(0x337E57C2),
   );
 
+  /// "Chế độ ngoài trời": black on white, darker accents, readable in full sun
+  /// (contrast well above WCAG AAA for text).
+  static const outdoor = AppColors(
+    primary: Color(0xFF00405C),
+    water: Color(0xFF0D47A1),
+    tidePred: Color(0xFF4A148C),
+    ok: Color(0xFF1B5E20),
+    alarm1: Color(0xFFB26A00),
+    alarm2: Color(0xFFBF360C),
+    alarm3: Color(0xFFB71C1C),
+    stale: Color(0xFF424242),
+    fishHigh: Color(0xFF00695C),
+    surface: Color(0xFFFFFFFF),
+    surfaceAlt: Color(0xFFFFFFFF),
+    onSurface: Color(0xFF000000),
+    onSurfaceMuted: Color(0xFF212121),
+    estimateHatch: Color(0x554A148C),
+  );
+
   static const dark = AppColors(
     primary: Color(0xFF4FB3E0),
     water: Color(0xFF64B5F6),

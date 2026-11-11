@@ -700,6 +700,12 @@ class AppLocalizationsVi extends AppLocalizations {
   String get share_footer => 'Số liệu tính toán, chỉ để tham khảo · Con Nước';
 
   @override
+  String get more_outdoor => 'Chế độ ngoài trời';
+
+  @override
+  String get more_outdoorHint => 'Tương phản cao, chữ to hơn: đọc rõ dưới nắng gắt';
+
+  @override
   String get station_levelNow => 'Mực nước hiện tại';
 
   @override

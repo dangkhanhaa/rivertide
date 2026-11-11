@@ -1268,6 +1268,18 @@ abstract class AppLocalizations {
   /// **'Số liệu tính toán, chỉ để tham khảo · Con Nước'**
   String get share_footer;
 
+  /// No description provided for @more_outdoor.
+  ///
+  /// In vi, this message translates to:
+  /// **'Chế độ ngoài trời'**
+  String get more_outdoor;
+
+  /// No description provided for @more_outdoorHint.
+  ///
+  /// In vi, this message translates to:
+  /// **'Tương phản cao, chữ to hơn: đọc rõ dưới nắng gắt'**
+  String get more_outdoorHint;
+
   /// No description provided for @station_levelNow.
   ///
   /// In vi, this message translates to:

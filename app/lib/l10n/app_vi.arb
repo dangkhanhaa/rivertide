@@ -246,6 +246,8 @@
   "@share_score": {"placeholders": {"score": {"type": "String"}}},
   "share_copied": "Đã chép nội dung và đường link, dán vào Zalo/Facebook để gửi",
   "share_footer": "Số liệu tính toán, chỉ để tham khảo · Con Nước",
+  "more_outdoor": "Chế độ ngoài trời",
+  "more_outdoorHint": "Tương phản cao, chữ to hơn: đọc rõ dưới nắng gắt",
   "station_levelNow": "Mực nước hiện tại",
   "station_follow": "Theo dõi trạm",
   "station_unfollow": "Bỏ theo dõi",

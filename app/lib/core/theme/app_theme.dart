@@ -7,7 +7,10 @@ abstract final class AppTheme {
   static ThemeData light() => _build(AppColors.light, Brightness.light);
   static ThemeData dark() => _build(AppColors.dark, Brightness.dark);
 
-  static ThemeData _build(AppColors c, Brightness brightness) {
+  /// High contrast for full sun; cards get a solid outline instead of a tint.
+  static ThemeData outdoor() => _build(AppColors.outdoor, Brightness.light, outlined: true);
+
+  static ThemeData _build(AppColors c, Brightness brightness, {bool outlined = false}) {
     final scheme = ColorScheme.fromSeed(
       seedColor: c.primary,
       brightness: brightness,
@@ -26,7 +29,10 @@ abstract final class AppTheme {
         color: c.surface,
         elevation: 0,
         margin: EdgeInsets.zero,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppRadius.md)),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(AppRadius.md),
+          side: outlined ? BorderSide(color: c.onSurface, width: 1.5) : BorderSide.none,
+        ),
       ),
       appBarTheme: AppBarTheme(
         backgroundColor: c.surface,
