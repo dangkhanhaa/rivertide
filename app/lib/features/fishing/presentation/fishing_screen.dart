@@ -15,6 +15,7 @@ import 'package:rivertide/features/fishing/presentation/widgets/safety_banner.da
 import 'package:rivertide/features/fishing/presentation/widgets/score_bars.dart';
 import 'package:rivertide/features/fishing/presentation/widgets/spot_card.dart';
 import 'package:rivertide/features/fishing/presentation/widgets/week_strip.dart';
+import 'package:rivertide/features/journal/journal.dart';
 import 'package:rivertide/features/stations/stations.dart';
 
 /// S06 fishing for the spot the user picks (their position, a map point or a
@@ -41,12 +42,19 @@ class _FishingScreenState extends ConsumerState<FishingScreen> {
       appBar: AppBar(
         title: Text(context.l10n.fishing_title),
         actions: [
-          TextButton.icon(
+          IconButton(
+            tooltip: context.l10n.trip_open,
             icon: const Icon(Icons.event_available_rounded),
-            label: Text(context.l10n.trip_open),
             onPressed: () =>
                 Navigator.of(context)
                     .push(MaterialPageRoute<void>(builder: (_) => const TripPlannerScreen())),
+          ),
+          IconButton(
+            tooltip: context.l10n.journal_open,
+            icon: const Icon(Icons.menu_book_rounded),
+            onPressed: () =>
+                Navigator.of(context)
+                    .push(MaterialPageRoute<void>(builder: (_) => const JournalScreen())),
           ),
         ],
       ),

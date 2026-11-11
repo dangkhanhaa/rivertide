@@ -536,6 +536,126 @@ class AppLocalizationsVi extends AppLocalizations {
       'Bấm một buổi để xem chi tiết điểm đó ở tab Câu cá. Dự báo càng xa càng kém chắc chắn, nên xem lại trước khi đi.';
 
   @override
+  String get journal_title => 'Nhật ký câu';
+
+  @override
+  String get journal_open => 'Nhật ký';
+
+  @override
+  String get journal_add => 'Ghi mẻ cá';
+
+  @override
+  String get journal_empty =>
+      'Chưa có mẻ cá nào. Bấm \"Ghi mẻ cá\" sau mỗi lần câu được: app tự lưu mực nước, con nước, thời tiết và trăng lúc đó.';
+
+  @override
+  String journal_place(String name) {
+    return 'Tại: $name';
+  }
+
+  @override
+  String get journal_placeHint => 'Là điểm đang chọn ở tab Câu cá. Đổi điểm ở đó nếu cần.';
+
+  @override
+  String get journal_changeTime => 'Đổi giờ';
+
+  @override
+  String get journal_species => 'Loại cá';
+
+  @override
+  String get journal_weight => 'Cân nặng (kg)';
+
+  @override
+  String get journal_length => 'Dài (cm)';
+
+  @override
+  String get journal_bait => 'Mồi';
+
+  @override
+  String get journal_note => 'Ghi chú';
+
+  @override
+  String get journal_camera => 'Chụp ảnh';
+
+  @override
+  String get journal_gallery => 'Chọn ảnh';
+
+  @override
+  String get journal_removePhoto => 'Bỏ ảnh';
+
+  @override
+  String get journal_photoError => 'Không đọc được ảnh này';
+
+  @override
+  String get journal_needSpecies => 'Nhập loại cá';
+
+  @override
+  String get journal_privacy =>
+      'Nhật ký và ảnh chỉ lưu trên máy này. Ảnh được bỏ thông tin vị trí GPS.';
+
+  @override
+  String get journal_statsTitle => 'Bạn câu thế nào';
+
+  @override
+  String journal_statsCount(int count, String kg) {
+    return '$count mẻ · tổng $kg kg';
+  }
+
+  @override
+  String journal_statsTop(String species, int count) {
+    return 'Hay câu được nhất: $species ($count lần)';
+  }
+
+  @override
+  String journal_statsRising(int pct) {
+    return '$pct% số mẻ câu được lúc nước đang lên';
+  }
+
+  @override
+  String journal_statsFalling(int pct) {
+    return '$pct% số mẻ câu được lúc nước đang xuống';
+  }
+
+  @override
+  String journal_water(String state) {
+    return 'nước $state';
+  }
+
+  @override
+  String get journal_conditions => 'Điều kiện lúc câu';
+
+  @override
+  String journal_weightValue(String kg) {
+    return 'Nặng $kg kg';
+  }
+
+  @override
+  String journal_lengthValue(int cm) {
+    return 'Dài $cm cm';
+  }
+
+  @override
+  String journal_baitValue(String bait) {
+    return 'Mồi: $bait';
+  }
+
+  @override
+  String journal_levelValue(String level) {
+    return 'Mực nước $level';
+  }
+
+  @override
+  String journal_scoreValue(String score) {
+    return 'điểm câu $score/10';
+  }
+
+  @override
+  String get journal_delete => 'Xóa';
+
+  @override
+  String get journal_deleteTitle => 'Xóa mẻ cá này khỏi nhật ký?';
+
+  @override
   String get station_levelNow => 'Mực nước hiện tại';
 
   @override
@@ -1051,7 +1171,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get fishing_factor_flow => 'dòng chảy';
 
   @override
-  String get fishing_factor_solunar => 'solunar';
+  String get fishing_factor_solunar => 'giờ trăng';
 
   @override
   String get fishing_factor_pressure => 'áp suất';

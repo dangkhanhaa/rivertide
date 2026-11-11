@@ -1004,6 +1004,198 @@ abstract class AppLocalizations {
   /// **'Bấm một buổi để xem chi tiết điểm đó ở tab Câu cá. Dự báo càng xa càng kém chắc chắn, nên xem lại trước khi đi.'**
   String get trip_note;
 
+  /// No description provided for @journal_title.
+  ///
+  /// In vi, this message translates to:
+  /// **'Nhật ký câu'**
+  String get journal_title;
+
+  /// No description provided for @journal_open.
+  ///
+  /// In vi, this message translates to:
+  /// **'Nhật ký'**
+  String get journal_open;
+
+  /// No description provided for @journal_add.
+  ///
+  /// In vi, this message translates to:
+  /// **'Ghi mẻ cá'**
+  String get journal_add;
+
+  /// No description provided for @journal_empty.
+  ///
+  /// In vi, this message translates to:
+  /// **'Chưa có mẻ cá nào. Bấm \"Ghi mẻ cá\" sau mỗi lần câu được: app tự lưu mực nước, con nước, thời tiết và trăng lúc đó.'**
+  String get journal_empty;
+
+  /// No description provided for @journal_place.
+  ///
+  /// In vi, this message translates to:
+  /// **'Tại: {name}'**
+  String journal_place(String name);
+
+  /// No description provided for @journal_placeHint.
+  ///
+  /// In vi, this message translates to:
+  /// **'Là điểm đang chọn ở tab Câu cá. Đổi điểm ở đó nếu cần.'**
+  String get journal_placeHint;
+
+  /// No description provided for @journal_changeTime.
+  ///
+  /// In vi, this message translates to:
+  /// **'Đổi giờ'**
+  String get journal_changeTime;
+
+  /// No description provided for @journal_species.
+  ///
+  /// In vi, this message translates to:
+  /// **'Loại cá'**
+  String get journal_species;
+
+  /// No description provided for @journal_weight.
+  ///
+  /// In vi, this message translates to:
+  /// **'Cân nặng (kg)'**
+  String get journal_weight;
+
+  /// No description provided for @journal_length.
+  ///
+  /// In vi, this message translates to:
+  /// **'Dài (cm)'**
+  String get journal_length;
+
+  /// No description provided for @journal_bait.
+  ///
+  /// In vi, this message translates to:
+  /// **'Mồi'**
+  String get journal_bait;
+
+  /// No description provided for @journal_note.
+  ///
+  /// In vi, this message translates to:
+  /// **'Ghi chú'**
+  String get journal_note;
+
+  /// No description provided for @journal_camera.
+  ///
+  /// In vi, this message translates to:
+  /// **'Chụp ảnh'**
+  String get journal_camera;
+
+  /// No description provided for @journal_gallery.
+  ///
+  /// In vi, this message translates to:
+  /// **'Chọn ảnh'**
+  String get journal_gallery;
+
+  /// No description provided for @journal_removePhoto.
+  ///
+  /// In vi, this message translates to:
+  /// **'Bỏ ảnh'**
+  String get journal_removePhoto;
+
+  /// No description provided for @journal_photoError.
+  ///
+  /// In vi, this message translates to:
+  /// **'Không đọc được ảnh này'**
+  String get journal_photoError;
+
+  /// No description provided for @journal_needSpecies.
+  ///
+  /// In vi, this message translates to:
+  /// **'Nhập loại cá'**
+  String get journal_needSpecies;
+
+  /// No description provided for @journal_privacy.
+  ///
+  /// In vi, this message translates to:
+  /// **'Nhật ký và ảnh chỉ lưu trên máy này. Ảnh được bỏ thông tin vị trí GPS.'**
+  String get journal_privacy;
+
+  /// No description provided for @journal_statsTitle.
+  ///
+  /// In vi, this message translates to:
+  /// **'Bạn câu thế nào'**
+  String get journal_statsTitle;
+
+  /// No description provided for @journal_statsCount.
+  ///
+  /// In vi, this message translates to:
+  /// **'{count} mẻ · tổng {kg} kg'**
+  String journal_statsCount(int count, String kg);
+
+  /// No description provided for @journal_statsTop.
+  ///
+  /// In vi, this message translates to:
+  /// **'Hay câu được nhất: {species} ({count} lần)'**
+  String journal_statsTop(String species, int count);
+
+  /// No description provided for @journal_statsRising.
+  ///
+  /// In vi, this message translates to:
+  /// **'{pct}% số mẻ câu được lúc nước đang lên'**
+  String journal_statsRising(int pct);
+
+  /// No description provided for @journal_statsFalling.
+  ///
+  /// In vi, this message translates to:
+  /// **'{pct}% số mẻ câu được lúc nước đang xuống'**
+  String journal_statsFalling(int pct);
+
+  /// No description provided for @journal_water.
+  ///
+  /// In vi, this message translates to:
+  /// **'nước {state}'**
+  String journal_water(String state);
+
+  /// No description provided for @journal_conditions.
+  ///
+  /// In vi, this message translates to:
+  /// **'Điều kiện lúc câu'**
+  String get journal_conditions;
+
+  /// No description provided for @journal_weightValue.
+  ///
+  /// In vi, this message translates to:
+  /// **'Nặng {kg} kg'**
+  String journal_weightValue(String kg);
+
+  /// No description provided for @journal_lengthValue.
+  ///
+  /// In vi, this message translates to:
+  /// **'Dài {cm} cm'**
+  String journal_lengthValue(int cm);
+
+  /// No description provided for @journal_baitValue.
+  ///
+  /// In vi, this message translates to:
+  /// **'Mồi: {bait}'**
+  String journal_baitValue(String bait);
+
+  /// No description provided for @journal_levelValue.
+  ///
+  /// In vi, this message translates to:
+  /// **'Mực nước {level}'**
+  String journal_levelValue(String level);
+
+  /// No description provided for @journal_scoreValue.
+  ///
+  /// In vi, this message translates to:
+  /// **'điểm câu {score}/10'**
+  String journal_scoreValue(String score);
+
+  /// No description provided for @journal_delete.
+  ///
+  /// In vi, this message translates to:
+  /// **'Xóa'**
+  String get journal_delete;
+
+  /// No description provided for @journal_deleteTitle.
+  ///
+  /// In vi, this message translates to:
+  /// **'Xóa mẻ cá này khỏi nhật ký?'**
+  String get journal_deleteTitle;
+
   /// No description provided for @station_levelNow.
   ///
   /// In vi, this message translates to:
@@ -1823,7 +2015,7 @@ abstract class AppLocalizations {
   /// No description provided for @fishing_factor_solunar.
   ///
   /// In vi, this message translates to:
-  /// **'solunar'**
+  /// **'giờ trăng'**
   String get fishing_factor_solunar;
 
   /// No description provided for @fishing_factor_pressure.
