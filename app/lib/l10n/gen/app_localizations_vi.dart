@@ -738,6 +738,54 @@ class AppLocalizationsVi extends AppLocalizations {
       'Android (Chrome): bấm ⋮ rồi chọn Cài đặt ứng dụng. iPhone (Safari): bấm nút Chia sẻ rồi chọn Thêm vào MH chính. App mở nhanh như app thật, không cần cửa hàng.';
 
   @override
+  String get alert_channel => 'Báo thức con nước';
+
+  @override
+  String get alert_channelHint => 'Nhắc trước giờ đỉnh, chân triều và giờ câu đẹp ở điểm đã lưu';
+
+  @override
+  String alert_highTitle(String place, String time) {
+    return '$place: đỉnh triều $time';
+  }
+
+  @override
+  String alert_lowTitle(String place, String time) {
+    return '$place: chân triều $time';
+  }
+
+  @override
+  String alert_levelBody(String level, int minutes) {
+    return 'Mực nước khoảng $level, còn $minutes phút';
+  }
+
+  @override
+  String alert_fishTitle(String place, String from, String to) {
+    return '$place: giờ câu đẹp $from–$to';
+  }
+
+  @override
+  String alert_fishBody(String score, int minutes) {
+    return 'Điểm câu $score/10, bắt đầu sau $minutes phút';
+  }
+
+  @override
+  String get alert_toggleOn => 'Bật báo thức con nước';
+
+  @override
+  String get alert_toggleOff => 'Tắt báo thức con nước';
+
+  @override
+  String get alert_onSnack => 'Đã bật: nhắc trước 30 phút mỗi lần đỉnh, chân triều và giờ câu đẹp';
+
+  @override
+  String get alert_denied =>
+      'Chưa được phép gửi thông báo. Bật trong Cài đặt > Ứng dụng > Con Nước > Thông báo.';
+
+  @override
+  String get alert_webOnly =>
+      'Báo thức chỉ có trên app Android (trình duyệt không kêu được khi đóng)';
+
+  @override
   String get station_levelNow => 'Mực nước hiện tại';
 
   @override

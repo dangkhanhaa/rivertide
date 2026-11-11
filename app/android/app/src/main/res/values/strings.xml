@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="widget_description">Mực nước điểm đã lưu đầu tiên</string>
+    <string name="widget_no_place">Lưu một điểm trong app</string>
+    <string name="widget_open_app">Mở app để cập nhật</string>
+    <string name="widget_rising">↑ Đang lên</string>
+    <string name="widget_falling">↓ Đang xuống</string>
+    <string name="widget_slack">– Nước đứng</string>
+    <string name="widget_high">Đỉnh</string>
+    <string name="widget_low">Chân</string>
+</resources>

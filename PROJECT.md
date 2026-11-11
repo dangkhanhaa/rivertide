@@ -1435,7 +1435,7 @@ Hoãn tới khi cần máy chủ: P1-05 → P1-12, P1-18, P1-30, P1-32 (phần D
 **1C. Thuật toán (Dart thuần, test trước)**
 
 - [x] **P1-13 · `calc/lunar`** ✅ 2026-11-09 (Tết 2030 = 02/02 theo UTC+7, khác lịch TQ 03/02 — ⚠ đối chiếu lịch chính thức) — âm lịch (9.2). DoD: test Tết 2020–2030 pass.
-- [ ] **P1-14 · `calc/astro`** — mặt trời, mặt trăng, pha, transit (9.4). DoD: sai số < 5 phút so với fixtures.
+- [ ] **P1-14 · `calc/astro`** — mặt trời, mặt trăng, pha, transit (9.4). DoD: sai số < 5 phút so với fixtures. — *11/11/2026: giờ trăng mọc/lặn + giờ cá ăn theo trăng hiện ở thẻ điểm, trạm, lịch ngày. Chưa đối chiếu sai số với bảng chuẩn (không còn test tự động).*
 - [x] **P1-15 · `calc/tide`** ✅ 2026-11-09 — nội suy, tốc độ, trạng thái, đỉnh/chân, đếm ngược, rong/kém (9.1, 9.3). DoD: test với file mẫu; đỉnh/chân trùng `extremes` ±10 phút.
 - [x] **P1-16 · `calc/fishing`** ✅ 2026-11-09 — solunar (9.5) + chỉ số câu cá + giờ vàng + luật an toàn (9.6). DoD: test các ca biên (dông → ≤ 2.0; không triều; không có loài).
 - [x] **P1-17 · `calc/geo`** ✅ 2026-11-09 — haversine, geohash, fuzz. DoD: test pass.
@@ -1452,7 +1452,7 @@ Hoãn tới khi cần máy chủ: P1-05 → P1-12, P1-18, P1-30, P1-32 (phần D
   `stations_repository` (cache 24h), `observations_repository` (latest + series), `tide_repository` (tải & lưu file năm), `weather_repository`, `point_repository`. Chiến lược: trả cache ngay → làm mới nền → báo lỗi mềm.
   DoD: unit test với mock; hoạt động khi tắt mạng (trả cache + cờ `stale`).
 
-- [ ] **P1-20 · S02 Bản đồ** (F-MAP-01 → 04) — *V0 (09/11/2026): đã có bản đồ OpenFreeMap, chấm màu + mũi tên, gom cụm, sheet trạm, tìm trạm không dấu, định vị, bộ lọc, chú giải. Còn thiếu: nhấn giữ → ghim (thuộc P1-24), tìm địa danh (chưa có dịch vụ miễn phí phù hợp), kiểm tra trên máy Android.*
+- [ ] **P1-20 · S02 Bản đồ** (F-MAP-01 → 04) — *V0 (09/11/2026): đã có bản đồ OpenFreeMap, chấm màu + mũi tên, gom cụm, sheet trạm, tìm trạm không dấu, định vị, bộ lọc, chú giải. Còn thiếu: nhấn giữ → ghim (thuộc P1-24), kiểm tra trên máy Android. 11/11/2026: tìm địa danh trên máy (≈21 000 cầu/bến/xã/thị trấn trích từ OSM, tools/places), lớp đoạn sông lên/rút, nút "Đi câu ngay".*
   Marker màu, gom cụm, tải theo bbox, bottom sheet trạm, nhấn giữ → ghim, định vị, tìm kiếm.
   DoD: chạy mượt với ≥ 50 trạm; offline hiện cache + băng ngoại tuyến.
 
@@ -1482,7 +1482,7 @@ Hoãn tới khi cần máy chủ: P1-05 → P1-12, P1-18, P1-30, P1-32 (phần D
 - [x] **P1-27 · S09 Lịch triều tháng** (F-TIDE-04) ✅ 2026-11-11 — tab "Lịch triều": lưới tháng (tháng trước → +12), ngày âm (mùng 1, rằm kèm tháng), trăng vẽ theo độ sáng tính được, ● rong / ○ kém, thanh biên độ; chạm ngày → đỉnh/chân + biểu đồ ngày. Trạm không có dự báo: vẫn có ngày âm + trăng.
   DoD: lưới tháng có âm lịch, pha trăng, con nước; chạm ngày xem chi tiết.
 
-- [ ] **P1-28 · S08 Thông báo cục bộ** (F-ALERT-01)
+- [ ] **P1-28 · S08 Thông báo cục bộ** (F-ALERT-01) — *11/11/2026: bản Android — chuông ở tab Theo dõi, nhắc 30 phút trước đỉnh/chân và giờ câu đẹp, 7 ngày, lên lịch lại mỗi lần mở app. Chưa thử trên máy Android thật.*
   Nhắc trước đỉnh/chân X phút; nhắc giờ vàng. Lên lịch 7 ngày tới bằng `flutter_local_notifications` (zoned), lên lịch lại khi mở app.
   DoD: nhận thông báo đúng giờ trên máy ảo (kể cả khi app đóng).
 
@@ -1512,14 +1512,14 @@ Hoãn tới khi cần máy chủ: P1-05 → P1-12, P1-18, P1-30, P1-32 (phần D
 - [ ] **P2-01** Supabase Auth: ẩn danh → nâng cấp email OTP / Google / Apple; `profiles`; liên kết dữ liệu cục bộ.
 - [ ] **P2-02** Đồng bộ `favorites`, `saved_places` (F-UX-07).
 - [ ] **P2-03** FCM + `register-device` + `alerts-evaluate` + S08 quy tắc cảnh báo (F-ALERT-02, 03, F-SAFE-03).
-- [ ] **P2-04** Nhật ký câu S07 + Storage ảnh + điều kiện tự động (F-FISH-06).
+- [ ] **P2-04** Nhật ký câu S07 + Storage ảnh + điều kiện tự động (F-FISH-06). — *11/11/2026: nhật ký trên máy (không Storage/đồng bộ): loài, cân, dài, mồi, ảnh bỏ EXIF, tự lưu mực nước/con nước/thời tiết/trăng/điểm câu, thống kê.*
 - [ ] **P2-05** Thống kê cá nhân (F-FISH-07).
 - [ ] **P2-06** Điểm câu riêng tư + thông báo giờ vàng theo điểm (F-FISH-08, 09).
 - [ ] **P2-07** Cẩm nang loài cá S10 + nút buộc S11 + đồ nghề (F-FISH-10, 11, 12).
 - [ ] **P2-08** An toàn S12: ngập bãi, chuyến đi an toàn, SOS (F-SAFE-02, 04, 05).
-- [ ] **P2-09** Widget màn hình chính (F-UX-05).
-- [ ] **P2-10** Chia sẻ thẻ ảnh (F-UX-06).
-- [ ] **P2-11** Lớp vệ tinh, lớp mưa, thanh trượt thời gian (F-MAP-05, 06, 07).
+- [ ] **P2-09** Widget màn hình chính (F-UX-05). — *11/11/2026: widget Android 2×2 cho điểm lưu đầu tiên, tự hiện mực nước theo giờ từ 48 giờ dữ liệu lưu sẵn, đỉnh/chân kế tiếp. Chưa thử trên máy thật.*
+- [ ] **P2-10** Chia sẻ thẻ ảnh (F-UX-06). — *11/11/2026: ảnh thẻ + link mở đúng điểm, qua hộp chia sẻ của máy (web: chép link khi trình duyệt không hỗ trợ).*
+- [ ] **P2-11** Lớp vệ tinh, lớp mưa, thanh trượt thời gian (F-MAP-05, 06, 07). — *11/11/2026: lớp "Mưa và gió quanh đây" (Open-Meteo, lưới 5×5). Không dùng RainViewer: điều khoản chỉ cho dùng cá nhân/giáo dục.*
 - [ ] **P2-12** So sánh năm trước, biểu đồ 1 năm, tốc độ dòng chảy, hiệu chỉnh triều theo thực đo (F-WL-03/04, F-TIDE-06/07).
 - [ ] **P2-13** Câu biển: Open-Meteo Marine (F-FISH-17).
 - [ ] **P2-14** Thêm nguồn `thuyloi`, `nchmf`; mở rộng ≥ 150 trạm toàn quốc.
@@ -1661,3 +1661,6 @@ Theo yêu cầu, các mục dưới **chưa làm** ở bản dev — ghi lại �
 | 2026-11-10 | **Điểm nào cũng có số liệu**: thứ tự nguồn cho 1 điểm = mô hình biển tại điểm (chỉ khi độ cao địa hình ≤ 0 m và ô lưới ≤ 8 km) → mô hình dọc sông → trạm KTTV ≤ 40 km → triều ven bờ ≤ 25 km (ước tính, độ tin cậy thấp) → không có mực nước: hiện lưu lượng + xu hướng lên/rút + 7 ngày, giờ câu, thời tiết | Người dùng: "bất cứ điểm nào trên sông đều phải có". Open-Meteo Marine trả mực nước biển cho cả đất liền (TP Thái Bình 11 m, TP Thanh Hóa dời ô 16 km) nên trước đây gọi nhầm là "Vùng biển". Không bịa mực nước khi không có nguồn |
 | 2026-11-10 | **Dữ liệu hết hạn vẫn hiện số mới nhất kèm giờ** ("Số mới nhất lúc 07:00 · chưa có số cho giờ này", tối đa 36 giờ), biểu đồ lùi về đoạn có số; không tính "hôm nay cao/thấp" từ nửa ngày. Bộ tải bản tin KTTV nhận mọi thư mục `upload/thuyvanN`; lịch GitHub chạy 2 giờ/lần (10:17–22:17 VN) | Dự báo trạm KTTV (vd Phú Thọ) chỉ đến 07:00 VN hôm sau, bản tin mới ~10:30. Ngày 10/11 KTTV đổi thư mục PDF từ thuyvan2 → thuyvan1 và GitHub không chạy lịch nào → điểm trên sông Hồng hiện "—" + biểu đồ trống |
 | 2026-11-11 | **Bỏ toàn bộ test tự động** (app/test, tools/*/tests, fixtures đi kèm); kiểm tra bằng dữ liệu thật + xem bản build. CI không chạy test, chỉ lấy bản tin + build + đăng. Bộ tải bản tin đọc tới 12 trang danh sách, lưu mọi ngày còn sót | Chủ dự án chọn sau khi được báo luật cũ cấm xóa test. Lượt cập nhật dữ liệu 11/11 bị chặn vì test đọc file dữ liệu mà CI vừa thay |
+| 2026-11-11 | **Bộ tính năng V1**: lịch tháng âm lịch (P1-27), giờ trăng, "Đi câu ngay" + thẻ "Lúc này ở đây", cảnh báo nguy hiểm (dông, gió giật, mưa to, nước lên bất thường so với 3 ngày trước, lũ về theo GloFAS, nước dâng = đo − triều ≥ 30 cm), tên/ghi chú/nhóm điểm (CSDL máy v2), tải sẵn điểm đã lưu để dùng khi mất sóng, kế hoạch chuyến câu, nhật ký câu, tìm địa danh trên máy, chia sẻ ảnh thẻ, chế độ ngoài trời, đoạn sông tô màu lên/rút, lớp mưa & gió, báo thức + widget Android | Chủ dự án yêu cầu "làm tất cả, không mất phí". Mọi nguồn miễn phí, không đăng ký; không có máy chủ |
+| 2026-11-11 | **Không vẽ dòng chảy ngược khi triều lên** | Không có số đo vận tốc; ở Hà Nội nước luôn chảy ra biển, triều chỉ làm mực nước lên xuống. Màu = mực nước lên/rút tại đoạn đó; vệt chạy = hướng dòng sông ra biển |
+| 2026-11-11 | **Không dùng Nominatim, RainViewer** | Nominatim: tối đa 1 yêu cầu/giây cho toàn bộ người dùng, phải đổi được dịch vụ không cần cập nhật app. RainViewer: chỉ dùng cá nhân/giáo dục |

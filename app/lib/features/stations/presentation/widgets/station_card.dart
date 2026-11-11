@@ -15,7 +15,15 @@ import 'package:rivertide/features/stations/presentation/widgets/tide_text.dart'
 
 /// Summary row used by the station list and the watch list.
 class StationCard extends ConsumerWidget {
-  const StationCard({required this.station, this.label, this.note, this.onEdit, super.key});
+  const StationCard({
+    required this.station,
+    this.label,
+    this.note,
+    this.onEdit,
+    this.alarmOn,
+    this.onAlarm,
+    super.key,
+  });
 
   final Station station;
 
@@ -24,6 +32,10 @@ class StationCard extends ConsumerWidget {
   final String? label;
   final String? note;
   final VoidCallback? onEdit;
+
+  /// Tide alarm switch (Android watch list); null hides the bell.
+  final bool? alarmOn;
+  final VoidCallback? onAlarm;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -60,6 +72,16 @@ class StationCard extends ConsumerWidget {
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
+                    if ((alarmOn, onAlarm) case (final on?, final tap?))
+                      IconButton(
+                        tooltip: on ? l10n.alert_toggleOff : l10n.alert_toggleOn,
+                        icon: Icon(
+                          on
+                              ? Icons.notifications_active_rounded
+                              : Icons.notifications_none_rounded,
+                        ),
+                        onPressed: tap,
+                      ),
                     if (onEdit case final edit?)
                       IconButton(
                         tooltip: l10n.watch_edit,

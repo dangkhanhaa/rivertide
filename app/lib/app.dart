@@ -5,9 +5,11 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:rivertide/core/theme/app_theme.dart';
+import 'package:rivertide/features/alerts/alerts.dart';
 import 'package:rivertide/features/more/application/outdoor_mode_provider.dart';
 import 'package:rivertide/features/more/application/theme_mode_provider.dart';
 import 'package:rivertide/features/stations/stations.dart';
+import 'package:rivertide/features/watch/watch.dart';
 import 'package:rivertide/l10n/gen/app_localizations.dart';
 import 'package:rivertide/router.dart';
 
@@ -25,13 +27,20 @@ class _RiverTideAppState extends ConsumerState<RiverTideApp> {
   void initState() {
     super.initState();
     // After the first frame so it never delays opening the app.
-    WidgetsBinding.instance.addPostFrameCallback((_) => unawaited(prefetchSavedPlaces(ref)));
+    WidgetsBinding.instance.addPostFrameCallback((_) => unawaited(_warmUp()));
   }
 
   @override
   void dispose() {
     _router.dispose();
     super.dispose();
+  }
+
+  /// Saved places cached for offline use, then alarms rescheduled from them.
+  Future<void> _warmUp() async {
+    await prefetchSavedPlaces(ref);
+    await syncHomeWidget(ref);
+    await rescheduleAlerts(ref);
   }
 
   @override

@@ -5,6 +5,7 @@ import 'package:rivertide/core/l10n/l10n_ext.dart';
 import 'package:rivertide/core/theme/app_spacing.dart';
 import 'package:rivertide/core/theme/app_text.dart';
 import 'package:rivertide/core/widgets/state_views.dart';
+import 'package:rivertide/features/alerts/alerts.dart';
 import 'package:rivertide/features/stations/stations.dart';
 import 'package:rivertide/features/watch/presentation/place_meta_dialog.dart';
 
@@ -59,6 +60,8 @@ class WatchScreen extends ConsumerWidget {
                 label: r.fav.label,
                 note: r.fav.note,
                 onEdit: () => editPlaceMeta(context, ref, r.fav, r.station.name, existing),
+                alarmOn: alertsSupported ? alertOnFor(ref, r.station.id) : null,
+                onAlarm: () => toggleAlert(context, ref, r.station.id),
               ),
             ),
         ],

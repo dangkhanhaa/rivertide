@@ -1334,6 +1334,78 @@ abstract class AppLocalizations {
   /// **'Android (Chrome): bấm ⋮ rồi chọn Cài đặt ứng dụng. iPhone (Safari): bấm nút Chia sẻ rồi chọn Thêm vào MH chính. App mở nhanh như app thật, không cần cửa hàng.'**
   String get more_installHow;
 
+  /// No description provided for @alert_channel.
+  ///
+  /// In vi, this message translates to:
+  /// **'Báo thức con nước'**
+  String get alert_channel;
+
+  /// No description provided for @alert_channelHint.
+  ///
+  /// In vi, this message translates to:
+  /// **'Nhắc trước giờ đỉnh, chân triều và giờ câu đẹp ở điểm đã lưu'**
+  String get alert_channelHint;
+
+  /// No description provided for @alert_highTitle.
+  ///
+  /// In vi, this message translates to:
+  /// **'{place}: đỉnh triều {time}'**
+  String alert_highTitle(String place, String time);
+
+  /// No description provided for @alert_lowTitle.
+  ///
+  /// In vi, this message translates to:
+  /// **'{place}: chân triều {time}'**
+  String alert_lowTitle(String place, String time);
+
+  /// No description provided for @alert_levelBody.
+  ///
+  /// In vi, this message translates to:
+  /// **'Mực nước khoảng {level}, còn {minutes} phút'**
+  String alert_levelBody(String level, int minutes);
+
+  /// No description provided for @alert_fishTitle.
+  ///
+  /// In vi, this message translates to:
+  /// **'{place}: giờ câu đẹp {from}–{to}'**
+  String alert_fishTitle(String place, String from, String to);
+
+  /// No description provided for @alert_fishBody.
+  ///
+  /// In vi, this message translates to:
+  /// **'Điểm câu {score}/10, bắt đầu sau {minutes} phút'**
+  String alert_fishBody(String score, int minutes);
+
+  /// No description provided for @alert_toggleOn.
+  ///
+  /// In vi, this message translates to:
+  /// **'Bật báo thức con nước'**
+  String get alert_toggleOn;
+
+  /// No description provided for @alert_toggleOff.
+  ///
+  /// In vi, this message translates to:
+  /// **'Tắt báo thức con nước'**
+  String get alert_toggleOff;
+
+  /// No description provided for @alert_onSnack.
+  ///
+  /// In vi, this message translates to:
+  /// **'Đã bật: nhắc trước 30 phút mỗi lần đỉnh, chân triều và giờ câu đẹp'**
+  String get alert_onSnack;
+
+  /// No description provided for @alert_denied.
+  ///
+  /// In vi, this message translates to:
+  /// **'Chưa được phép gửi thông báo. Bật trong Cài đặt > Ứng dụng > Con Nước > Thông báo.'**
+  String get alert_denied;
+
+  /// No description provided for @alert_webOnly.
+  ///
+  /// In vi, this message translates to:
+  /// **'Báo thức chỉ có trên app Android (trình duyệt không kêu được khi đóng)'**
+  String get alert_webOnly;
+
   /// No description provided for @station_levelNow.
   ///
   /// In vi, this message translates to:
