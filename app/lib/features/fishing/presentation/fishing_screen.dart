@@ -7,6 +7,7 @@ import 'package:rivertide/core/navigation/fishing_spot.dart';
 import 'package:rivertide/core/theme/app_spacing.dart';
 import 'package:rivertide/core/theme/app_text.dart';
 import 'package:rivertide/core/widgets/async_value_view.dart';
+import 'package:rivertide/features/fishing/presentation/trip_planner_screen.dart';
 import 'package:rivertide/features/fishing/presentation/widgets/advice_card.dart';
 import 'package:rivertide/features/fishing/presentation/widgets/day_score_card.dart';
 import 'package:rivertide/features/fishing/presentation/widgets/golden_list.dart';
@@ -37,7 +38,18 @@ class _FishingScreenState extends ConsumerState<FishingScreen> {
     final spot = ref.watch(fishingSpotProvider);
     final fishing = ref.watch(stationFishingProvider(spot.id));
     return Scaffold(
-      appBar: AppBar(title: Text(context.l10n.fishing_title)),
+      appBar: AppBar(
+        title: Text(context.l10n.fishing_title),
+        actions: [
+          TextButton.icon(
+            icon: const Icon(Icons.event_available_rounded),
+            label: Text(context.l10n.trip_open),
+            onPressed: () =>
+                Navigator.of(context)
+                    .push(MaterialPageRoute<void>(builder: (_) => const TripPlannerScreen())),
+          ),
+        ],
+      ),
       body: ListView(
         padding: const EdgeInsets.all(AppSpacing.lg),
         children: [

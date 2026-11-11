@@ -956,6 +956,54 @@ abstract class AppLocalizations {
   /// **'Hủy'**
   String get common_cancel;
 
+  /// No description provided for @trip_title.
+  ///
+  /// In vi, this message translates to:
+  /// **'Lên kế hoạch chuyến câu'**
+  String get trip_title;
+
+  /// No description provided for @trip_open.
+  ///
+  /// In vi, this message translates to:
+  /// **'Lên kế hoạch'**
+  String get trip_open;
+
+  /// No description provided for @trip_noPlaces.
+  ///
+  /// In vi, this message translates to:
+  /// **'Lưu vài điểm câu (bấm ⭐ trên bản đồ) để app tìm buổi câu tốt nhất cho bạn.'**
+  String get trip_noPlaces;
+
+  /// No description provided for @trip_intro.
+  ///
+  /// In vi, this message translates to:
+  /// **'Buổi câu tốt nhất 7 ngày tới ở {count} điểm đã lưu, tính theo con nước, trăng, thời tiết của từng điểm.'**
+  String trip_intro(int count);
+
+  /// No description provided for @trip_none.
+  ///
+  /// In vi, this message translates to:
+  /// **'7 ngày tới chưa có buổi nào đạt từ 7/10 ở các điểm đã lưu.'**
+  String get trip_none;
+
+  /// No description provided for @trip_score.
+  ///
+  /// In vi, this message translates to:
+  /// **'Điểm câu cao nhất {score}/10'**
+  String trip_score(String score);
+
+  /// No description provided for @trip_because.
+  ///
+  /// In vi, this message translates to:
+  /// **'Tốt nhờ: {reasons}'**
+  String trip_because(String reasons);
+
+  /// No description provided for @trip_note.
+  ///
+  /// In vi, this message translates to:
+  /// **'Bấm một buổi để xem chi tiết điểm đó ở tab Câu cá. Dự báo càng xa càng kém chắc chắn, nên xem lại trước khi đi.'**
+  String get trip_note;
+
   /// No description provided for @station_levelNow.
   ///
   /// In vi, this message translates to:

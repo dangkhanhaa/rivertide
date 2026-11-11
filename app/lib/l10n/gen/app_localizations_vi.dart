@@ -504,6 +504,38 @@ class AppLocalizationsVi extends AppLocalizations {
   String get common_cancel => 'Hủy';
 
   @override
+  String get trip_title => 'Lên kế hoạch chuyến câu';
+
+  @override
+  String get trip_open => 'Lên kế hoạch';
+
+  @override
+  String get trip_noPlaces =>
+      'Lưu vài điểm câu (bấm ⭐ trên bản đồ) để app tìm buổi câu tốt nhất cho bạn.';
+
+  @override
+  String trip_intro(int count) {
+    return 'Buổi câu tốt nhất 7 ngày tới ở $count điểm đã lưu, tính theo con nước, trăng, thời tiết của từng điểm.';
+  }
+
+  @override
+  String get trip_none => '7 ngày tới chưa có buổi nào đạt từ 7/10 ở các điểm đã lưu.';
+
+  @override
+  String trip_score(String score) {
+    return 'Điểm câu cao nhất $score/10';
+  }
+
+  @override
+  String trip_because(String reasons) {
+    return 'Tốt nhờ: $reasons';
+  }
+
+  @override
+  String get trip_note =>
+      'Bấm một buổi để xem chi tiết điểm đó ở tab Câu cá. Dự báo càng xa càng kém chắc chắn, nên xem lại trước khi đi.';
+
+  @override
   String get station_levelNow => 'Mực nước hiện tại';
 
   @override
