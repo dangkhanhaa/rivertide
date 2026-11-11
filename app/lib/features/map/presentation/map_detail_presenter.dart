@@ -119,6 +119,13 @@ mixin MapDetailPresenter<T extends ConsumerStatefulWidget> on ConsumerState<T> {
     }
   }
 
+  /// Ends the lock early when the next step opens details itself (which
+  /// takes its own lock), e.g. "Đi câu ngay" right after locating.
+  void releaseMapLock() {
+    _releaseTimer?.cancel();
+    _setBusy(false);
+  }
+
   /// A plain sheet (legend, filter, layers) with the same click guard.
   Future<void> showGuardedSheet(WidgetBuilder builder) async {
     _releaseTimer?.cancel();

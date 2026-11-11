@@ -11,9 +11,17 @@ import 'package:rivertide/features/map/domain/base_layer.dart';
 
 /// Legend, filter and "my location" buttons stacked on the map's right edge.
 class MapControls extends ConsumerWidget {
-  const MapControls({required this.onLocate, required this.openSheet, super.key});
+  const MapControls({
+    required this.onLocate,
+    required this.onGoFishing,
+    required this.openSheet,
+    super.key,
+  });
 
   final VoidCallback onLocate;
+
+  /// Locate and open "what is it like here now" in one tap.
+  final VoidCallback onGoFishing;
 
   /// Opens a bottom sheet through the map screen, which swallows the click
   /// that leaks to the web map when the sheet closes.
@@ -25,6 +33,7 @@ class MapControls extends ConsumerWidget {
     final filterActive = ref.watch(mapFilterStateProvider).isActive;
     return Column(
       mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         FloatingActionButton.small(
           heroTag: 'map-legend',
@@ -45,6 +54,13 @@ class MapControls extends ConsumerWidget {
           tooltip: l10n.map_filter,
           onPressed: () => openSheet((_) => const _FilterSheet()),
           child: Badge(isLabelVisible: filterActive, child: const Icon(Icons.filter_alt_outlined)),
+        ),
+        const SizedBox(height: AppSpacing.sm),
+        FloatingActionButton.extended(
+          heroTag: 'map-go-fishing',
+          onPressed: onGoFishing,
+          icon: const Icon(Icons.phishing_rounded),
+          label: Text(l10n.map_goFishing),
         ),
         const SizedBox(height: AppSpacing.sm),
         FloatingActionButton(

@@ -39,3 +39,18 @@ double? _conf(double kmA, double kmB, double stationKm) {
 }
 
 const double _minDownstreamConf = 0.3;
+
+/// Keeps the same GeoJSON object while the river list is unchanged (the map
+/// re-uploads a source whenever its object changes).
+class RiverReachGeoCache {
+  List<RiverLine>? _source;
+  Map<String, Object?> _geo = riverReachGeoJson(const []);
+
+  Map<String, Object?> of(List<RiverLine>? rivers) {
+    if (rivers != null && !identical(rivers, _source)) {
+      _source = rivers;
+      _geo = riverReachGeoJson(rivers);
+    }
+    return _geo;
+  }
+}

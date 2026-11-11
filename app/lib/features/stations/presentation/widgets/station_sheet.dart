@@ -18,6 +18,7 @@ import 'package:rivertide/features/stations/presentation/widgets/daily_extremes_
 import 'package:rivertide/features/stations/presentation/widgets/flow_card.dart';
 import 'package:rivertide/features/stations/presentation/widgets/location_extras.dart';
 import 'package:rivertide/features/stations/presentation/widgets/location_summary.dart';
+import 'package:rivertide/features/stations/presentation/widgets/quick_summary.dart';
 import 'package:rivertide/features/stations/presentation/widgets/tide_chart.dart';
 
 /// Station summary shown when a map marker is tapped (FEATURES.md F-MAP-02).
@@ -114,6 +115,7 @@ class StationSummaryBody extends StatelessWidget {
         spacing: AppSpacing.md,
         children: [
           if (place case final p?) Text(p, style: context.text.label),
+          QuickSummary(view: view),
           FlowCard(stationId: tide.station.id, nowUtc: view.nowUtc, primary: true),
           FishingNow(view: view),
           Conditions(view: view),
@@ -126,6 +128,7 @@ class StationSummaryBody extends StatelessWidget {
         spacing: AppSpacing.sm,
         children: [
           if (place case final p?) Text(p, style: context.text.label),
+          QuickSummary(view: view),
           DailyExtremesCard(extremes: daily),
           FlowCard(stationId: tide.station.id, nowUtc: view.nowUtc),
           FishingNow(view: view),
@@ -144,6 +147,7 @@ class StationSummaryBody extends StatelessWidget {
       spacing: AppSpacing.md,
       children: [
         LocationHero(view: view, place: place),
+        QuickSummary(view: view),
         if (tide.prediction == null)
           Text(context.l10n.tide_noPrediction, style: context.text.caption)
         else

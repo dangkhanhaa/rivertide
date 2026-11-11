@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rivertide/core/calc/geo/vietnam_bounds.dart';
-import 'package:rivertide/core/calc/river/river_line.dart';
 import 'package:rivertide/core/l10n/l10n_ext.dart';
 import 'package:rivertide/core/navigation/map_focus.dart';
 import 'package:rivertide/core/theme/app_colors.dart';
@@ -158,24 +157,19 @@ class _MapScreenState extends ConsumerState<MapScreen> with MapDetailPresenter<M
     );
   }
 
-  Future<void> _locate() async {
+  /// [open]: "Đi câu ngay" — also open the place's details and summary.
+  Future<void> _locate({bool open = false}) async {
     final p = await whileMapLocked(() => runLocateFlow(context, ref.read(locationServiceProvider)));
     if (p == null || !mounted) return;
     setState(() => _me = p);
+    if (open) {
+      releaseMapLock();
+      return await _openPoint(p.lat, p.lon, PointSurface.unknown, zoom: 13);
+    }
     await _map?.flyTo(p.lat, p.lon, zoom: 11, offset: visibleOffset(detailOpen: false));
   }
 
-  List<RiverLine>? _reachSource;
-  Map<String, Object?> _reachGeo = riverReachGeoJson(const []);
-
-  /// Same object while the river list is unchanged (the map syncs on identity).
-  Map<String, Object?> _reaches(List<RiverLine>? rivers) {
-    if (rivers != null && !identical(rivers, _reachSource)) {
-      _reachSource = rivers;
-      _reachGeo = riverReachGeoJson(rivers);
-    }
-    return _reachGeo;
-  }
+  final _reaches = RiverReachGeoCache();
 
   Widget _buildMap(BuildContext context, List<MapMarker> shown) {
     final l10n = context.l10n;
@@ -192,7 +186,7 @@ class _MapScreenState extends ConsumerState<MapScreen> with MapDetailPresenter<M
           styleString: shownStyle,
           markers: shown,
           palette: markerPalette(context.colors),
-          riverReaches: _reaches(ref.watch(riverLinesProvider).value),
+          riverReaches: _reaches.of(ref.watch(riverLinesProvider).value),
           fixedLabels: [
             (lat: 17.5, lon: 112, text: l10n.map_hoangSa),
             (lat: 10, lon: 112.8, text: l10n.map_truongSa),
@@ -279,6 +273,7 @@ class _MapScreenState extends ConsumerState<MapScreen> with MapDetailPresenter<M
             child: MapControls(
               key: _controlsKey,
               onLocate: _locate,
+              onGoFishing: () => _locate(open: true),
               openSheet: (b) => unawaited(showGuardedSheet(b)),
             ),
           ),

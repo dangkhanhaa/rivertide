@@ -1,6 +1,7 @@
 /// Public surface of the stations feature for other features (CLAUDE.md 3.2).
 library;
 
+export 'application/advice_now.dart' show adviceNow;
 export 'application/hour_extras_provider.dart' show StationFishing, stationFishingProvider;
 export 'application/station_providers.dart'
     show
@@ -18,6 +19,7 @@ export 'presentation/station_detail_screen.dart' show StationDetailScreen;
 export 'presentation/stations_screen.dart' show StationsScreen;
 export 'presentation/widgets/moon_text.dart' show MoonText;
 export 'presentation/widgets/point_sheet.dart' show PointSheet;
+export 'presentation/widgets/quick_summary.dart' show AdviceText, QuickSummary;
 export 'presentation/widgets/station_card.dart' show StationCard;
 export 'presentation/widgets/station_sheet.dart' show StationSheet;
 export 'presentation/widgets/tide_text.dart' show TideText, stationKindIcon;

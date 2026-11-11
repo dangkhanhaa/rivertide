@@ -800,6 +800,36 @@ abstract class AppLocalizations {
   /// **'đang diễn ra'**
   String get solunar_now;
 
+  /// No description provided for @summary_title.
+  ///
+  /// In vi, this message translates to:
+  /// **'Lúc này ở đây'**
+  String get summary_title;
+
+  /// No description provided for @summary_water.
+  ///
+  /// In vi, this message translates to:
+  /// **'{state}, {extreme} lúc {time} (còn {wait})'**
+  String summary_water(String state, String extreme, String time, String wait);
+
+  /// No description provided for @summary_fishing.
+  ///
+  /// In vi, this message translates to:
+  /// **'câu {score}/10 {label}'**
+  String summary_fishing(String score, String label);
+
+  /// No description provided for @summary_wind.
+  ///
+  /// In vi, this message translates to:
+  /// **'gió {kmh} km/h'**
+  String summary_wind(int kmh);
+
+  /// No description provided for @map_goFishing.
+  ///
+  /// In vi, this message translates to:
+  /// **'Đi câu ngay'**
+  String get map_goFishing;
+
   /// No description provided for @station_levelNow.
   ///
   /// In vi, this message translates to:

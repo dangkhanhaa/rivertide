@@ -11,6 +11,7 @@ import 'package:rivertide/features/stations/presentation/widgets/countdown_card.
 import 'package:rivertide/features/stations/presentation/widgets/daily_extremes_card.dart';
 import 'package:rivertide/features/stations/presentation/widgets/flow_card.dart';
 import 'package:rivertide/features/stations/presentation/widgets/location_extras.dart';
+import 'package:rivertide/features/stations/presentation/widgets/quick_summary.dart';
 import 'package:rivertide/features/stations/presentation/widgets/source_line.dart';
 import 'package:rivertide/features/stations/presentation/widgets/station_sheet.dart';
 import 'package:rivertide/features/stations/presentation/widgets/tide_chart.dart';
@@ -56,6 +57,8 @@ class OverviewTab extends StatelessWidget {
       padding: const EdgeInsets.all(AppSpacing.lg),
       children: [
         LevelHeroBlock(view: view),
+        const SizedBox(height: AppSpacing.md),
+        QuickSummary(view: view),
         const SizedBox(height: AppSpacing.lg),
         CountdownCard(now: now, nowUtc: view.nowUtc),
         const SizedBox(height: AppSpacing.lg),

@@ -414,6 +414,27 @@ class AppLocalizationsVi extends AppLocalizations {
   String get solunar_now => 'đang diễn ra';
 
   @override
+  String get summary_title => 'Lúc này ở đây';
+
+  @override
+  String summary_water(String state, String extreme, String time, String wait) {
+    return '$state, $extreme lúc $time (còn $wait)';
+  }
+
+  @override
+  String summary_fishing(String score, String label) {
+    return 'câu $score/10 $label';
+  }
+
+  @override
+  String summary_wind(int kmh) {
+    return 'gió $kmh km/h';
+  }
+
+  @override
+  String get map_goFishing => 'Đi câu ngay';
+
+  @override
   String get station_levelNow => 'Mực nước hiện tại';
 
   @override
