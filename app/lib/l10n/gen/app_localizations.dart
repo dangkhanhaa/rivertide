@@ -1556,11 +1556,11 @@ abstract class AppLocalizations {
   /// **'Xóa điểm câu này khỏi bản đồ cộng đồng?'**
   String get spot_deleteTitle;
 
-  /// No description provided for @spot_mine.
+  /// No description provided for @spot_ownedByYou.
   ///
   /// In vi, this message translates to:
-  /// **'Vị trí của tôi'**
-  String get spot_mine;
+  /// **'Điểm của bạn'**
+  String get spot_ownedByYou;
 
   /// No description provided for @spot_publishTitle.
   ///
@@ -2011,6 +2011,12 @@ abstract class AppLocalizations {
   /// In vi, this message translates to:
   /// **'Điểm câu'**
   String get spot_title;
+
+  /// No description provided for @spot_mine.
+  ///
+  /// In vi, this message translates to:
+  /// **'Vị trí của tôi'**
+  String get spot_mine;
 
   /// No description provided for @spot_point.
   ///

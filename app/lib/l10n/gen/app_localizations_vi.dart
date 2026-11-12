@@ -874,7 +874,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get spot_deleteTitle => 'Xóa điểm câu này khỏi bản đồ cộng đồng?';
 
   @override
-  String get spot_mine => 'Vị trí của tôi';
+  String get spot_ownedByYou => 'Điểm của bạn';
 
   @override
   String get spot_publishTitle => 'Ghim điểm câu công khai';
@@ -1163,6 +1163,9 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get spot_title => 'Điểm câu';
+
+  @override
+  String get spot_mine => 'Vị trí của tôi';
 
   @override
   String get spot_point => 'Điểm đã chọn';

@@ -231,7 +231,7 @@ class _MapScreenState extends ConsumerState<MapScreen> with MapDetailPresenter<M
                       const LinearProgressIndicator(minHeight: 2),
                     if (markers.hasValue && shown.isEmpty && filter.isActive)
                       MapNote(text: l10n.map_filterNone),
-                    NearbySpotsChip(areaKey: _spotsArea, onTap: _openNearby),
+                    NearbySpotsChip(areaKey: _spotsArea, onTap: () => unawaited(_openNearby())),
                   ],
                 ),
               ),

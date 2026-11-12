@@ -63,19 +63,23 @@ extension _MapCommunity on _MapScreenState {
     await _openPoint(s.lat, s.lon, PointSurface.unknown, zoom: 14, title: s.title);
   }
 
-  void _openNearby() {
+  Future<void> _openNearby() async {
     final area = _spotsAreaNow;
     if (area == null) return;
-    unawaited(
-      showGuardedSheet(
-        (ctx) => NearbySpotsSheet(
-          areaKey: area,
-          onOpen: (s) {
-            Navigator.of(ctx).pop();
-            unawaited(_openSpot(s));
-          },
-        ),
+    PublicSpot? chosen;
+    await showGuardedSheet(
+      (ctx) => NearbySpotsSheet(
+        areaKey: area,
+        onOpen: (s) {
+          chosen = s;
+          Navigator.of(ctx).pop();
+        },
       ),
     );
+    // The list's own tap guard would swallow the next sheet: lift it first.
+    if (chosen case final s?) {
+      releaseMapLock();
+      await _openSpot(s);
+    }
   }
 }

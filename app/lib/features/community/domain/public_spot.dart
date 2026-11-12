@@ -2,7 +2,7 @@
 class PublicSpot {
   const PublicSpot({
     required this.id,
-    required this.userId,
+    required this.mine,
     required this.title,
     required this.note,
     required this.species,
@@ -14,7 +14,9 @@ class PublicSpot {
   });
 
   final String id;
-  final String userId;
+
+  /// Posted from this device (only this device can delete it).
+  final bool mine;
   final String title;
   final String note;
   final String species;
@@ -31,7 +33,6 @@ class PublicSpot {
     if (r
         case {
           'id': final String id,
-          'user_id': final String userId,
           'title': final String title,
           'lat': final num lat,
           'lon': final num lon,
@@ -43,7 +44,7 @@ class PublicSpot {
       final photos = r['photos'];
       return PublicSpot(
         id: id,
-        userId: userId,
+        mine: r['mine'] == true,
         title: title,
         note: _text(r['note'], 500),
         species: _text(r['species'], 100),

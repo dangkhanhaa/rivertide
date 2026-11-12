@@ -1,17 +1,35 @@
 import 'dart:async';
+import 'dart:math';
 import 'dart:typed_data';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/misc.dart';
 import 'package:rivertide/core/config/env.dart';
+import 'package:rivertide/core/db/app_database.dart';
 import 'package:rivertide/features/community/data/community_repository.dart';
 import 'package:rivertide/features/community/domain/public_spot.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 /// Null when no Supabase project is configured: the feature stays hidden.
 final Provider<CommunityRepository?> communityRepositoryProvider = Provider(
-  (ref) => Env.communityEnabled ? CommunityRepository(Supabase.instance.client) : null,
+  (ref) => Env.communityEnabled
+      ? CommunityRepository(Supabase.instance.client, () => _deviceSecret(ref))
+      : null,
 );
+
+const String _secretKey = 'community_secret';
+
+/// This device's secret for its own spots: created once with a secure RNG,
+/// kept in the local settings, never logged (the server stores its hash).
+Future<String> _deviceSecret(Ref ref) async {
+  final db = ref.read(appDatabaseProvider);
+  final stored = await db.readSetting(_secretKey);
+  if (stored != null && RegExp(r'^[0-9a-f]{64}$').hasMatch(stored)) return stored;
+  final r = Random.secure();
+  final fresh = List.generate(32, (_) => r.nextInt(256).toRadixString(16).padLeft(2, '0')).join();
+  await db.writeSetting(_secretKey, fresh);
+  return fresh;
+}
 
 /// Search radius around the map centre / user.
 const double nearbyRadiusKm = 30;
@@ -49,5 +67,6 @@ Future<void> deleteSpot(WidgetRef ref, PublicSpot spot) async {
   ref.invalidate(nearbySpotsProvider);
 }
 
-Future<void> reportSpot(WidgetRef ref, PublicSpot spot, String reason) async =>
-    await ref.read(communityRepositoryProvider)?.report(spot, reason);
+/// False when this device had already reported it.
+Future<bool> reportSpot(WidgetRef ref, PublicSpot spot) async =>
+    await ref.read(communityRepositoryProvider)?.report(spot) ?? false;

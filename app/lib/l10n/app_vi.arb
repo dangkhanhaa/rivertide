@@ -305,7 +305,7 @@
   "spot_reportTwice": "Bạn đã báo cáo điểm này rồi",
   "spot_delete": "Xóa điểm của tôi",
   "spot_deleteTitle": "Xóa điểm câu này khỏi bản đồ cộng đồng?",
-  "spot_mine": "Điểm của bạn",
+  "spot_ownedByYou": "Điểm của bạn",
   "spot_publishTitle": "Ghim điểm câu công khai",
   "spot_name": "Tên điểm",
   "spot_nameHint": "vd Bãi đá cầu Thanh Trì",

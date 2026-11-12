@@ -26,7 +26,7 @@ class SpotSheet extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = context.l10n;
     final c = context.colors;
-    final mine = ref.watch(communityRepositoryProvider)?.currentUserId == spot.userId;
+    final mine = spot.mine;
     final km = spot.distanceKm;
     return Padding(
       padding: const EdgeInsets.fromLTRB(AppSpacing.lg, 0, AppSpacing.lg, AppSpacing.lg),
@@ -40,7 +40,7 @@ class SpotSheet extends ConsumerWidget {
               Icon(Icons.groups_rounded, size: AppIconSize.sm, color: c.fishHigh),
               const SizedBox(width: AppSpacing.xs),
               Text(
-                mine ? l10n.spot_mine : l10n.spot_publicTag,
+                mine ? l10n.spot_ownedByYou : l10n.spot_publicTag,
                 style: context.text.label.copyWith(color: c.fishHigh),
               ),
             ],
@@ -122,12 +122,10 @@ class SpotSheet extends ConsumerWidget {
       return;
     }
     try {
-      await reportSpot(ref, spot, '');
-      messenger.showSnackBar(SnackBar(content: Text(l10n.spot_reportDone)));
-    } on ServerException catch (e) {
-      // 23505 = unique violation: this user already reported the spot.
-      final text = e.code == '23505' ? l10n.spot_reportTwice : l10n.spot_error;
-      messenger.showSnackBar(SnackBar(content: Text(text)));
+      final counted = await reportSpot(ref, spot);
+      messenger.showSnackBar(
+        SnackBar(content: Text(counted ? l10n.spot_reportDone : l10n.spot_reportTwice)),
+      );
     } on AppException {
       messenger.showSnackBar(SnackBar(content: Text(l10n.spot_error)));
     }
