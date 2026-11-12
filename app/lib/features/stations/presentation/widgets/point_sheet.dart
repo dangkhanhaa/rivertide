@@ -8,6 +8,7 @@ import 'package:go_router/go_router.dart';
 import 'package:rivertide/core/calc/geo/haversine.dart';
 import 'package:rivertide/core/errors/app_exception.dart';
 import 'package:rivertide/core/format/level_format.dart';
+import 'package:rivertide/core/geo/admin_provider.dart';
 import 'package:rivertide/core/l10n/l10n_ext.dart';
 import 'package:rivertide/core/navigation/fishing_spot.dart';
 import 'package:rivertide/core/theme/app_spacing.dart';
@@ -27,7 +28,17 @@ import 'package:rivertide/features/stations/presentation/widgets/tide_text.dart'
 /// Any tapped map point: coordinates, water there (sea model or nearest river
 /// station, labelled), weather, sun and the nearest stations (F-MAP-03).
 class PointSheet extends ConsumerWidget {
-  const PointSheet({required this.lat, required this.lon, this.onWater, this.title, super.key});
+  const PointSheet({
+    required this.lat,
+    required this.lon,
+    this.onWater,
+    this.title,
+    this.actions = const [],
+    super.key,
+  });
+
+  /// Buttons from other features shown beside "Chỉ đường" (e.g. "Ghim công khai").
+  final List<Widget> actions;
 
   final double lat;
   final double lon;
@@ -72,6 +83,8 @@ class PointSheet extends ConsumerWidget {
                   children: [
                     Text(title ?? l10n.point_title, style: context.text.title),
                     SelectableText(l10n.point_coords(coords), style: context.text.body),
+                    if (adminLine(ref, lat, lon) case final a?)
+                      Text(a, style: context.text.caption),
                   ],
                 ),
               ),
@@ -93,9 +106,13 @@ class PointSheet extends ConsumerWidget {
               ),
             ],
           ),
-          Align(
-            alignment: Alignment.centerLeft,
-            child: DirectionsButton(lat: lat, lon: lon),
+          Wrap(
+            spacing: AppSpacing.sm,
+            runSpacing: AppSpacing.sm,
+            children: [
+              DirectionsButton(lat: lat, lon: lon),
+              ...actions,
+            ],
           ),
           const SizedBox(height: AppSpacing.sm),
           // Riverpod retries failures and reports loading meanwhile: check the error first.
@@ -175,4 +192,12 @@ class _Nearby extends ConsumerWidget {
       ],
     );
   }
+}
+
+/// "Phường Hoàn Kiếm, Thành phố Hà Nội" for a point (2025 units, offline);
+/// null at sea, abroad, or while the list loads.
+String? adminLine(WidgetRef ref, double lat, double lon) {
+  final a = ref.watch(adminIndexProvider).value?.lookup(lat, lon);
+  final parts = [?a?.commune, ?a?.province];
+  return parts.isEmpty ? null : parts.join(', ');
 }

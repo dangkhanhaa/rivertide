@@ -20,6 +20,7 @@ import 'package:rivertide/features/stations/presentation/widgets/flow_card.dart'
 import 'package:rivertide/features/stations/presentation/widgets/hazard_banner.dart';
 import 'package:rivertide/features/stations/presentation/widgets/location_extras.dart';
 import 'package:rivertide/features/stations/presentation/widgets/location_summary.dart';
+import 'package:rivertide/features/stations/presentation/widgets/point_sheet.dart';
 import 'package:rivertide/features/stations/presentation/widgets/quick_summary.dart';
 import 'package:rivertide/features/stations/presentation/widgets/share_place.dart';
 import 'package:rivertide/features/stations/presentation/widgets/tide_chart.dart';
@@ -49,7 +50,10 @@ class StationSheet extends ConsumerWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(station.name, style: context.text.title),
-                    Text(station.region, style: context.text.caption),
+                    Text(
+                      adminLine(ref, station.lat, station.lon) ?? station.region,
+                      style: context.text.caption,
+                    ),
                   ],
                 ),
               ),

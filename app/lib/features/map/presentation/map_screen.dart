@@ -8,6 +8,7 @@ import 'package:rivertide/core/navigation/map_focus.dart';
 import 'package:rivertide/core/theme/app_colors.dart';
 import 'package:rivertide/core/theme/app_spacing.dart';
 import 'package:rivertide/core/widgets/state_views.dart';
+import 'package:rivertide/features/community/community.dart';
 import 'package:rivertide/features/map/application/map_providers.dart';
 import 'package:rivertide/features/map/application/river_flow_provider.dart';
 import 'package:rivertide/features/map/application/weather_layer.dart';
@@ -25,6 +26,9 @@ import 'package:rivertide/features/map/presentation/widgets/map_notes.dart';
 import 'package:rivertide/features/map/presentation/widgets/map_search_bar.dart';
 import 'package:rivertide/features/map/presentation/widgets/marker_palette.dart';
 import 'package:rivertide/features/stations/stations.dart';
+
+part 'map_screen_build_map.dart';
+part 'map_screen_community.dart';
 
 /// S02 — station map on free OpenFreeMap tiles (FEATURES.md F-MAP-01 → 04).
 class MapScreen extends ConsumerStatefulWidget {
@@ -140,6 +144,7 @@ class _MapScreenState extends ConsumerState<MapScreen> with MapDetailPresenter<M
         lat: lat,
         lon: lon,
         title: title,
+        actions: [PinPublicButton(lat: lat, lon: lon, name: title)],
         onWater: switch (surface) {
           PointSurface.water => true,
           PointSurface.land => false,
@@ -173,48 +178,6 @@ class _MapScreenState extends ConsumerState<MapScreen> with MapDetailPresenter<M
     await _map?.flyTo(p.lat, p.lon, zoom: 11, offset: visibleOffset(detailOpen: false));
   }
 
-  final _reaches = RiverReachGeoCache();
-
-  Widget _buildMap(BuildContext context, List<MapMarker> shown) {
-    final l10n = context.l10n;
-    final layer = ref.watch(baseLayerChoiceProvider).value ?? BaseLayer.standard;
-    final style = ref.watch(mapStyleProvider(Theme.of(context).brightness, layer));
-    // Keep showing the previous style while a new one loads: replacing the map
-    // with a spinner would recreate it and lose the camera position.
-    if (style.value case final s?) _lastStyle = s;
-    final shownStyle = style.value ?? _lastStyle;
-    final buildMap = ref.watch(baseMapBuilderProvider);
-    return switch (style) {
-      _ when shownStyle != null => buildMap(
-        BaseMapConfig(
-          styleString: shownStyle,
-          markers: shown,
-          palette: markerPalette(context.colors),
-          riverReaches: _reaches.of(ref.watch(riverLinesProvider).value),
-          riverFlow: ref.watch(riverFlowProvider).value ?? emptyFlowGeoJson,
-          weather: ref.watch(weatherLayerGeoJsonProvider),
-          onCameraIdle: reportCamera(ref),
-          fixedLabels: [
-            (lat: 17.5, lon: 112, text: l10n.map_hoangSa),
-            (lat: 10, lon: 112.8, text: l10n.map_truongSa),
-          ],
-          onStationTap: _openStation,
-          onReady: _onReady,
-          onMapTap: _openPoint,
-          blocksTapAt: _blocksTapAt,
-          gesturesEnabled: !sheetBusy,
-          userPosition: _me,
-          pin: _pin,
-        ),
-      ),
-      AsyncError(:final error) => ErrorView(
-        error: error,
-        onRetry: () => ref.invalidate(mapStyleProvider),
-      ),
-      _ => const LoadingView(),
-    };
-  }
-
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
@@ -230,10 +193,8 @@ class _MapScreenState extends ConsumerState<MapScreen> with MapDetailPresenter<M
     return Scaffold(
       body: Stack(
         children: [
-          // With the side panel open the map ends where the panel starts: on web
-          // the platform map would otherwise also get the panel's clicks, wheel
-          // and drags. MapLibre keeps the centre on resize, so a point flown to
-          // the centre lands in the middle of the visible map.
+          // Side panel open: the map ends where it starts, so web clicks/wheel/drags on the
+          // panel never reach the map, and resizing keeps a centred point visible.
           Positioned(
             left: 0,
             top: 0,
@@ -258,6 +219,8 @@ class _MapScreenState extends ConsumerState<MapScreen> with MapDetailPresenter<M
                     MapSearchBar(
                       stations: stationList.value ?? const [],
                       onSelected: (s) => _openStation(s.id, zoom: 11),
+                      onCoordinates: (lat, lon) =>
+                          _openPoint(lat, lon, PointSurface.unknown, zoom: 14),
                       onPlace: (p) =>
                           _openPoint(p.lat, p.lon, PointSurface.unknown, zoom: 13, title: p.name),
                     ),
@@ -268,6 +231,7 @@ class _MapScreenState extends ConsumerState<MapScreen> with MapDetailPresenter<M
                       const LinearProgressIndicator(minHeight: 2),
                     if (markers.hasValue && shown.isEmpty && filter.isActive)
                       MapNote(text: l10n.map_filterNone),
+                    NearbySpotsChip(areaKey: _spotsArea, onTap: _openNearby),
                   ],
                 ),
               ),

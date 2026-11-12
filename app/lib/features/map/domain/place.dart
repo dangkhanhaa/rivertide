@@ -4,17 +4,22 @@ import 'package:rivertide/core/calc/geo/haversine.dart';
 import 'package:rivertide/core/calc/geo/vietnam_bounds.dart';
 import 'package:rivertide/core/format/text_fold.dart';
 
-enum PlaceKind { city, ward, bridge, ferry, wharf }
+/// `province`/`commune` are the 2025 administrative units (admin.json);
+/// `ward` is a named populated place from OSM (neighbourhood, village).
+enum PlaceKind { province, commune, city, ward, bridge, ferry, wharf }
 
 /// A named place from the bundled OpenStreetMap extract (tools/places).
 class Place {
-  Place({required this.name, required this.kind, required this.lat, required this.lon})
+  Place({required this.name, required this.kind, required this.lat, required this.lon, this.area})
     : folded = TextFold.fold(name);
 
   final String name;
   final PlaceKind kind;
   final double lat;
   final double lon;
+
+  /// Province of a ward/commune ("Thành phố Hà Nội"), for the result list.
+  final String? area;
 
   /// Accent-free lower-case name, precomputed for fast search.
   final String folded;

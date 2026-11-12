@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:maplibre_gl/maplibre_gl.dart';
 import 'package:rivertide/features/map/domain/map_marker.dart';
 import 'package:rivertide/features/map/presentation/widgets/base_map.dart';
+import 'package:rivertide/features/map/presentation/widgets/community_layer.dart';
 import 'package:rivertide/features/map/presentation/widgets/river_flow_layer.dart';
 import 'package:rivertide/features/map/presentation/widgets/weather_map_layer.dart';
 
@@ -49,6 +50,7 @@ Future<void> addStationOverlay(
   await addRiverReachLayer(c, p);
   await addRiverFlowLayer(c, p);
   await addWeatherLayers(c, p);
+  await addCommunityLayers(c, p);
   await _addClusterLayers(c, p, sevColor);
   await _addStationLayers(c, p, sevColor);
   await _addFixedLabels(c, p, fixedLabels);

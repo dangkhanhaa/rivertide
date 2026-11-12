@@ -7,12 +7,12 @@ import 'package:image_picker/image_picker.dart';
 import 'package:rivertide/core/clock/clock_provider.dart';
 import 'package:rivertide/core/errors/app_exception.dart';
 import 'package:rivertide/core/format/time_format.dart';
+import 'package:rivertide/core/image/photo_clean.dart';
 import 'package:rivertide/core/l10n/l10n_ext.dart';
 import 'package:rivertide/core/navigation/fishing_spot.dart';
 import 'package:rivertide/core/theme/app_spacing.dart';
 import 'package:rivertide/core/theme/app_text.dart';
 import 'package:rivertide/features/journal/application/journal_providers.dart';
-import 'package:rivertide/features/journal/data/catch_photo.dart';
 import 'package:rivertide/features/stations/stations.dart';
 
 /// Common Vietnamese freshwater/brackish catches, as quick picks.

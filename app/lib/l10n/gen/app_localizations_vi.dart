@@ -180,7 +180,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get nav_map => 'Bản đồ';
 
   @override
-  String get map_searchHint => 'Tìm trạm, cầu, bến, xã (gõ không dấu được)';
+  String get map_searchHint => 'Tìm xã, phường, cầu, bến, tọa độ…';
 
   @override
   String get map_searchNone => 'Không tìm thấy trạm phù hợp';
@@ -659,7 +659,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get place_city => 'Thành phố, thị xã';
 
   @override
-  String get place_ward => 'Phường, xã, làng';
+  String get place_ward => 'Khu dân cư, làng';
 
   @override
   String get place_bridge => 'Cầu';
@@ -800,6 +800,132 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get search_recent => 'Tìm gần đây';
+
+  @override
+  String get place_province => 'Tỉnh, thành phố';
+
+  @override
+  String get place_commune => 'Phường, xã';
+
+  @override
+  String get search_coordsHint => 'Mở mực nước, giờ câu tại tọa độ này';
+
+  @override
+  String place_in(String kind, String area) {
+    return '$kind · $area';
+  }
+
+  @override
+  String search_coords(String coords) {
+    return 'Tọa độ $coords';
+  }
+
+  @override
+  String get spot_publicTag => 'Điểm câu cộng đồng';
+
+  @override
+  String get spot_pinAction => 'Ghim công khai';
+
+  @override
+  String spot_nearbyChip(int count) {
+    return '$count điểm câu cộng đồng quanh đây';
+  }
+
+  @override
+  String get spot_nearbyTitle => 'Điểm câu gần đây';
+
+  @override
+  String get spot_nearbyEmpty =>
+      'Chưa có điểm câu nào trong vòng 30 km. Chạm một chỗ trên bản đồ rồi bấm \"Ghim công khai\" để chia sẻ điểm của bạn.';
+
+  @override
+  String spot_postedAgo(String date) {
+    return 'Đăng $date';
+  }
+
+  @override
+  String spot_distance(String km) {
+    return 'cách $km';
+  }
+
+  @override
+  String get spot_viewWater => 'Xem nước tại đây';
+
+  @override
+  String get spot_report => 'Báo cáo';
+
+  @override
+  String get spot_reportTitle => 'Báo cáo điểm câu này?';
+
+  @override
+  String get spot_reportHint =>
+      'Sai chỗ, ảnh không phù hợp, quảng cáo… Điểm bị nhiều người báo sẽ tự ẩn.';
+
+  @override
+  String get spot_reportDone => 'Đã gửi báo cáo. Cảm ơn bạn!';
+
+  @override
+  String get spot_reportTwice => 'Bạn đã báo cáo điểm này rồi';
+
+  @override
+  String get spot_delete => 'Xóa điểm của tôi';
+
+  @override
+  String get spot_deleteTitle => 'Xóa điểm câu này khỏi bản đồ cộng đồng?';
+
+  @override
+  String get spot_mine => 'Vị trí của tôi';
+
+  @override
+  String get spot_publishTitle => 'Ghim điểm câu công khai';
+
+  @override
+  String get spot_name => 'Tên điểm';
+
+  @override
+  String get spot_nameHint => 'vd Bãi đá cầu Thanh Trì';
+
+  @override
+  String get spot_species => 'Cá hay câu được';
+
+  @override
+  String get spot_note => 'Kinh nghiệm';
+
+  @override
+  String get spot_noteHint => 'Mồi, giờ đẹp, chỗ để xe, độ sâu…';
+
+  @override
+  String get spot_photos => 'Ảnh (tối đa 3)';
+
+  @override
+  String get spot_addPhoto => 'Thêm ảnh';
+
+  @override
+  String get spot_publicNotice =>
+      'Điểm này sẽ hiện công khai cho mọi người dùng Con Nước. Không đăng điểm cấm câu, ảnh có mặt người khác khi chưa được đồng ý.';
+
+  @override
+  String get spot_agree => 'Tôi hiểu và đồng ý chia sẻ';
+
+  @override
+  String get spot_publish => 'Đăng điểm';
+
+  @override
+  String get spot_published => 'Đã ghim! Mọi người quanh đây sẽ thấy điểm của bạn.';
+
+  @override
+  String get spot_needName => 'Đặt tên cho điểm (từ 2 ký tự)';
+
+  @override
+  String get spot_error => 'Chưa gửi được, kiểm tra mạng rồi thử lại';
+
+  @override
+  String get spot_photoError => 'Không đọc được ảnh này';
+
+  @override
+  String spot_location(String coords) {
+    return 'Vị trí: $coords';
+  }
 
   @override
   String get station_levelNow => 'Mực nước hiện tại';
@@ -1037,9 +1163,6 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get spot_title => 'Điểm câu';
-
-  @override
-  String get spot_mine => 'Vị trí của tôi';
 
   @override
   String get spot_point => 'Điểm đã chọn';

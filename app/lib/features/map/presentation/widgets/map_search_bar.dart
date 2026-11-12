@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:rivertide/core/calc/geo/coord_parse.dart';
 import 'package:rivertide/core/calc/geo/haversine.dart';
 import 'package:rivertide/core/format/level_format.dart';
 import 'package:rivertide/core/format/text_fold.dart';
@@ -20,8 +21,12 @@ class MapSearchBar extends ConsumerWidget {
     required this.stations,
     required this.onSelected,
     required this.onPlace,
+    required this.onCoordinates,
     super.key,
   });
+
+  /// A typed/pasted coordinate pair was chosen.
+  final void Function(double lat, double lon) onCoordinates;
 
   final List<Station> stations;
   final ValueChanged<Station> onSelected;
@@ -48,6 +53,8 @@ class MapSearchBar extends ConsumerWidget {
   ) async {
     final query = controller.text;
     if (query.trim().isEmpty) return await _recent(context, ref, controller);
+    // Typed or pasted coordinates: go straight there (no name to look up).
+    if (parseCoordinates(query) case final c?) return [_coordTile(context, controller, c)];
     // Nearer to the area on screen first (once zoomed in on a region).
     final cam = ref.read(mapCameraProvider);
     final near = cam != null && cam.zoom >= 7 ? (lat: cam.lat, lon: cam.lon) : null;
@@ -103,6 +110,8 @@ class MapSearchBar extends ConsumerWidget {
     subtitle: Text(
       [
         switch (nearestTown(all, p)) {
+          _ when p.area != null => context.l10n.place_in(_kind(context, p.kind), p.area ?? ''),
+          _ when p.kind == PlaceKind.province => _kind(context, p.kind),
           final t? when p.kind != PlaceKind.city => context.l10n.place_near(
             _kind(context, p.kind),
             t.name,
@@ -114,6 +123,23 @@ class MapSearchBar extends ConsumerWidget {
     ),
     onTap: () => _choose(ref, controller, p),
   );
+
+  Widget _coordTile(
+    BuildContext context,
+    SearchController controller,
+    ({double lat, double lon}) c,
+  ) {
+    final text = '${c.lat.toStringAsFixed(5)}, ${c.lon.toStringAsFixed(5)}';
+    return ListTile(
+      leading: const Icon(Icons.my_location_rounded),
+      title: Text(context.l10n.search_coords(text)),
+      subtitle: Text(context.l10n.search_coordsHint),
+      onTap: () {
+        controller.closeView(text);
+        onCoordinates(c.lat, c.lon);
+      },
+    );
+  }
 
   void _choose(WidgetRef ref, SearchController controller, Place p) {
     controller.closeView(p.name);
@@ -142,6 +168,8 @@ class MapSearchBar extends ConsumerWidget {
   }
 
   static IconData _icon(PlaceKind k) => switch (k) {
+    PlaceKind.province => Icons.map_outlined,
+    PlaceKind.commune => Icons.account_balance_outlined,
     PlaceKind.city => Icons.location_city_rounded,
     PlaceKind.ward => Icons.home_work_outlined,
     PlaceKind.bridge => Icons.linear_scale_rounded,
@@ -150,6 +178,8 @@ class MapSearchBar extends ConsumerWidget {
   };
 
   static String _kind(BuildContext context, PlaceKind k) => switch (k) {
+    PlaceKind.province => context.l10n.place_province,
+    PlaceKind.commune => context.l10n.place_commune,
     PlaceKind.city => context.l10n.place_city,
     PlaceKind.ward => context.l10n.place_ward,
     PlaceKind.bridge => context.l10n.place_bridge,

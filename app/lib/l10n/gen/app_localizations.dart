@@ -383,7 +383,7 @@ abstract class AppLocalizations {
   /// No description provided for @map_searchHint.
   ///
   /// In vi, this message translates to:
-  /// **'Tìm trạm, cầu, bến, xã (gõ không dấu được)'**
+  /// **'Tìm xã, phường, cầu, bến, tọa độ…'**
   String get map_searchHint;
 
   /// No description provided for @map_searchNone.
@@ -1205,7 +1205,7 @@ abstract class AppLocalizations {
   /// No description provided for @place_ward.
   ///
   /// In vi, this message translates to:
-  /// **'Phường, xã, làng'**
+  /// **'Khu dân cư, làng'**
   String get place_ward;
 
   /// No description provided for @place_bridge.
@@ -1435,6 +1435,228 @@ abstract class AppLocalizations {
   /// In vi, this message translates to:
   /// **'Tìm gần đây'**
   String get search_recent;
+
+  /// No description provided for @place_province.
+  ///
+  /// In vi, this message translates to:
+  /// **'Tỉnh, thành phố'**
+  String get place_province;
+
+  /// No description provided for @place_commune.
+  ///
+  /// In vi, this message translates to:
+  /// **'Phường, xã'**
+  String get place_commune;
+
+  /// No description provided for @search_coordsHint.
+  ///
+  /// In vi, this message translates to:
+  /// **'Mở mực nước, giờ câu tại tọa độ này'**
+  String get search_coordsHint;
+
+  /// No description provided for @place_in.
+  ///
+  /// In vi, this message translates to:
+  /// **'{kind} · {area}'**
+  String place_in(String kind, String area);
+
+  /// No description provided for @search_coords.
+  ///
+  /// In vi, this message translates to:
+  /// **'Tọa độ {coords}'**
+  String search_coords(String coords);
+
+  /// No description provided for @spot_publicTag.
+  ///
+  /// In vi, this message translates to:
+  /// **'Điểm câu cộng đồng'**
+  String get spot_publicTag;
+
+  /// No description provided for @spot_pinAction.
+  ///
+  /// In vi, this message translates to:
+  /// **'Ghim công khai'**
+  String get spot_pinAction;
+
+  /// No description provided for @spot_nearbyChip.
+  ///
+  /// In vi, this message translates to:
+  /// **'{count} điểm câu cộng đồng quanh đây'**
+  String spot_nearbyChip(int count);
+
+  /// No description provided for @spot_nearbyTitle.
+  ///
+  /// In vi, this message translates to:
+  /// **'Điểm câu gần đây'**
+  String get spot_nearbyTitle;
+
+  /// No description provided for @spot_nearbyEmpty.
+  ///
+  /// In vi, this message translates to:
+  /// **'Chưa có điểm câu nào trong vòng 30 km. Chạm một chỗ trên bản đồ rồi bấm \"Ghim công khai\" để chia sẻ điểm của bạn.'**
+  String get spot_nearbyEmpty;
+
+  /// No description provided for @spot_postedAgo.
+  ///
+  /// In vi, this message translates to:
+  /// **'Đăng {date}'**
+  String spot_postedAgo(String date);
+
+  /// No description provided for @spot_distance.
+  ///
+  /// In vi, this message translates to:
+  /// **'cách {km}'**
+  String spot_distance(String km);
+
+  /// No description provided for @spot_viewWater.
+  ///
+  /// In vi, this message translates to:
+  /// **'Xem nước tại đây'**
+  String get spot_viewWater;
+
+  /// No description provided for @spot_report.
+  ///
+  /// In vi, this message translates to:
+  /// **'Báo cáo'**
+  String get spot_report;
+
+  /// No description provided for @spot_reportTitle.
+  ///
+  /// In vi, this message translates to:
+  /// **'Báo cáo điểm câu này?'**
+  String get spot_reportTitle;
+
+  /// No description provided for @spot_reportHint.
+  ///
+  /// In vi, this message translates to:
+  /// **'Sai chỗ, ảnh không phù hợp, quảng cáo… Điểm bị nhiều người báo sẽ tự ẩn.'**
+  String get spot_reportHint;
+
+  /// No description provided for @spot_reportDone.
+  ///
+  /// In vi, this message translates to:
+  /// **'Đã gửi báo cáo. Cảm ơn bạn!'**
+  String get spot_reportDone;
+
+  /// No description provided for @spot_reportTwice.
+  ///
+  /// In vi, this message translates to:
+  /// **'Bạn đã báo cáo điểm này rồi'**
+  String get spot_reportTwice;
+
+  /// No description provided for @spot_delete.
+  ///
+  /// In vi, this message translates to:
+  /// **'Xóa điểm của tôi'**
+  String get spot_delete;
+
+  /// No description provided for @spot_deleteTitle.
+  ///
+  /// In vi, this message translates to:
+  /// **'Xóa điểm câu này khỏi bản đồ cộng đồng?'**
+  String get spot_deleteTitle;
+
+  /// No description provided for @spot_mine.
+  ///
+  /// In vi, this message translates to:
+  /// **'Vị trí của tôi'**
+  String get spot_mine;
+
+  /// No description provided for @spot_publishTitle.
+  ///
+  /// In vi, this message translates to:
+  /// **'Ghim điểm câu công khai'**
+  String get spot_publishTitle;
+
+  /// No description provided for @spot_name.
+  ///
+  /// In vi, this message translates to:
+  /// **'Tên điểm'**
+  String get spot_name;
+
+  /// No description provided for @spot_nameHint.
+  ///
+  /// In vi, this message translates to:
+  /// **'vd Bãi đá cầu Thanh Trì'**
+  String get spot_nameHint;
+
+  /// No description provided for @spot_species.
+  ///
+  /// In vi, this message translates to:
+  /// **'Cá hay câu được'**
+  String get spot_species;
+
+  /// No description provided for @spot_note.
+  ///
+  /// In vi, this message translates to:
+  /// **'Kinh nghiệm'**
+  String get spot_note;
+
+  /// No description provided for @spot_noteHint.
+  ///
+  /// In vi, this message translates to:
+  /// **'Mồi, giờ đẹp, chỗ để xe, độ sâu…'**
+  String get spot_noteHint;
+
+  /// No description provided for @spot_photos.
+  ///
+  /// In vi, this message translates to:
+  /// **'Ảnh (tối đa 3)'**
+  String get spot_photos;
+
+  /// No description provided for @spot_addPhoto.
+  ///
+  /// In vi, this message translates to:
+  /// **'Thêm ảnh'**
+  String get spot_addPhoto;
+
+  /// No description provided for @spot_publicNotice.
+  ///
+  /// In vi, this message translates to:
+  /// **'Điểm này sẽ hiện công khai cho mọi người dùng Con Nước. Không đăng điểm cấm câu, ảnh có mặt người khác khi chưa được đồng ý.'**
+  String get spot_publicNotice;
+
+  /// No description provided for @spot_agree.
+  ///
+  /// In vi, this message translates to:
+  /// **'Tôi hiểu và đồng ý chia sẻ'**
+  String get spot_agree;
+
+  /// No description provided for @spot_publish.
+  ///
+  /// In vi, this message translates to:
+  /// **'Đăng điểm'**
+  String get spot_publish;
+
+  /// No description provided for @spot_published.
+  ///
+  /// In vi, this message translates to:
+  /// **'Đã ghim! Mọi người quanh đây sẽ thấy điểm của bạn.'**
+  String get spot_published;
+
+  /// No description provided for @spot_needName.
+  ///
+  /// In vi, this message translates to:
+  /// **'Đặt tên cho điểm (từ 2 ký tự)'**
+  String get spot_needName;
+
+  /// No description provided for @spot_error.
+  ///
+  /// In vi, this message translates to:
+  /// **'Chưa gửi được, kiểm tra mạng rồi thử lại'**
+  String get spot_error;
+
+  /// No description provided for @spot_photoError.
+  ///
+  /// In vi, this message translates to:
+  /// **'Không đọc được ảnh này'**
+  String get spot_photoError;
+
+  /// No description provided for @spot_location.
+  ///
+  /// In vi, this message translates to:
+  /// **'Vị trí: {coords}'**
+  String spot_location(String coords);
 
   /// No description provided for @station_levelNow.
   ///
@@ -1789,12 +2011,6 @@ abstract class AppLocalizations {
   /// In vi, this message translates to:
   /// **'Điểm câu'**
   String get spot_title;
-
-  /// No description provided for @spot_mine.
-  ///
-  /// In vi, this message translates to:
-  /// **'Vị trí của tôi'**
-  String get spot_mine;
 
   /// No description provided for @spot_point.
   ///

@@ -1527,6 +1527,7 @@ Hoãn tới khi cần máy chủ: P1-05 → P1-12, P1-18, P1-30, P1-32 (phần D
 - [ ] **P2-16** Gợi ý giờ lấy/xả nước (F-AGRI-01); tóm tắt buổi sáng (F-ALERT-04).
 - [ ] **P2-17** Fit lại hằng số triều với dữ liệu tích lũy; nâng `tide_confidence`.
 - [ ] **P2-18** Beta 20–50 người, thu phản hồi, tinh chỉnh chỉ số câu cá (`fs-2`).
+- [ ] **P2-19** Điểm câu cộng đồng: ghim công khai (tên, loài, kinh nghiệm, ≤ 3 ảnh), "điểm câu gần đây", chỉ đường Google Maps, báo cáo (3 lần → ẩn), xóa điểm của mình. Supabase: `supabase/migrations/0001_public_spots.sql` (RLS, PostGIS, bucket `spot-photos`), đăng nhập ẩn danh. DoD: đăng/xem/báo cáo/xóa chạy với project thật.
 
 ### Giai đoạn 3 — Bản 3 🔵
 

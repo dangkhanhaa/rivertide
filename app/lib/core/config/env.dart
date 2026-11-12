@@ -16,4 +16,13 @@ abstract final class Env {
 
   /// Android app file published next to the web app (sideload, no store).
   static const String apkUrl = '${webAppUrl}con-nuoc.apk';
+
+  /// Supabase project for community spots (P2-19). The anon key is public by
+  /// design (access is limited by RLS); the service_role key never ships.
+  /// Empty: the community feature stays hidden.
+  static const String supabaseUrl = String.fromEnvironment('SUPABASE_URL');
+  static const String supabaseAnonKey = String.fromEnvironment('SUPABASE_ANON_KEY');
+
+  static bool get communityEnabled =>
+      supabaseUrl.startsWith('https://') && supabaseAnonKey.isNotEmpty;
 }

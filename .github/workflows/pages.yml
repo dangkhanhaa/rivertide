@@ -58,7 +58,11 @@ jobs:
         run: |
           cp ../site/data/kttv_tvhn.json assets/data/kttv_tvhn.json
           flutter pub get
-          flutter build web --release --base-href /rivertide/ --dart-define=BUILD_SHA=${{ github.sha }}
+          # Community spots (P2-19) when env/community.json exists: it holds only the
+          # Supabase URL and the public anon key (RLS limits access), never service_role.
+          EXTRA=""
+          if [ -f env/community.json ]; then EXTRA="--dart-define-from-file=env/community.json"; fi
+          flutter build web --release --base-href /rivertide/ --dart-define=BUILD_SHA=${{ github.sha }} $EXTRA
           cp -r build/web/. ../site/
           # Lets running apps tell they are out of date ("Có phiên bản mới").
           echo '{"sha":"${{ github.sha }}"}' > ../site/build.json

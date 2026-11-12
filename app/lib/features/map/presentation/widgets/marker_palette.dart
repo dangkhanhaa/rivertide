@@ -20,4 +20,5 @@ MarkerPalette markerPalette(AppColors c) => (
   flowRising: c.water,
   flowFalling: c.alarm2,
   flowSlack: c.stale,
+  community: c.fishHigh,
 );

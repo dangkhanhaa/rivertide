@@ -41,6 +41,19 @@ Bản đồ nền: OpenFreeMap (miễn phí, không cần khóa hay đăng ký) 
 
 Cập nhật dự báo triều (hằng tháng): xem [docs/tide-validation.md](docs/tide-validation.md). Mực nước sông: xem [docs/river-model.md](docs/river-model.md).
 
+### Điểm câu cộng đồng (Supabase, gói miễn phí)
+
+1. supabase.com → New project (vùng Singapore).
+2. **Authentication → Sign In / Providers → Anonymous Sign-Ins: bật.**
+3. **SQL Editor** → dán toàn bộ `supabase/migrations/0001_public_spots.sql` → Run.
+4. Project Settings → API: lấy **Project URL** và khóa **anon public** (KHÔNG dùng `service_role`).
+5. Tạo `app/env/community.json`:
+   ```json
+   {"SUPABASE_URL": "https://xxxx.supabase.co", "SUPABASE_ANON_KEY": "eyJ..."}
+   ```
+   Khóa anon là khóa công khai (quyền bị giới hạn bởi RLS), được phép nằm trong app. Chưa có file này thì tính năng tự ẩn.
+6. Chạy thử: `flutter run -d chrome --dart-define-from-file=env/community.json`.
+
 ### App Android (APK)
 
 `app/web/con-nuoc.apk` được đăng cùng bản web: https://dangkhanhaa.github.io/rivertide/con-nuoc.apk (nút "Tải app Android" trong mục Thêm của bản web). Bản Android có thêm báo thức con nước và widget màn hình chính.

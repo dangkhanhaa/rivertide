@@ -26,6 +26,7 @@ typedef MarkerPalette = ({
   Color flowRising,
   Color flowFalling,
   Color flowSlack,
+  Color community,
 });
 
 class BaseMapConfig {
@@ -41,6 +42,8 @@ class BaseMapConfig {
     this.riverFlow = const {'type': 'FeatureCollection', 'features': <Object>[]},
     this.weather = const {'type': 'FeatureCollection', 'features': <Object>[]},
     this.onCameraIdle,
+    this.community = const {'type': 'FeatureCollection', 'features': <Object>[]},
+    this.onCommunityTap,
     this.blocksTapAt,
     this.gesturesEnabled = true,
     this.userPosition,
@@ -60,6 +63,12 @@ class BaseMapConfig {
 
   /// Rain/wind grid points (`rain`, `wind`, `toDeg`), GeoJSON.
   final Map<String, Object?> weather;
+
+  /// Community fishing spots (feature `id` = index, `title`), GeoJSON.
+  final Map<String, Object?> community;
+
+  /// A community pin was tapped (its feature id).
+  final ValueChanged<int>? onCommunityTap;
 
   /// Centre and zoom whenever the camera stops moving.
   final void Function(double lat, double lon, double zoom)? onCameraIdle;

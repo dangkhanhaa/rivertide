@@ -8,6 +8,7 @@ import 'package:rivertide/core/logging/log.dart';
 import 'package:rivertide/features/map/domain/map_marker.dart';
 import 'package:rivertide/features/map/domain/water_layers.dart';
 import 'package:rivertide/features/map/presentation/widgets/base_map.dart';
+import 'package:rivertide/features/map/presentation/widgets/community_layer.dart';
 import 'package:rivertide/features/map/presentation/widgets/marker_icons.dart';
 import 'package:rivertide/features/map/presentation/widgets/river_flow_layer.dart';
 import 'package:rivertide/features/map/presentation/widgets/station_layers.dart';
@@ -44,6 +45,7 @@ class _MapLibreStationMapState extends State<MapLibreStationMap> implements Base
     if (!_styleReady) return;
     if (!identical(old.config.markers, widget.config.markers)) unawaited(_syncMarkers());
     if (!identical(old.config.weather, widget.config.weather)) unawaited(_syncWeather());
+    if (!identical(old.config.community, widget.config.community)) unawaited(_syncCommunity());
     if (!identical(old.config.riverReaches, widget.config.riverReaches) ||
         !identical(old.config.riverFlow, widget.config.riverFlow)) {
       unawaited(_syncRivers());
@@ -108,6 +110,7 @@ class _MapLibreStationMapState extends State<MapLibreStationMap> implements Base
       await _syncMarkers();
       await _syncRivers();
       await _syncWeather();
+      await _syncCommunity();
       await _syncMe();
     } on Exception catch (e) {
       // A failed overlay must not take the base map down; the list tab still works.
@@ -179,6 +182,12 @@ class _MapLibreStationMapState extends State<MapLibreStationMap> implements Base
     });
   }
 
+  Future<void> _syncCommunity() async {
+    final c = _controller;
+    if (c == null || !_styleReady) return;
+    await c.setGeoJsonSource(communitySourceId, widget.config.community);
+  }
+
   Future<void> _syncWeather() async {
     final c = _controller;
     if (c == null || !_styleReady) return;
@@ -198,6 +207,8 @@ class _MapLibreStationMapState extends State<MapLibreStationMap> implements Base
     if (n == null) return;
     if (layerId == stationDotsLayerId && n >= 0 && n < _shown.length) {
       widget.config.onStationTap(_shown[n].id);
+    } else if (layerId == communityLayerId && n >= 0) {
+      widget.config.onCommunityTap?.call(n);
     } else if (layerId == clusterLayerId) {
       unawaited(_zoomIntoCluster(n, latLng));
     }
