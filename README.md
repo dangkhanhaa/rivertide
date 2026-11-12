@@ -44,7 +44,7 @@ Cập nhật dự báo triều (hằng tháng): xem [docs/tide-validation.md](do
 ### Điểm câu cộng đồng (Supabase, gói miễn phí)
 
 1. supabase.com → New project (vùng Singapore).
-2. **Authentication → Sign In / Providers → Anonymous Sign-Ins: bật.**
+2. Không cần bật đăng nhập: mỗi máy dùng một mã bí mật ngẫu nhiên lưu trên máy, máy chủ chỉ lưu hash của mã.
 3. **SQL Editor** → dán toàn bộ `supabase/migrations/0001_public_spots.sql` → Run.
 4. Project Settings → API: lấy **Project URL** và khóa **anon public** (KHÔNG dùng `service_role`).
 5. Tạo `app/env/community.json`:
