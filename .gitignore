@@ -1,6 +1,8 @@
 # ===== Secrets (KHÔNG BAO GIỜ commit) =====
 app/env/*.json
 !app/env/example.json
+# Only the Supabase URL + publishable (public) key for community spots; RLS limits access.
+!app/env/community.json
 supabase/functions/.env
 supabase/.env
 .env
