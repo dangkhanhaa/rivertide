@@ -539,6 +539,179 @@ class AppLocalizationsVi extends AppLocalizations {
       'Bấm một buổi để xem chi tiết điểm đó ở tab Câu cá. Dự báo càng xa càng kém chắc chắn, nên xem lại trước khi đi.';
 
   @override
+  String get where_title => 'Hôm nay đi đâu?';
+
+  @override
+  String get where_entryHint => 'Điểm câu tốt nhất quanh bạn trong 24 giờ tới';
+
+  @override
+  String get where_radius => 'Trong vòng';
+
+  @override
+  String where_km(int km) {
+    return '$km km';
+  }
+
+  @override
+  String where_around(String place) {
+    return 'Quanh $place';
+  }
+
+  @override
+  String get where_aroundHere => 'Quanh chỗ bạn đứng';
+
+  @override
+  String get where_aroundLast => 'Quanh vị trí lần trước của bạn (bấm ◎ để cập nhật)';
+
+  @override
+  String get where_needLocation => 'Cho app biết bạn đang ở đâu để tìm điểm câu gần nhất.';
+
+  @override
+  String get where_useLocation => 'Dùng vị trí của tôi';
+
+  @override
+  String get where_refresh => 'Cập nhật vị trí';
+
+  @override
+  String get where_kindHere => 'Chỗ bạn đứng';
+
+  @override
+  String get where_kindStation => 'Trạm đo';
+
+  @override
+  String get where_kindSaved => 'Điểm đã lưu';
+
+  @override
+  String get where_kindCommunity => 'Điểm cộng đồng';
+
+  @override
+  String where_distance(String km) {
+    return 'cách $km km';
+  }
+
+  @override
+  String where_golden(String when) {
+    return 'Giờ vàng $when';
+  }
+
+  @override
+  String where_bestHour(String when) {
+    return 'Chưa có giờ vàng · giờ khá nhất $when';
+  }
+
+  @override
+  String get where_unsafe => 'Có cảnh báo thời tiết trong khung giờ này';
+
+  @override
+  String get where_loading => 'Đang tính điểm câu…';
+
+  @override
+  String get where_failed => 'Không tải được số liệu điểm này';
+
+  @override
+  String get where_onMap => 'Xem bản đồ';
+
+  @override
+  String get where_fishHere => 'Câu ở đây';
+
+  @override
+  String where_rank(int rank) {
+    return 'Hạng $rank';
+  }
+
+  @override
+  String get where_note =>
+      'Xếp theo điểm câu ước tính (con nước, giờ trăng, ngày/đêm, thời tiết Open-Meteo) trong 24 giờ tới — chỉ để tham khảo. Điểm cộng đồng do người dùng ghim. Tối đa 8 điểm gần nhất.';
+
+  @override
+  String get where_onlyHere =>
+      'Trong vòng này chưa có trạm, điểm đã lưu hay điểm cộng đồng nào — chỉ tính được chỗ bạn đứng. Thử vòng lớn hơn.';
+
+  @override
+  String get habit_title => 'Thói quen câu của bạn';
+
+  @override
+  String habit_needMore(int count) {
+    return 'Ghi thêm $count mẻ cá nữa để app tìm ra lúc bạn hay trúng.';
+  }
+
+  @override
+  String habit_progress(int have, int need) {
+    return '$have/$need mẻ';
+  }
+
+  @override
+  String habit_none(int count) {
+    return 'Chưa thấy điều kiện nào nổi bật trong $count mẻ cá. Cứ ghi tiếp nhé.';
+  }
+
+  @override
+  String habit_hits(int hits, int known) {
+    return '$hits/$known mẻ';
+  }
+
+  @override
+  String get habit_note =>
+      'Đếm từ nhật ký trên máy bạn, không phải quy luật chắc chắn. Bạn hay đi câu giờ nào thì giờ đó sẽ nhiều mẻ hơn.';
+
+  @override
+  String get habit_match => 'Giống những lần bạn trúng';
+
+  @override
+  String get habit_dawn => 'Lúc bình minh';
+
+  @override
+  String get habit_morning => 'Buổi sáng';
+
+  @override
+  String get habit_midday => 'Buổi trưa';
+
+  @override
+  String get habit_afternoon => 'Buổi chiều';
+
+  @override
+  String get habit_dusk => 'Lúc hoàng hôn';
+
+  @override
+  String get habit_night => 'Ban đêm';
+
+  @override
+  String get habit_rising => 'Khi nước đang lên';
+
+  @override
+  String get habit_falling => 'Khi nước đang rút';
+
+  @override
+  String get habit_slack => 'Lúc nước đứng (đổi con nước)';
+
+  @override
+  String get habit_newMoon => 'Quanh ngày không trăng (cuối/đầu tháng âm)';
+
+  @override
+  String get habit_fullMoon => 'Quanh ngày trăng tròn (rằm)';
+
+  @override
+  String get habit_quarter => 'Ngày trăng nửa vành';
+
+  @override
+  String get habit_major => 'Trong giờ trăng chính';
+
+  @override
+  String get habit_minor => 'Trong giờ trăng phụ';
+
+  @override
+  String get habit_noSolunar => 'Ngoài giờ trăng';
+
+  @override
+  String get habit_calm => 'Khi lặng gió (dưới 10 km/h)';
+
+  @override
+  String get habit_light => 'Khi gió nhẹ (10–20 km/h)';
+
+  @override
+  String get habit_strong => 'Khi gió mạnh (trên 20 km/h)';
+
+  @override
   String get journal_title => 'Nhật ký câu';
 
   @override
@@ -778,7 +951,41 @@ class AppLocalizationsVi extends AppLocalizations {
   String get alert_toggleOff => 'Tắt báo thức con nước';
 
   @override
-  String get alert_onSnack => 'Đã bật: nhắc trước 30 phút mỗi lần đỉnh, chân triều và giờ câu đẹp';
+  String get alert_onSnack =>
+      'Đã bật báo thức cho điểm này. Chỉnh loại báo và báo trước bao lâu ở nút ⚙ trên cùng.';
+
+  @override
+  String alert_fishBodyLike(String score, int minutes) {
+    return '✨ Giống những lần bạn trúng · điểm câu $score/10, bắt đầu sau $minutes phút';
+  }
+
+  @override
+  String get alert_settings => 'Cài đặt báo thức';
+
+  @override
+  String get alert_golden => 'Báo trước giờ vàng';
+
+  @override
+  String get alert_goldenHint =>
+      'Chỉ báo khi khung giờ đó không có cảnh báo dông, gió giật, mưa to';
+
+  @override
+  String get alert_tides => 'Báo trước đỉnh triều / chân triều';
+
+  @override
+  String get alert_lead => 'Báo trước';
+
+  @override
+  String alert_leadMin(int minutes) {
+    return '$minutes phút';
+  }
+
+  @override
+  String get alert_howTo =>
+      'Bật chuông ở từng điểm trong danh sách Theo dõi. App tính lại lịch báo mỗi lần mở (7 ngày tới).';
+
+  @override
+  String get alert_getApk => 'Tải app Android';
 
   @override
   String get alert_denied =>

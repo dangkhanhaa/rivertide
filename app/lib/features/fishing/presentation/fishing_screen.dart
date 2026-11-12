@@ -15,6 +15,7 @@ import 'package:rivertide/features/fishing/presentation/widgets/safety_banner.da
 import 'package:rivertide/features/fishing/presentation/widgets/score_bars.dart';
 import 'package:rivertide/features/fishing/presentation/widgets/spot_card.dart';
 import 'package:rivertide/features/fishing/presentation/widgets/week_strip.dart';
+import 'package:rivertide/features/fishing/presentation/widgets/where_entry_card.dart';
 import 'package:rivertide/features/journal/journal.dart';
 import 'package:rivertide/features/stations/stations.dart';
 
@@ -61,6 +62,8 @@ class _FishingScreenState extends ConsumerState<FishingScreen> {
       body: ListView(
         padding: const EdgeInsets.all(AppSpacing.lg),
         children: [
+          const WhereEntryCard(),
+          const SizedBox(height: AppSpacing.md),
           const SpotCard(),
           const SizedBox(height: AppSpacing.md),
           AsyncValueView(

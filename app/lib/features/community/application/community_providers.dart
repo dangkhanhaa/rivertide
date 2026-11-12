@@ -37,11 +37,12 @@ const double nearbyRadiusKm = 30;
 /// Spots are refetched at most this often for the same area.
 const Duration nearbyTtl = Duration(minutes: 5);
 
-/// Area key: centre snapped to 0.05° (~5 km) so small pans reuse the result.
-String nearbyKey(double lat, double lon) =>
-    '${(lat / 0.05).round() * 0.05},${(lon / 0.05).round() * 0.05}';
+/// Area key: centre snapped to 0.05° (~5 km) so small pans reuse the result,
+/// plus the search radius in whole km.
+String nearbyKey(double lat, double lon, {double radiusKm = nearbyRadiusKm}) =>
+    '${(lat / 0.05).round() * 0.05},${(lon / 0.05).round() * 0.05},${radiusKm.round()}';
 
-/// Visible spots within [nearbyRadiusKm] of the area `key`, nearest first.
+/// Visible spots within the radius of the area `key`, nearest first.
 final FutureProviderFamily<List<PublicSpot>, String> nearbySpotsProvider = FutureProvider
     .autoDispose
     .family<List<PublicSpot>, String>((ref, key) async {
@@ -50,8 +51,9 @@ final FutureProviderFamily<List<PublicSpot>, String> nearbySpotsProvider = Futur
       final link = ref.keepAlive();
       final timer = Timer(nearbyTtl, link.close);
       ref.onDispose(timer.cancel);
-      final [lat, lon] = key.split(',').map(double.parse).toList();
-      return await repo.nearby(lat, lon, radiusKm: nearbyRadiusKm);
+      final parts = key.split(',').map(double.parse).toList();
+      final radius = parts.length > 2 ? parts[2] : nearbyRadiusKm;
+      return await repo.nearby(parts[0], parts[1], radiusKm: radius);
     });
 
 /// Publishes and refreshes every cached area so the new pin shows at once.

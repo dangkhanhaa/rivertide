@@ -1010,6 +1010,306 @@ abstract class AppLocalizations {
   /// **'Bấm một buổi để xem chi tiết điểm đó ở tab Câu cá. Dự báo càng xa càng kém chắc chắn, nên xem lại trước khi đi.'**
   String get trip_note;
 
+  /// No description provided for @where_title.
+  ///
+  /// In vi, this message translates to:
+  /// **'Hôm nay đi đâu?'**
+  String get where_title;
+
+  /// No description provided for @where_entryHint.
+  ///
+  /// In vi, this message translates to:
+  /// **'Điểm câu tốt nhất quanh bạn trong 24 giờ tới'**
+  String get where_entryHint;
+
+  /// No description provided for @where_radius.
+  ///
+  /// In vi, this message translates to:
+  /// **'Trong vòng'**
+  String get where_radius;
+
+  /// No description provided for @where_km.
+  ///
+  /// In vi, this message translates to:
+  /// **'{km} km'**
+  String where_km(int km);
+
+  /// No description provided for @where_around.
+  ///
+  /// In vi, this message translates to:
+  /// **'Quanh {place}'**
+  String where_around(String place);
+
+  /// No description provided for @where_aroundHere.
+  ///
+  /// In vi, this message translates to:
+  /// **'Quanh chỗ bạn đứng'**
+  String get where_aroundHere;
+
+  /// No description provided for @where_aroundLast.
+  ///
+  /// In vi, this message translates to:
+  /// **'Quanh vị trí lần trước của bạn (bấm ◎ để cập nhật)'**
+  String get where_aroundLast;
+
+  /// No description provided for @where_needLocation.
+  ///
+  /// In vi, this message translates to:
+  /// **'Cho app biết bạn đang ở đâu để tìm điểm câu gần nhất.'**
+  String get where_needLocation;
+
+  /// No description provided for @where_useLocation.
+  ///
+  /// In vi, this message translates to:
+  /// **'Dùng vị trí của tôi'**
+  String get where_useLocation;
+
+  /// No description provided for @where_refresh.
+  ///
+  /// In vi, this message translates to:
+  /// **'Cập nhật vị trí'**
+  String get where_refresh;
+
+  /// No description provided for @where_kindHere.
+  ///
+  /// In vi, this message translates to:
+  /// **'Chỗ bạn đứng'**
+  String get where_kindHere;
+
+  /// No description provided for @where_kindStation.
+  ///
+  /// In vi, this message translates to:
+  /// **'Trạm đo'**
+  String get where_kindStation;
+
+  /// No description provided for @where_kindSaved.
+  ///
+  /// In vi, this message translates to:
+  /// **'Điểm đã lưu'**
+  String get where_kindSaved;
+
+  /// No description provided for @where_kindCommunity.
+  ///
+  /// In vi, this message translates to:
+  /// **'Điểm cộng đồng'**
+  String get where_kindCommunity;
+
+  /// No description provided for @where_distance.
+  ///
+  /// In vi, this message translates to:
+  /// **'cách {km} km'**
+  String where_distance(String km);
+
+  /// No description provided for @where_golden.
+  ///
+  /// In vi, this message translates to:
+  /// **'Giờ vàng {when}'**
+  String where_golden(String when);
+
+  /// No description provided for @where_bestHour.
+  ///
+  /// In vi, this message translates to:
+  /// **'Chưa có giờ vàng · giờ khá nhất {when}'**
+  String where_bestHour(String when);
+
+  /// No description provided for @where_unsafe.
+  ///
+  /// In vi, this message translates to:
+  /// **'Có cảnh báo thời tiết trong khung giờ này'**
+  String get where_unsafe;
+
+  /// No description provided for @where_loading.
+  ///
+  /// In vi, this message translates to:
+  /// **'Đang tính điểm câu…'**
+  String get where_loading;
+
+  /// No description provided for @where_failed.
+  ///
+  /// In vi, this message translates to:
+  /// **'Không tải được số liệu điểm này'**
+  String get where_failed;
+
+  /// No description provided for @where_onMap.
+  ///
+  /// In vi, this message translates to:
+  /// **'Xem bản đồ'**
+  String get where_onMap;
+
+  /// No description provided for @where_fishHere.
+  ///
+  /// In vi, this message translates to:
+  /// **'Câu ở đây'**
+  String get where_fishHere;
+
+  /// No description provided for @where_rank.
+  ///
+  /// In vi, this message translates to:
+  /// **'Hạng {rank}'**
+  String where_rank(int rank);
+
+  /// No description provided for @where_note.
+  ///
+  /// In vi, this message translates to:
+  /// **'Xếp theo điểm câu ước tính (con nước, giờ trăng, ngày/đêm, thời tiết Open-Meteo) trong 24 giờ tới — chỉ để tham khảo. Điểm cộng đồng do người dùng ghim. Tối đa 8 điểm gần nhất.'**
+  String get where_note;
+
+  /// No description provided for @where_onlyHere.
+  ///
+  /// In vi, this message translates to:
+  /// **'Trong vòng này chưa có trạm, điểm đã lưu hay điểm cộng đồng nào — chỉ tính được chỗ bạn đứng. Thử vòng lớn hơn.'**
+  String get where_onlyHere;
+
+  /// No description provided for @habit_title.
+  ///
+  /// In vi, this message translates to:
+  /// **'Thói quen câu của bạn'**
+  String get habit_title;
+
+  /// No description provided for @habit_needMore.
+  ///
+  /// In vi, this message translates to:
+  /// **'Ghi thêm {count} mẻ cá nữa để app tìm ra lúc bạn hay trúng.'**
+  String habit_needMore(int count);
+
+  /// No description provided for @habit_progress.
+  ///
+  /// In vi, this message translates to:
+  /// **'{have}/{need} mẻ'**
+  String habit_progress(int have, int need);
+
+  /// No description provided for @habit_none.
+  ///
+  /// In vi, this message translates to:
+  /// **'Chưa thấy điều kiện nào nổi bật trong {count} mẻ cá. Cứ ghi tiếp nhé.'**
+  String habit_none(int count);
+
+  /// No description provided for @habit_hits.
+  ///
+  /// In vi, this message translates to:
+  /// **'{hits}/{known} mẻ'**
+  String habit_hits(int hits, int known);
+
+  /// No description provided for @habit_note.
+  ///
+  /// In vi, this message translates to:
+  /// **'Đếm từ nhật ký trên máy bạn, không phải quy luật chắc chắn. Bạn hay đi câu giờ nào thì giờ đó sẽ nhiều mẻ hơn.'**
+  String get habit_note;
+
+  /// No description provided for @habit_match.
+  ///
+  /// In vi, this message translates to:
+  /// **'Giống những lần bạn trúng'**
+  String get habit_match;
+
+  /// No description provided for @habit_dawn.
+  ///
+  /// In vi, this message translates to:
+  /// **'Lúc bình minh'**
+  String get habit_dawn;
+
+  /// No description provided for @habit_morning.
+  ///
+  /// In vi, this message translates to:
+  /// **'Buổi sáng'**
+  String get habit_morning;
+
+  /// No description provided for @habit_midday.
+  ///
+  /// In vi, this message translates to:
+  /// **'Buổi trưa'**
+  String get habit_midday;
+
+  /// No description provided for @habit_afternoon.
+  ///
+  /// In vi, this message translates to:
+  /// **'Buổi chiều'**
+  String get habit_afternoon;
+
+  /// No description provided for @habit_dusk.
+  ///
+  /// In vi, this message translates to:
+  /// **'Lúc hoàng hôn'**
+  String get habit_dusk;
+
+  /// No description provided for @habit_night.
+  ///
+  /// In vi, this message translates to:
+  /// **'Ban đêm'**
+  String get habit_night;
+
+  /// No description provided for @habit_rising.
+  ///
+  /// In vi, this message translates to:
+  /// **'Khi nước đang lên'**
+  String get habit_rising;
+
+  /// No description provided for @habit_falling.
+  ///
+  /// In vi, this message translates to:
+  /// **'Khi nước đang rút'**
+  String get habit_falling;
+
+  /// No description provided for @habit_slack.
+  ///
+  /// In vi, this message translates to:
+  /// **'Lúc nước đứng (đổi con nước)'**
+  String get habit_slack;
+
+  /// No description provided for @habit_newMoon.
+  ///
+  /// In vi, this message translates to:
+  /// **'Quanh ngày không trăng (cuối/đầu tháng âm)'**
+  String get habit_newMoon;
+
+  /// No description provided for @habit_fullMoon.
+  ///
+  /// In vi, this message translates to:
+  /// **'Quanh ngày trăng tròn (rằm)'**
+  String get habit_fullMoon;
+
+  /// No description provided for @habit_quarter.
+  ///
+  /// In vi, this message translates to:
+  /// **'Ngày trăng nửa vành'**
+  String get habit_quarter;
+
+  /// No description provided for @habit_major.
+  ///
+  /// In vi, this message translates to:
+  /// **'Trong giờ trăng chính'**
+  String get habit_major;
+
+  /// No description provided for @habit_minor.
+  ///
+  /// In vi, this message translates to:
+  /// **'Trong giờ trăng phụ'**
+  String get habit_minor;
+
+  /// No description provided for @habit_noSolunar.
+  ///
+  /// In vi, this message translates to:
+  /// **'Ngoài giờ trăng'**
+  String get habit_noSolunar;
+
+  /// No description provided for @habit_calm.
+  ///
+  /// In vi, this message translates to:
+  /// **'Khi lặng gió (dưới 10 km/h)'**
+  String get habit_calm;
+
+  /// No description provided for @habit_light.
+  ///
+  /// In vi, this message translates to:
+  /// **'Khi gió nhẹ (10–20 km/h)'**
+  String get habit_light;
+
+  /// No description provided for @habit_strong.
+  ///
+  /// In vi, this message translates to:
+  /// **'Khi gió mạnh (trên 20 km/h)'**
+  String get habit_strong;
+
   /// No description provided for @journal_title.
   ///
   /// In vi, this message translates to:
@@ -1397,8 +1697,62 @@ abstract class AppLocalizations {
   /// No description provided for @alert_onSnack.
   ///
   /// In vi, this message translates to:
-  /// **'Đã bật: nhắc trước 30 phút mỗi lần đỉnh, chân triều và giờ câu đẹp'**
+  /// **'Đã bật báo thức cho điểm này. Chỉnh loại báo và báo trước bao lâu ở nút ⚙ trên cùng.'**
   String get alert_onSnack;
+
+  /// No description provided for @alert_fishBodyLike.
+  ///
+  /// In vi, this message translates to:
+  /// **'✨ Giống những lần bạn trúng · điểm câu {score}/10, bắt đầu sau {minutes} phút'**
+  String alert_fishBodyLike(String score, int minutes);
+
+  /// No description provided for @alert_settings.
+  ///
+  /// In vi, this message translates to:
+  /// **'Cài đặt báo thức'**
+  String get alert_settings;
+
+  /// No description provided for @alert_golden.
+  ///
+  /// In vi, this message translates to:
+  /// **'Báo trước giờ vàng'**
+  String get alert_golden;
+
+  /// No description provided for @alert_goldenHint.
+  ///
+  /// In vi, this message translates to:
+  /// **'Chỉ báo khi khung giờ đó không có cảnh báo dông, gió giật, mưa to'**
+  String get alert_goldenHint;
+
+  /// No description provided for @alert_tides.
+  ///
+  /// In vi, this message translates to:
+  /// **'Báo trước đỉnh triều / chân triều'**
+  String get alert_tides;
+
+  /// No description provided for @alert_lead.
+  ///
+  /// In vi, this message translates to:
+  /// **'Báo trước'**
+  String get alert_lead;
+
+  /// No description provided for @alert_leadMin.
+  ///
+  /// In vi, this message translates to:
+  /// **'{minutes} phút'**
+  String alert_leadMin(int minutes);
+
+  /// No description provided for @alert_howTo.
+  ///
+  /// In vi, this message translates to:
+  /// **'Bật chuông ở từng điểm trong danh sách Theo dõi. App tính lại lịch báo mỗi lần mở (7 ngày tới).'**
+  String get alert_howTo;
+
+  /// No description provided for @alert_getApk.
+  ///
+  /// In vi, this message translates to:
+  /// **'Tải app Android'**
+  String get alert_getApk;
 
   /// No description provided for @alert_denied.
   ///

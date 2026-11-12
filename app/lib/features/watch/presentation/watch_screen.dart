@@ -24,7 +24,7 @@ class WatchScreen extends ConsumerWidget {
       _ => const LoadingView(),
     };
     return Scaffold(
-      appBar: AppBar(title: Text(context.l10n.nav_watch)),
+      appBar: AppBar(title: Text(context.l10n.nav_watch), actions: const [AlertSettingsButton()]),
       body: body,
     );
   }

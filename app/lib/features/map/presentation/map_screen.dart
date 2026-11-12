@@ -26,6 +26,7 @@ import 'package:rivertide/features/map/presentation/widgets/map_controls.dart';
 import 'package:rivertide/features/map/presentation/widgets/map_notes.dart';
 import 'package:rivertide/features/map/presentation/widgets/map_search_bar.dart';
 import 'package:rivertide/features/map/presentation/widgets/marker_palette.dart';
+import 'package:rivertide/features/map/presentation/widgets/where_chip.dart';
 import 'package:rivertide/features/stations/stations.dart';
 
 part 'map_screen_build_map.dart';
@@ -246,6 +247,7 @@ class _MapScreenState extends ConsumerState<MapScreen> with MapDetailPresenter<M
                       const LinearProgressIndicator(minHeight: 2),
                     if (markers.hasValue && shown.isEmpty && filter.isActive)
                       MapNote(text: l10n.map_filterNone),
+                    const WhereChip(),
                     NearbySpotsChip(areaKey: _spotsArea, onTap: () => unawaited(_openNearby())),
                   ],
                 ),

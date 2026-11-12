@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:rivertide/core/l10n/l10n_ext.dart';
+import 'package:rivertide/core/navigation/fishing_spot.dart';
 import 'package:rivertide/core/navigation/map_focus.dart';
 import 'package:rivertide/core/widgets/state_views.dart';
 import 'package:rivertide/features/fishing/presentation/fishing_screen.dart';
+import 'package:rivertide/features/fishing/presentation/where_to_go_screen.dart';
 import 'package:rivertide/features/map/presentation/map_screen.dart';
 import 'package:rivertide/features/more/presentation/more_screen.dart';
 import 'package:rivertide/features/stations/stations.dart';
@@ -34,6 +36,7 @@ GoRouter buildRouter() => GoRouter(
         _branch(Routes.more, const MoreScreen()),
       ],
     ),
+    GoRoute(path: whereRoute, builder: (_, _) => const WhereToGoScreen()),
     GoRoute(
       path: Routes.station,
       builder: (context, state) {

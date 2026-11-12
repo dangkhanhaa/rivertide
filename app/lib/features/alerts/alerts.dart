@@ -2,4 +2,5 @@
 library;
 
 export 'application/alert_scheduler.dart' show rescheduleAlerts;
+export 'presentation/alert_settings_sheet.dart' show AlertSettingsButton;
 export 'presentation/alert_toggle.dart' show alertOnFor, alertsSupported, toggleAlert;

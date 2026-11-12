@@ -12,6 +12,7 @@ import 'package:rivertide/core/widgets/state_views.dart';
 import 'package:rivertide/features/journal/application/journal_providers.dart';
 import 'package:rivertide/features/journal/presentation/catch_detail_sheet.dart';
 import 'package:rivertide/features/journal/presentation/catch_form_screen.dart';
+import 'package:rivertide/features/journal/presentation/patterns_card.dart';
 
 /// S07 fishing log: what was caught, where, and in which conditions — with
 /// what the log says about when the user catches most.
@@ -42,6 +43,8 @@ class JournalScreen extends ConsumerWidget {
           ),
           children: [
             _Stats(catches: value),
+            const SizedBox(height: AppSpacing.md),
+            const PatternsCard(),
             const SizedBox(height: AppSpacing.md),
             for (final c in value) _CatchTile(entry: c),
           ],

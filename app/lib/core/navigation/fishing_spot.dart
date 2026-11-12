@@ -5,6 +5,9 @@ part 'fishing_spot.g.dart';
 /// Fishing tab route, shared so features need not import the router.
 const String fishingRoute = '/fishing';
 
+/// "Hôm nay đi đâu?" screen (P2-21), opened from the map and the fishing tab.
+const String whereRoute = '/where';
+
 /// Where the user plans to fish: a station id or a map point id ("pt-…").
 typedef FishingSpotChoice = ({String id, bool mine});
 
