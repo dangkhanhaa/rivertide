@@ -39,7 +39,6 @@ class _MapScreenState extends ConsumerState<MapScreen> with MapDetailPresenter<M
   ({double lat, double lon})? _me;
   ({double lat, double lon})? _pin;
   bool _started = false;
-  bool _hintDismissed = false;
   String? _lastStyle;
 
   /// Flutter UI drawn over the map (see [BaseMapConfig.blocksTapAt]).
@@ -87,8 +86,7 @@ class _MapScreenState extends ConsumerState<MapScreen> with MapDetailPresenter<M
     });
   }
 
-  /// Opens on the user's position: silently when permission exists, otherwise
-  /// one explained request on the very first open.
+  /// Opens on the user's position: silently if allowed, else one explained ask.
   Future<void> _autoLocate() async {
     final service = ref.read(locationServiceProvider);
     final prompts = ref.read(locationPromptStoreProvider);
@@ -120,7 +118,13 @@ class _MapScreenState extends ConsumerState<MapScreen> with MapDetailPresenter<M
     if (s != null && mounted) await _openStation(s.id, zoom: 11);
   }
 
-  Future<void> _openPoint(double lat, double lon, PointSurface surface, {double? zoom}) async {
+  Future<void> _openPoint(
+    double lat,
+    double lon,
+    PointSurface surface, {
+    double? zoom,
+    String? title,
+  }) async {
     if (sheetBusy) return;
     if (!isInVietnamBounds(lat, lon)) {
       ScaffoldMessenger.of(context)
@@ -128,16 +132,14 @@ class _MapScreenState extends ConsumerState<MapScreen> with MapDetailPresenter<M
         ..showSnackBar(SnackBar(content: Text(context.l10n.map_outsideVn)));
       return;
     }
-    setState(() {
-      _pin = (lat: lat, lon: lon);
-      _hintDismissed = true;
-    });
+    setState(() => _pin = (lat: lat, lon: lon));
     // Bring the point to the middle of what stays visible beside the details.
     await showDetailAt(
       PointSheet(
         key: ValueKey('$lat,$lon'),
         lat: lat,
         lon: lon,
+        title: title,
         onWater: switch (surface) {
           PointSurface.water => true,
           PointSurface.land => false,
@@ -250,14 +252,14 @@ class _MapScreenState extends ConsumerState<MapScreen> with MapDetailPresenter<M
                     .copyWith(right: AppSpacing.md + rightInset),
                 child: Column(
                   key: _topKey,
-                  // Only as tall as its content, so the rest of the map stays tappable.
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     MapSearchBar(
                       stations: stationList.value ?? const [],
                       onSelected: (s) => _openStation(s.id, zoom: 11),
-                      onPlace: (p) => _openPoint(p.lat, p.lon, PointSurface.unknown, zoom: 13),
+                      onPlace: (p) =>
+                          _openPoint(p.lat, p.lon, PointSurface.unknown, zoom: 13, title: p.name),
                     ),
                     // Riverpod retries failed providers: show the error, not a spinner, meanwhile.
                     if (stationList.hasError && !stationList.hasValue)
@@ -265,9 +267,7 @@ class _MapScreenState extends ConsumerState<MapScreen> with MapDetailPresenter<M
                     else if (markers.isLoading)
                       const LinearProgressIndicator(minHeight: 2),
                     if (markers.hasValue && shown.isEmpty && filter.isActive)
-                      MapNote(text: l10n.map_filterNone)
-                    else if (!_hintDismissed)
-                      MapNote(text: l10n.point_tapHint),
+                      MapNote(text: l10n.map_filterNone),
                   ],
                 ),
               ),

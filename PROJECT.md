@@ -1470,7 +1470,7 @@ Hoãn tới khi cần máy chủ: P1-05 → P1-12, P1-18, P1-30, P1-32 (phần D
 - [ ] **P1-23 · S03 — Lịch triều & Thông tin** (F-TIDE-03, F-UX-09)
   DoD: hiện đúng 7 ngày tới; tab thông tin có nguồn & độ tin cậy.
 
-- [ ] **P1-24 · S04 Chi tiết điểm** (F-MAP-03) — *V0 (09/11/2026): chạm hoặc nhấn giữ bất kỳ đâu trên bản đồ → tọa độ (sao chép được), mực nước tại điểm (mô hình biển hoặc trạm sông gần nhất, ghi rõ khoảng cách), thời tiết, giờ mặt trời, 3 trạm gần nhất, xem chi tiết theo giờ, ⭐ lưu điểm. Còn thiếu: tên địa danh, chỉ đường.*
+- [ ] **P1-24 · S04 Chi tiết điểm** (F-MAP-03) — *V0 (09/11/2026): chạm hoặc nhấn giữ bất kỳ đâu trên bản đồ → tọa độ (sao chép được), mực nước tại điểm (mô hình biển hoặc trạm sông gần nhất, ghi rõ khoảng cách), thời tiết, giờ mặt trời, 3 trạm gần nhất, xem chi tiết theo giờ, ⭐ lưu điểm. Còn thiếu: tên địa danh khi chạm điểm bất kỳ. 12/11/2026: nút "Chỉ đường" mở Google Maps (link chính thức, không cần khóa); điểm chọn từ ô tìm kiếm mang tên địa danh.*
   DoD: khối ước tính có nhãn & độ tin cậy; lưu điểm vào `favorites` cục bộ.
 
 - [ ] **P1-25 · S05 Theo dõi** (F-UX-04)
@@ -1664,3 +1664,4 @@ Theo yêu cầu, các mục dưới **chưa làm** ở bản dev — ghi lại �
 | 2026-11-11 | **Bộ tính năng V1**: lịch tháng âm lịch (P1-27), giờ trăng, "Đi câu ngay" + thẻ "Lúc này ở đây", cảnh báo nguy hiểm (dông, gió giật, mưa to, nước lên bất thường so với 3 ngày trước, lũ về theo GloFAS, nước dâng = đo − triều ≥ 30 cm), tên/ghi chú/nhóm điểm (CSDL máy v2), tải sẵn điểm đã lưu để dùng khi mất sóng, kế hoạch chuyến câu, nhật ký câu, tìm địa danh trên máy, chia sẻ ảnh thẻ, chế độ ngoài trời, đoạn sông tô màu lên/rút, lớp mưa & gió, báo thức + widget Android | Chủ dự án yêu cầu "làm tất cả, không mất phí". Mọi nguồn miễn phí, không đăng ký; không có máy chủ |
 | 2026-11-11 | **Không vẽ dòng chảy ngược khi triều lên** | Không có số đo vận tốc; ở Hà Nội nước luôn chảy ra biển, triều chỉ làm mực nước lên xuống. Màu = mực nước lên/rút tại đoạn đó; vệt chạy = hướng dòng sông ra biển |
 | 2026-11-11 | **Không dùng Nominatim, RainViewer** | Nominatim: tối đa 1 yêu cầu/giây cho toàn bộ người dùng, phải đổi được dịch vụ không cần cập nhật app. RainViewer: chỉ dùng cá nhân/giáo dục |
+| 2026-11-12 | **Chỉ đường = mở Google Maps**; ô tìm kiếm gợi ý trạm + địa danh trộn chung, gần vùng đang xem trước, có km, "Tìm gần đây" (lưu trên máy) | Không có dịch vụ tìm đường miễn phí, không đăng ký, cho phép thương mại (OSRM công khai chỉ để thử; ORS/GraphHopper cần khóa). Google Maps URLs không cần khóa và chỉ đường từng bước |

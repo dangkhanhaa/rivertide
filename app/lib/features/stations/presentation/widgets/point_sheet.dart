@@ -19,6 +19,7 @@ import 'package:rivertide/features/stations/application/station_view_providers.d
 import 'package:rivertide/features/stations/domain/point_id.dart';
 import 'package:rivertide/features/stations/domain/station.dart';
 import 'package:rivertide/features/stations/domain/station_tide.dart';
+import 'package:rivertide/features/stations/presentation/widgets/directions_button.dart';
 import 'package:rivertide/features/stations/presentation/widgets/share_place.dart';
 import 'package:rivertide/features/stations/presentation/widgets/station_sheet.dart';
 import 'package:rivertide/features/stations/presentation/widgets/tide_text.dart';
@@ -26,10 +27,13 @@ import 'package:rivertide/features/stations/presentation/widgets/tide_text.dart'
 /// Any tapped map point: coordinates, water there (sea model or nearest river
 /// station, labelled), weather, sun and the nearest stations (F-MAP-03).
 class PointSheet extends ConsumerWidget {
-  const PointSheet({required this.lat, required this.lon, this.onWater, super.key});
+  const PointSheet({required this.lat, required this.lon, this.onWater, this.title, super.key});
 
   final double lat;
   final double lon;
+
+  /// Name of the searched place ("Cầu Thanh Trì"); null for a tapped point.
+  final String? title;
 
   /// Whether the base map draws water here; null when unknown.
   final bool? onWater;
@@ -66,12 +70,12 @@ class PointSheet extends ConsumerWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(l10n.point_title, style: context.text.title),
+                    Text(title ?? l10n.point_title, style: context.text.title),
                     SelectableText(l10n.point_coords(coords), style: context.text.body),
                   ],
                 ),
               ),
-              SharePlaceButton(stationId: id, title: l10n.point_coords(coords)),
+              SharePlaceButton(stationId: id, title: title ?? l10n.point_coords(coords)),
               IconButton(
                 tooltip: isFavorite ? l10n.station_unfollow : l10n.station_follow,
                 icon: Icon(isFavorite ? Icons.star_rounded : Icons.star_outline_rounded),
@@ -88,6 +92,10 @@ class PointSheet extends ConsumerWidget {
                 },
               ),
             ],
+          ),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: DirectionsButton(lat: lat, lon: lon),
           ),
           const SizedBox(height: AppSpacing.sm),
           // Riverpod retries failures and reports loading meanwhile: check the error first.

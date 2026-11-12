@@ -793,6 +793,15 @@ class AppLocalizationsVi extends AppLocalizations {
       'Có thêm báo thức con nước và widget màn hình chính. Mở file sau khi tải, cho phép cài từ nguồn này.';
 
   @override
+  String get directions_action => 'Chỉ đường';
+
+  @override
+  String get directions_failed => 'Không mở được Google Maps trên máy này';
+
+  @override
+  String get search_recent => 'Tìm gần đây';
+
+  @override
   String get station_levelNow => 'Mực nước hiện tại';
 
   @override

@@ -57,11 +57,11 @@ class MapControls extends ConsumerWidget {
           child: Badge(isLabelVisible: filterActive, child: const Icon(Icons.filter_alt_outlined)),
         ),
         const SizedBox(height: AppSpacing.sm),
-        FloatingActionButton.extended(
+        FloatingActionButton.small(
           heroTag: 'map-go-fishing',
+          tooltip: l10n.map_goFishing,
           onPressed: onGoFishing,
-          icon: const Icon(Icons.phishing_rounded),
-          label: Text(l10n.map_goFishing),
+          child: const Icon(Icons.phishing_rounded),
         ),
         const SizedBox(height: AppSpacing.sm),
         FloatingActionButton(

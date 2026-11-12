@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:rivertide/core/calc/geo/haversine.dart';
 import 'package:rivertide/core/calc/geo/vietnam_bounds.dart';
 import 'package:rivertide/core/format/text_fold.dart';
 
@@ -41,9 +42,15 @@ List<Place> parsePlaces(String body) {
 const int placeSearchMax = 8;
 
 /// Places whose name contains every word of [query] (accent-insensitive);
-/// names starting with the query first, then cities/bridges before wards.
+/// names starting with the query first; then, like a map app, the nearest to
+/// [near] (the area being viewed) or, without it, cities/bridges before wards.
 /// The same name within ~3 km is listed once (a bridge has two carriageways).
-List<Place> searchPlaces(List<Place> places, String query, {int max = placeSearchMax}) {
+List<Place> searchPlaces(
+  List<Place> places,
+  String query, {
+  int max = placeSearchMax,
+  ({double lat, double lon})? near,
+}) {
   final q = TextFold.fold(query);
   if (q.length < 2) return const [];
   final words = q.split(' ');
@@ -52,6 +59,7 @@ List<Place> searchPlaces(List<Place> places, String query, {int max = placeSearc
       final ap = a.folded.startsWith(q) || a.folded.contains(' $q') ? 0 : 1;
       final bp = b.folded.startsWith(q) || b.folded.contains(' $q') ? 0 : 1;
       if (ap != bp) return ap - bp;
+      if (near != null) return distanceKm(a, near).compareTo(distanceKm(b, near));
       final byKind = a.kind.index.compareTo(b.kind.index);
       return byKind != 0 ? byKind : a.name.length.compareTo(b.name.length);
     });
@@ -84,3 +92,11 @@ Place? nearestTown(List<Place> places, Place p) {
   }
   return best;
 }
+
+double distanceKm(Place p, ({double lat, double lon}) from) =>
+    haversineKm(from.lat, from.lon, p.lat, p.lon);
+
+/// Same row format as the bundled file, for the "recent searches" setting.
+String encodePlaces(List<Place> places) => jsonEncode([
+  for (final p in places) [p.name, p.kind.name, p.lat, p.lon],
+]);

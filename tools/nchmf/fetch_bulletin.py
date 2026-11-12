@@ -25,8 +25,12 @@ LIST_URL = "https://www.nchmf.gov.vn/kttv/vi-VN/1/thuy-van-12-18.html"
 # KTTV reuses one post URL and replaces its content daily (docs/data-sources.md);
 # the list page only shows the 10 newest posts, so remember the URL that worked.
 STATE_FILE = "state.json"
+# Any "ban-tin-…-thuy-van-thoi-han-ngan" post: the words in between change
+# ("du-bao-canh-bao" on 10/11/2026, "canh-bao-du-bao" on 11/11). The PDF
+# check (dbqg_tvhn_*) still rejects anything that is not this bulletin.
 POST_RE = re.compile(
-    r'href="(https://www\.nchmf\.gov\.vn/kttv/vi-VN/1/ban-tin-du-bao-canh-bao-thuy-van-thoi-han-ngan-post\d+\.html)"'
+    r'href="(https://www\.nchmf\.gov\.vn/kttv/vi-VN/1/ban-tin-[a-z-]*'
+    r'thuy-van-thoi-han-ngan-post\d+\.html)"'
 )
 # The upload folder number changes (thuyvan2 until 09/11/2026, thuyvan1 from 10/11).
 PDF_RE = re.compile(

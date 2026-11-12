@@ -1,8 +1,15 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:rivertide/core/calc/geo/haversine.dart';
+import 'package:rivertide/core/format/level_format.dart';
 import 'package:rivertide/core/format/text_fold.dart';
 import 'package:rivertide/core/l10n/l10n_ext.dart';
+import 'package:rivertide/core/theme/app_text.dart';
 import 'package:rivertide/features/map/application/place_index.dart';
+import 'package:rivertide/features/map/application/recent_places.dart';
+import 'package:rivertide/features/map/application/weather_layer.dart';
 import 'package:rivertide/features/map/domain/place.dart';
 import 'package:rivertide/features/stations/stations.dart';
 
@@ -31,48 +38,108 @@ class MapSearchBar extends ConsumerWidget {
     barHintText: context.l10n.map_searchHint,
     viewHintText: context.l10n.map_searchHint,
     barLeading: const Icon(Icons.search_rounded),
-    suggestionsBuilder: (context, controller) async {
-      final hits = filter(stations, controller.text);
-      final query = controller.text;
-      // Loads the bundled list on the first search only.
-      final all = query.trim().length < 2
-          ? const <Place>[]
-          : await ref.read(placeIndexProvider.future);
-      final places = searchPlaces(all, query);
-      if (!context.mounted) return const [];
-      if (hits.isEmpty && places.isEmpty) {
-        return [ListTile(title: Text(context.l10n.map_searchNone))];
-      }
-      return [
-        for (final s in hits)
-          ListTile(
-            leading: Icon(stationKindIcon(s.kind)),
-            title: Text(s.name),
-            subtitle: Text(s.river == null ? s.region : '${s.river} · ${s.region}'),
-            onTap: () {
-              controller.closeView(s.name);
-              onSelected(s);
-            },
-          ),
-        for (final p in places)
-          ListTile(
-            leading: Icon(_icon(p.kind)),
-            title: Text(p.name),
-            subtitle: Text(switch (nearestTown(all, p)) {
-              final t? when p.kind != PlaceKind.city => context.l10n.place_near(
-                _kind(context, p.kind),
-                t.name,
-              ),
-              _ => _kind(context, p.kind),
-            }),
-            onTap: () {
-              controller.closeView(p.name);
-              onPlace(p);
-            },
-          ),
-      ];
-    },
+    suggestionsBuilder: (context, controller) => _suggestions(context, ref, controller),
   );
+
+  Future<List<Widget>> _suggestions(
+    BuildContext context,
+    WidgetRef ref,
+    SearchController controller,
+  ) async {
+    final query = controller.text;
+    if (query.trim().isEmpty) return await _recent(context, ref, controller);
+    // Nearer to the area on screen first (once zoomed in on a region).
+    final cam = ref.read(mapCameraProvider);
+    final near = cam != null && cam.zoom >= 7 ? (lat: cam.lat, lon: cam.lon) : null;
+    double? kmTo(Station s) => near == null ? null : haversineKm(near.lat, near.lon, s.lat, s.lon);
+    final hits = filter(stations, query);
+    // Loads the bundled list on the first search only.
+    final all = query.trim().length < 2
+        ? const <Place>[]
+        : await ref.read(placeIndexProvider.future);
+    final places = searchPlaces(all, query, near: near);
+    if (!context.mounted) return const [];
+    if (hits.isEmpty && places.isEmpty) return [ListTile(title: Text(context.l10n.map_searchNone))];
+    final rows = <(double, Widget)>[
+      for (final s in hits) (kmTo(s) ?? 0, _stationTile(context, controller, s, kmTo(s))),
+      for (final (i, p) in places.indexed)
+        (
+          near == null ? 1e9 + i : distanceKm(p, near),
+          _placeTile(context, ref, controller, p, all, near),
+        ),
+    ];
+    // Stations and places mixed, nearest first, like a map app.
+    if (near != null) rows.sort((a, b) => a.$1.compareTo(b.$1));
+    return [for (final r in rows) r.$2];
+  }
+
+  Widget _stationTile(BuildContext context, SearchController controller, Station s, double? km) =>
+      ListTile(
+        leading: Icon(stationKindIcon(s.kind)),
+        title: Text(s.name),
+        subtitle: Text(
+          [
+            s.river ?? s.region,
+            if (s.river != null) s.region,
+            if (km != null) LevelFormat.km(km),
+          ].join(' · '),
+        ),
+        onTap: () {
+          controller.closeView(s.name);
+          onSelected(s);
+        },
+      );
+
+  Widget _placeTile(
+    BuildContext context,
+    WidgetRef ref,
+    SearchController controller,
+    Place p,
+    List<Place> all,
+    ({double lat, double lon})? near,
+  ) => ListTile(
+    leading: Icon(_icon(p.kind)),
+    title: Text(p.name),
+    subtitle: Text(
+      [
+        switch (nearestTown(all, p)) {
+          final t? when p.kind != PlaceKind.city => context.l10n.place_near(
+            _kind(context, p.kind),
+            t.name,
+          ),
+          _ => _kind(context, p.kind),
+        },
+        if (near != null) LevelFormat.km(distanceKm(p, near)),
+      ].join(' · '),
+    ),
+    onTap: () => _choose(ref, controller, p),
+  );
+
+  void _choose(WidgetRef ref, SearchController controller, Place p) {
+    controller.closeView(p.name);
+    unawaited(ref.read(recentPlacesProvider.notifier).remember(p));
+    onPlace(p);
+  }
+
+  /// Empty box: the last places searched, like a map app.
+  Future<List<Widget>> _recent(
+    BuildContext context,
+    WidgetRef ref,
+    SearchController controller,
+  ) async {
+    final recent = await ref.read(recentPlacesProvider.future);
+    if (!context.mounted || recent.isEmpty) return const [];
+    return [
+      ListTile(dense: true, title: Text(context.l10n.search_recent, style: context.text.label)),
+      for (final p in recent)
+        ListTile(
+          leading: const Icon(Icons.history_rounded),
+          title: Text(p.name),
+          subtitle: Text(_kind(context, p.kind)),
+          onTap: () => _choose(ref, controller, p),
+        ),
+    ];
+  }
 
   static IconData _icon(PlaceKind k) => switch (k) {
     PlaceKind.city => Icons.location_city_rounded,

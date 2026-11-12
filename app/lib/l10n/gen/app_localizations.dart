@@ -1418,6 +1418,24 @@ abstract class AppLocalizations {
   /// **'Có thêm báo thức con nước và widget màn hình chính. Mở file sau khi tải, cho phép cài từ nguồn này.'**
   String get more_apkHint;
 
+  /// No description provided for @directions_action.
+  ///
+  /// In vi, this message translates to:
+  /// **'Chỉ đường'**
+  String get directions_action;
+
+  /// No description provided for @directions_failed.
+  ///
+  /// In vi, this message translates to:
+  /// **'Không mở được Google Maps trên máy này'**
+  String get directions_failed;
+
+  /// No description provided for @search_recent.
+  ///
+  /// In vi, this message translates to:
+  /// **'Tìm gần đây'**
+  String get search_recent;
+
   /// No description provided for @station_levelNow.
   ///
   /// In vi, this message translates to:
