@@ -4,7 +4,7 @@ library;
 export 'application/advice_now.dart' show adviceNow;
 export 'application/hour_extras_provider.dart' show StationFishing, stationFishingProvider;
 export 'application/prefetch.dart' show prefetchSavedPlaces;
-export 'application/station_fishing.dart' show scoreStationHours;
+export 'application/station_fishing.dart' show scoreStationHourQuick, scoreStationHours;
 export 'application/station_providers.dart'
     show
         favoriteIdsProvider,

@@ -13,8 +13,10 @@ extension _BuildMap on _MapScreenState {
     if (style.value case final s?) _lastStyle = s;
     final shownStyle = style.value ?? _lastStyle;
     final buildMap = ref.watch(baseMapBuilderProvider);
+    // Local read (a few ms): start at the last known position, not all of Vietnam.
+    final start = ref.watch(lastPositionProvider);
     return switch (style) {
-      _ when shownStyle != null => buildMap(
+      _ when shownStyle != null && !start.isLoading => buildMap(
         BaseMapConfig(
           styleString: shownStyle,
           markers: shown,
@@ -36,6 +38,7 @@ extension _BuildMap on _MapScreenState {
           gesturesEnabled: !sheetBusy,
           userPosition: _me,
           pin: _pin,
+          initialCenter: start.value,
         ),
       ),
       AsyncError(:final error) => ErrorView(

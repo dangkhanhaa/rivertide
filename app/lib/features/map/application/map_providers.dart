@@ -4,6 +4,7 @@ import 'package:rivertide/core/clock/clock_provider.dart';
 import 'package:rivertide/core/db/app_database.dart';
 import 'package:rivertide/core/errors/app_exception.dart';
 import 'package:rivertide/core/network/dio_client.dart';
+import 'package:rivertide/features/map/application/fish_scores.dart';
 import 'package:rivertide/features/map/data/location_source.dart';
 import 'package:rivertide/features/map/data/map_style_source.dart';
 import 'package:rivertide/features/map/data/satellite_style.dart';
@@ -31,7 +32,9 @@ Future<String> mapStyle(Ref ref, Brightness brightness, BaseLayer layer) async {
       return vector; // URL fallback (offline, never fetched): plain map instead
     }
   }
-  return await source.load(brightness == Brightness.dark ? openFreeMapDark : openFreeMapLight);
+  return brightness == Brightness.dark
+      ? await source.load(openFreeMapDark, water: darkWater)
+      : await source.load(openFreeMapLight);
 }
 
 /// Normal map or satellite imagery, remembered across launches.
@@ -65,7 +68,28 @@ class LocationPromptStore {
   Future<bool> wasShown() async => (await _db.readSetting(_key)) == '1';
 
   Future<void> markShown() => _db.writeSetting(_key, '1');
+
+  static const _lastKey = 'last_position';
+
+  /// Where the user was last located, so the map opens there at once.
+  /// Kept on the device only, rounded to ~1 km (never sent or logged).
+  Future<({double lat, double lon})?> lastPosition() async {
+    final parts = (await _db.readSetting(_lastKey))?.split(',');
+    if (parts == null || parts.length != 2) return null;
+    final lat = double.tryParse(parts[0]);
+    final lon = double.tryParse(parts[1]);
+    if (lat == null || lon == null || lat.abs() > 90 || lon.abs() > 180) return null;
+    return (lat: lat, lon: lon);
+  }
+
+  Future<void> saveLastPosition(double lat, double lon) =>
+      _db.writeSetting(_lastKey, '${lat.toStringAsFixed(2)},${lon.toStringAsFixed(2)}');
 }
+
+/// Last located position (see [LocationPromptStore.lastPosition]), read once.
+@Riverpod(keepAlive: true)
+Future<({double lat, double lon})?> lastPosition(Ref ref) =>
+    ref.watch(locationPromptStoreProvider).lastPosition();
 
 @Riverpod(keepAlive: true)
 LocationPromptStore locationPromptStore(Ref ref) =>
@@ -116,5 +140,6 @@ MapMarker _marker(Ref ref, Station s) {
     trend: markerTrend(view?.now.state),
     // Every V0 station has a tide curve (harmonic or model); unknown until loaded.
     hasTide: s.tidal || s.kind == StationKind.gauge || s.kind == StationKind.model,
+    fishScore: status == MarkerStatus.stale ? null : stationFishScore(ref, s, view),
   );
 }

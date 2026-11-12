@@ -68,9 +68,21 @@ class _Shell extends StatelessWidget {
         selectedIndex: shell.currentIndex,
         onDestinationSelected: (i) => shell.goBranch(i, initialLocation: i == shell.currentIndex),
         destinations: [
-          NavigationDestination(icon: const Icon(Icons.map_rounded), label: l10n.nav_map),
-          NavigationDestination(icon: const Icon(Icons.water_rounded), label: l10n.nav_stations),
-          NavigationDestination(icon: const Icon(Icons.star_rounded), label: l10n.nav_watch),
+          NavigationDestination(
+            icon: const Icon(Icons.map_outlined),
+            selectedIcon: const Icon(Icons.map_rounded),
+            label: l10n.nav_map,
+          ),
+          NavigationDestination(
+            icon: const Icon(Icons.water_outlined),
+            selectedIcon: const Icon(Icons.water_rounded),
+            label: l10n.nav_stations,
+          ),
+          NavigationDestination(
+            icon: const Icon(Icons.star_outline_rounded),
+            selectedIcon: const Icon(Icons.star_rounded),
+            label: l10n.nav_watch,
+          ),
           NavigationDestination(icon: const Icon(Icons.phishing_rounded), label: l10n.nav_fishing),
           NavigationDestination(icon: const Icon(Icons.menu_rounded), label: l10n.nav_more),
         ],

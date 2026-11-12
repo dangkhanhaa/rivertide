@@ -51,4 +51,14 @@ class GeolocatorLocationService implements LocationService {
       return false;
     }
   }
+
+  @override
+  Future<bool> isBlocked() async {
+    try {
+      return await Geolocator.checkPermission() == LocationPermission.deniedForever;
+    } on Exception catch (e) {
+      log.warn('permission check failed', {'type': e.runtimeType.toString()});
+      return true;
+    }
+  }
 }

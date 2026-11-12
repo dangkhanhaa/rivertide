@@ -27,6 +27,11 @@ typedef MarkerPalette = ({
   Color flowFalling,
   Color flowSlack,
   Color community,
+
+  /// Fish activity bands, indexed by FishActivity.index.
+  List<Color> fish,
+  Color fishNone,
+  Color shadow,
 });
 
 class BaseMapConfig {
@@ -48,7 +53,11 @@ class BaseMapConfig {
     this.gesturesEnabled = true,
     this.userPosition,
     this.pin,
+    this.initialCenter,
   });
+
+  /// Where the camera starts (zoomed in); null = all of Vietnam.
+  final ({double lat, double lon})? initialCenter;
 
   final String styleString;
   final List<MapMarker> markers;

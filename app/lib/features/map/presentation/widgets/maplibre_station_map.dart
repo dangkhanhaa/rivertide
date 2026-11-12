@@ -3,12 +3,14 @@ import 'dart:math' show Point;
 
 import 'package:flutter/material.dart';
 import 'package:maplibre_gl/maplibre_gl.dart';
+import 'package:rivertide/core/calc/fishing/fish_activity.dart';
 import 'package:rivertide/core/calc/geo/camera_offset.dart';
 import 'package:rivertide/core/logging/log.dart';
 import 'package:rivertide/features/map/domain/map_marker.dart';
 import 'package:rivertide/features/map/domain/water_layers.dart';
 import 'package:rivertide/features/map/presentation/widgets/base_map.dart';
 import 'package:rivertide/features/map/presentation/widgets/community_layer.dart';
+import 'package:rivertide/features/map/presentation/widgets/fish_pin_icons.dart';
 import 'package:rivertide/features/map/presentation/widgets/marker_icons.dart';
 import 'package:rivertide/features/map/presentation/widgets/river_flow_layer.dart';
 import 'package:rivertide/features/map/presentation/widgets/station_layers.dart';
@@ -17,6 +19,9 @@ import 'package:rivertide/features/map/presentation/widgets/weather_map_layer.da
 /// Whole Vietnam incl. Hoàng Sa and Trường Sa on a phone screen.
 const _vnCenter = LatLng(15.8, 108.2);
 const double _vnZoom = 4.3;
+
+/// Opening zoom around the user's last known position.
+const double _startZoom = 11;
 
 /// MapLibre map over OpenFreeMap tiles with clustered station markers.
 class MapLibreStationMap extends StatefulWidget {
@@ -120,15 +125,36 @@ class _MapLibreStationMapState extends State<MapLibreStationMap> implements Base
 
   Future<void> _addImages(MapLibreMapController c) async {
     final ratio = MediaQuery.devicePixelRatioOf(context);
-    final color = widget.config.palette.stroke;
-    for (final t in MarkerTrend.values) {
-      await c.addImage('arrow-${t.name}', await arrowPng(t, color, ratio), false, ratio);
-    }
     final p = widget.config.palette;
+    await _addPinImages(c, p, ratio);
     for (var i = 0; i < windArrowDirections; i++) {
       final png = await windArrowPng(i * 360 / windArrowDirections, p.label, p.labelHalo, ratio);
       await c.addImage(windArrowName(i), png, false, ratio);
     }
+  }
+
+  Future<void> _addPinImages(MapLibreMapController c, MarkerPalette p, double ratio) async {
+    for (final a in [null, ...FishActivity.values]) {
+      final style = (
+        fill: a == null ? p.fishNone : p.fish[a.index],
+        ink: p.stroke,
+        shadow: p.shadow,
+        glow: a == FishActivity.peak,
+      );
+      for (final t in MarkerTrend.values) {
+        final png = await fishPinPng(style, t, ratio, fishes: a == null ? 1 : 2);
+        await c.addImage(fishPinName(a, t), png, false, ratio);
+      }
+    }
+    for (final s in [MarkerStatus.alarm1, MarkerStatus.alarm2, MarkerStatus.alarm3]) {
+      final style = (fill: p.status[s] ?? p.pin, ink: p.stroke, shadow: p.shadow, glow: false);
+      for (final t in MarkerTrend.values) {
+        await c.addImage(alarmPinName(s, t), await fishPinPng(style, t, ratio), false, ratio);
+      }
+    }
+    final spot = (fill: p.community, ink: p.stroke, shadow: p.shadow, glow: false);
+    final png = await fishPinPng(spot, MarkerTrend.unknown, ratio, fishes: 1, star: true);
+    await c.addImage(communityPinImage, png, false, ratio);
   }
 
   Future<void> _syncMarkers() async {
@@ -224,7 +250,10 @@ class _MapLibreStationMapState extends State<MapLibreStationMap> implements Base
   @override
   Widget build(BuildContext context) => MapLibreMap(
     styleString: widget.config.styleString,
-    initialCameraPosition: const CameraPosition(target: _vnCenter, zoom: _vnZoom),
+    initialCameraPosition: switch (widget.config.initialCenter) {
+      (:final lat, :final lon) => CameraPosition(target: LatLng(lat, lon), zoom: _startZoom),
+      null => const CameraPosition(target: _vnCenter, zoom: _vnZoom),
+    },
     minMaxZoomPreference: const MinMaxZoomPreference(3, 17),
     rotateGesturesEnabled: false,
     // All gesture flags are sent together; web applies them only as a group.

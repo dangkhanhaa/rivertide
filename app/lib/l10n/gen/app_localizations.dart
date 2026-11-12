@@ -431,7 +431,7 @@ abstract class AppLocalizations {
   /// No description provided for @map_locRationaleBody.
   ///
   /// In vi, this message translates to:
-  /// **'App dùng vị trí để đưa bản đồ tới chỗ bạn đang đứng. Vị trí chỉ dùng trên máy, không lưu và không gửi đi.'**
+  /// **'App dùng vị trí để đưa bản đồ tới chỗ bạn đang đứng. Vị trí chỉ ở trên máy (nhớ gần đúng ~1 km để lần sau mở nhanh), không gửi đi đâu.'**
   String get map_locRationaleBody;
 
   /// No description provided for @map_locAllow.
@@ -587,13 +587,19 @@ abstract class AppLocalizations {
   /// No description provided for @map_legendStale.
   ///
   /// In vi, this message translates to:
-  /// **'Mất dữ liệu quá 6 giờ'**
+  /// **'Mất dữ liệu quá 6 giờ (ghim xám, 1 con cá mờ)'**
   String get map_legendStale;
+
+  /// No description provided for @map_legendSpot.
+  ///
+  /// In vi, this message translates to:
+  /// **'Điểm câu cộng đồng'**
+  String get map_legendSpot;
 
   /// No description provided for @map_legendCluster.
   ///
   /// In vi, this message translates to:
-  /// **'Vòng có số: nhóm trạm gần nhau, chạm để phóng to. Màu vòng là màu của trạm nghiêm trọng nhất.'**
+  /// **'Vòng có số: nhóm trạm gần nhau, chạm để phóng to. Màu vòng là mức cá ăn cao nhất trong nhóm; có trạm báo động thì là màu báo động.'**
   String get map_legendCluster;
 
   /// No description provided for @map_legendNote.
@@ -1951,6 +1957,144 @@ abstract class AppLocalizations {
   /// In vi, this message translates to:
   /// **'Chênh {cm} cm'**
   String day_range(int cm);
+
+  /// No description provided for @fishAct_title.
+  ///
+  /// In vi, this message translates to:
+  /// **'Cá ăn'**
+  String get fishAct_title;
+
+  /// No description provided for @fishAct_low.
+  ///
+  /// In vi, this message translates to:
+  /// **'Thấp'**
+  String get fishAct_low;
+
+  /// No description provided for @fishAct_fair.
+  ///
+  /// In vi, this message translates to:
+  /// **'Vừa'**
+  String get fishAct_fair;
+
+  /// No description provided for @fishAct_high.
+  ///
+  /// In vi, this message translates to:
+  /// **'Cao'**
+  String get fishAct_high;
+
+  /// No description provided for @fishAct_peak.
+  ///
+  /// In vi, this message translates to:
+  /// **'Rất cao'**
+  String get fishAct_peak;
+
+  /// No description provided for @fishAct_score.
+  ///
+  /// In vi, this message translates to:
+  /// **'{score}/10'**
+  String fishAct_score(String score);
+
+  /// No description provided for @fishAct_meter.
+  ///
+  /// In vi, this message translates to:
+  /// **'{count} trên 5 cá'**
+  String fishAct_meter(int count);
+
+  /// No description provided for @fishAct_because.
+  ///
+  /// In vi, this message translates to:
+  /// **'Nhờ {reasons}'**
+  String fishAct_because(String reasons);
+
+  /// No description provided for @fishAct_next.
+  ///
+  /// In vi, this message translates to:
+  /// **'Giờ vàng tiếp theo: {when}'**
+  String fishAct_next(String when);
+
+  /// No description provided for @fishAct_inWindow.
+  ///
+  /// In vi, this message translates to:
+  /// **'Đang trong giờ vàng đến {to}'**
+  String fishAct_inWindow(String to);
+
+  /// No description provided for @fishAct_noWindow.
+  ///
+  /// In vi, this message translates to:
+  /// **'Chưa thấy giờ vàng trong 2 ngày tới'**
+  String get fishAct_noWindow;
+
+  /// No description provided for @fishAct_source.
+  ///
+  /// In vi, this message translates to:
+  /// **'Ước tính từ con nước, giờ mặt trăng, ngày/đêm và thời tiết (Open-Meteo) — chỉ để tham khảo, không biết chắc chỗ nào có cá.'**
+  String get fishAct_source;
+
+  /// No description provided for @fishAct_quick.
+  ///
+  /// In vi, this message translates to:
+  /// **'Chưa có thời tiết: tạm tính theo con nước và giờ mặt trăng.'**
+  String get fishAct_quick;
+
+  /// No description provided for @fishTime_now.
+  ///
+  /// In vi, this message translates to:
+  /// **'Bây giờ'**
+  String get fishTime_now;
+
+  /// No description provided for @fishTime_today.
+  ///
+  /// In vi, this message translates to:
+  /// **'Hôm nay {time}'**
+  String fishTime_today(String time);
+
+  /// No description provided for @fishTime_tomorrow.
+  ///
+  /// In vi, this message translates to:
+  /// **'Ngày mai {time}'**
+  String fishTime_tomorrow(String time);
+
+  /// No description provided for @fishTime_dayAfter.
+  ///
+  /// In vi, this message translates to:
+  /// **'Ngày kia {time}'**
+  String fishTime_dayAfter(String time);
+
+  /// No description provided for @fishTime_title.
+  ///
+  /// In vi, this message translates to:
+  /// **'Cá ăn lúc'**
+  String get fishTime_title;
+
+  /// No description provided for @fishTime_slider.
+  ///
+  /// In vi, this message translates to:
+  /// **'Chọn giờ xem cá ăn'**
+  String get fishTime_slider;
+
+  /// No description provided for @fishTime_reset.
+  ///
+  /// In vi, this message translates to:
+  /// **'Về bây giờ'**
+  String get fishTime_reset;
+
+  /// No description provided for @fishTime_legendNote.
+  ///
+  /// In vi, this message translates to:
+  /// **'Màu ghim = mức cá ăn ước tính. Chạm ghim để xem chi tiết.'**
+  String get fishTime_legendNote;
+
+  /// No description provided for @fishTime_collapse.
+  ///
+  /// In vi, this message translates to:
+  /// **'Thu gọn'**
+  String get fishTime_collapse;
+
+  /// No description provided for @fishTime_expand.
+  ///
+  /// In vi, this message translates to:
+  /// **'Xem cá ăn theo giờ'**
+  String get fishTime_expand;
 
   /// No description provided for @fish_now_title.
   ///

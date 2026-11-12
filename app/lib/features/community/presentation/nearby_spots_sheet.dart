@@ -67,14 +67,13 @@ class _SpotTile extends StatelessWidget {
                   dimension: thumb,
                   child: spot.photoUrls.isEmpty
                       ? ColoredBox(
-                          color: c.fishHigh.withValues(alpha: 0.15),
-                          child: Icon(Icons.phishing_rounded, color: c.fishHigh),
+                          color: c.spot.withValues(alpha: 0.15),
+                          child: Icon(Icons.phishing_rounded, color: c.spot),
                         )
                       : Image.network(
                           spot.photoUrls.first,
                           fit: BoxFit.cover,
-                          errorBuilder: (_, _, _) =>
-                              Icon(Icons.phishing_rounded, color: c.fishHigh),
+                          errorBuilder: (_, _, _) => Icon(Icons.phishing_rounded, color: c.spot),
                         ),
                 ),
               ),

@@ -176,6 +176,51 @@ final class LocationServiceProvider
 
 String _$locationServiceHash() => r'33637312fa510b0662eebf6c32e8e62519b7c7c3';
 
+/// Last located position (see [LocationPromptStore.lastPosition]), read once.
+
+@ProviderFor(lastPosition)
+final lastPositionProvider = LastPositionProvider._();
+
+/// Last located position (see [LocationPromptStore.lastPosition]), read once.
+
+final class LastPositionProvider
+    extends
+        $FunctionalProvider<
+          AsyncValue<({double lat, double lon})?>,
+          ({double lat, double lon})?,
+          FutureOr<({double lat, double lon})?>
+        >
+    with
+        $FutureModifier<({double lat, double lon})?>,
+        $FutureProvider<({double lat, double lon})?> {
+  /// Last located position (see [LocationPromptStore.lastPosition]), read once.
+  LastPositionProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'lastPositionProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$lastPositionHash();
+
+  @$internal
+  @override
+  $FutureProviderElement<({double lat, double lon})?> $createElement($ProviderPointer pointer) =>
+      $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<({double lat, double lon})?> create(Ref ref) {
+    return lastPosition(ref);
+  }
+}
+
+String _$lastPositionHash() => r'c419f63a6d81aae7282497e28dce35b0bc5eab8f';
+
 @ProviderFor(locationPromptStore)
 final locationPromptStoreProvider = LocationPromptStoreProvider._();
 

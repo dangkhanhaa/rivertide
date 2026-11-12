@@ -50,9 +50,12 @@ class NearbySpotsChip extends ConsumerWidget {
       child: Align(
         alignment: Alignment.centerLeft,
         child: ActionChip(
-          avatar: Icon(Icons.groups_rounded, color: c.fishHigh, size: AppIconSize.sm),
+          avatar: Icon(Icons.groups_rounded, color: c.spot, size: AppIconSize.sm),
           label: Text(context.l10n.spot_nearbyChip(count), style: context.text.label),
           backgroundColor: c.surface,
+          elevation: 3,
+          shadowColor: c.onSurface.withValues(alpha: 0.3),
+          side: BorderSide.none,
           onPressed: onTap,
         ),
       ),

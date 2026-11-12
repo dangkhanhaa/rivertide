@@ -26,12 +26,6 @@ Future<void> addStationOverlay(
   MarkerPalette p,
   List<MapLabel> fixedLabels,
 ) async {
-  final sevColor = <Object>[
-    'match',
-    ['get', 'sev'],
-    for (final s in MarkerStatus.values) ...[s.index, hexColor(p.status[s] ?? p.stroke)],
-    hexColor(p.status[MarkerStatus.normal] ?? p.stroke),
-  ];
   await c.addSource(
     stationSourceId,
     GeojsonSourceProperties(
@@ -39,7 +33,13 @@ Future<void> addStationOverlay(
       cluster: true,
       clusterRadius: 40,
       clusterMaxZoom: 7,
+      // Most severe flood alarm colours a cluster (AC-MAP01-2), else the
+      // best fish activity inside it (-1 = no data).
       clusterProperties: {
+        'fish': [
+          'max',
+          ['get', 'fish'],
+        ],
         'sev': [
           'max',
           ['get', 'sev'],
@@ -51,34 +51,53 @@ Future<void> addStationOverlay(
   await addRiverFlowLayer(c, p);
   await addWeatherLayers(c, p);
   await addCommunityLayers(c, p);
-  await _addClusterLayers(c, p, sevColor);
-  await _addStationLayers(c, p, sevColor);
+  await _addClusterLayers(c, p);
+  await _addStationLayers(c, p);
   await _addFixedLabels(c, p, fixedLabels);
   await _addPointLayer(c, pinSourceId, 'pin-dot', p.pin, p, 9);
   await _addPointLayer(c, meSourceId, 'me-dot', p.me, p, 7);
 }
 
-Future<void> _addClusterLayers(
-  MapLibreMapController c,
-  MarkerPalette p,
-  List<Object> sevColor,
-) async {
+/// Colour by fish activity band (`fish` property, -1 = no data).
+List<Object> fishColor(MarkerPalette p) => [
+  'match',
+  ['get', 'fish'],
+  for (final (i, color) in p.fish.indexed) ...[i, hexColor(color)],
+  hexColor(p.fishNone),
+];
+
+Future<void> _addClusterLayers(MapLibreMapController c, MarkerPalette p) async {
   await c.addCircleLayer(
     stationSourceId,
     clusterLayerId,
     CircleLayerProperties(
-      circleColor: sevColor,
+      circleColor: [
+        'case',
+        [
+          '>=',
+          ['get', 'sev'],
+          MarkerStatus.alarm1.index,
+        ],
+        [
+          'match',
+          ['get', 'sev'],
+          for (final s in MarkerStatus.values) ...[s.index, hexColor(p.status[s] ?? p.stroke)],
+          hexColor(p.stroke),
+        ],
+        fishColor(p),
+      ],
       circleRadius: [
         'step',
         ['get', 'point_count'],
-        16,
+        17,
         5,
-        20,
+        21,
         10,
-        24,
+        25,
       ],
-      circleStrokeWidth: 2,
+      circleStrokeWidth: 3,
       circleStrokeColor: hexColor(p.stroke),
+      circleStrokeOpacity: 0.9,
     ),
     filter: ['has', 'point_count'],
   );
@@ -88,7 +107,7 @@ Future<void> _addClusterLayers(
     SymbolLayerProperties(
       textField: ['get', 'point_count_abbreviated'],
       textFont: ['Noto Sans Bold'],
-      textSize: 13,
+      textSize: 14,
       textColor: hexColor(p.stroke),
       textAllowOverlap: true,
     ),
@@ -97,32 +116,20 @@ Future<void> _addClusterLayers(
   );
 }
 
-Future<void> _addStationLayers(
-  MapLibreMapController c,
-  MarkerPalette p,
-  List<Object> sevColor,
-) async {
-  await c.addCircleLayer(
-    stationSourceId,
-    stationDotsLayerId,
-    CircleLayerProperties(
-      circleColor: sevColor,
-      circleRadius: 11,
-      circleStrokeWidth: 2,
-      circleStrokeColor: hexColor(p.stroke),
-    ),
-    filter: _notCluster,
-  );
+/// Fish pins: drop images with activity colour and trend badge (P2-20).
+Future<void> _addStationLayers(MapLibreMapController c, MarkerPalette p) async {
   await c.addSymbolLayer(
     stationSourceId,
-    'station-arrows',
+    stationDotsLayerId,
     const SymbolLayerProperties(
-      iconImage: ['get', 'arrow'],
+      iconImage: ['get', 'icon'],
+      iconAnchor: 'bottom',
       iconAllowOverlap: true,
       iconIgnorePlacement: true,
+      // Livelier spots on top where pins overlap.
+      symbolSortKey: ['get', 'fish'],
     ),
     filter: _notCluster,
-    enableInteraction: false,
   );
   await _addNameLayer(c, p);
 }
@@ -171,11 +178,11 @@ Future<void> _addNameLayer(MapLibreMapController c, MarkerPalette p) async {
       textField: ['get', 'name'],
       textFont: ['Noto Sans Regular'],
       textSize: 12,
-      textOffset: [0, 1.3],
+      textOffset: [0, 0.4],
       textAnchor: 'top',
       textColor: hexColor(p.label),
       textHaloColor: hexColor(p.labelHalo),
-      textHaloWidth: 1.5,
+      textHaloWidth: 1.8,
       textOptional: true,
     ),
     filter: _notCluster,

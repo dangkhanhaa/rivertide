@@ -16,6 +16,7 @@ import 'package:rivertide/features/stations/domain/station.dart';
 import 'package:rivertide/features/stations/domain/station_tide.dart';
 import 'package:rivertide/features/stations/presentation/widgets/daily_extremes_card.dart';
 import 'package:rivertide/features/stations/presentation/widgets/directions_button.dart';
+import 'package:rivertide/features/stations/presentation/widgets/fish_activity_card.dart';
 import 'package:rivertide/features/stations/presentation/widgets/flow_card.dart';
 import 'package:rivertide/features/stations/presentation/widgets/hazard_banner.dart';
 import 'package:rivertide/features/stations/presentation/widgets/location_extras.dart';
@@ -129,8 +130,8 @@ class StationSummaryBody extends StatelessWidget {
           if (place case final p?) Text(p, style: context.text.label),
           HazardBanner(view: view),
           QuickSummary(view: view),
+          FishActivityCard(view: view),
           FlowCard(stationId: tide.station.id, nowUtc: view.nowUtc, primary: true),
-          FishingNow(view: view),
           Conditions(view: view),
         ],
       );
@@ -143,9 +144,9 @@ class StationSummaryBody extends StatelessWidget {
           if (place case final p?) Text(p, style: context.text.label),
           HazardBanner(view: view),
           QuickSummary(view: view),
+          FishActivityCard(view: view),
           DailyExtremesCard(extremes: daily),
           FlowCard(stationId: tide.station.id, nowUtc: view.nowUtc),
-          FishingNow(view: view),
           Conditions(view: view),
         ],
       );
@@ -163,6 +164,7 @@ class StationSummaryBody extends StatelessWidget {
         LocationHero(view: view, place: place),
         HazardBanner(view: view),
         QuickSummary(view: view),
+        FishActivityCard(view: view),
         if (tide.prediction == null)
           Text(context.l10n.tide_noPrediction, style: context.text.caption)
         else
@@ -182,7 +184,6 @@ class StationSummaryBody extends StatelessWidget {
         ),
         DayStats(view: view),
         if (river) FlowCard(stationId: tide.station.id, nowUtc: view.nowUtc),
-        FishingNow(view: view),
         Conditions(view: view),
       ],
     );

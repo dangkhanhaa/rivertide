@@ -9,6 +9,9 @@ import 'package:rivertide/core/logging/log.dart';
 const String openFreeMapLight = 'https://tiles.openfreemap.org/styles/liberty';
 const String openFreeMapDark = 'https://tiles.openfreemap.org/styles/dark';
 
+/// Deep blue water for the dark style, readable against its near-black land.
+const ({String fill, String line}) darkWater = (fill: '#123a5a', line: '#1f5b86');
+
 const Duration mapStyleTtl = Duration(days: 7);
 
 /// Styles are ~40 KB; anything far larger is not a style.
@@ -18,8 +21,11 @@ const int _maxStyleChars = 2 * 1024 * 1024;
 /// OpenMapTiles) so e.g. the islands read "Quần đảo Hoàng Sa" and the sea
 /// "Biển Đông". Returns the style as JSON text for `MapLibreMap.styleString`.
 ///
+/// [water]: fill/line colour for seas and rivers (the dark style draws water
+/// almost black, so rivers vanish; fishing needs them visible).
+///
 /// Throws [ParseException] when [raw] is not a MapLibre style.
-String localizeStyle(String raw) {
+String localizeStyle(String raw, {({String fill, String line})? water}) {
   if (raw.length > _maxStyleChars) throw const ParseException('style too large');
   final Object? decoded;
   try {
@@ -35,6 +41,7 @@ String localizeStyle(String raw) {
   }
   for (final layer in decoded['layers']! as List<Object?>) {
     if (layer is! Map<String, Object?>) continue;
+    if (water != null) _tintWater(layer, water);
     final layout = layer['layout'];
     if (layout is! Map<String, Object?>) continue;
     final field = layout['text-field'];
@@ -49,6 +56,23 @@ String localizeStyle(String raw) {
   return jsonEncode(decoded);
 }
 
+void _tintWater(Map<String, Object?> layer, ({String fill, String line}) water) {
+  final sourceLayer = layer['source-layer'];
+  if (sourceLayer != 'water' && sourceLayer != 'waterway') return;
+  final paint = layer['paint'] is Map<String, Object?>
+      ? layer['paint']! as Map<String, Object?>
+      : <String, Object?>{};
+  switch (layer['type']) {
+    case 'fill':
+      paint['fill-color'] = water.fill;
+    case 'line':
+      paint['line-color'] = water.line;
+    default:
+      return;
+  }
+  layer['paint'] = paint;
+}
+
 /// Name-based label expressions (not road refs or house numbers).
 bool _usesName(List<Object?> expr) => jsonEncode(expr).contains('"name');
 
@@ -61,15 +85,16 @@ class MapStyleSource {
   final AppDatabase _db;
   final DateTime Function() _clock;
 
-  Future<String> load(String url) async {
-    final key = 'map_style:$url';
+  Future<String> load(String url, {({String fill, String line})? water}) async {
+    // v2: water tint added; older cached copies are not reused.
+    final key = 'map_style:v2:$url';
     final cached = await _db.readCache(key);
     final now = _clock();
     if (cached != null && now.difference(cached.fetchedAtUtc) < mapStyleTtl) {
       return cached.payload;
     }
     try {
-      final style = localizeStyle(await _fetch(Uri.parse(url)));
+      final style = localizeStyle(await _fetch(Uri.parse(url)), water: water);
       await _db.writeCache(key, style, now);
       return style;
     } on AppException catch (e) {

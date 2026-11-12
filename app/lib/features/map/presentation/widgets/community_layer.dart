@@ -6,28 +6,23 @@ const communitySourceId = 'community-spots';
 const communityLayerId = 'community-spots-dot';
 const communityLabelLayerId = 'community-spots-label';
 
-/// Community spots: teal pins (fish colour) with their name from zoom 12.
+/// Image id of the community pin (registered by the map widget).
+const communityPinImage = 'spot-pin';
+
+/// Community spots: orange star pins with their name from zoom 12.
 Future<void> addCommunityLayers(MapLibreMapController c, MarkerPalette p) async {
   await c.addGeoJsonSource(communitySourceId, {
     'type': 'FeatureCollection',
     'features': <Object>[],
   });
-  await c.addCircleLayer(
+  await c.addSymbolLayer(
     communitySourceId,
     communityLayerId,
-    CircleLayerProperties(
-      circleColor: hexColor(p.community),
-      circleRadius: [
-        'interpolate',
-        ['linear'],
-        ['zoom'],
-        6,
-        5,
-        14,
-        10,
-      ],
-      circleStrokeWidth: 3,
-      circleStrokeColor: hexColor(p.stroke),
+    const SymbolLayerProperties(
+      iconImage: communityPinImage,
+      iconAnchor: 'bottom',
+      iconAllowOverlap: true,
+      iconIgnorePlacement: true,
     ),
   );
   await c.addSymbolLayer(
@@ -37,7 +32,7 @@ Future<void> addCommunityLayers(MapLibreMapController c, MarkerPalette p) async 
       textField: ['get', 'title'],
       textFont: ['Noto Sans Regular'],
       textSize: 12,
-      textOffset: [0, 1.3],
+      textOffset: [0, 0.4],
       textAnchor: 'top',
       textMaxWidth: 10,
       textColor: hexColor(p.label),

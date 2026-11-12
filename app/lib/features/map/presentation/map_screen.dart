@@ -21,6 +21,7 @@ import 'package:rivertide/features/map/domain/water_layers.dart';
 import 'package:rivertide/features/map/presentation/locate_action.dart';
 import 'package:rivertide/features/map/presentation/map_detail_presenter.dart';
 import 'package:rivertide/features/map/presentation/widgets/base_map.dart';
+import 'package:rivertide/features/map/presentation/widgets/fish_time_bar.dart';
 import 'package:rivertide/features/map/presentation/widgets/map_controls.dart';
 import 'package:rivertide/features/map/presentation/widgets/map_notes.dart';
 import 'package:rivertide/features/map/presentation/widgets/map_search_bar.dart';
@@ -29,6 +30,9 @@ import 'package:rivertide/features/stations/stations.dart';
 
 part 'map_screen_build_map.dart';
 part 'map_screen_community.dart';
+
+/// Widest the "Cá ăn lúc" bar gets on tablets and desktop.
+const double _fishBarMaxWidth = 380;
 
 /// S02 — station map on free OpenFreeMap tiles (FEATURES.md F-MAP-01 → 04).
 class MapScreen extends ConsumerStatefulWidget {
@@ -56,11 +60,12 @@ class _MapScreenState extends ConsumerState<MapScreen> with MapDetailPresenter<M
   GlobalKey get topOverlayKey => _topKey;
   final GlobalKey _controlsKey = GlobalKey();
   final GlobalKey _creditKey = GlobalKey();
+  final GlobalKey _fishBarKey = GlobalKey();
 
   bool _blocksTapAt(Offset global) {
     // A sheet or dialog is open above the map: the click was meant for it.
     if (!(ModalRoute.of(context)?.isCurrent ?? true) || sheetBusy) return true;
-    for (final key in [_topKey, _controlsKey, _creditKey]) {
+    for (final key in [_topKey, _controlsKey, _creditKey, _fishBarKey]) {
       final box = key.currentContext?.findRenderObject();
       if (box is RenderBox && box.hasSize) {
         final rect = box.localToGlobal(Offset.zero) & box.size;
@@ -90,20 +95,30 @@ class _MapScreenState extends ConsumerState<MapScreen> with MapDetailPresenter<M
     });
   }
 
-  /// Opens on the user's position: silently if allowed, else one explained ask.
+  /// Opens on the user's position: silently if allowed, one explained ask the
+  /// first time, then a plain retry on each start unless location is blocked
+  /// (iOS Safari reports "ask" even after the user allowed it).
   Future<void> _autoLocate() async {
     final service = ref.read(locationServiceProvider);
     final prompts = ref.read(locationPromptStoreProvider);
-    if (await service.hasPermission()) {
-      if (await service.locate() case Located(:final lat, :final lon) when mounted) {
-        setState(() => _me = (lat: lat, lon: lon));
-        await _map?.flyTo(lat, lon, zoom: 11, offset: visibleOffset(detailOpen: false));
+    if (!await service.hasPermission()) {
+      if (!await prompts.wasShown()) {
+        await prompts.markShown();
+        if (mounted) await _locate();
+        return;
       }
-      return;
+      if (await service.isBlocked()) return;
     }
-    if (await prompts.wasShown() || !mounted) return;
-    await prompts.markShown();
-    if (mounted) await _locate();
+    if (await service.locate() case Located(:final lat, :final lon) when mounted) {
+      await _showMe((lat: lat, lon: lon));
+    }
+  }
+
+  Future<void> _showMe(({double lat, double lon}) p, {double zoom = 12}) async {
+    setState(() => _me = p);
+    unawaited(ref.read(locationPromptStoreProvider).saveLastPosition(p.lat, p.lon));
+    if (!isInVietnamBounds(p.lat, p.lon)) return;
+    await _map?.flyTo(p.lat, p.lon, zoom: zoom, offset: visibleOffset(detailOpen: false));
   }
 
   /// "Show on map" from the station or watch list: zoom in and open its details.
@@ -170,12 +185,12 @@ class _MapScreenState extends ConsumerState<MapScreen> with MapDetailPresenter<M
   Future<void> _locate({bool open = false}) async {
     final p = await whileMapLocked(() => runLocateFlow(context, ref.read(locationServiceProvider)));
     if (p == null || !mounted) return;
-    setState(() => _me = p);
     if (open) {
+      setState(() => _me = p);
       releaseMapLock();
       return await _openPoint(p.lat, p.lon, PointSurface.unknown, zoom: 13);
     }
-    await _map?.flyTo(p.lat, p.lon, zoom: 11, offset: visibleOffset(detailOpen: false));
+    await _showMe(p);
   }
 
   @override
@@ -245,6 +260,19 @@ class _MapScreenState extends ConsumerState<MapScreen> with MapDetailPresenter<M
               onLocate: _locate,
               onGoFishing: () => _locate(open: true),
               openSheet: (b) => unawaited(showGuardedSheet(b)),
+            ),
+          ),
+          Positioned(
+            left: AppSpacing.md,
+            right: AppSpacing.md * 2 + AppSpacing.minTouch * 1.2 + rightInset,
+            bottom: AppSpacing.xxl,
+            child: Align(
+              alignment: Alignment.bottomLeft,
+              heightFactor: 1,
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: _fishBarMaxWidth),
+                child: FishTimeBar(key: _fishBarKey),
+              ),
             ),
           ),
           Positioned(

@@ -2,10 +2,12 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:rivertide/core/calc/fishing/fish_activity.dart';
 import 'package:rivertide/core/l10n/l10n_ext.dart';
 import 'package:rivertide/core/theme/app_colors.dart';
 import 'package:rivertide/core/theme/app_spacing.dart';
 import 'package:rivertide/core/theme/app_text.dart';
+import 'package:rivertide/core/widgets/fish_activity_style.dart';
 import 'package:rivertide/features/map/application/map_providers.dart';
 import 'package:rivertide/features/map/application/weather_layer.dart';
 import 'package:rivertide/features/map/domain/base_layer.dart';
@@ -189,14 +191,19 @@ class _Legend extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            dot(c.ok, l10n.map_legendNormal),
+            for (final a in FishActivity.values)
+              dot(
+                context.fishActivityColor(a),
+                '${l10n.fishAct_title}: ${context.fishActivityName(a)}',
+              ),
+            dot(c.spot, l10n.map_legendSpot, Icons.star_rounded),
             dot(c.alarm1, l10n.map_legendAlarm1),
             dot(c.alarm2, l10n.map_legendAlarm2),
             dot(c.alarm3, l10n.map_legendAlarm3),
             dot(c.stale, l10n.map_legendStale),
-            dot(c.ok, l10n.tide_rising, Icons.arrow_drop_up_rounded),
-            dot(c.ok, l10n.tide_falling, Icons.arrow_drop_down_rounded),
-            dot(c.ok, l10n.tide_slack, Icons.remove_rounded),
+            dot(c.onSurface, l10n.tide_rising, Icons.arrow_drop_up_rounded),
+            dot(c.onSurface, l10n.tide_falling, Icons.arrow_drop_down_rounded),
+            dot(c.onSurface, l10n.tide_slack, Icons.remove_rounded),
             line(c.water, l10n.map_legendFlowRising),
             line(c.alarm2, l10n.map_legendFlowFalling),
             line(c.stale, l10n.map_legendFlowSlack),

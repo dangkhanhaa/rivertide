@@ -32,5 +32,9 @@ abstract interface class LocationService {
   /// True when permission is already granted (no explanation dialog needed).
   Future<bool> hasPermission();
 
+  /// True when the user blocked location for good (only settings can undo it):
+  /// the app must not ask again on its own.
+  Future<bool> isBlocked();
+
   Future<bool> openSettings();
 }

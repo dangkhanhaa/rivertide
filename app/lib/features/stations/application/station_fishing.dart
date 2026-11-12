@@ -41,6 +41,15 @@ List<FishingHourScore> scoreStationHours({
   return scores;
 }
 
+/// One hour's score from tide and astronomy only (no weather): the quick
+/// estimate behind map pins whose weather is not loaded yet.
+FishingHourScore scoreStationHourQuick(StationTide tide, DateTime hourUtc) {
+  final station = tide.station;
+  final dayStart = TimeFormat.vnDayStartUtc(hourUtc);
+  final astro = _astroFor(dayStart, station.lat, station.lon, tide.prediction);
+  return scoreHour(_input(hourUtc, tide.prediction, astro, const {}));
+}
+
 _DayAstro _astroFor(DateTime dayStartUtc, double lat, double lon, TideSeries? prediction) {
   final vn = TimeFormat.toVn(dayStartUtc);
   final sun = sunTimes(year: vn.year, month: vn.month, day: vn.day, lat: lat, lon: lon);

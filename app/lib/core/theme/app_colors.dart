@@ -18,10 +18,16 @@ class AppColors extends ThemeExtension<AppColors> {
     required this.onSurface,
     required this.onSurfaceMuted,
     required this.estimateHatch,
+    required this.fishLow,
+    required this.fishFair,
+    required this.fishGood,
+    required this.fishPeak,
+    required this.spot,
+    required this.deepWater,
   });
 
   static const light = AppColors(
-    primary: Color(0xFF0B6E99),
+    primary: Color(0xFF0A7CC1),
     water: Color(0xFF1E88E5),
     tidePred: Color(0xFF7E57C2),
     ok: Color(0xFF2E7D32),
@@ -31,10 +37,16 @@ class AppColors extends ThemeExtension<AppColors> {
     stale: Color(0xFF9E9E9E),
     fishHigh: Color(0xFF00897B),
     surface: Color(0xFFFFFFFF),
-    surfaceAlt: Color(0xFFF1F5F8),
+    surfaceAlt: Color(0xFFF2F6F9),
     onSurface: Color(0xFF14212B),
     onSurfaceMuted: Color(0xFF52606D),
     estimateHatch: Color(0x337E57C2),
+    fishLow: Color(0xFF8796A5),
+    fishFair: Color(0xFF2F8FE0),
+    fishGood: Color(0xFF16A874),
+    fishPeak: Color(0xFF3CCB5A),
+    spot: Color(0xFFFF7A2F),
+    deepWater: Color(0xFF0C3B5E),
   );
 
   /// "Chế độ ngoài trời": black on white, darker accents, readable in full sun
@@ -54,10 +66,16 @@ class AppColors extends ThemeExtension<AppColors> {
     onSurface: Color(0xFF000000),
     onSurfaceMuted: Color(0xFF212121),
     estimateHatch: Color(0x554A148C),
+    fishLow: Color(0xFF424242),
+    fishFair: Color(0xFF0D47A1),
+    fishGood: Color(0xFF00695C),
+    fishPeak: Color(0xFF1B5E20),
+    spot: Color(0xFFBF360C),
+    deepWater: Color(0xFF00283F),
   );
 
   static const dark = AppColors(
-    primary: Color(0xFF4FB3E0),
+    primary: Color(0xFF5CC4FF),
     water: Color(0xFF64B5F6),
     tidePred: Color(0xFFB39DDB),
     ok: Color(0xFF81C784),
@@ -66,11 +84,17 @@ class AppColors extends ThemeExtension<AppColors> {
     alarm3: Color(0xFFE57373),
     stale: Color(0xFF757575),
     fishHigh: Color(0xFF4DB6AC),
-    surface: Color(0xFF12191F),
-    surfaceAlt: Color(0xFF1C252D),
+    surface: Color(0xFF111A23),
+    surfaceAlt: Color(0xFF0A1118),
     onSurface: Color(0xFFE6EDF2),
     onSurfaceMuted: Color(0xFFA9B6C2),
     estimateHatch: Color(0x40B39DDB),
+    fishLow: Color(0xFF7D8B98),
+    fishFair: Color(0xFF4FA8F5),
+    fishGood: Color(0xFF2FD08F),
+    fishPeak: Color(0xFF7CF06A),
+    spot: Color(0xFFFF9A57),
+    deepWater: Color(0xFF071F33),
   );
 
   final Color primary;
@@ -87,6 +111,18 @@ class AppColors extends ThemeExtension<AppColors> {
   final Color onSurface;
   final Color onSurfaceMuted;
   final Color estimateHatch;
+
+  /// Fish activity bands (P2-20), weakest to strongest; always shown with a word.
+  final Color fishLow;
+  final Color fishFair;
+  final Color fishGood;
+  final Color fishPeak;
+
+  /// Community fishing spots.
+  final Color spot;
+
+  /// Background of the "underwater" fish activity scene.
+  final Color deepWater;
 
   @override
   AppColors copyWith({Color? primary}) => this;

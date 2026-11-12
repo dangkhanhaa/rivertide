@@ -211,7 +211,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get map_locRationaleBody =>
-      'App dùng vị trí để đưa bản đồ tới chỗ bạn đang đứng. Vị trí chỉ dùng trên máy, không lưu và không gửi đi.';
+      'App dùng vị trí để đưa bản đồ tới chỗ bạn đang đứng. Vị trí chỉ ở trên máy (nhớ gần đúng ~1 km để lần sau mở nhanh), không gửi đi đâu.';
 
   @override
   String get map_locAllow => 'Cho phép';
@@ -292,11 +292,14 @@ class AppLocalizationsVi extends AppLocalizations {
   String get map_legendAlarm3 => 'Báo động III';
 
   @override
-  String get map_legendStale => 'Mất dữ liệu quá 6 giờ';
+  String get map_legendStale => 'Mất dữ liệu quá 6 giờ (ghim xám, 1 con cá mờ)';
+
+  @override
+  String get map_legendSpot => 'Điểm câu cộng đồng';
 
   @override
   String get map_legendCluster =>
-      'Vòng có số: nhóm trạm gần nhau, chạm để phóng to. Màu vòng là màu của trạm nghiêm trọng nhất.';
+      'Vòng có số: nhóm trạm gần nhau, chạm để phóng to. Màu vòng là mức cá ăn cao nhất trong nhóm; có trạm báo động thì là màu báo động.';
 
   @override
   String get map_legendNote =>
@@ -1127,6 +1130,92 @@ class AppLocalizationsVi extends AppLocalizations {
   String day_range(int cm) {
     return 'Chênh $cm cm';
   }
+
+  @override
+  String get fishAct_title => 'Cá ăn';
+
+  @override
+  String get fishAct_low => 'Thấp';
+
+  @override
+  String get fishAct_fair => 'Vừa';
+
+  @override
+  String get fishAct_high => 'Cao';
+
+  @override
+  String get fishAct_peak => 'Rất cao';
+
+  @override
+  String fishAct_score(String score) {
+    return '$score/10';
+  }
+
+  @override
+  String fishAct_meter(int count) {
+    return '$count trên 5 cá';
+  }
+
+  @override
+  String fishAct_because(String reasons) {
+    return 'Nhờ $reasons';
+  }
+
+  @override
+  String fishAct_next(String when) {
+    return 'Giờ vàng tiếp theo: $when';
+  }
+
+  @override
+  String fishAct_inWindow(String to) {
+    return 'Đang trong giờ vàng đến $to';
+  }
+
+  @override
+  String get fishAct_noWindow => 'Chưa thấy giờ vàng trong 2 ngày tới';
+
+  @override
+  String get fishAct_source =>
+      'Ước tính từ con nước, giờ mặt trăng, ngày/đêm và thời tiết (Open-Meteo) — chỉ để tham khảo, không biết chắc chỗ nào có cá.';
+
+  @override
+  String get fishAct_quick => 'Chưa có thời tiết: tạm tính theo con nước và giờ mặt trăng.';
+
+  @override
+  String get fishTime_now => 'Bây giờ';
+
+  @override
+  String fishTime_today(String time) {
+    return 'Hôm nay $time';
+  }
+
+  @override
+  String fishTime_tomorrow(String time) {
+    return 'Ngày mai $time';
+  }
+
+  @override
+  String fishTime_dayAfter(String time) {
+    return 'Ngày kia $time';
+  }
+
+  @override
+  String get fishTime_title => 'Cá ăn lúc';
+
+  @override
+  String get fishTime_slider => 'Chọn giờ xem cá ăn';
+
+  @override
+  String get fishTime_reset => 'Về bây giờ';
+
+  @override
+  String get fishTime_legendNote => 'Màu ghim = mức cá ăn ước tính. Chạm ghim để xem chi tiết.';
+
+  @override
+  String get fishTime_collapse => 'Thu gọn';
+
+  @override
+  String get fishTime_expand => 'Xem cá ăn theo giờ';
 
   @override
   String get fish_now_title => 'Câu cá lúc này';

@@ -9,6 +9,7 @@ import 'package:rivertide/features/stations/application/station_view_providers.d
 import 'package:rivertide/features/stations/domain/station.dart';
 import 'package:rivertide/features/stations/presentation/widgets/countdown_card.dart';
 import 'package:rivertide/features/stations/presentation/widgets/daily_extremes_card.dart';
+import 'package:rivertide/features/stations/presentation/widgets/fish_activity_card.dart';
 import 'package:rivertide/features/stations/presentation/widgets/flow_card.dart';
 import 'package:rivertide/features/stations/presentation/widgets/hazard_banner.dart';
 import 'package:rivertide/features/stations/presentation/widgets/location_extras.dart';
@@ -41,7 +42,7 @@ class OverviewTab extends StatelessWidget {
           const SizedBox(height: AppSpacing.md),
           FlowCard(stationId: tide.station.id, nowUtc: view.nowUtc, primary: true),
           const SizedBox(height: AppSpacing.md),
-          FishingNow(view: view),
+          FishActivityCard(view: view),
           const SizedBox(height: AppSpacing.md),
           Conditions(view: view),
         ],
@@ -58,7 +59,7 @@ class OverviewTab extends StatelessWidget {
           const SizedBox(height: AppSpacing.md),
           FlowCard(stationId: tide.station.id, nowUtc: view.nowUtc),
           const SizedBox(height: AppSpacing.md),
-          FishingNow(view: view),
+          FishActivityCard(view: view),
           const SizedBox(height: AppSpacing.md),
           Conditions(view: view),
           const SizedBox(height: AppSpacing.md),

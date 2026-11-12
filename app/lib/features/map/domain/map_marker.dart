@@ -1,3 +1,4 @@
+import 'package:rivertide/core/calc/fishing/fish_activity.dart';
 import 'package:rivertide/core/calc/tide/tide_state.dart';
 
 /// Marker colour classes (PROJECT.md 10.2 S02). Index = severity, so clusters
@@ -21,6 +22,7 @@ class MapMarker {
     required this.status,
     required this.trend,
     required this.hasTide,
+    this.fishScore,
   });
 
   final String id;
@@ -31,8 +33,20 @@ class MapMarker {
   final MarkerTrend trend;
   final bool hasTide;
 
-  /// Image id registered with the map for the trend arrow.
-  String get arrowIcon => 'arrow-${trend.name}';
+  /// Fishing score (0–10, estimate) at the hour chosen on the map; null when
+  /// the station has no usable data.
+  final double? fishScore;
+
+  FishActivity? get activity => switch (fishScore) {
+    final s? => fishActivity(s),
+    null => null,
+  };
+
+  /// Image id of the pin: flood alarm colour wins over fish activity
+  /// (AC-MAP01-2), otherwise activity colour; both with the trend badge.
+  String get pinIcon => status.index >= MarkerStatus.alarm1.index
+      ? alarmPinName(status, trend)
+      : fishPinName(activity, trend);
 }
 
 /// What the map knows about one station's data at [nowUtc].
@@ -96,7 +110,19 @@ Map<String, Object?> markersToGeoJson(List<MapMarker> markers) => {
           'type': 'Point',
           'coordinates': [m.lon, m.lat], // GeoJSON order is lon, lat
         },
-        'properties': {'sid': m.id, 'name': m.name, 'sev': m.status.index, 'arrow': m.arrowIcon},
+        'properties': {
+          'sid': m.id,
+          'name': m.name,
+          'sev': m.status.index,
+          'fish': m.activity?.index ?? -1,
+          'icon': m.pinIcon,
+        },
       },
   ],
 };
+
+/// Image id for a pin; `none` = no data (grey, single faded fish).
+String fishPinName(FishActivity? a, MarkerTrend t) => 'fishpin-${a?.name ?? 'none'}-${t.name}';
+
+/// Image id for a station at flood alarm level [s].
+String alarmPinName(MarkerStatus s, MarkerTrend t) => 'fishpin-${s.name}-${t.name}';

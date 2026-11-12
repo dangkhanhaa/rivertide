@@ -283,10 +283,10 @@ Mỗi tính năng viết theo khung:
 **Mục đích:** Tìm trạm trực quan, thấy ngay vùng nào nước đang cao.
 **Mô tả:** Bản đồ Vietmap toàn VN, marker cho mỗi trạm.
 **Quy tắc:**
-- Marker = chấm tròn màu theo **4.1** + mũi tên xu hướng nhỏ (**4.2**) + biểu tượng sóng nhỏ nếu `has_tide`.
-- **Gom cụm** khi nhiều trạm gần nhau ở mức zoom thấp; cụm hiện số lượng và **màu của trạm nghiêm trọng nhất** trong cụm.
+- Marker = **ghim giọt nước có cá** (P2-20): màu = mức "cá ăn" ước tính ở giờ đang chọn (Thấp/Vừa/Cao/Rất cao, chú giải có chữ); trạm báo động → màu theo **4.1** thay cho màu cá ăn; không có số liệu → ghim xám 1 con cá mờ; huy hiệu xu hướng nhỏ (**4.2**) góc trên. Thanh "Cá ăn lúc …" cho kéo 0–47 giờ tới.
+- **Gom cụm** khi nhiều trạm gần nhau ở mức zoom thấp; cụm hiện số lượng và **màu của trạm nghiêm trọng nhất** trong cụm (không có báo động → mức cá ăn cao nhất).
 - Chỉ tải trạm trong khung nhìn (+10% lề), debounce 400 ms.
-- Mở lần đầu: có quyền vị trí → zoom vào vị trí (bán kính ~30 km); không → toàn VN.
+- Mở app: bắt đầu ngay tại vị trí lần trước (lưu trên máy, ~1 km) rồi định vị lại; lần đầu giải thích rồi xin quyền; những lần sau tự thử lại trừ khi người dùng chặn hẳn; chưa từng có vị trí → toàn VN.
 - Bộ lọc (nút phễu): ☐ Chỉ trạm có triều · ☐ Chỉ trạm đang báo động · ☐ Ẩn trạm mất dữ liệu.
 - Chú giải màu (nút ⓘ).
 

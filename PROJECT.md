@@ -340,6 +340,7 @@ RiverTide/
 | Widget màn hình chính | `home_widget` | 🟡 |
 | Chạy nền | `workmanager` | Làm mới widget, lịch nhắc 🟡 |
 | Tiện ích | `intl`, `share_plus`, `url_launcher`, `package_info_plus`, `connectivity_plus`, `collection`, `logger` | |
+| Font (tài sản, không phải gói) | Be Vietnam Pro 400/500/600/700, `app/assets/fonts/` (SIL OFL 1.1, giấy phép hiện trong mục Giấy phép) | Chữ tiếng Việt dễ đọc, trẻ trung; ~550 KB |
 | Lint | `very_good_analysis` hoặc `flutter_lints` (dev) | Chất lượng code |
 | Test | `flutter_test`, `mocktail` (dev) | |
 
@@ -1528,6 +1529,7 @@ Hoãn tới khi cần máy chủ: P1-05 → P1-12, P1-18, P1-30, P1-32 (phần D
 - [ ] **P2-17** Fit lại hằng số triều với dữ liệu tích lũy; nâng `tide_confidence`.
 - [ ] **P2-18** Beta 20–50 người, thu phản hồi, tinh chỉnh chỉ số câu cá (`fs-2`).
 - [x] **P2-19** ✅ 2026-11-12 Điểm câu cộng đồng (không đăng nhập: mã bí mật trên máy, máy chủ lưu hash; mọi thao tác qua hàm SQL): ghim công khai (tên, loài, kinh nghiệm, ≤ 3 ảnh), "điểm câu gần đây", chỉ đường Google Maps, báo cáo (3 lần → ẩn), xóa điểm của mình. Supabase: `supabase/migrations/0001_public_spots.sql` (RLS, PostGIS, bucket `spot-photos`), đã chạy trên project ptnphgolpxnotgnrmvic. DoD: đăng/xem/báo cáo/xóa chạy với project thật — đã thử.
+- [x] **P2-20** ✅ 2026-11-12 Bản đồ "Cá ăn": ghim hình giọt nước có 2 con cá, màu theo điểm câu giờ đang chọn (Thấp < 5 · Vừa 5–7 · Cao 7–8,5 · Rất cao ≥ 8,5 có vầng sáng; kèm huy hiệu lên/rút), điểm cộng đồng = ghim cam có sao; thanh "Cá ăn lúc …" kéo 0–47 giờ tới + chú thích; thẻ "Cá ăn: CAO" (5 con cá, dải nước có cá bơi — tắt khi máy bật giảm chuyển động, giờ vàng tiếp theo, lý do, nhãn ước tính + nguồn). Trạm trong vùng đang xem dùng điểm đầy đủ (có thời tiết), trạm xa dùng điểm nhanh (con nước + thiên văn) để không gọi thời tiết cho mọi trạm. Mở app: bắt đầu ngay tại vị trí lần trước (lưu trên máy, làm tròn ~1 km), rồi định vị lại mỗi lần mở trừ khi người dùng chặn hẳn. Giao diện: font Be Vietnam Pro (OFL, đóng gói trong app), nút/ô tìm kiếm bo tròn, thanh dưới đổi icon khi chọn, nước trên bản đồ tối tô xanh. DoD: xem trên web với dữ liệu thật (sáng/tối, điện thoại/màn rộng) — đã thử.
 
 ### Giai đoạn 3 — Bản 3 🔵
 
@@ -1666,3 +1668,4 @@ Theo yêu cầu, các mục dưới **chưa làm** ở bản dev — ghi lại �
 | 2026-11-11 | **Không vẽ dòng chảy ngược khi triều lên** | Không có số đo vận tốc; ở Hà Nội nước luôn chảy ra biển, triều chỉ làm mực nước lên xuống. Màu = mực nước lên/rút tại đoạn đó; vệt chạy = hướng dòng sông ra biển |
 | 2026-11-11 | **Không dùng Nominatim, RainViewer** | Nominatim: tối đa 1 yêu cầu/giây cho toàn bộ người dùng, phải đổi được dịch vụ không cần cập nhật app. RainViewer: chỉ dùng cá nhân/giáo dục |
 | 2026-11-12 | **Chỉ đường = mở Google Maps**; ô tìm kiếm gợi ý trạm + địa danh trộn chung, gần vùng đang xem trước, có km, "Tìm gần đây" (lưu trên máy) | Không có dịch vụ tìm đường miễn phí, không đăng ký, cho phép thương mại (OSRM công khai chỉ để thử; ORS/GraphHopper cần khóa). Google Maps URLs không cần khóa và chỉ đường từng bước |
+| 2026-11-12 | **Ghim bản đồ = mức "cá ăn" thay cho chấm mực nước** (trạm V0 chưa có ngưỡng báo động nên màu cũ chỉ là có/không có số; không có số → ghim xám). Không tô cả dòng sông theo mức cá ăn, không dùng ảnh vệ tinh | Chủ dự án muốn giống ảnh quảng cáo Windy.app. Chỉ trạm/điểm có dữ liệu mới có ghim — tô cả sông là bịa số; ảnh vệ tinh miễn phí đều cấm thương mại |

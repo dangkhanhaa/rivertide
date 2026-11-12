@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+/// Bundled in pubspec.yaml (Be Vietnam Pro, SIL OFL).
+const String appFontFamily = 'BeVietnamPro';
+
 /// Text styles. Use via `context.text`.
 @immutable
 class AppText extends ThemeExtension<AppText> {
@@ -17,23 +20,45 @@ class AppText extends ThemeExtension<AppText> {
     const tabular = [FontFeature.tabularFigures()];
     return AppText(
       displayLevel: TextStyle(
+        fontFamily: appFontFamily,
         fontSize: 52,
         fontWeight: FontWeight.w700,
         height: 1.1,
         color: onSurface,
         fontFeatures: tabular,
       ),
-      headline: TextStyle(fontSize: 24, fontWeight: FontWeight.w700, color: onSurface),
-      title: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: onSurface),
-      body: TextStyle(fontSize: 16, color: onSurface, fontFeatures: tabular),
+      headline: TextStyle(
+        fontFamily: appFontFamily,
+        fontSize: 24,
+        fontWeight: FontWeight.w700,
+        color: onSurface,
+      ),
+      title: TextStyle(
+        fontFamily: appFontFamily,
+        fontSize: 18,
+        fontWeight: FontWeight.w600,
+        color: onSurface,
+      ),
+      body: TextStyle(
+        fontFamily: appFontFamily,
+        fontSize: 16,
+        color: onSurface,
+        fontFeatures: tabular,
+      ),
       bodyStrong: TextStyle(
+        fontFamily: appFontFamily,
         fontSize: 16,
         fontWeight: FontWeight.w700,
         color: onSurface,
         fontFeatures: tabular,
       ),
-      label: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: onSurface),
-      caption: TextStyle(fontSize: 13, color: muted),
+      label: TextStyle(
+        fontFamily: appFontFamily,
+        fontSize: 14,
+        fontWeight: FontWeight.w500,
+        color: onSurface,
+      ),
+      caption: TextStyle(fontFamily: appFontFamily, fontSize: 13, color: muted),
     );
   }
 

@@ -37,11 +37,11 @@ class SpotSheet extends ConsumerWidget {
         children: [
           Row(
             children: [
-              Icon(Icons.groups_rounded, size: AppIconSize.sm, color: c.fishHigh),
+              Icon(Icons.groups_rounded, size: AppIconSize.sm, color: c.spot),
               const SizedBox(width: AppSpacing.xs),
               Text(
                 mine ? l10n.spot_ownedByYou : l10n.spot_publicTag,
-                style: context.text.label.copyWith(color: c.fishHigh),
+                style: context.text.label.copyWith(color: c.spot),
               ),
             ],
           ),
