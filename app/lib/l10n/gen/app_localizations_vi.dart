@@ -1038,7 +1038,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String spot_nearbyChip(int count) {
-    return '$count điểm câu cộng đồng quanh đây';
+    return '$count điểm cộng đồng';
   }
 
   @override

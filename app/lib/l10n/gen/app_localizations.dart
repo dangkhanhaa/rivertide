@@ -1841,7 +1841,7 @@ abstract class AppLocalizations {
   /// No description provided for @spot_nearbyChip.
   ///
   /// In vi, this message translates to:
-  /// **'{count} điểm câu cộng đồng quanh đây'**
+  /// **'{count} điểm cộng đồng'**
   String spot_nearbyChip(int count);
 
   /// No description provided for @spot_nearbyTitle.

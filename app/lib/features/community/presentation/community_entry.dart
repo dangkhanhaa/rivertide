@@ -3,8 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rivertide/core/config/env.dart';
 import 'package:rivertide/core/l10n/l10n_ext.dart';
 import 'package:rivertide/core/theme/app_colors.dart';
-import 'package:rivertide/core/theme/app_spacing.dart';
-import 'package:rivertide/core/theme/app_text.dart';
+import 'package:rivertide/core/widgets/map_pill.dart';
 import 'package:rivertide/features/community/application/community_providers.dart';
 import 'package:rivertide/features/community/presentation/publish_spot_screen.dart';
 
@@ -31,7 +30,7 @@ class PinPublicButton extends StatelessWidget {
   }
 }
 
-/// "5 điểm câu cộng đồng quanh đây" under the search bar; nothing when none.
+/// "5 điểm cộng đồng" beside "Hôm nay đi đâu?" under the search bar; nothing when none.
 class NearbySpotsChip extends ConsumerWidget {
   const NearbySpotsChip({required this.areaKey, required this.onTap, super.key});
 
@@ -44,21 +43,11 @@ class NearbySpotsChip extends ConsumerWidget {
     if (!Env.communityEnabled || key == null) return const SizedBox.shrink();
     final count = ref.watch(nearbySpotsProvider(key)).value?.length ?? 0;
     if (count == 0) return const SizedBox.shrink();
-    final c = context.colors;
-    return Padding(
-      padding: const EdgeInsets.only(top: AppSpacing.sm),
-      child: Align(
-        alignment: Alignment.centerLeft,
-        child: ActionChip(
-          avatar: Icon(Icons.groups_rounded, color: c.spot, size: AppIconSize.sm),
-          label: Text(context.l10n.spot_nearbyChip(count), style: context.text.label),
-          backgroundColor: c.surface,
-          elevation: 3,
-          shadowColor: c.onSurface.withValues(alpha: 0.3),
-          side: BorderSide.none,
-          onPressed: onTap,
-        ),
-      ),
+    return MapPill(
+      icon: Icons.groups_rounded,
+      color: context.colors.spot,
+      label: context.l10n.spot_nearbyChip(count),
+      onTap: onTap,
     );
   }
 }

@@ -361,7 +361,7 @@
   "@search_coords": {"placeholders": {"coords": {"type": "String"}}},
   "spot_publicTag": "Điểm câu cộng đồng",
   "spot_pinAction": "Ghim công khai",
-  "spot_nearbyChip": "{count} điểm câu cộng đồng quanh đây",
+  "spot_nearbyChip": "{count} điểm cộng đồng",
   "@spot_nearbyChip": {"placeholders": {"count": {"type": "int"}}},
   "spot_nearbyTitle": "Điểm câu gần đây",
   "spot_nearbyEmpty": "Chưa có điểm câu nào trong vòng 30 km. Chạm một chỗ trên bản đồ rồi bấm \"Ghim công khai\" để chia sẻ điểm của bạn.",
