@@ -8,6 +8,9 @@ const String fishingRoute = '/fishing';
 /// "Hôm nay đi đâu?" screen (P2-21), opened from the map and the fishing tab.
 const String whereRoute = '/where';
 
+/// Hồ câu tab (P2-28).
+const String pondsRoute = '/ponds';
+
 /// Where the user plans to fish: a station id or a map point id ("pt-…").
 typedef FishingSpotChoice = ({String id, bool mine});
 

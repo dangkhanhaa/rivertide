@@ -1153,6 +1153,386 @@ class AppLocalizationsVi extends AppLocalizations {
   String get social_save => 'Lưu';
 
   @override
+  String get nav_ponds => 'Hồ câu';
+
+  @override
+  String get pond_title => 'Hồ câu';
+
+  @override
+  String get pond_tag => 'Hồ câu dịch vụ';
+
+  @override
+  String get pond_add => 'Thêm hồ';
+
+  @override
+  String get pond_addTitle => 'Thêm hồ câu';
+
+  @override
+  String get pond_addHere => 'Thêm hồ câu ở đây';
+
+  @override
+  String pond_pill(int count) {
+    return '$count hồ câu';
+  }
+
+  @override
+  String pond_pillSoon(int count) {
+    return '$count hồ sắp xả';
+  }
+
+  @override
+  String get pond_pillDetail => 'Hồ câu dịch vụ quanh đây, lịch xả cá';
+
+  @override
+  String get pond_editTitle => 'Sửa thông tin hồ';
+
+  @override
+  String get pond_empty =>
+      'Chưa có hồ câu nào trong vòng 40 km. Biết hồ nào? Bấm \"Thêm hồ\" để anh em cùng biết.';
+
+  @override
+  String get pond_loadError => 'Không tải được danh sách hồ';
+
+  @override
+  String get pond_filterRelease => 'Sắp xả cá';
+
+  @override
+  String get pond_filterVerified => 'Đã xác minh';
+
+  @override
+  String get pond_filterFollowed => 'Đang theo dõi';
+
+  @override
+  String get pond_followedSoon => 'Hồ bạn theo dõi sắp xả';
+
+  @override
+  String get pond_verified => 'Đã xác minh';
+
+  @override
+  String get pond_owner => 'Chủ hồ đã nhận';
+
+  @override
+  String get pond_unverified => 'Chưa xác minh';
+
+  @override
+  String get pond_fromWeb =>
+      'Thông tin gom từ web, có thể đã cũ. Tới nơi thấy đúng thì bấm \"Hồ có thật\" giúp anh em.';
+
+  @override
+  String get pond_approx => 'Vị trí gần đúng theo địa chỉ. Ai ở gần bấm \"Sửa\" để chỉnh ghim.';
+
+  @override
+  String pond_distance(String km) {
+    return 'cách $km';
+  }
+
+  @override
+  String pond_rating(String rating, int count) {
+    return '$rating ★ ($count)';
+  }
+
+  @override
+  String get pond_noRating => 'Chưa có đánh giá';
+
+  @override
+  String pond_releaseChip(String when) {
+    return 'Xả $when';
+  }
+
+  @override
+  String pond_releaseKg(String when, String amount) {
+    return '$when · $amount';
+  }
+
+  @override
+  String pond_kg(String kg) {
+    return '$kg kg';
+  }
+
+  @override
+  String pond_ta(String ta) {
+    return '$ta tạ';
+  }
+
+  @override
+  String pond_ton(String ton) {
+    return '$ton tấn';
+  }
+
+  @override
+  String get pond_releases => 'Lịch xả cá';
+
+  @override
+  String get pond_noRelease => 'Chưa có lịch xả sắp tới.';
+
+  @override
+  String get pond_official => 'Chủ hồ đăng';
+
+  @override
+  String get pond_relayed => 'Người dùng báo · chưa xác nhận';
+
+  @override
+  String get pond_releasePast => 'Đã xả';
+
+  @override
+  String get pond_releaseCancelled => 'Đã hủy';
+
+  @override
+  String get pond_postRelease => 'Báo lịch xả cá';
+
+  @override
+  String get pond_showSource => 'Xem bài gốc';
+
+  @override
+  String get pond_cancelRelease => 'Hủy lịch này';
+
+  @override
+  String get pond_reportRelease => 'Báo sai';
+
+  @override
+  String get pond_follow => 'Theo dõi';
+
+  @override
+  String get pond_following => 'Đang theo dõi';
+
+  @override
+  String get pond_followHint =>
+      'Có lịch xả mới ở hồ này sẽ hiện đầu danh sách (app Android có chuông báo).';
+
+  @override
+  String get pond_call => 'Gọi';
+
+  @override
+  String get pond_price => 'Giá vé';
+
+  @override
+  String get pond_hours => 'Giờ mở';
+
+  @override
+  String get pond_species => 'Cá trong hồ';
+
+  @override
+  String get pond_note => 'Ghi chú';
+
+  @override
+  String get pond_sources => 'Nguồn';
+
+  @override
+  String get pond_pulseTitle => 'Lúc này ở hồ (6 giờ qua)';
+
+  @override
+  String get pond_pulseBusy => 'Đông';
+
+  @override
+  String get pond_pulseQuiet => 'Vắng';
+
+  @override
+  String get pond_pulseBiting => 'Cá ăn';
+
+  @override
+  String get pond_pulseReleased => 'Vừa xả';
+
+  @override
+  String pond_pulseCount(String label, int count) {
+    return '$label · $count';
+  }
+
+  @override
+  String get pond_pulseSent => 'Đã gửi. Cảm ơn bạn!';
+
+  @override
+  String get pond_pulseWait => 'Mỗi 30 phút báo 1 lần thôi nhé';
+
+  @override
+  String get pond_confirm => 'Hồ có thật';
+
+  @override
+  String get pond_confirmed => 'Bạn đã xác nhận';
+
+  @override
+  String get pond_confirmDone => 'Cảm ơn! Đủ 3 người xác nhận hồ sẽ có dấu ✓';
+
+  @override
+  String get pond_edit => 'Sửa';
+
+  @override
+  String get pond_claim => 'Tôi là chủ hồ';
+
+  @override
+  String get pond_claimTitle => 'Nhận quản lý hồ';
+
+  @override
+  String get pond_claimBody =>
+      'Để tránh mạo danh, quản trị viên sẽ gọi hoặc nhắn Zalo cho bạn để xác nhận. Duyệt xong, bạn tự đăng lịch xả \"chính thức\", sửa giá vé, giờ mở.';
+
+  @override
+  String get pond_claimContact => 'Số điện thoại / Zalo của hồ';
+
+  @override
+  String get pond_claimNote => 'Lời nhắn (không bắt buộc)';
+
+  @override
+  String get pond_claimSend => 'Gửi yêu cầu';
+
+  @override
+  String get pond_claimSent => 'Đã gửi! Quản trị viên sẽ liên hệ bạn sớm.';
+
+  @override
+  String get pond_claimPending => 'Yêu cầu của bạn đang chờ duyệt.';
+
+  @override
+  String get pond_claimOwned => 'Hồ này đã có chủ quản lý.';
+
+  @override
+  String get pond_claimYours => 'Bạn đang là chủ hồ này.';
+
+  @override
+  String get pond_report => 'Báo cáo';
+
+  @override
+  String get pond_reportTitle => 'Báo cáo hồ này?';
+
+  @override
+  String get pond_reportHint =>
+      'Hồ không có thật, đã đóng cửa, sai chỗ… 3 người báo cáo thì hồ chưa có chủ sẽ tự ẩn.';
+
+  @override
+  String get pond_error => 'Chưa gửi được, kiểm tra mạng rồi thử lại';
+
+  @override
+  String get pond_tooMany => 'Bạn thao tác hơi nhiều hôm nay, mai thử lại nhé';
+
+  @override
+  String get pond_duplicate => 'Chỗ này đã có hồ trong danh sách. Mở hồ đó?';
+
+  @override
+  String get pond_open => 'Mở';
+
+  @override
+  String get pond_name => 'Tên hồ';
+
+  @override
+  String get pond_nameHint => 'vd Hồ câu Thanh Hà';
+
+  @override
+  String get pond_address => 'Địa chỉ';
+
+  @override
+  String get pond_phone => 'Số điện thoại / Zalo';
+
+  @override
+  String get pond_priceHint => 'vd 200k/ca 4 tiếng, 350k/ngày';
+
+  @override
+  String get pond_hoursHint => 'vd 6h–18h, nghỉ thứ 2';
+
+  @override
+  String pond_location(String coords) {
+    return 'Vị trí ghim: $coords';
+  }
+
+  @override
+  String get pond_locationHint =>
+      'Ghim đặt ở chỗ bạn chọn trên bản đồ. Muốn đổi: chạm đúng hồ trên bản đồ → Thêm hồ.';
+
+  @override
+  String get pond_save => 'Lưu';
+
+  @override
+  String get pond_added => 'Đã thêm hồ! Cảm ơn bạn.';
+
+  @override
+  String get pond_saved => 'Đã lưu';
+
+  @override
+  String get pond_needName => 'Nhập tên hồ (từ 2 ký tự)';
+
+  @override
+  String get pond_reviews => 'Đánh giá';
+
+  @override
+  String get pond_writeReview => 'Viết đánh giá';
+
+  @override
+  String get pond_reviewHint => 'Cá có ăn không, giá, dịch vụ, chỗ ngồi…';
+
+  @override
+  String get pond_reviewSend => 'Gửi đánh giá';
+
+  @override
+  String get pond_reviewEmpty => 'Chưa có đánh giá nào.';
+
+  @override
+  String get pond_deleteReview => 'Xóa đánh giá của tôi';
+
+  @override
+  String get pond_noStars => 'Chọn số sao';
+
+  @override
+  String get release_title => 'Báo lịch xả cá';
+
+  @override
+  String get release_paste => 'Dán bài đăng của hồ';
+
+  @override
+  String get release_pasteHint =>
+      'Copy bài Facebook / chú thích TikTok của hồ rồi dán vào đây. App tự đọc ngày, giờ, loại cá, số lượng.';
+
+  @override
+  String get release_pasteButton => 'Dán';
+
+  @override
+  String get release_read => 'App đọc được';
+
+  @override
+  String get release_notFound => 'Chưa thấy ngày xả trong bài. Chọn ngày bên dưới.';
+
+  @override
+  String get release_day => 'Ngày';
+
+  @override
+  String get release_time => 'Giờ';
+
+  @override
+  String get release_fish => 'Cá xả';
+
+  @override
+  String get release_addFish => 'Thêm loại cá';
+
+  @override
+  String get release_fishName => 'Loại cá';
+
+  @override
+  String get release_fishKg => 'kg';
+
+  @override
+  String release_total(String amount) {
+    return 'Tổng $amount';
+  }
+
+  @override
+  String get release_asOwner => 'Bạn là chủ hồ: lịch này hiện là \"Chủ hồ đăng\".';
+
+  @override
+  String get release_asUser =>
+      'Lịch bạn báo hiện là \"Người dùng báo\" cho tới khi chủ hồ xác nhận. Chỉ báo khi thấy hồ đăng thật nhé.';
+
+  @override
+  String get release_post => 'Đăng lịch xả';
+
+  @override
+  String get release_posted => 'Đã đăng lịch xả!';
+
+  @override
+  String get release_needDay => 'Chọn ngày xả';
+
+  @override
+  String get stations_menu => 'Danh sách trạm đo';
+
+  @override
+  String get stations_menuHint => 'Mực nước tại các trạm KTTV, IOC';
+
+  @override
   String get trip_tag => 'Kèo câu';
 
   @override

@@ -2054,6 +2054,702 @@ abstract class AppLocalizations {
   /// **'Lưu'**
   String get social_save;
 
+  /// No description provided for @nav_ponds.
+  ///
+  /// In vi, this message translates to:
+  /// **'Hồ câu'**
+  String get nav_ponds;
+
+  /// No description provided for @pond_title.
+  ///
+  /// In vi, this message translates to:
+  /// **'Hồ câu'**
+  String get pond_title;
+
+  /// No description provided for @pond_tag.
+  ///
+  /// In vi, this message translates to:
+  /// **'Hồ câu dịch vụ'**
+  String get pond_tag;
+
+  /// No description provided for @pond_add.
+  ///
+  /// In vi, this message translates to:
+  /// **'Thêm hồ'**
+  String get pond_add;
+
+  /// No description provided for @pond_addTitle.
+  ///
+  /// In vi, this message translates to:
+  /// **'Thêm hồ câu'**
+  String get pond_addTitle;
+
+  /// No description provided for @pond_addHere.
+  ///
+  /// In vi, this message translates to:
+  /// **'Thêm hồ câu ở đây'**
+  String get pond_addHere;
+
+  /// No description provided for @pond_pill.
+  ///
+  /// In vi, this message translates to:
+  /// **'{count} hồ câu'**
+  String pond_pill(int count);
+
+  /// No description provided for @pond_pillSoon.
+  ///
+  /// In vi, this message translates to:
+  /// **'{count} hồ sắp xả'**
+  String pond_pillSoon(int count);
+
+  /// No description provided for @pond_pillDetail.
+  ///
+  /// In vi, this message translates to:
+  /// **'Hồ câu dịch vụ quanh đây, lịch xả cá'**
+  String get pond_pillDetail;
+
+  /// No description provided for @pond_editTitle.
+  ///
+  /// In vi, this message translates to:
+  /// **'Sửa thông tin hồ'**
+  String get pond_editTitle;
+
+  /// No description provided for @pond_empty.
+  ///
+  /// In vi, this message translates to:
+  /// **'Chưa có hồ câu nào trong vòng 40 km. Biết hồ nào? Bấm \"Thêm hồ\" để anh em cùng biết.'**
+  String get pond_empty;
+
+  /// No description provided for @pond_loadError.
+  ///
+  /// In vi, this message translates to:
+  /// **'Không tải được danh sách hồ'**
+  String get pond_loadError;
+
+  /// No description provided for @pond_filterRelease.
+  ///
+  /// In vi, this message translates to:
+  /// **'Sắp xả cá'**
+  String get pond_filterRelease;
+
+  /// No description provided for @pond_filterVerified.
+  ///
+  /// In vi, this message translates to:
+  /// **'Đã xác minh'**
+  String get pond_filterVerified;
+
+  /// No description provided for @pond_filterFollowed.
+  ///
+  /// In vi, this message translates to:
+  /// **'Đang theo dõi'**
+  String get pond_filterFollowed;
+
+  /// No description provided for @pond_followedSoon.
+  ///
+  /// In vi, this message translates to:
+  /// **'Hồ bạn theo dõi sắp xả'**
+  String get pond_followedSoon;
+
+  /// No description provided for @pond_verified.
+  ///
+  /// In vi, this message translates to:
+  /// **'Đã xác minh'**
+  String get pond_verified;
+
+  /// No description provided for @pond_owner.
+  ///
+  /// In vi, this message translates to:
+  /// **'Chủ hồ đã nhận'**
+  String get pond_owner;
+
+  /// No description provided for @pond_unverified.
+  ///
+  /// In vi, this message translates to:
+  /// **'Chưa xác minh'**
+  String get pond_unverified;
+
+  /// No description provided for @pond_fromWeb.
+  ///
+  /// In vi, this message translates to:
+  /// **'Thông tin gom từ web, có thể đã cũ. Tới nơi thấy đúng thì bấm \"Hồ có thật\" giúp anh em.'**
+  String get pond_fromWeb;
+
+  /// No description provided for @pond_approx.
+  ///
+  /// In vi, this message translates to:
+  /// **'Vị trí gần đúng theo địa chỉ. Ai ở gần bấm \"Sửa\" để chỉnh ghim.'**
+  String get pond_approx;
+
+  /// No description provided for @pond_distance.
+  ///
+  /// In vi, this message translates to:
+  /// **'cách {km}'**
+  String pond_distance(String km);
+
+  /// No description provided for @pond_rating.
+  ///
+  /// In vi, this message translates to:
+  /// **'{rating} ★ ({count})'**
+  String pond_rating(String rating, int count);
+
+  /// No description provided for @pond_noRating.
+  ///
+  /// In vi, this message translates to:
+  /// **'Chưa có đánh giá'**
+  String get pond_noRating;
+
+  /// No description provided for @pond_releaseChip.
+  ///
+  /// In vi, this message translates to:
+  /// **'Xả {when}'**
+  String pond_releaseChip(String when);
+
+  /// No description provided for @pond_releaseKg.
+  ///
+  /// In vi, this message translates to:
+  /// **'{when} · {amount}'**
+  String pond_releaseKg(String when, String amount);
+
+  /// No description provided for @pond_kg.
+  ///
+  /// In vi, this message translates to:
+  /// **'{kg} kg'**
+  String pond_kg(String kg);
+
+  /// No description provided for @pond_ta.
+  ///
+  /// In vi, this message translates to:
+  /// **'{ta} tạ'**
+  String pond_ta(String ta);
+
+  /// No description provided for @pond_ton.
+  ///
+  /// In vi, this message translates to:
+  /// **'{ton} tấn'**
+  String pond_ton(String ton);
+
+  /// No description provided for @pond_releases.
+  ///
+  /// In vi, this message translates to:
+  /// **'Lịch xả cá'**
+  String get pond_releases;
+
+  /// No description provided for @pond_noRelease.
+  ///
+  /// In vi, this message translates to:
+  /// **'Chưa có lịch xả sắp tới.'**
+  String get pond_noRelease;
+
+  /// No description provided for @pond_official.
+  ///
+  /// In vi, this message translates to:
+  /// **'Chủ hồ đăng'**
+  String get pond_official;
+
+  /// No description provided for @pond_relayed.
+  ///
+  /// In vi, this message translates to:
+  /// **'Người dùng báo · chưa xác nhận'**
+  String get pond_relayed;
+
+  /// No description provided for @pond_releasePast.
+  ///
+  /// In vi, this message translates to:
+  /// **'Đã xả'**
+  String get pond_releasePast;
+
+  /// No description provided for @pond_releaseCancelled.
+  ///
+  /// In vi, this message translates to:
+  /// **'Đã hủy'**
+  String get pond_releaseCancelled;
+
+  /// No description provided for @pond_postRelease.
+  ///
+  /// In vi, this message translates to:
+  /// **'Báo lịch xả cá'**
+  String get pond_postRelease;
+
+  /// No description provided for @pond_showSource.
+  ///
+  /// In vi, this message translates to:
+  /// **'Xem bài gốc'**
+  String get pond_showSource;
+
+  /// No description provided for @pond_cancelRelease.
+  ///
+  /// In vi, this message translates to:
+  /// **'Hủy lịch này'**
+  String get pond_cancelRelease;
+
+  /// No description provided for @pond_reportRelease.
+  ///
+  /// In vi, this message translates to:
+  /// **'Báo sai'**
+  String get pond_reportRelease;
+
+  /// No description provided for @pond_follow.
+  ///
+  /// In vi, this message translates to:
+  /// **'Theo dõi'**
+  String get pond_follow;
+
+  /// No description provided for @pond_following.
+  ///
+  /// In vi, this message translates to:
+  /// **'Đang theo dõi'**
+  String get pond_following;
+
+  /// No description provided for @pond_followHint.
+  ///
+  /// In vi, this message translates to:
+  /// **'Có lịch xả mới ở hồ này sẽ hiện đầu danh sách (app Android có chuông báo).'**
+  String get pond_followHint;
+
+  /// No description provided for @pond_call.
+  ///
+  /// In vi, this message translates to:
+  /// **'Gọi'**
+  String get pond_call;
+
+  /// No description provided for @pond_price.
+  ///
+  /// In vi, this message translates to:
+  /// **'Giá vé'**
+  String get pond_price;
+
+  /// No description provided for @pond_hours.
+  ///
+  /// In vi, this message translates to:
+  /// **'Giờ mở'**
+  String get pond_hours;
+
+  /// No description provided for @pond_species.
+  ///
+  /// In vi, this message translates to:
+  /// **'Cá trong hồ'**
+  String get pond_species;
+
+  /// No description provided for @pond_note.
+  ///
+  /// In vi, this message translates to:
+  /// **'Ghi chú'**
+  String get pond_note;
+
+  /// No description provided for @pond_sources.
+  ///
+  /// In vi, this message translates to:
+  /// **'Nguồn'**
+  String get pond_sources;
+
+  /// No description provided for @pond_pulseTitle.
+  ///
+  /// In vi, this message translates to:
+  /// **'Lúc này ở hồ (6 giờ qua)'**
+  String get pond_pulseTitle;
+
+  /// No description provided for @pond_pulseBusy.
+  ///
+  /// In vi, this message translates to:
+  /// **'Đông'**
+  String get pond_pulseBusy;
+
+  /// No description provided for @pond_pulseQuiet.
+  ///
+  /// In vi, this message translates to:
+  /// **'Vắng'**
+  String get pond_pulseQuiet;
+
+  /// No description provided for @pond_pulseBiting.
+  ///
+  /// In vi, this message translates to:
+  /// **'Cá ăn'**
+  String get pond_pulseBiting;
+
+  /// No description provided for @pond_pulseReleased.
+  ///
+  /// In vi, this message translates to:
+  /// **'Vừa xả'**
+  String get pond_pulseReleased;
+
+  /// No description provided for @pond_pulseCount.
+  ///
+  /// In vi, this message translates to:
+  /// **'{label} · {count}'**
+  String pond_pulseCount(String label, int count);
+
+  /// No description provided for @pond_pulseSent.
+  ///
+  /// In vi, this message translates to:
+  /// **'Đã gửi. Cảm ơn bạn!'**
+  String get pond_pulseSent;
+
+  /// No description provided for @pond_pulseWait.
+  ///
+  /// In vi, this message translates to:
+  /// **'Mỗi 30 phút báo 1 lần thôi nhé'**
+  String get pond_pulseWait;
+
+  /// No description provided for @pond_confirm.
+  ///
+  /// In vi, this message translates to:
+  /// **'Hồ có thật'**
+  String get pond_confirm;
+
+  /// No description provided for @pond_confirmed.
+  ///
+  /// In vi, this message translates to:
+  /// **'Bạn đã xác nhận'**
+  String get pond_confirmed;
+
+  /// No description provided for @pond_confirmDone.
+  ///
+  /// In vi, this message translates to:
+  /// **'Cảm ơn! Đủ 3 người xác nhận hồ sẽ có dấu ✓'**
+  String get pond_confirmDone;
+
+  /// No description provided for @pond_edit.
+  ///
+  /// In vi, this message translates to:
+  /// **'Sửa'**
+  String get pond_edit;
+
+  /// No description provided for @pond_claim.
+  ///
+  /// In vi, this message translates to:
+  /// **'Tôi là chủ hồ'**
+  String get pond_claim;
+
+  /// No description provided for @pond_claimTitle.
+  ///
+  /// In vi, this message translates to:
+  /// **'Nhận quản lý hồ'**
+  String get pond_claimTitle;
+
+  /// No description provided for @pond_claimBody.
+  ///
+  /// In vi, this message translates to:
+  /// **'Để tránh mạo danh, quản trị viên sẽ gọi hoặc nhắn Zalo cho bạn để xác nhận. Duyệt xong, bạn tự đăng lịch xả \"chính thức\", sửa giá vé, giờ mở.'**
+  String get pond_claimBody;
+
+  /// No description provided for @pond_claimContact.
+  ///
+  /// In vi, this message translates to:
+  /// **'Số điện thoại / Zalo của hồ'**
+  String get pond_claimContact;
+
+  /// No description provided for @pond_claimNote.
+  ///
+  /// In vi, this message translates to:
+  /// **'Lời nhắn (không bắt buộc)'**
+  String get pond_claimNote;
+
+  /// No description provided for @pond_claimSend.
+  ///
+  /// In vi, this message translates to:
+  /// **'Gửi yêu cầu'**
+  String get pond_claimSend;
+
+  /// No description provided for @pond_claimSent.
+  ///
+  /// In vi, this message translates to:
+  /// **'Đã gửi! Quản trị viên sẽ liên hệ bạn sớm.'**
+  String get pond_claimSent;
+
+  /// No description provided for @pond_claimPending.
+  ///
+  /// In vi, this message translates to:
+  /// **'Yêu cầu của bạn đang chờ duyệt.'**
+  String get pond_claimPending;
+
+  /// No description provided for @pond_claimOwned.
+  ///
+  /// In vi, this message translates to:
+  /// **'Hồ này đã có chủ quản lý.'**
+  String get pond_claimOwned;
+
+  /// No description provided for @pond_claimYours.
+  ///
+  /// In vi, this message translates to:
+  /// **'Bạn đang là chủ hồ này.'**
+  String get pond_claimYours;
+
+  /// No description provided for @pond_report.
+  ///
+  /// In vi, this message translates to:
+  /// **'Báo cáo'**
+  String get pond_report;
+
+  /// No description provided for @pond_reportTitle.
+  ///
+  /// In vi, this message translates to:
+  /// **'Báo cáo hồ này?'**
+  String get pond_reportTitle;
+
+  /// No description provided for @pond_reportHint.
+  ///
+  /// In vi, this message translates to:
+  /// **'Hồ không có thật, đã đóng cửa, sai chỗ… 3 người báo cáo thì hồ chưa có chủ sẽ tự ẩn.'**
+  String get pond_reportHint;
+
+  /// No description provided for @pond_error.
+  ///
+  /// In vi, this message translates to:
+  /// **'Chưa gửi được, kiểm tra mạng rồi thử lại'**
+  String get pond_error;
+
+  /// No description provided for @pond_tooMany.
+  ///
+  /// In vi, this message translates to:
+  /// **'Bạn thao tác hơi nhiều hôm nay, mai thử lại nhé'**
+  String get pond_tooMany;
+
+  /// No description provided for @pond_duplicate.
+  ///
+  /// In vi, this message translates to:
+  /// **'Chỗ này đã có hồ trong danh sách. Mở hồ đó?'**
+  String get pond_duplicate;
+
+  /// No description provided for @pond_open.
+  ///
+  /// In vi, this message translates to:
+  /// **'Mở'**
+  String get pond_open;
+
+  /// No description provided for @pond_name.
+  ///
+  /// In vi, this message translates to:
+  /// **'Tên hồ'**
+  String get pond_name;
+
+  /// No description provided for @pond_nameHint.
+  ///
+  /// In vi, this message translates to:
+  /// **'vd Hồ câu Thanh Hà'**
+  String get pond_nameHint;
+
+  /// No description provided for @pond_address.
+  ///
+  /// In vi, this message translates to:
+  /// **'Địa chỉ'**
+  String get pond_address;
+
+  /// No description provided for @pond_phone.
+  ///
+  /// In vi, this message translates to:
+  /// **'Số điện thoại / Zalo'**
+  String get pond_phone;
+
+  /// No description provided for @pond_priceHint.
+  ///
+  /// In vi, this message translates to:
+  /// **'vd 200k/ca 4 tiếng, 350k/ngày'**
+  String get pond_priceHint;
+
+  /// No description provided for @pond_hoursHint.
+  ///
+  /// In vi, this message translates to:
+  /// **'vd 6h–18h, nghỉ thứ 2'**
+  String get pond_hoursHint;
+
+  /// No description provided for @pond_location.
+  ///
+  /// In vi, this message translates to:
+  /// **'Vị trí ghim: {coords}'**
+  String pond_location(String coords);
+
+  /// No description provided for @pond_locationHint.
+  ///
+  /// In vi, this message translates to:
+  /// **'Ghim đặt ở chỗ bạn chọn trên bản đồ. Muốn đổi: chạm đúng hồ trên bản đồ → Thêm hồ.'**
+  String get pond_locationHint;
+
+  /// No description provided for @pond_save.
+  ///
+  /// In vi, this message translates to:
+  /// **'Lưu'**
+  String get pond_save;
+
+  /// No description provided for @pond_added.
+  ///
+  /// In vi, this message translates to:
+  /// **'Đã thêm hồ! Cảm ơn bạn.'**
+  String get pond_added;
+
+  /// No description provided for @pond_saved.
+  ///
+  /// In vi, this message translates to:
+  /// **'Đã lưu'**
+  String get pond_saved;
+
+  /// No description provided for @pond_needName.
+  ///
+  /// In vi, this message translates to:
+  /// **'Nhập tên hồ (từ 2 ký tự)'**
+  String get pond_needName;
+
+  /// No description provided for @pond_reviews.
+  ///
+  /// In vi, this message translates to:
+  /// **'Đánh giá'**
+  String get pond_reviews;
+
+  /// No description provided for @pond_writeReview.
+  ///
+  /// In vi, this message translates to:
+  /// **'Viết đánh giá'**
+  String get pond_writeReview;
+
+  /// No description provided for @pond_reviewHint.
+  ///
+  /// In vi, this message translates to:
+  /// **'Cá có ăn không, giá, dịch vụ, chỗ ngồi…'**
+  String get pond_reviewHint;
+
+  /// No description provided for @pond_reviewSend.
+  ///
+  /// In vi, this message translates to:
+  /// **'Gửi đánh giá'**
+  String get pond_reviewSend;
+
+  /// No description provided for @pond_reviewEmpty.
+  ///
+  /// In vi, this message translates to:
+  /// **'Chưa có đánh giá nào.'**
+  String get pond_reviewEmpty;
+
+  /// No description provided for @pond_deleteReview.
+  ///
+  /// In vi, this message translates to:
+  /// **'Xóa đánh giá của tôi'**
+  String get pond_deleteReview;
+
+  /// No description provided for @pond_noStars.
+  ///
+  /// In vi, this message translates to:
+  /// **'Chọn số sao'**
+  String get pond_noStars;
+
+  /// No description provided for @release_title.
+  ///
+  /// In vi, this message translates to:
+  /// **'Báo lịch xả cá'**
+  String get release_title;
+
+  /// No description provided for @release_paste.
+  ///
+  /// In vi, this message translates to:
+  /// **'Dán bài đăng của hồ'**
+  String get release_paste;
+
+  /// No description provided for @release_pasteHint.
+  ///
+  /// In vi, this message translates to:
+  /// **'Copy bài Facebook / chú thích TikTok của hồ rồi dán vào đây. App tự đọc ngày, giờ, loại cá, số lượng.'**
+  String get release_pasteHint;
+
+  /// No description provided for @release_pasteButton.
+  ///
+  /// In vi, this message translates to:
+  /// **'Dán'**
+  String get release_pasteButton;
+
+  /// No description provided for @release_read.
+  ///
+  /// In vi, this message translates to:
+  /// **'App đọc được'**
+  String get release_read;
+
+  /// No description provided for @release_notFound.
+  ///
+  /// In vi, this message translates to:
+  /// **'Chưa thấy ngày xả trong bài. Chọn ngày bên dưới.'**
+  String get release_notFound;
+
+  /// No description provided for @release_day.
+  ///
+  /// In vi, this message translates to:
+  /// **'Ngày'**
+  String get release_day;
+
+  /// No description provided for @release_time.
+  ///
+  /// In vi, this message translates to:
+  /// **'Giờ'**
+  String get release_time;
+
+  /// No description provided for @release_fish.
+  ///
+  /// In vi, this message translates to:
+  /// **'Cá xả'**
+  String get release_fish;
+
+  /// No description provided for @release_addFish.
+  ///
+  /// In vi, this message translates to:
+  /// **'Thêm loại cá'**
+  String get release_addFish;
+
+  /// No description provided for @release_fishName.
+  ///
+  /// In vi, this message translates to:
+  /// **'Loại cá'**
+  String get release_fishName;
+
+  /// No description provided for @release_fishKg.
+  ///
+  /// In vi, this message translates to:
+  /// **'kg'**
+  String get release_fishKg;
+
+  /// No description provided for @release_total.
+  ///
+  /// In vi, this message translates to:
+  /// **'Tổng {amount}'**
+  String release_total(String amount);
+
+  /// No description provided for @release_asOwner.
+  ///
+  /// In vi, this message translates to:
+  /// **'Bạn là chủ hồ: lịch này hiện là \"Chủ hồ đăng\".'**
+  String get release_asOwner;
+
+  /// No description provided for @release_asUser.
+  ///
+  /// In vi, this message translates to:
+  /// **'Lịch bạn báo hiện là \"Người dùng báo\" cho tới khi chủ hồ xác nhận. Chỉ báo khi thấy hồ đăng thật nhé.'**
+  String get release_asUser;
+
+  /// No description provided for @release_post.
+  ///
+  /// In vi, this message translates to:
+  /// **'Đăng lịch xả'**
+  String get release_post;
+
+  /// No description provided for @release_posted.
+  ///
+  /// In vi, this message translates to:
+  /// **'Đã đăng lịch xả!'**
+  String get release_posted;
+
+  /// No description provided for @release_needDay.
+  ///
+  /// In vi, this message translates to:
+  /// **'Chọn ngày xả'**
+  String get release_needDay;
+
+  /// No description provided for @stations_menu.
+  ///
+  /// In vi, this message translates to:
+  /// **'Danh sách trạm đo'**
+  String get stations_menu;
+
+  /// No description provided for @stations_menuHint.
+  ///
+  /// In vi, this message translates to:
+  /// **'Mực nước tại các trạm KTTV, IOC'**
+  String get stations_menuHint;
+
   /// No description provided for @trip_tag.
   ///
   /// In vi, this message translates to:

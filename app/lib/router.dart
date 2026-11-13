@@ -8,12 +8,13 @@ import 'package:rivertide/features/fishing/presentation/fishing_screen.dart';
 import 'package:rivertide/features/fishing/presentation/where_to_go_screen.dart';
 import 'package:rivertide/features/map/presentation/map_screen.dart';
 import 'package:rivertide/features/more/presentation/more_screen.dart';
+import 'package:rivertide/features/ponds/ponds.dart';
 import 'package:rivertide/features/stations/stations.dart';
 import 'package:rivertide/features/watch/presentation/watch_screen.dart';
 
 abstract final class Routes {
   static const String map = mapRoute;
-  static const stations = '/stations';
+  static const String ponds = pondsRoute;
   static const watch = '/watch';
   static const fishing = '/fishing';
   static const more = '/more';
@@ -30,7 +31,7 @@ GoRouter buildRouter() => GoRouter(
       builder: (context, state, shell) => _Shell(shell: shell),
       branches: [
         _branch(Routes.map, const MapScreen()),
-        _branch(Routes.stations, const StationsScreen()),
+        _branch(Routes.ponds, const PondsScreen()),
         _branch(Routes.watch, const WatchScreen()),
         _branch(Routes.fishing, const FishingScreen()),
         _branch(Routes.more, const MoreScreen()),
@@ -77,9 +78,9 @@ class _Shell extends StatelessWidget {
             label: l10n.nav_map,
           ),
           NavigationDestination(
-            icon: const Icon(Icons.water_outlined),
-            selectedIcon: const Icon(Icons.water_rounded),
-            label: l10n.nav_stations,
+            icon: const Icon(Icons.waves_outlined),
+            selectedIcon: const Icon(Icons.waves_rounded),
+            label: l10n.nav_ponds,
           ),
           NavigationDestination(
             icon: const Icon(Icons.star_outline_rounded),

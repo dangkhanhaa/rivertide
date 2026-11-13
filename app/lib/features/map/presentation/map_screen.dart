@@ -3,11 +3,13 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/misc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:rivertide/core/calc/geo/haversine.dart';
 import 'package:rivertide/core/calc/geo/vietnam_bounds.dart';
 import 'package:rivertide/core/clock/clock_provider.dart';
 import 'package:rivertide/core/config/env.dart';
 import 'package:rivertide/core/l10n/l10n_ext.dart';
+import 'package:rivertide/core/navigation/fishing_spot.dart';
 import 'package:rivertide/core/navigation/map_focus.dart';
 import 'package:rivertide/core/theme/app_colors.dart';
 import 'package:rivertide/core/theme/app_spacing.dart';
@@ -34,10 +36,12 @@ import 'package:rivertide/features/map/presentation/widgets/map_search_bar.dart'
 import 'package:rivertide/features/map/presentation/widgets/map_shortcuts.dart';
 import 'package:rivertide/features/map/presentation/widgets/marker_palette.dart';
 import 'package:rivertide/features/map/presentation/widgets/overlay_layers.dart';
+import 'package:rivertide/features/ponds/ponds.dart';
 import 'package:rivertide/features/stations/stations.dart';
 import 'package:rivertide/features/trips/trips.dart';
 
 part 'map_screen_build_map.dart';
+part 'map_screen_geo.dart';
 part 'map_screen_social.dart';
 
 /// Widest the "Cá ăn lúc" bar gets on tablets and desktop.
@@ -171,6 +175,16 @@ class _MapScreenState extends ConsumerState<MapScreen> with MapDetailPresenter<M
         actions: [
           PinPublicButton(lat: lat, lon: lon, name: title),
           TripHereButton(lat: lat, lon: lon, name: title),
+          if (Env.communityEnabled)
+            OutlinedButton.icon(
+              onPressed: () => Navigator.of(context).push(
+                MaterialPageRoute<void>(
+                  builder: (_) => PondFormScreen(lat: lat, lon: lon, name: title),
+                ),
+              ),
+              icon: const Icon(Icons.waves_rounded),
+              label: Text(context.l10n.pond_addHere),
+            ),
         ],
         onWater: switch (surface) {
           PointSurface.water => true,

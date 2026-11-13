@@ -1,37 +1,5 @@
 part of 'map_screen.dart';
 
-/// Rebuilds a layer's GeoJSON only when its list changes (the map re-sends a
-/// source whenever the object differs).
-class _GeoMemo<T> {
-  List<T>? _list;
-  Map<String, Object?> _geo = emptyGeo;
-
-  Map<String, Object?> of(List<T> list, Map<String, Object?> Function(T item, int i) feature) {
-    if (!identical(list, _list)) {
-      _list = list;
-      _geo = {
-        'type': 'FeatureCollection',
-        'features': [for (final (i, x) in list.indexed) feature(x, i)],
-      };
-    }
-    return _geo;
-  }
-}
-
-Map<String, Object?> _point(int i, double lat, double lon, Map<String, Object?> props) => {
-  'type': 'Feature',
-  'id': i,
-  'geometry': {
-    'type': 'Point',
-    'coordinates': [lon, lat],
-  },
-  'properties': props,
-};
-
-final _spotsMemo = _GeoMemo<PublicSpot>();
-final _tripsMemo = _GeoMemo<Trip>();
-final _cellsMemo = _GeoMemo<CheckinCell>();
-
 /// Community layers on the map: spots (P2-19/25), trips (P2-26) and
 /// "đang câu" bubbles (P2-27), with their shortcuts under the search button.
 extension _MapSocial on _MapScreenState {
@@ -62,7 +30,12 @@ extension _MapSocial on _MapScreenState {
     final spots = _watch(nearbySpotsProvider.call);
     final trips = _watch(nearbyTripsProvider.call).where((t) => !t.cancelled).toList();
     final cells = _watch(nearbyCheckinsProvider.call);
+    final ponds = _ponds(watch: true);
     return {
+      MapOverlayId.ponds: MapOverlay(
+        geojson: _pondsMemo.of(ponds, (p, i) => _point(i, p.lat, p.lon, {'title': p.name})),
+        onTap: (i) => _tapOn(_ponds(watch: false), i, _openPond),
+      ),
       MapOverlayId.community: MapOverlay(
         geojson: _spotsMemo.of(spots, (s, i) => _point(i, s.lat, s.lon, {'title': s.title})),
         onTap: (i) => _tapOn(_read(nearbySpotsProvider.call), i, _openSpot),
@@ -84,6 +57,25 @@ extension _MapSocial on _MapScreenState {
       ),
     };
   }
+
+  /// Ponds around the same area (their own, wider radius).
+  List<Pond> _ponds({required bool watch}) {
+    final cam = watch ? ref.watch(mapCameraProvider) : ref.read(mapCameraProvider);
+    final at = cam != null && cam.zoom >= 9 ? (lat: cam.lat, lon: cam.lon) : _me;
+    if (at == null) return const [];
+    final p = nearbyPondsProvider(pondsAreaKey(at.lat, at.lon));
+    return (watch ? ref.watch(p) : ref.read(p)).value ?? const [];
+  }
+
+  Future<void> _openPond(Pond p) => _openAt(
+    Padding(
+      key: ValueKey('pond-${p.id}'),
+      padding: const EdgeInsets.fromLTRB(AppSpacing.lg, 0, AppSpacing.lg, AppSpacing.lg),
+      child: PondDetail(pond: p),
+    ),
+    p.lat,
+    p.lon,
+  );
 
   void _tapOn<T>(List<T> items, int i, Future<void> Function(T item) open) {
     if (i >= 0 && i < items.length) unawaited(open(items[i]));
@@ -175,6 +167,11 @@ extension _MapSocial on _MapScreenState {
     final cells = _watch(nearbyCheckinsProvider.call);
     final people = cells.fold<int>(0, (n, x) => n + x.people);
     final mine = ref.watch(myCheckinProvider).value;
+    final ponds = _ponds(watch: true);
+    final now = ref.read(clockProvider)();
+    final soon = ponds
+        .where((p) => p.nextReleaseAt?.isBefore(now.add(const Duration(days: 2))) ?? false)
+        .length;
     final checkin = MapAction(
       icon: mine == null ? Icons.add_location_alt_outlined : Icons.phishing_rounded,
       color: c.fishGood,
@@ -193,6 +190,15 @@ extension _MapSocial on _MapScreenState {
     );
     return [
       if (mine != null) checkin,
+      if (ponds.isNotEmpty)
+        MapAction(
+          icon: Icons.waves_rounded,
+          color: c.pond,
+          label: soon > 0 ? l10n.pond_pillSoon(soon) : l10n.pond_pill(ponds.length),
+          detail: l10n.pond_pillDetail,
+          hot: soon > 0,
+          onTap: () => context.go(pondsRoute),
+        ),
       if (people > 0)
         MapAction(
           icon: Icons.sensors_rounded,

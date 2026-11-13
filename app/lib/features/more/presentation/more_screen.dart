@@ -9,6 +9,7 @@ import 'package:rivertide/core/theme/app_text.dart';
 import 'package:rivertide/features/more/application/outdoor_mode_provider.dart';
 import 'package:rivertide/features/more/application/theme_mode_provider.dart';
 import 'package:rivertide/features/more/application/update_provider.dart';
+import 'package:rivertide/features/stations/stations.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 /// S13: settings only; version and data sources sit behind the ⓘ button.
@@ -49,6 +50,18 @@ class MoreScreen extends ConsumerWidget {
             ),
             const SizedBox(height: AppSpacing.md),
           ],
+          Card(
+            child: ListTile(
+              leading: const Icon(Icons.water_rounded),
+              title: Text(l10n.stations_menu),
+              subtitle: Text(l10n.stations_menuHint),
+              trailing: const Icon(Icons.chevron_right_rounded),
+              onTap: () =>
+                  Navigator.of(context)
+                      .push(MaterialPageRoute<void>(builder: (_) => const StationsScreen())),
+            ),
+          ),
+          const SizedBox(height: AppSpacing.lg),
           Text(l10n.more_theme, style: context.text.title),
           const SizedBox(height: AppSpacing.sm),
           SegmentedButton<ThemeMode>(

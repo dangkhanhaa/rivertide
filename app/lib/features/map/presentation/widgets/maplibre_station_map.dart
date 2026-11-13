@@ -158,6 +158,13 @@ class _MapLibreStationMapState extends State<MapLibreStationMap> implements Base
     final trip = (fill: p.trip, ink: p.stroke, shadow: p.shadow, glow: false);
     final tripPng = await fishPinPng(trip, MarkerTrend.unknown, ratio, glyph: PinGlyph.people);
     await c.addImage(tripPinImage, tripPng, false, ratio);
+    final pond = (fill: p.pond, ink: p.stroke, shadow: p.shadow, glow: false);
+    await c.addImage(
+      pondPinImage,
+      await fishPinPng(pond, MarkerTrend.unknown, ratio, fishes: 1, star: true),
+      false,
+      ratio,
+    );
   }
 
   Future<void> _syncMarkers() async {

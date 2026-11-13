@@ -1,11 +1,9 @@
-import 'dart:math';
 import 'dart:typed_data';
 
+import 'package:rivertide/core/social/photo_upload.dart';
 import 'package:rivertide/core/social/social_backend.dart';
 import 'package:rivertide/features/community/domain/public_spot.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-
-const String _bucket = 'spot-photos';
 
 /// Community spots and their comments on Supabase (schema:
 /// supabase/migrations/0001_public_spots.sql, 0002_social.sql). No login:
@@ -18,7 +16,7 @@ class CommunityRepository {
   /// This device's secret, 64 hex chars (see core/social).
   final Future<String> Function() _secret;
 
-  String _photoUrl(String path) => _db.storage.from(_bucket).getPublicUrl(path);
+  String _photoUrl(String path) => socialPhotoUrl(_db, path);
 
   Future<List<PublicSpot>> nearby(double lat, double lon, {required double radiusKm}) =>
       guardSocial(() async {
@@ -66,19 +64,7 @@ class CommunityRepository {
         );
       });
 
-  Future<List<String>> _upload(List<Uint8List> photos) async {
-    if (photos.isEmpty) return const [];
-    final folder = _uuidV4();
-    final paths = <String>[];
-    for (final (i, bytes) in photos.take(3).indexed) {
-      final path = '$folder/p_$i.jpg';
-      await _db.storage
-          .from(_bucket)
-          .uploadBinary(path, bytes, fileOptions: const FileOptions(contentType: 'image/jpeg'));
-      paths.add(path);
-    }
-    return paths;
-  }
+  Future<List<String>> _upload(List<Uint8List> photos) => uploadSocialPhotos(_db, photos);
 
   /// True when the spot was this device's and is now gone.
   Future<bool> delete(PublicSpot spot) => guardSocial(() async {
@@ -139,15 +125,4 @@ class CommunityRepository {
       params: {'p_comment_id': commentId, 'p_secret': await _secret()},
     );
   });
-
-  /// Random v4 UUID for a photo folder (the server checks the format).
-  static String _uuidV4() {
-    final r = Random.secure();
-    final b = List<int>.generate(16, (_) => r.nextInt(256));
-    b[6] = (b[6] & 0x0f) | 0x40;
-    b[8] = (b[8] & 0x3f) | 0x80;
-    final h = b.map((x) => x.toRadixString(16).padLeft(2, '0')).join();
-    return '${h.substring(0, 8)}-${h.substring(8, 12)}-${h.substring(12, 16)}-'
-        '${h.substring(16, 20)}-${h.substring(20)}';
-  }
 }

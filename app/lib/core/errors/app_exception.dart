@@ -41,3 +41,9 @@ final class PermissionDeniedException extends AppException {
 final class OfflineNoCacheException extends AppException {
   const OfflineNoCacheException(super.debugMessage);
 }
+
+/// The item already exists (e.g. a pond within 80 m); [existingId] points to it.
+final class DuplicateException extends AppException {
+  const DuplicateException(super.debugMessage, {this.existingId});
+  final String? existingId;
+}

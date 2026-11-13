@@ -5,4 +5,5 @@ export 'application/community_providers.dart' show nearbyKey, nearbySpotsProvide
 export 'domain/public_spot.dart' show PublicSpot;
 export 'presentation/community_entry.dart' show PinPublicButton;
 export 'presentation/nearby_spots_sheet.dart' show NearbySpotsSheet;
+export 'presentation/spot_form_parts.dart' show NewPhoto, SpotPhoto, SpotPhotoStrip, StoredPhoto;
 export 'presentation/spot_sheet.dart' show SpotSheet;

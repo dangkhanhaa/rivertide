@@ -4,8 +4,8 @@ import 'package:rivertide/features/map/presentation/widgets/base_map.dart';
 import 'package:rivertide/features/map/presentation/widgets/station_layers.dart';
 
 /// Community layers over the base map, drawn in this order (last on top):
-/// "đang câu" bubbles (P2-27), community spots (P2-19), trips (P2-26).
-enum MapOverlayId { checkins, community, trips }
+/// "đang câu" bubbles (P2-27), ponds (P2-28), community spots (P2-19), trips (P2-26).
+enum MapOverlayId { checkins, ponds, community, trips }
 
 /// Points of one overlay: feature `id` = index into the caller's list.
 /// Pins read `title`; bubbles read `people` and `biting`.
@@ -19,6 +19,7 @@ class MapOverlay {
 /// Image ids of the pins (registered by the map widget).
 const String communityPinImage = 'spot-pin';
 const String tripPinImage = 'trip-pin';
+const String pondPinImage = 'pond-pin';
 
 String overlaySource(MapOverlayId id) => 'ov-${id.name}';
 String overlayLayer(MapOverlayId id) => 'ov-${id.name}-dot';
@@ -36,6 +37,8 @@ Future<void> addOverlayLayers(MapLibreMapController c, MarkerPalette p) async {
     switch (id) {
       case MapOverlayId.checkins:
         await _addBubbles(c, p, id);
+      case MapOverlayId.ponds:
+        await _addPins(c, p, id, pondPinImage);
       case MapOverlayId.community:
         await _addPins(c, p, id, communityPinImage);
       case MapOverlayId.trips:

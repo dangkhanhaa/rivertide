@@ -25,6 +25,7 @@ class AppColors extends ThemeExtension<AppColors> {
     required this.spot,
     required this.deepWater,
     required this.trip,
+    required this.pond,
   });
 
   static const light = AppColors(
@@ -49,6 +50,7 @@ class AppColors extends ThemeExtension<AppColors> {
     spot: Color(0xFFFF7A2F),
     deepWater: Color(0xFF0C3B5E),
     trip: Color(0xFF7B5CD6),
+    pond: Color(0xFF00A59B),
   );
 
   /// "Chế độ ngoài trời": black on white, darker accents, readable in full sun
@@ -75,6 +77,7 @@ class AppColors extends ThemeExtension<AppColors> {
     spot: Color(0xFFBF360C),
     deepWater: Color(0xFF00283F),
     trip: Color(0xFF4A148C),
+    pond: Color(0xFF00695C),
   );
 
   static const dark = AppColors(
@@ -99,6 +102,7 @@ class AppColors extends ThemeExtension<AppColors> {
     spot: Color(0xFFFF9A57),
     deepWater: Color(0xFF071F33),
     trip: Color(0xFFB39DFF),
+    pond: Color(0xFF4DD6CB),
   );
 
   final Color primary;
@@ -130,6 +134,9 @@ class AppColors extends ThemeExtension<AppColors> {
 
   /// Fishing trips ("kèo câu").
   final Color trip;
+
+  /// Fishing ponds ("hồ câu dịch vụ").
+  final Color pond;
 
   @override
   AppColors copyWith({Color? primary}) => this;

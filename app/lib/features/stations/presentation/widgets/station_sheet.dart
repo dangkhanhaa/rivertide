@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:rivertide/core/calc/tide/hourly_timeline.dart';
 import 'package:rivertide/core/l10n/l10n_ext.dart';
 import 'package:rivertide/core/navigation/fishing_spot.dart';
 import 'package:rivertide/core/theme/app_spacing.dart';
@@ -19,12 +18,9 @@ import 'package:rivertide/features/stations/presentation/widgets/directions_butt
 import 'package:rivertide/features/stations/presentation/widgets/fish_activity_card.dart';
 import 'package:rivertide/features/stations/presentation/widgets/flow_card.dart';
 import 'package:rivertide/features/stations/presentation/widgets/hazard_banner.dart';
-import 'package:rivertide/features/stations/presentation/widgets/location_extras.dart';
 import 'package:rivertide/features/stations/presentation/widgets/location_summary.dart';
 import 'package:rivertide/features/stations/presentation/widgets/point_sheet.dart';
-import 'package:rivertide/features/stations/presentation/widgets/quick_summary.dart';
 import 'package:rivertide/features/stations/presentation/widgets/share_place.dart';
-import 'package:rivertide/features/stations/presentation/widgets/tide_chart.dart';
 
 /// Station summary shown when a map marker is tapped (FEATURES.md F-MAP-02).
 /// Uses cached data first, so it opens without waiting for the network.
@@ -109,6 +105,9 @@ class StationSheet extends ConsumerWidget {
 
 /// Everything known for one place, shared by station and point sheets:
 /// level, next turns, chart, today's range, flow, fishing, weather.
+/// The short version shown in map sheets (station and point): level and
+/// direction, fish activity, next turns, warnings. Chart, day statistics and
+/// weather are one tap away in "Xem chi tiết" (the full screen).
 class StationSummaryBody extends StatelessWidget {
   const StationSummaryBody({required this.view, this.place, super.key});
 
@@ -121,7 +120,6 @@ class StationSummaryBody extends StatelessWidget {
   Widget build(BuildContext context) {
     final tide = view.tide.data;
     final daily = tide.dailyExtremes;
-    final river = _isRiver(view);
     if (levelUnknown(tide)) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -129,62 +127,31 @@ class StationSummaryBody extends StatelessWidget {
         children: [
           if (place case final p?) Text(p, style: context.text.label),
           HazardBanner(view: view),
-          QuickSummary(view: view),
           FishActivityCard(view: view),
           FlowCard(stationId: tide.station.id, nowUtc: view.nowUtc, primary: true),
-          Conditions(view: view),
         ],
       );
     }
     if (tide.prediction == null && daily != null) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
-        spacing: AppSpacing.sm,
+        spacing: AppSpacing.md,
         children: [
           if (place case final p?) Text(p, style: context.text.label),
           HazardBanner(view: view),
-          QuickSummary(view: view),
-          FishActivityCard(view: view),
           DailyExtremesCard(extremes: daily),
-          FlowCard(stationId: tide.station.id, nowUtc: view.nowUtc),
-          Conditions(view: view),
+          FishActivityCard(view: view),
         ],
       );
     }
-    final hour = DateTime.utc(
-      view.nowUtc.year,
-      view.nowUtc.month,
-      view.nowUtc.day,
-      view.nowUtc.hour,
-    );
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       spacing: AppSpacing.md,
       children: [
         LocationHero(view: view, place: place),
         HazardBanner(view: view),
-        QuickSummary(view: view),
+        if (tide.prediction != null) NextTurns(view: view),
         FishActivityCard(view: view),
-        if (tide.prediction == null)
-          Text(context.l10n.tide_noPrediction, style: context.text.caption)
-        else
-          NextTurns(view: view),
-        TideChart(
-          bandCm: tide.predictionKind == LevelDataKind.estimate ? tide.model?.rmseCm : null,
-          height: 140,
-          fromUtc: TideChart.windowStart(
-            hour.subtract(const Duration(hours: 6)),
-            view.now.lastKnown?.timeUtc,
-          ),
-          toUtc: hour.add(const Duration(hours: 18)),
-          nowUtc: view.nowUtc,
-          observed: {for (final o in tide.observations) o.timeUtc: o.levelCm},
-          prediction: tide.prediction,
-          latestObservation: tide.anchor,
-        ),
-        DayStats(view: view),
-        if (river) FlowCard(stationId: tide.station.id, nowUtc: view.nowUtc),
-        Conditions(view: view),
       ],
     );
   }
@@ -194,7 +161,3 @@ class StationSummaryBody extends StatelessWidget {
 /// shown by flow, fishing and weather instead of a level.
 bool levelUnknown(StationTide t) =>
     t.prediction == null && t.observations.isEmpty && t.dailyExtremes == null;
-
-bool _isRiver(StationView v) =>
-    v.tide.data.station.kind == StationKind.river ||
-    v.tide.data.station.kind == StationKind.riverDaily;

@@ -29,6 +29,7 @@ typedef MarkerPalette = ({
   Color flowSlack,
   Color community,
   Color trip,
+  Color pond,
 
   /// Fish activity bands, indexed by FishActivity.index.
   List<Color> fish,

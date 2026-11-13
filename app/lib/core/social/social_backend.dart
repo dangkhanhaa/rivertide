@@ -60,6 +60,10 @@ Future<T> guardSocial<T>(Future<T> Function() run) async {
     return await run();
   } on PostgrestException catch (e) {
     if (e.hint == 'rate_limit') throw RateLimitedException('social ${e.message}');
+    if (e.hint == 'duplicate') {
+      final id = e.details;
+      throw DuplicateException('social duplicate', existingId: id is String ? id : null);
+    }
     throw ServerException('postgrest ${e.code}', code: e.code);
   } on StorageException catch (e) {
     throw ServerException('storage ${e.statusCode}', code: e.statusCode);

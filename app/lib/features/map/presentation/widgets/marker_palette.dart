@@ -22,6 +22,7 @@ MarkerPalette markerPalette(AppColors c) => (
   flowSlack: c.stale,
   community: c.spot,
   trip: c.trip,
+  pond: c.pond,
   fish: [c.fishLow, c.fishFair, c.fishGood, c.fishPeak],
   fishNone: c.stale,
   shadow: c.onSurface.withValues(alpha: 0.35),
