@@ -9,8 +9,13 @@ import 'package:rivertide/core/l10n/l10n_ext.dart';
 import 'package:rivertide/core/theme/app_colors.dart';
 import 'package:rivertide/core/theme/app_spacing.dart';
 import 'package:rivertide/core/theme/app_text.dart';
+import 'package:rivertide/core/widgets/confirm_dialog.dart';
+import 'package:rivertide/core/widgets/detail_host.dart';
 import 'package:rivertide/features/community/application/community_providers.dart';
 import 'package:rivertide/features/community/domain/public_spot.dart';
+import 'package:rivertide/features/community/presentation/publish_spot_screen.dart';
+import 'package:rivertide/features/community/presentation/spot_comments.dart';
+import 'package:rivertide/features/community/presentation/spot_photos.dart';
 import 'package:rivertide/features/stations/stations.dart';
 
 /// Details of one community spot: photos, what bites, tips, and the way there.
@@ -46,7 +51,7 @@ class SpotSheet extends ConsumerWidget {
             ],
           ),
           Text(spot.title, style: context.text.headline),
-          if (spot.photoUrls.isNotEmpty) _Photos(urls: spot.photoUrls),
+          if (spot.photoUrls.isNotEmpty) SpotPhotos(urls: spot.photoUrls),
           if (spot.species.isNotEmpty)
             Wrap(
               spacing: AppSpacing.xs,
@@ -65,6 +70,7 @@ class SpotSheet extends ConsumerWidget {
           Text(
             [
               l10n.spot_postedAgo(TimeFormat.dayShort(spot.createdAt)),
+              if (spot.updatedAt case final u?) l10n.spot_edited(TimeFormat.dayShort(u)),
               if (km != null) l10n.spot_distance(LevelFormat.km(km)),
               ?adminLine(ref, spot.lat, spot.lon),
             ].join(' · '),
@@ -82,31 +88,33 @@ class SpotSheet extends ConsumerWidget {
               ),
             ],
           ),
-          Align(
-            alignment: Alignment.centerRight,
-            child: mine
-                ? TextButton.icon(
-                    style: TextButton.styleFrom(foregroundColor: c.alarm3),
-                    onPressed: () => unawaited(_delete(context, ref)),
-                    icon: const Icon(Icons.delete_outline_rounded),
-                    label: Text(l10n.spot_delete),
-                  )
-                : TextButton.icon(
-                    onPressed: () => unawaited(_report(context, ref)),
-                    icon: const Icon(Icons.flag_outlined),
-                    label: Text(l10n.spot_report),
-                  ),
+          _OwnerActions(
+            mine: mine,
+            onEdit: () => unawaited(_edit(context)),
+            onDelete: () => unawaited(_delete(context, ref)),
+            onReport: () => unawaited(_report(context, ref)),
           ),
+          const Divider(),
+          SpotComments(spotId: spot.id),
         ],
       ),
     );
+  }
+
+  /// The sheet shows a snapshot: close it after a saved edit (pins refresh).
+  Future<void> _edit(BuildContext context) async {
+    final saved = await Navigator.of(context)
+        .push<bool>(MaterialPageRoute(builder: (_) => PublishSpotScreen.edit(spot)));
+    if (saved == true && context.mounted) DetailHost.closeOf(context);
   }
 
   Future<void> _delete(BuildContext context, WidgetRef ref) async {
     final l10n = context.l10n;
     final nav = Navigator.of(context);
     final messenger = ScaffoldMessenger.of(context);
-    if (!await _confirm(context, l10n.spot_deleteTitle, null, l10n.journal_delete)) return;
+    if (!await confirmDialog(context, title: l10n.spot_deleteTitle, ok: l10n.journal_delete)) {
+      return;
+    }
     try {
       await deleteSpot(ref, spot);
       if (nav.canPop()) nav.pop();
@@ -118,7 +126,12 @@ class SpotSheet extends ConsumerWidget {
   Future<void> _report(BuildContext context, WidgetRef ref) async {
     final l10n = context.l10n;
     final messenger = ScaffoldMessenger.of(context);
-    if (!await _confirm(context, l10n.spot_reportTitle, l10n.spot_reportHint, l10n.spot_report)) {
+    if (!await confirmDialog(
+      context,
+      title: l10n.spot_reportTitle,
+      body: l10n.spot_reportHint,
+      ok: l10n.spot_report,
+    )) {
       return;
     }
     try {
@@ -130,79 +143,46 @@ class SpotSheet extends ConsumerWidget {
       messenger.showSnackBar(SnackBar(content: Text(l10n.spot_error)));
     }
   }
-
-  static Future<bool> _confirm(BuildContext context, String title, String? body, String ok) async =>
-      await showDialog<bool>(
-        context: context,
-        builder: (ctx) => AlertDialog(
-          title: Text(title),
-          content: body == null ? null : Text(body),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.of(ctx).pop(false),
-              child: Text(ctx.l10n.common_cancel),
-            ),
-            FilledButton(onPressed: () => Navigator.of(ctx).pop(true), child: Text(ok)),
-          ],
-        ),
-      ) ??
-      false;
 }
 
-/// Swipeable photos with page dots.
-class _Photos extends StatefulWidget {
-  const _Photos({required this.urls});
+/// Edit / delete for the owner; report for everyone else.
+class _OwnerActions extends StatelessWidget {
+  const _OwnerActions({
+    required this.mine,
+    required this.onEdit,
+    required this.onDelete,
+    required this.onReport,
+  });
 
-  final List<String> urls;
-
-  @override
-  State<_Photos> createState() => _PhotosState();
-}
-
-class _PhotosState extends State<_Photos> {
-  int _page = 0;
+  final bool mine;
+  final VoidCallback onEdit;
+  final VoidCallback onDelete;
+  final VoidCallback onReport;
 
   @override
   Widget build(BuildContext context) {
-    final c = context.colors;
-    return Column(
+    final l10n = context.l10n;
+    return Wrap(
+      alignment: WrapAlignment.end,
       spacing: AppSpacing.xs,
       children: [
-        ClipRRect(
-          borderRadius: BorderRadius.circular(AppRadius.md),
-          child: AspectRatio(
-            aspectRatio: 4 / 3,
-            child: PageView(
-              onPageChanged: (i) => setState(() => _page = i),
-              children: [
-                for (final u in widget.urls)
-                  Image.network(
-                    u,
-                    fit: BoxFit.cover,
-                    errorBuilder: (_, _, _) => ColoredBox(
-                      color: c.surfaceAlt,
-                      child: Icon(Icons.broken_image_outlined, color: c.stale),
-                    ),
-                  ),
-              ],
-            ),
+        if (mine) ...[
+          TextButton.icon(
+            onPressed: onEdit,
+            icon: const Icon(Icons.edit_outlined),
+            label: Text(l10n.spot_edit),
           ),
-        ),
-        if (widget.urls.length > 1)
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            spacing: AppSpacing.xs,
-            children: [
-              for (var i = 0; i < widget.urls.length; i++)
-                Container(
-                  width: AppSpacing.sm,
-                  height: AppSpacing.sm,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: i == _page ? c.primary : c.stale.withValues(alpha: 0.4),
-                  ),
-                ),
-            ],
+          TextButton.icon(
+            style: TextButton.styleFrom(foregroundColor: context.colors.alarm3),
+            onPressed: onDelete,
+            icon: const Icon(Icons.delete_outline_rounded),
+            label: Text(l10n.spot_delete),
+          ),
+        ] else
+          TextButton.icon(
+            onPressed: onReport,
+            icon: const Icon(Icons.flag_outlined),
+            label: Text(l10n.spot_report),
           ),
       ],
     );

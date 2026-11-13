@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -7,11 +6,11 @@ import 'package:image_picker/image_picker.dart';
 import 'package:rivertide/core/errors/app_exception.dart';
 import 'package:rivertide/core/image/photo_clean.dart';
 import 'package:rivertide/core/l10n/l10n_ext.dart';
-import 'package:rivertide/core/theme/app_colors.dart';
 import 'package:rivertide/core/theme/app_spacing.dart';
 import 'package:rivertide/core/theme/app_text.dart';
 import 'package:rivertide/features/community/application/community_providers.dart';
 import 'package:rivertide/features/community/domain/public_spot.dart';
+import 'package:rivertide/features/community/presentation/spot_form_parts.dart';
 import 'package:rivertide/features/stations/stations.dart';
 
 /// Quick picks for what bites at a spot.
@@ -22,26 +21,47 @@ const List<String> _species = [
 
 const int _maxPhotos = 3;
 
-/// "Ghim điểm câu công khai" at a map point.
+/// "Ghim điểm câu công khai" at a map point, or edit one's own spot ([editing]).
 class PublishSpotScreen extends ConsumerStatefulWidget {
-  const PublishSpotScreen({required this.lat, required this.lon, this.suggestedName, super.key});
+  const PublishSpotScreen({
+    required this.lat,
+    required this.lon,
+    this.suggestedName,
+    this.editing,
+    super.key,
+  });
+
+  /// Opens the form on [spot] (P2-25).
+  PublishSpotScreen.edit(PublicSpot spot, {super.key})
+    : lat = spot.lat,
+      lon = spot.lon,
+      suggestedName = null,
+      editing = spot;
 
   final double lat;
   final double lon;
 
   /// Prefilled from a searched place name.
   final String? suggestedName;
+  final PublicSpot? editing;
 
   @override
   ConsumerState<PublishSpotScreen> createState() => _PublishSpotScreenState();
 }
 
 class _PublishSpotScreenState extends ConsumerState<PublishSpotScreen> {
-  late final _title = TextEditingController(text: widget.suggestedName);
-  final _note = TextEditingController();
-  final Set<String> _picked = {};
-  final List<Uint8List> _photos = [];
-  bool _agreed = false;
+  late final PublicSpot? _edit = widget.editing;
+  late final _title = TextEditingController(text: _edit?.title ?? widget.suggestedName);
+  late final _note = TextEditingController(text: _edit?.note);
+  late final Set<String> _picked = {...?_edit?.species.split(',').map((s) => s.trim())}..remove('');
+  late final List<SpotPhoto> _photos = [
+    if (_edit case final e?)
+      for (final (i, p) in e.photoPaths.indexed)
+        if (i < e.photoUrls.length) StoredPhoto(p, e.photoUrls[i]),
+  ];
+
+  /// Editing an already public spot needs no second agreement.
+  late bool _agreed = _edit != null;
   bool _sending = false;
 
   @override
@@ -58,7 +78,7 @@ class _PublishSpotScreenState extends ConsumerState<PublishSpotScreen> {
       final file = await ImagePicker().pickImage(source: ImageSource.gallery, maxWidth: 2000);
       if (file == null) return;
       final cleaned = cleanCatchPhoto(await file.readAsBytes());
-      setState(() => _photos.add(cleaned));
+      setState(() => _photos.add(NewPhoto(cleaned)));
     } on AppException {
       messenger.showSnackBar(SnackBar(content: Text(l10n.spot_photoError)));
     } on Exception {
@@ -66,7 +86,7 @@ class _PublishSpotScreenState extends ConsumerState<PublishSpotScreen> {
     }
   }
 
-  Future<void> _publish() async {
+  Future<void> _submit() async {
     final l10n = context.l10n;
     final messenger = ScaffoldMessenger.of(context);
     final nav = Navigator.of(context);
@@ -76,22 +96,34 @@ class _PublishSpotScreenState extends ConsumerState<PublishSpotScreen> {
       return;
     }
     setState(() => _sending = true);
+    final spot = NewSpot(
+      title: title,
+      note: _note.text.trim(),
+      species: _picked.join(', '),
+      lat: widget.lat,
+      lon: widget.lon,
+    );
+    final added = [
+      for (final p in _photos)
+        if (p is NewPhoto) p.bytes,
+    ];
     try {
-      await publishSpot(
-        ref,
-        NewSpot(
-          title: title,
-          note: _note.text.trim(),
-          species: _picked.join(', '),
-          lat: widget.lat,
-          lon: widget.lon,
-        ),
-        _photos,
+      if (_edit case final e?) {
+        final keep = [
+          for (final p in _photos)
+            if (p is StoredPhoto) p.path,
+        ];
+        await updateSpot(ref, e, spot, keep, added);
+      } else {
+        await publishSpot(ref, spot, added);
+      }
+      messenger.showSnackBar(
+        SnackBar(content: Text(_edit == null ? l10n.spot_published : l10n.spot_editSaved)),
       );
-      messenger.showSnackBar(SnackBar(content: Text(l10n.spot_published)));
-      nav.pop();
-    } on AppException {
-      messenger.showSnackBar(SnackBar(content: Text(l10n.spot_error)));
+      nav.pop(true);
+    } on AppException catch (e) {
+      final text = e is RateLimitedException ? l10n.spot_tooMany : l10n.spot_error;
+      messenger.showSnackBar(SnackBar(content: Text(text)));
       if (mounted) setState(() => _sending = false);
     }
   }
@@ -100,8 +132,9 @@ class _PublishSpotScreenState extends ConsumerState<PublishSpotScreen> {
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     final coords = '${widget.lat.toStringAsFixed(5)}, ${widget.lon.toStringAsFixed(5)}';
+    final editing = _edit != null;
     return Scaffold(
-      appBar: AppBar(title: Text(l10n.spot_publishTitle)),
+      appBar: AppBar(title: Text(editing ? l10n.spot_editTitle : l10n.spot_publishTitle)),
       body: ListView(
         padding: const EdgeInsets.all(AppSpacing.lg),
         children: [
@@ -116,17 +149,11 @@ class _PublishSpotScreenState extends ConsumerState<PublishSpotScreen> {
           ),
           Text(l10n.spot_species, style: context.text.label),
           const SizedBox(height: AppSpacing.xs),
-          Wrap(
-            spacing: AppSpacing.xs,
-            runSpacing: AppSpacing.xs,
-            children: [
-              for (final s in _species)
-                FilterChip(
-                  label: Text(s),
-                  selected: _picked.contains(s),
-                  onSelected: (on) => setState(() => on ? _picked.add(s) : _picked.remove(s)),
-                ),
-            ],
+          _SpeciesChips(
+            picked: _picked,
+            onToggle: (s, {required on}) => setState(() {
+              on ? _picked.add(s) : _picked.remove(s);
+            }),
           ),
           const SizedBox(height: AppSpacing.md),
           TextField(
@@ -138,23 +165,25 @@ class _PublishSpotScreenState extends ConsumerState<PublishSpotScreen> {
           ),
           Text(l10n.spot_photos, style: context.text.label),
           const SizedBox(height: AppSpacing.xs),
-          _PhotoStrip(
+          SpotPhotoStrip(
             photos: _photos,
             onAdd: _photos.length < _maxPhotos ? () => unawaited(_addPhoto()) : null,
             onRemove: (i) => setState(() => _photos.removeAt(i)),
           ),
           const SizedBox(height: AppSpacing.md),
-          _Notice(agreed: _agreed, onChanged: (v) => setState(() => _agreed = v)),
-          const SizedBox(height: AppSpacing.md),
+          if (!editing) ...[
+            SpotPublicNotice(agreed: _agreed, onChanged: (v) => setState(() => _agreed = v)),
+            const SizedBox(height: AppSpacing.md),
+          ],
           FilledButton.icon(
-            onPressed: _agreed && !_sending ? () => unawaited(_publish()) : null,
+            onPressed: _agreed && !_sending ? () => unawaited(_submit()) : null,
             icon: _sending
                 ? const SizedBox.square(
                     dimension: AppIconSize.sm,
                     child: CircularProgressIndicator(strokeWidth: 2),
                   )
-                : const Icon(Icons.push_pin_rounded),
-            label: Text(l10n.spot_publish),
+                : Icon(editing ? Icons.check_rounded : Icons.push_pin_rounded),
+            label: Text(editing ? l10n.spot_save : l10n.spot_publish),
           ),
         ],
       ),
@@ -162,91 +191,27 @@ class _PublishSpotScreenState extends ConsumerState<PublishSpotScreen> {
   }
 }
 
-class _PhotoStrip extends StatelessWidget {
-  const _PhotoStrip({required this.photos, required this.onAdd, required this.onRemove});
+/// Common species plus any the spot already lists (kept when editing).
+class _SpeciesChips extends StatelessWidget {
+  const _SpeciesChips({required this.picked, required this.onToggle});
 
-  final List<Uint8List> photos;
-  final VoidCallback? onAdd;
-  final ValueChanged<int> onRemove;
+  final Set<String> picked;
+  final void Function(String species, {required bool on}) onToggle;
 
   @override
   Widget build(BuildContext context) {
-    final c = context.colors;
-    const size = AppSpacing.xxl * 3;
+    final all = [..._species, ...picked.where((p) => !_species.contains(p))];
     return Wrap(
-      spacing: AppSpacing.sm,
-      runSpacing: AppSpacing.sm,
+      spacing: AppSpacing.xs,
+      runSpacing: AppSpacing.xs,
       children: [
-        for (final (i, p) in photos.indexed)
-          Stack(
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(AppRadius.sm),
-                child: Image.memory(p, width: size, height: size, fit: BoxFit.cover),
-              ),
-              Positioned(
-                right: 0,
-                top: 0,
-                child: IconButton.filledTonal(
-                  tooltip: context.l10n.journal_removePhoto,
-                  onPressed: () => onRemove(i),
-                  icon: const Icon(Icons.close_rounded, size: AppIconSize.sm),
-                ),
-              ),
-            ],
-          ),
-        if (onAdd case final add?)
-          InkWell(
-            onTap: add,
-            borderRadius: BorderRadius.circular(AppRadius.sm),
-            child: Container(
-              width: size,
-              height: size,
-              decoration: BoxDecoration(
-                border: Border.all(color: c.stale),
-                borderRadius: BorderRadius.circular(AppRadius.sm),
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(Icons.add_a_photo_outlined, color: c.primary),
-                  Text(context.l10n.spot_addPhoto, style: context.text.caption),
-                ],
-              ),
-            ),
+        for (final s in all)
+          FilterChip(
+            label: Text(s),
+            selected: picked.contains(s),
+            onSelected: (on) => onToggle(s, on: on),
           ),
       ],
-    );
-  }
-}
-
-class _Notice extends StatelessWidget {
-  const _Notice({required this.agreed, required this.onChanged});
-
-  final bool agreed;
-  final ValueChanged<bool> onChanged;
-
-  @override
-  Widget build(BuildContext context) {
-    final c = context.colors;
-    return Container(
-      padding: const EdgeInsets.all(AppSpacing.md),
-      decoration: BoxDecoration(
-        color: c.alarm1.withValues(alpha: 0.12),
-        borderRadius: BorderRadius.circular(AppRadius.md),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(context.l10n.spot_publicNotice, style: context.text.body),
-          CheckboxListTile(
-            contentPadding: EdgeInsets.zero,
-            value: agreed,
-            onChanged: (v) => onChanged(v ?? false),
-            title: Text(context.l10n.spot_agree, style: context.text.bodyStrong),
-          ),
-        ],
-      ),
     );
   }
 }

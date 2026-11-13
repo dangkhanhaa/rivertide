@@ -84,11 +84,13 @@ class _SpotTile extends StatelessWidget {
                     Text(spot.title, style: context.text.bodyStrong, maxLines: 2),
                     if (spot.species.isNotEmpty)
                       Text(spot.species, style: context.text.body, maxLines: 1),
-                    if (km != null)
-                      Text(
-                        context.l10n.spot_distance(LevelFormat.km(km)),
-                        style: context.text.caption,
-                      ),
+                    Text(
+                      [
+                        if (km != null) context.l10n.spot_distance(LevelFormat.km(km)),
+                        if (spot.commentCount > 0) context.l10n.spot_comments(spot.commentCount),
+                      ].join(' · '),
+                      style: context.text.caption,
+                    ),
                   ],
                 ),
               ),

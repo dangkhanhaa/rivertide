@@ -15,6 +15,9 @@ const Offset _head = Offset(_w / 2, 20);
 
 typedef FishPinStyle = ({Color fill, Color ink, Color shadow, bool glow});
 
+/// What is drawn inside the drop.
+enum PinGlyph { fish, people }
+
 /// Drop-shaped pin with two fish (one when [fishes] is 1), an optional glow
 /// and a trend badge, drawn once per style so the map only swaps images.
 Future<Uint8List> fishPinPng(
@@ -23,6 +26,7 @@ Future<Uint8List> fishPinPng(
   double pixelRatio, {
   int fishes = 2,
   bool star = false,
+  PinGlyph glyph = PinGlyph.fish,
 }) async {
   final recorder = ui.PictureRecorder();
   final canvas = Canvas(recorder)..scale(pixelRatio);
@@ -57,15 +61,50 @@ Future<Uint8List> fishPinPng(
         ..style = PaintingStyle.stroke
         ..strokeWidth = 2.5,
     );
+  _inside(canvas, style, glyph, fishes: fishes, strong: star);
+  if (star) _starBadge(canvas, style);
+  _trendBadge(canvas, trend, style);
+  return await _encode(recorder, pixelRatio);
+}
+
+void _inside(
+  Canvas canvas,
+  FishPinStyle style,
+  PinGlyph glyph, {
+  required int fishes,
+  required bool strong,
+}) {
+  if (glyph == PinGlyph.people) return _people(canvas, style.ink);
   if (fishes >= 2) {
     _fish(canvas, _head + const Offset(-1, -5), 0.9, style.ink, style.fill);
     _fish(canvas, _head + const Offset(1, 5), 0.9, style.ink, style.fill);
   } else {
-    _fish(canvas, _head, 1.15, style.ink.withValues(alpha: star ? 1 : 0.7), style.fill);
+    _fish(canvas, _head, 1.15, style.ink.withValues(alpha: strong ? 1 : 0.7), style.fill);
   }
-  if (star) _starBadge(canvas, style);
-  _trendBadge(canvas, trend, style);
-  return await _encode(recorder, pixelRatio);
+}
+
+/// Two people side by side: a group trip ("kèo câu").
+void _people(Canvas canvas, Color ink) {
+  final p = Paint()..color = ink;
+  for (final (dx, scale) in [(-4.5, 0.85), (4.5, 1.0)]) {
+    final c = _head + Offset(dx, 0);
+    canvas
+      ..drawCircle(c + Offset(0, -4.5 * scale), 3.2 * scale, p)
+      ..drawPath(
+        Path()
+          ..addArc(
+            Rect.fromCenter(
+              center: c + Offset(0, 6 * scale),
+              width: 11 * scale,
+              height: 10 * scale,
+            ),
+            math.pi,
+            math.pi,
+          )
+          ..close(),
+        p,
+      );
+  }
 }
 
 Path _dropPath() {

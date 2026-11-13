@@ -535,11 +535,31 @@ class AppLocalizationsVi extends AppLocalizations {
   }
 
   @override
-  String get trip_note =>
-      'Bấm một buổi để xem chi tiết điểm đó ở tab Câu cá. Dự báo càng xa càng kém chắc chắn, nên xem lại trước khi đi.';
+  String get trip_note => 'Ghi chú';
 
   @override
   String get where_title => 'Hôm nay đi đâu?';
+
+  @override
+  String get where_short => 'Đi đâu?';
+
+  @override
+  String get more_shortcuts => 'Lối tắt';
+
+  @override
+  String get trip_listDetail => 'Xem và tham gia kèo câu quanh đây';
+
+  @override
+  String get trip_createDetail => 'Hẹn anh em cùng đi câu, có gợi ý giờ vàng';
+
+  @override
+  String get checkin_detail => 'Báo anh em biết bạn đang câu ở đây (ẩn danh, 4 giờ)';
+
+  @override
+  String get checkin_peopleDetail => 'Chỗ đang có người câu, ai đang dính cá';
+
+  @override
+  String get spot_listDetail => 'Điểm câu anh em đã ghim, có ảnh và bình luận';
 
   @override
   String get where_entryHint => 'Điểm câu tốt nhất quanh bạn trong 24 giờ tới';
@@ -1029,6 +1049,407 @@ class AppLocalizationsVi extends AppLocalizations {
   String search_coords(String coords) {
     return 'Tọa độ $coords';
   }
+
+  @override
+  String get spot_edit => 'Sửa';
+
+  @override
+  String get spot_editTitle => 'Sửa điểm câu';
+
+  @override
+  String get spot_save => 'Lưu thay đổi';
+
+  @override
+  String get spot_editSaved => 'Đã lưu thay đổi';
+
+  @override
+  String spot_edited(String date) {
+    return 'sửa $date';
+  }
+
+  @override
+  String get spot_tooMany => 'Hôm nay máy này đã đăng đủ 10 điểm. Mai đăng tiếp nhé.';
+
+  @override
+  String spot_comments(int count) {
+    return '$count bình luận';
+  }
+
+  @override
+  String get cmt_title => 'Bình luận';
+
+  @override
+  String cmt_count(int count) {
+    return 'Bình luận ($count)';
+  }
+
+  @override
+  String get cmt_hint => 'Chia sẻ mồi, giờ cá ăn, đường vào…';
+
+  @override
+  String get cmt_send => 'Gửi bình luận';
+
+  @override
+  String get cmt_empty => 'Chưa có bình luận nào. Hãy là người đầu tiên!';
+
+  @override
+  String get cmt_anon => 'Người câu ẩn danh';
+
+  @override
+  String cmt_asName(String name) {
+    return 'Bình luận với tên $name · đổi';
+  }
+
+  @override
+  String get cmt_asAnon => 'Đang ẩn danh · đặt tên hiển thị';
+
+  @override
+  String get cmt_edited => 'đã sửa';
+
+  @override
+  String get cmt_mine => 'của bạn';
+
+  @override
+  String get cmt_more => 'Thêm';
+
+  @override
+  String get cmt_edit => 'Sửa bình luận';
+
+  @override
+  String get cmt_delete => 'Xóa';
+
+  @override
+  String get cmt_report => 'Báo cáo';
+
+  @override
+  String get cmt_deleteTitle => 'Xóa bình luận của bạn?';
+
+  @override
+  String get cmt_reportTitle => 'Báo cáo bình luận này?';
+
+  @override
+  String get cmt_reportHint =>
+      'Nói tục, lừa đảo, quảng cáo… Bình luận bị 3 người báo cáo sẽ tự ẩn.';
+
+  @override
+  String get cmt_error => 'Chưa gửi được, kiểm tra mạng rồi thử lại';
+
+  @override
+  String get cmt_tooFast => 'Bạn gửi hơi nhanh — đợi chút rồi gửi tiếp nhé';
+
+  @override
+  String get cmt_loadError => 'Không tải được bình luận';
+
+  @override
+  String get name_title => 'Tên hiển thị';
+
+  @override
+  String get name_hint => 'vd Khánh Cần Thủ';
+
+  @override
+  String get name_note => 'Hiện trên bình luận, kèo câu và tin nhắn. Để trống = ẩn danh.';
+
+  @override
+  String get social_save => 'Lưu';
+
+  @override
+  String get trip_tag => 'Kèo câu';
+
+  @override
+  String trip_pill(int count) {
+    return '$count kèo câu';
+  }
+
+  @override
+  String get trip_create => 'Rủ đi câu';
+
+  @override
+  String get trip_createHere => 'Rủ đi câu ở đây';
+
+  @override
+  String get trip_formTitle => 'Tạo kèo câu';
+
+  @override
+  String get trip_editTitle => 'Sửa kèo câu';
+
+  @override
+  String get trip_name => 'Tên kèo';
+
+  @override
+  String get trip_nameHint => 'vd Câu đêm bãi đá cầu Thanh Trì';
+
+  @override
+  String get trip_place => 'Địa điểm';
+
+  @override
+  String get trip_placeHint => 'vd Bãi đá chân cầu, cổng số 3';
+
+  @override
+  String get trip_whereHint =>
+      'Ghim kèo đặt ở chỗ này. Muốn hẹn chỗ khác: chạm chỗ đó trên bản đồ → \"Rủ đi câu ở đây\".';
+
+  @override
+  String get trip_when => 'Thời gian';
+
+  @override
+  String get trip_date => 'Ngày';
+
+  @override
+  String get trip_start => 'Bắt đầu';
+
+  @override
+  String get trip_duration => 'Câu trong';
+
+  @override
+  String trip_hours(int hours) {
+    return '$hours giờ';
+  }
+
+  @override
+  String get trip_golden => 'Giờ vàng ở đây (bấm để chọn)';
+
+  @override
+  String trip_goldenChip(String when, String score) {
+    return '$when · $score';
+  }
+
+  @override
+  String get trip_noGolden => '3 ngày tới chưa có giờ vàng ở đây';
+
+  @override
+  String get trip_people => 'Số người tối đa (kể cả bạn)';
+
+  @override
+  String get trip_contact => 'Liên hệ (không bắt buộc)';
+
+  @override
+  String get trip_contactHint => 'Link nhóm Zalo/Facebook hoặc số điện thoại';
+
+  @override
+  String get trip_contactNote => 'Chỉ người đã tham gia kèo mới thấy.';
+
+  @override
+  String get trip_noteHint => 'Câu gì, mồi gì, đi xe máy hay ô tô ghép, chia tiền xăng…';
+
+  @override
+  String get trip_submit => 'Tạo kèo';
+
+  @override
+  String get trip_save => 'Lưu thay đổi';
+
+  @override
+  String get trip_created => 'Đã tạo kèo! Anh em quanh đây sẽ thấy trên bản đồ.';
+
+  @override
+  String get trip_saved => 'Đã lưu kèo';
+
+  @override
+  String get trip_needName => 'Đặt tên kèo (từ 2 ký tự)';
+
+  @override
+  String get trip_badTime => 'Giờ bắt đầu phải trong 30 ngày tới';
+
+  @override
+  String get trip_tooMany => 'Hôm nay máy này đã tạo đủ 5 kèo. Mai tạo tiếp nhé.';
+
+  @override
+  String get trip_error => 'Chưa gửi được, kiểm tra mạng rồi thử lại';
+
+  @override
+  String get trip_tooFew => 'Kèo đã có nhiều người hơn số này';
+
+  @override
+  String get trip_running => 'Đang diễn ra';
+
+  @override
+  String get trip_cancelled => 'Đã hủy';
+
+  @override
+  String get trip_full => 'Đủ người';
+
+  @override
+  String trip_left(int count) {
+    return 'Còn $count chỗ';
+  }
+
+  @override
+  String trip_members(int count, int max) {
+    return '$count/$max người';
+  }
+
+  @override
+  String trip_owner(String name) {
+    return 'Chủ kèo: $name';
+  }
+
+  @override
+  String get trip_yours => 'Kèo của bạn';
+
+  @override
+  String get trip_joinedTag => 'Bạn đã tham gia';
+
+  @override
+  String get trip_join => 'Tham gia';
+
+  @override
+  String get trip_joinedSnack => 'Đã tham gia! Xem liên hệ và nhắn tin với nhóm bên dưới.';
+
+  @override
+  String get trip_joinFull => 'Kèo đã đủ người';
+
+  @override
+  String get trip_joinClosed => 'Kèo đã kết thúc hoặc bị hủy';
+
+  @override
+  String get trip_leave => 'Rời kèo';
+
+  @override
+  String get trip_leaveTitle => 'Rời kèo này?';
+
+  @override
+  String get trip_cancel => 'Hủy kèo';
+
+  @override
+  String get trip_cancelTitle => 'Hủy kèo? Người đã tham gia sẽ thấy \"Đã hủy\".';
+
+  @override
+  String get trip_edit => 'Sửa';
+
+  @override
+  String get trip_keep => 'Giữ kèo';
+
+  @override
+  String get trip_share => 'Rủ thêm bạn';
+
+  @override
+  String trip_shareText(String title, String when, String place, String map, String app) {
+    return '🎣 Kèo câu: $title\n🕐 $when\n📍 $place\nBản đồ: $map\nXem và tham gia trên app Con Nước: $app';
+  }
+
+  @override
+  String get trip_report => 'Báo cáo';
+
+  @override
+  String get trip_reportTitle => 'Báo cáo kèo này?';
+
+  @override
+  String get trip_reportHint =>
+      'Lừa đảo, quảng cáo, nội dung xấu… Kèo bị 3 người báo cáo sẽ tự ẩn.';
+
+  @override
+  String get trip_membersOnly =>
+      'Tham gia để xem liên hệ, danh sách người đi và nhắn tin với nhóm.';
+
+  @override
+  String get trip_contactLabel => 'Liên hệ';
+
+  @override
+  String get trip_openContact => 'Mở';
+
+  @override
+  String get trip_memberList => 'Người đi';
+
+  @override
+  String get trip_chat => 'Nhắn tin trong kèo';
+
+  @override
+  String get trip_chatEmpty => 'Chưa có tin nhắn. Hẹn giờ gặp, chỗ gửi xe ở đây nhé.';
+
+  @override
+  String get trip_chatHint => 'Nhắn cho cả nhóm…';
+
+  @override
+  String get trip_send => 'Gửi';
+
+  @override
+  String get trip_refresh => 'Tải lại';
+
+  @override
+  String get trip_nearbyTitle => 'Kèo câu quanh đây';
+
+  @override
+  String get trip_nearbyEmpty => 'Chưa có kèo nào trong vòng 30 km. Tạo kèo đầu tiên để rủ anh em!';
+
+  @override
+  String get trip_loadError => 'Không tải được kèo câu';
+
+  @override
+  String get trip_notice =>
+      'Kèo hiện công khai cho người dùng quanh đây. Không hẹn ở nơi cấm câu; đi theo nhóm, giữ an toàn khi câu đêm.';
+
+  @override
+  String get checkin_pill => 'Tôi đang câu';
+
+  @override
+  String checkin_pillOn(String time) {
+    return 'Đang câu · còn $time';
+  }
+
+  @override
+  String checkin_count(int count) {
+    return '$count người đang câu';
+  }
+
+  @override
+  String get checkin_title => 'Báo \"đang câu ở đây\"';
+
+  @override
+  String get checkin_body =>
+      'Anh em quanh đây sẽ thấy có người đang câu ở khu này. Chỉ hiện con số, không hiện tên; vị trí làm tròn khoảng 200 m; tự tắt sau 4 giờ.';
+
+  @override
+  String get checkin_biting => 'Đang dính 🐟';
+
+  @override
+  String get checkin_noBite => 'Chưa dính';
+
+  @override
+  String get checkin_start => 'Bắt đầu';
+
+  @override
+  String get checkin_update => 'Cập nhật';
+
+  @override
+  String get checkin_stop => 'Về rồi';
+
+  @override
+  String get checkin_on => 'Đã báo đang câu. Chúc dính cá to!';
+
+  @override
+  String get checkin_off => 'Đã tắt. Về an toàn nhé!';
+
+  @override
+  String get checkin_error => 'Chưa gửi được, kiểm tra mạng rồi thử lại';
+
+  @override
+  String get checkin_needLocation => 'Cần vị trí của bạn để báo đang câu';
+
+  @override
+  String checkin_cellTitle(int count) {
+    return '$count người đang câu quanh đây';
+  }
+
+  @override
+  String checkin_cellBiting(int count) {
+    return '$count người báo đang dính cá';
+  }
+
+  @override
+  String get checkin_cellNoBite => 'Chưa ai báo dính cá';
+
+  @override
+  String checkin_cellLatest(String time) {
+    return 'Người mới nhất tới lúc $time';
+  }
+
+  @override
+  String get checkin_cellYou => 'Có cả bạn';
+
+  @override
+  String get checkin_listTitle => 'Chỗ đang có người câu';
+
+  @override
+  String get checkin_hint => 'Vị trí làm tròn ~200 m, không hiện tên ai.';
 
   @override
   String get spot_publicTag => 'Điểm câu cộng đồng';

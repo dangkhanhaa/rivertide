@@ -2,12 +2,18 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/misc.dart';
+import 'package:rivertide/core/calc/geo/haversine.dart';
 import 'package:rivertide/core/calc/geo/vietnam_bounds.dart';
+import 'package:rivertide/core/clock/clock_provider.dart';
+import 'package:rivertide/core/config/env.dart';
 import 'package:rivertide/core/l10n/l10n_ext.dart';
 import 'package:rivertide/core/navigation/map_focus.dart';
 import 'package:rivertide/core/theme/app_colors.dart';
 import 'package:rivertide/core/theme/app_spacing.dart';
+import 'package:rivertide/core/widgets/map_pill.dart';
 import 'package:rivertide/core/widgets/state_views.dart';
+import 'package:rivertide/features/checkin/checkin.dart';
 import 'package:rivertide/features/community/community.dart';
 import 'package:rivertide/features/map/application/map_providers.dart';
 import 'package:rivertide/features/map/application/river_flow_provider.dart';
@@ -27,10 +33,12 @@ import 'package:rivertide/features/map/presentation/widgets/map_notes.dart';
 import 'package:rivertide/features/map/presentation/widgets/map_search_bar.dart';
 import 'package:rivertide/features/map/presentation/widgets/map_shortcuts.dart';
 import 'package:rivertide/features/map/presentation/widgets/marker_palette.dart';
+import 'package:rivertide/features/map/presentation/widgets/overlay_layers.dart';
 import 'package:rivertide/features/stations/stations.dart';
+import 'package:rivertide/features/trips/trips.dart';
 
 part 'map_screen_build_map.dart';
-part 'map_screen_community.dart';
+part 'map_screen_social.dart';
 
 /// Widest the "Cá ăn lúc" bar gets on tablets and desktop.
 const double _fishBarMaxWidth = 380;
@@ -160,7 +168,10 @@ class _MapScreenState extends ConsumerState<MapScreen> with MapDetailPresenter<M
         lat: lat,
         lon: lon,
         title: title,
-        actions: [PinPublicButton(lat: lat, lon: lon, name: title)],
+        actions: [
+          PinPublicButton(lat: lat, lon: lon, name: title),
+          TripHereButton(lat: lat, lon: lon, name: title),
+        ],
         onWater: switch (surface) {
           PointSurface.water => true,
           PointSurface.land => false,
@@ -182,6 +193,13 @@ class _MapScreenState extends ConsumerState<MapScreen> with MapDetailPresenter<M
     );
   }
 
+  /// Position for trips / check-ins: the usual permission flow, map unmoved.
+  Future<({double lat, double lon})?> _locateQuietly() async {
+    final p = await runLocateFlow(context, ref.read(locationServiceProvider));
+    if (p != null && mounted) setState(() => _me = p);
+    return p;
+  }
+
   /// [open]: "Đi câu ngay" — also open the place's details and summary.
   Future<void> _locate({bool open = false}) async {
     final p = await whileMapLocked(() => runLocateFlow(context, ref.read(locationServiceProvider)));
@@ -196,10 +214,7 @@ class _MapScreenState extends ConsumerState<MapScreen> with MapDetailPresenter<M
 
   @override
   Widget build(BuildContext context) {
-    final l10n = context.l10n;
     final markers = ref.watch(mapMarkersProvider);
-    final filter = ref.watch(mapFilterStateProvider);
-    final stationList = ref.watch(stationListProvider);
     final shown = markers.value ?? const <MapMarker>[];
     ref.listen(mapFocusProvider, (_, id) {
       if (id != null && _map != null) unawaited(_focusStation(id));
@@ -218,46 +233,7 @@ class _MapScreenState extends ConsumerState<MapScreen> with MapDetailPresenter<M
             right: rightInset,
             child: KeyedSubtree(key: _mapKey, child: _buildMap(context, shown)),
           ),
-          // Positioned so the top overlay is only as tall as its content.
-          Positioned(
-            top: 0,
-            left: 0,
-            right: 0,
-            child: SafeArea(
-              child: Padding(
-                padding: const EdgeInsets.all(AppSpacing.md)
-                    .copyWith(right: AppSpacing.md + rightInset),
-                child: Column(
-                  key: _topKey,
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    MapSearchBar(
-                      stations: stationList.value ?? const [],
-                      onSelected: (s) => _openStation(s.id, zoom: 11),
-                      onCoordinates: (lat, lon) =>
-                          _openPoint(lat, lon, PointSurface.unknown, zoom: 14),
-                      onPlace: (p) =>
-                          _openPoint(p.lat, p.lon, PointSurface.unknown, zoom: 13, title: p.name),
-                    ),
-                    // Riverpod retries failed providers: show the error, not a spinner, meanwhile.
-                    if (stationList.hasError && !stationList.hasValue)
-                      MapInlineError(onRetry: () => ref.invalidate(stationListProvider))
-                    else if (markers.isLoading)
-                      const LinearProgressIndicator(minHeight: 2),
-                    if (markers.hasValue && shown.isEmpty && filter.isActive)
-                      MapNote(text: l10n.map_filterNone),
-                    MapShortcuts(
-                      trailing: NearbySpotsChip(
-                        areaKey: _spotsArea,
-                        onTap: () => unawaited(_openNearby()),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
+          _buildTop(context, rightInset),
           Positioned(
             right: AppSpacing.md + rightInset,
             bottom: AppSpacing.xxl,

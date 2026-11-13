@@ -8,6 +8,7 @@ import 'package:rivertide/core/format/level_format.dart';
 import 'package:rivertide/core/format/text_fold.dart';
 import 'package:rivertide/core/l10n/l10n_ext.dart';
 import 'package:rivertide/core/theme/app_text.dart';
+import 'package:rivertide/core/widgets/map_pill.dart';
 import 'package:rivertide/features/map/application/place_index.dart';
 import 'package:rivertide/features/map/application/recent_places.dart';
 import 'package:rivertide/features/map/application/weather_layer.dart';
@@ -38,13 +39,25 @@ class MapSearchBar extends ConsumerWidget {
             .where((s) => TextFold.matches('${s.name} ${s.river ?? ''} ${s.region}', query))
             .toList();
 
+  /// Compact: a round button that opens the full search (full screen on
+  /// phones, a large panel on wide screens), so the map keeps its space.
   @override
-  Widget build(BuildContext context, WidgetRef ref) => SearchAnchor.bar(
-    barHintText: context.l10n.map_searchHint,
-    viewHintText: context.l10n.map_searchHint,
-    barLeading: const Icon(Icons.search_rounded),
-    suggestionsBuilder: (context, controller) => _suggestions(context, ref, controller),
-  );
+  Widget build(BuildContext context, WidgetRef ref) {
+    final wide = MediaQuery.sizeOf(context).width >= 600;
+    return SearchAnchor(
+      isFullScreen: !wide,
+      viewConstraints: wide
+          ? const BoxConstraints(minWidth: 420, maxWidth: 560, maxHeight: 560)
+          : null,
+      viewHintText: context.l10n.map_searchHint,
+      builder: (context, controller) => MapRoundButton(
+        icon: Icons.search_rounded,
+        tooltip: context.l10n.map_searchHint,
+        onTap: controller.openView,
+      ),
+      suggestionsBuilder: (context, controller) => _suggestions(context, ref, controller),
+    );
+  }
 
   Future<List<Widget>> _suggestions(
     BuildContext context,

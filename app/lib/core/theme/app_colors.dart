@@ -24,6 +24,7 @@ class AppColors extends ThemeExtension<AppColors> {
     required this.fishPeak,
     required this.spot,
     required this.deepWater,
+    required this.trip,
   });
 
   static const light = AppColors(
@@ -47,6 +48,7 @@ class AppColors extends ThemeExtension<AppColors> {
     fishPeak: Color(0xFF3CCB5A),
     spot: Color(0xFFFF7A2F),
     deepWater: Color(0xFF0C3B5E),
+    trip: Color(0xFF7B5CD6),
   );
 
   /// "Chế độ ngoài trời": black on white, darker accents, readable in full sun
@@ -72,6 +74,7 @@ class AppColors extends ThemeExtension<AppColors> {
     fishPeak: Color(0xFF1B5E20),
     spot: Color(0xFFBF360C),
     deepWater: Color(0xFF00283F),
+    trip: Color(0xFF4A148C),
   );
 
   static const dark = AppColors(
@@ -95,6 +98,7 @@ class AppColors extends ThemeExtension<AppColors> {
     fishPeak: Color(0xFF7CF06A),
     spot: Color(0xFFFF9A57),
     deepWater: Color(0xFF071F33),
+    trip: Color(0xFFB39DFF),
   );
 
   final Color primary;
@@ -123,6 +127,9 @@ class AppColors extends ThemeExtension<AppColors> {
 
   /// Background of the "underwater" fish activity scene.
   final Color deepWater;
+
+  /// Fishing trips ("kèo câu").
+  final Color trip;
 
   @override
   AppColors copyWith({Color? primary}) => this;

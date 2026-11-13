@@ -9,9 +9,9 @@ import 'package:rivertide/core/logging/log.dart';
 import 'package:rivertide/features/map/domain/map_marker.dart';
 import 'package:rivertide/features/map/domain/water_layers.dart';
 import 'package:rivertide/features/map/presentation/widgets/base_map.dart';
-import 'package:rivertide/features/map/presentation/widgets/community_layer.dart';
 import 'package:rivertide/features/map/presentation/widgets/fish_pin_icons.dart';
 import 'package:rivertide/features/map/presentation/widgets/marker_icons.dart';
+import 'package:rivertide/features/map/presentation/widgets/overlay_layers.dart';
 import 'package:rivertide/features/map/presentation/widgets/river_flow_layer.dart';
 import 'package:rivertide/features/map/presentation/widgets/station_layers.dart';
 import 'package:rivertide/features/map/presentation/widgets/weather_map_layer.dart';
@@ -50,7 +50,7 @@ class _MapLibreStationMapState extends State<MapLibreStationMap> implements Base
     if (!_styleReady) return;
     if (!identical(old.config.markers, widget.config.markers)) unawaited(_syncMarkers());
     if (!identical(old.config.weather, widget.config.weather)) unawaited(_syncWeather());
-    if (!identical(old.config.community, widget.config.community)) unawaited(_syncCommunity());
+    unawaited(_syncOverlays(old.config.overlays));
     if (!identical(old.config.riverReaches, widget.config.riverReaches) ||
         !identical(old.config.riverFlow, widget.config.riverFlow)) {
       unawaited(_syncRivers());
@@ -115,7 +115,7 @@ class _MapLibreStationMapState extends State<MapLibreStationMap> implements Base
       await _syncMarkers();
       await _syncRivers();
       await _syncWeather();
-      await _syncCommunity();
+      await _syncOverlays(null);
       await _syncMe();
     } on Exception catch (e) {
       // A failed overlay must not take the base map down; the list tab still works.
@@ -155,6 +155,9 @@ class _MapLibreStationMapState extends State<MapLibreStationMap> implements Base
     final spot = (fill: p.community, ink: p.stroke, shadow: p.shadow, glow: false);
     final png = await fishPinPng(spot, MarkerTrend.unknown, ratio, fishes: 1, star: true);
     await c.addImage(communityPinImage, png, false, ratio);
+    final trip = (fill: p.trip, ink: p.stroke, shadow: p.shadow, glow: false);
+    final tripPng = await fishPinPng(trip, MarkerTrend.unknown, ratio, glyph: PinGlyph.people);
+    await c.addImage(tripPinImage, tripPng, false, ratio);
   }
 
   Future<void> _syncMarkers() async {
@@ -208,10 +211,15 @@ class _MapLibreStationMapState extends State<MapLibreStationMap> implements Base
     });
   }
 
-  Future<void> _syncCommunity() async {
+  /// Pushes overlays whose points changed (all of them when [old] is null).
+  Future<void> _syncOverlays(Map<MapOverlayId, MapOverlay>? old) async {
     final c = _controller;
     if (c == null || !_styleReady) return;
-    await c.setGeoJsonSource(communitySourceId, widget.config.community);
+    for (final id in MapOverlayId.values) {
+      final now = widget.config.overlays[id]?.geojson ?? emptyGeo;
+      if (old != null && identical(old[id]?.geojson ?? emptyGeo, now)) continue;
+      await c.setGeoJsonSource(overlaySource(id), now);
+    }
   }
 
   Future<void> _syncWeather() async {
@@ -233,8 +241,8 @@ class _MapLibreStationMapState extends State<MapLibreStationMap> implements Base
     if (n == null) return;
     if (layerId == stationDotsLayerId && n >= 0 && n < _shown.length) {
       widget.config.onStationTap(_shown[n].id);
-    } else if (layerId == communityLayerId && n >= 0) {
-      widget.config.onCommunityTap?.call(n);
+    } else if (overlayOfLayer(layerId) case final id? when n >= 0) {
+      widget.config.overlays[id]?.onTap(n);
     } else if (layerId == clusterLayerId) {
       unawaited(_zoomIntoCluster(n, latLng));
     }

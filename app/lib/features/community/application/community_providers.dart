@@ -1,35 +1,17 @@
 import 'dart:async';
-import 'dart:math';
 import 'dart:typed_data';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/misc.dart';
-import 'package:rivertide/core/config/env.dart';
-import 'package:rivertide/core/db/app_database.dart';
+import 'package:rivertide/core/social/social_backend.dart';
 import 'package:rivertide/features/community/data/community_repository.dart';
 import 'package:rivertide/features/community/domain/public_spot.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 
 /// Null when no Supabase project is configured: the feature stays hidden.
-final Provider<CommunityRepository?> communityRepositoryProvider = Provider(
-  (ref) => Env.communityEnabled
-      ? CommunityRepository(Supabase.instance.client, () => _deviceSecret(ref))
-      : null,
-);
-
-const String _secretKey = 'community_secret';
-
-/// This device's secret for its own spots: created once with a secure RNG,
-/// kept in the local settings, never logged (the server stores its hash).
-Future<String> _deviceSecret(Ref ref) async {
-  final db = ref.read(appDatabaseProvider);
-  final stored = await db.readSetting(_secretKey);
-  if (stored != null && RegExp(r'^[0-9a-f]{64}$').hasMatch(stored)) return stored;
-  final r = Random.secure();
-  final fresh = List.generate(32, (_) => r.nextInt(256).toRadixString(16).padLeft(2, '0')).join();
-  await db.writeSetting(_secretKey, fresh);
-  return fresh;
-}
+final Provider<CommunityRepository?> communityRepositoryProvider = Provider((ref) {
+  final client = ref.watch(socialClientProvider);
+  return client == null ? null : CommunityRepository(client, () => deviceSecret(ref));
+});
 
 /// Search radius around the map centre / user.
 const double nearbyRadiusKm = 30;
@@ -42,6 +24,12 @@ const Duration nearbyTtl = Duration(minutes: 5);
 String nearbyKey(double lat, double lon, {double radiusKm = nearbyRadiusKm}) =>
     '${(lat / 0.05).round() * 0.05},${(lon / 0.05).round() * 0.05},${radiusKm.round()}';
 
+/// (lat, lon, radius km) of an area key from [nearbyKey].
+({double lat, double lon, double radiusKm}) parseNearbyKey(String key) {
+  final parts = key.split(',').map(double.parse).toList();
+  return (lat: parts[0], lon: parts[1], radiusKm: parts.length > 2 ? parts[2] : nearbyRadiusKm);
+}
+
 /// Visible spots within the radius of the area `key`, nearest first.
 final FutureProviderFamily<List<PublicSpot>, String> nearbySpotsProvider = FutureProvider
     .autoDispose
@@ -51,9 +39,8 @@ final FutureProviderFamily<List<PublicSpot>, String> nearbySpotsProvider = Futur
       final link = ref.keepAlive();
       final timer = Timer(nearbyTtl, link.close);
       ref.onDispose(timer.cancel);
-      final parts = key.split(',').map(double.parse).toList();
-      final radius = parts.length > 2 ? parts[2] : nearbyRadiusKm;
-      return await repo.nearby(parts[0], parts[1], radiusKm: radius);
+      final k = parseNearbyKey(key);
+      return await repo.nearby(k.lat, k.lon, radiusKm: k.radiusKm);
     });
 
 /// Publishes and refreshes every cached area so the new pin shows at once.
@@ -64,6 +51,19 @@ Future<void> publishSpot(WidgetRef ref, NewSpot spot, List<Uint8List> photos) as
   ref.invalidate(nearbySpotsProvider);
 }
 
+/// Owner edit (P2-25); false when the spot is not this device's.
+Future<bool> updateSpot(
+  WidgetRef ref,
+  PublicSpot spot,
+  NewSpot edit,
+  List<String> keep,
+  List<Uint8List> added,
+) async {
+  final ok = await ref.read(communityRepositoryProvider)?.update(spot, edit, keep, added) ?? false;
+  ref.invalidate(nearbySpotsProvider);
+  return ok;
+}
+
 Future<void> deleteSpot(WidgetRef ref, PublicSpot spot) async {
   await ref.read(communityRepositoryProvider)?.delete(spot);
   ref.invalidate(nearbySpotsProvider);
@@ -72,3 +72,41 @@ Future<void> deleteSpot(WidgetRef ref, PublicSpot spot) async {
 /// False when this device had already reported it.
 Future<bool> reportSpot(WidgetRef ref, PublicSpot spot) async =>
     await ref.read(communityRepositoryProvider)?.report(spot) ?? false;
+
+/// Comments of one spot, newest first (P2-25).
+final FutureProviderFamily<List<SpotComment>, String> spotCommentsProvider = FutureProvider
+    .autoDispose
+    .family<List<SpotComment>, String>((ref, spotId) async {
+      final repo = ref.watch(communityRepositoryProvider);
+      return repo == null ? const [] : await repo.comments(spotId);
+    });
+
+Future<void> addComment(WidgetRef ref, String spotId, String body) async {
+  final repo = ref.read(communityRepositoryProvider);
+  if (repo == null) return;
+  final name = await ref.read(displayNameProvider.future);
+  await repo.addComment(spotId, body, name);
+  ref
+    ..invalidate(spotCommentsProvider(spotId))
+    ..invalidate(nearbySpotsProvider);
+}
+
+Future<bool> editComment(WidgetRef ref, String spotId, String commentId, String body) async {
+  final ok = await ref.read(communityRepositoryProvider)?.editComment(commentId, body) ?? false;
+  ref.invalidate(spotCommentsProvider(spotId));
+  return ok;
+}
+
+Future<bool> deleteComment(WidgetRef ref, String spotId, String commentId) async {
+  final ok = await ref.read(communityRepositoryProvider)?.deleteComment(commentId) ?? false;
+  ref
+    ..invalidate(spotCommentsProvider(spotId))
+    ..invalidate(nearbySpotsProvider);
+  return ok;
+}
+
+Future<bool> reportComment(WidgetRef ref, String spotId, String commentId) async {
+  final ok = await ref.read(communityRepositoryProvider)?.reportComment(commentId) ?? false;
+  ref.invalidate(spotCommentsProvider(spotId));
+  return ok;
+}

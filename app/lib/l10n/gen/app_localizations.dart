@@ -1007,7 +1007,7 @@ abstract class AppLocalizations {
   /// No description provided for @trip_note.
   ///
   /// In vi, this message translates to:
-  /// **'Bấm một buổi để xem chi tiết điểm đó ở tab Câu cá. Dự báo càng xa càng kém chắc chắn, nên xem lại trước khi đi.'**
+  /// **'Ghi chú'**
   String get trip_note;
 
   /// No description provided for @where_title.
@@ -1015,6 +1015,48 @@ abstract class AppLocalizations {
   /// In vi, this message translates to:
   /// **'Hôm nay đi đâu?'**
   String get where_title;
+
+  /// No description provided for @where_short.
+  ///
+  /// In vi, this message translates to:
+  /// **'Đi đâu?'**
+  String get where_short;
+
+  /// No description provided for @more_shortcuts.
+  ///
+  /// In vi, this message translates to:
+  /// **'Lối tắt'**
+  String get more_shortcuts;
+
+  /// No description provided for @trip_listDetail.
+  ///
+  /// In vi, this message translates to:
+  /// **'Xem và tham gia kèo câu quanh đây'**
+  String get trip_listDetail;
+
+  /// No description provided for @trip_createDetail.
+  ///
+  /// In vi, this message translates to:
+  /// **'Hẹn anh em cùng đi câu, có gợi ý giờ vàng'**
+  String get trip_createDetail;
+
+  /// No description provided for @checkin_detail.
+  ///
+  /// In vi, this message translates to:
+  /// **'Báo anh em biết bạn đang câu ở đây (ẩn danh, 4 giờ)'**
+  String get checkin_detail;
+
+  /// No description provided for @checkin_peopleDetail.
+  ///
+  /// In vi, this message translates to:
+  /// **'Chỗ đang có người câu, ai đang dính cá'**
+  String get checkin_peopleDetail;
+
+  /// No description provided for @spot_listDetail.
+  ///
+  /// In vi, this message translates to:
+  /// **'Điểm câu anh em đã ghim, có ảnh và bình luận'**
+  String get spot_listDetail;
 
   /// No description provided for @where_entryHint.
   ///
@@ -1825,6 +1867,732 @@ abstract class AppLocalizations {
   /// In vi, this message translates to:
   /// **'Tọa độ {coords}'**
   String search_coords(String coords);
+
+  /// No description provided for @spot_edit.
+  ///
+  /// In vi, this message translates to:
+  /// **'Sửa'**
+  String get spot_edit;
+
+  /// No description provided for @spot_editTitle.
+  ///
+  /// In vi, this message translates to:
+  /// **'Sửa điểm câu'**
+  String get spot_editTitle;
+
+  /// No description provided for @spot_save.
+  ///
+  /// In vi, this message translates to:
+  /// **'Lưu thay đổi'**
+  String get spot_save;
+
+  /// No description provided for @spot_editSaved.
+  ///
+  /// In vi, this message translates to:
+  /// **'Đã lưu thay đổi'**
+  String get spot_editSaved;
+
+  /// No description provided for @spot_edited.
+  ///
+  /// In vi, this message translates to:
+  /// **'sửa {date}'**
+  String spot_edited(String date);
+
+  /// No description provided for @spot_tooMany.
+  ///
+  /// In vi, this message translates to:
+  /// **'Hôm nay máy này đã đăng đủ 10 điểm. Mai đăng tiếp nhé.'**
+  String get spot_tooMany;
+
+  /// No description provided for @spot_comments.
+  ///
+  /// In vi, this message translates to:
+  /// **'{count} bình luận'**
+  String spot_comments(int count);
+
+  /// No description provided for @cmt_title.
+  ///
+  /// In vi, this message translates to:
+  /// **'Bình luận'**
+  String get cmt_title;
+
+  /// No description provided for @cmt_count.
+  ///
+  /// In vi, this message translates to:
+  /// **'Bình luận ({count})'**
+  String cmt_count(int count);
+
+  /// No description provided for @cmt_hint.
+  ///
+  /// In vi, this message translates to:
+  /// **'Chia sẻ mồi, giờ cá ăn, đường vào…'**
+  String get cmt_hint;
+
+  /// No description provided for @cmt_send.
+  ///
+  /// In vi, this message translates to:
+  /// **'Gửi bình luận'**
+  String get cmt_send;
+
+  /// No description provided for @cmt_empty.
+  ///
+  /// In vi, this message translates to:
+  /// **'Chưa có bình luận nào. Hãy là người đầu tiên!'**
+  String get cmt_empty;
+
+  /// No description provided for @cmt_anon.
+  ///
+  /// In vi, this message translates to:
+  /// **'Người câu ẩn danh'**
+  String get cmt_anon;
+
+  /// No description provided for @cmt_asName.
+  ///
+  /// In vi, this message translates to:
+  /// **'Bình luận với tên {name} · đổi'**
+  String cmt_asName(String name);
+
+  /// No description provided for @cmt_asAnon.
+  ///
+  /// In vi, this message translates to:
+  /// **'Đang ẩn danh · đặt tên hiển thị'**
+  String get cmt_asAnon;
+
+  /// No description provided for @cmt_edited.
+  ///
+  /// In vi, this message translates to:
+  /// **'đã sửa'**
+  String get cmt_edited;
+
+  /// No description provided for @cmt_mine.
+  ///
+  /// In vi, this message translates to:
+  /// **'của bạn'**
+  String get cmt_mine;
+
+  /// No description provided for @cmt_more.
+  ///
+  /// In vi, this message translates to:
+  /// **'Thêm'**
+  String get cmt_more;
+
+  /// No description provided for @cmt_edit.
+  ///
+  /// In vi, this message translates to:
+  /// **'Sửa bình luận'**
+  String get cmt_edit;
+
+  /// No description provided for @cmt_delete.
+  ///
+  /// In vi, this message translates to:
+  /// **'Xóa'**
+  String get cmt_delete;
+
+  /// No description provided for @cmt_report.
+  ///
+  /// In vi, this message translates to:
+  /// **'Báo cáo'**
+  String get cmt_report;
+
+  /// No description provided for @cmt_deleteTitle.
+  ///
+  /// In vi, this message translates to:
+  /// **'Xóa bình luận của bạn?'**
+  String get cmt_deleteTitle;
+
+  /// No description provided for @cmt_reportTitle.
+  ///
+  /// In vi, this message translates to:
+  /// **'Báo cáo bình luận này?'**
+  String get cmt_reportTitle;
+
+  /// No description provided for @cmt_reportHint.
+  ///
+  /// In vi, this message translates to:
+  /// **'Nói tục, lừa đảo, quảng cáo… Bình luận bị 3 người báo cáo sẽ tự ẩn.'**
+  String get cmt_reportHint;
+
+  /// No description provided for @cmt_error.
+  ///
+  /// In vi, this message translates to:
+  /// **'Chưa gửi được, kiểm tra mạng rồi thử lại'**
+  String get cmt_error;
+
+  /// No description provided for @cmt_tooFast.
+  ///
+  /// In vi, this message translates to:
+  /// **'Bạn gửi hơi nhanh — đợi chút rồi gửi tiếp nhé'**
+  String get cmt_tooFast;
+
+  /// No description provided for @cmt_loadError.
+  ///
+  /// In vi, this message translates to:
+  /// **'Không tải được bình luận'**
+  String get cmt_loadError;
+
+  /// No description provided for @name_title.
+  ///
+  /// In vi, this message translates to:
+  /// **'Tên hiển thị'**
+  String get name_title;
+
+  /// No description provided for @name_hint.
+  ///
+  /// In vi, this message translates to:
+  /// **'vd Khánh Cần Thủ'**
+  String get name_hint;
+
+  /// No description provided for @name_note.
+  ///
+  /// In vi, this message translates to:
+  /// **'Hiện trên bình luận, kèo câu và tin nhắn. Để trống = ẩn danh.'**
+  String get name_note;
+
+  /// No description provided for @social_save.
+  ///
+  /// In vi, this message translates to:
+  /// **'Lưu'**
+  String get social_save;
+
+  /// No description provided for @trip_tag.
+  ///
+  /// In vi, this message translates to:
+  /// **'Kèo câu'**
+  String get trip_tag;
+
+  /// No description provided for @trip_pill.
+  ///
+  /// In vi, this message translates to:
+  /// **'{count} kèo câu'**
+  String trip_pill(int count);
+
+  /// No description provided for @trip_create.
+  ///
+  /// In vi, this message translates to:
+  /// **'Rủ đi câu'**
+  String get trip_create;
+
+  /// No description provided for @trip_createHere.
+  ///
+  /// In vi, this message translates to:
+  /// **'Rủ đi câu ở đây'**
+  String get trip_createHere;
+
+  /// No description provided for @trip_formTitle.
+  ///
+  /// In vi, this message translates to:
+  /// **'Tạo kèo câu'**
+  String get trip_formTitle;
+
+  /// No description provided for @trip_editTitle.
+  ///
+  /// In vi, this message translates to:
+  /// **'Sửa kèo câu'**
+  String get trip_editTitle;
+
+  /// No description provided for @trip_name.
+  ///
+  /// In vi, this message translates to:
+  /// **'Tên kèo'**
+  String get trip_name;
+
+  /// No description provided for @trip_nameHint.
+  ///
+  /// In vi, this message translates to:
+  /// **'vd Câu đêm bãi đá cầu Thanh Trì'**
+  String get trip_nameHint;
+
+  /// No description provided for @trip_place.
+  ///
+  /// In vi, this message translates to:
+  /// **'Địa điểm'**
+  String get trip_place;
+
+  /// No description provided for @trip_placeHint.
+  ///
+  /// In vi, this message translates to:
+  /// **'vd Bãi đá chân cầu, cổng số 3'**
+  String get trip_placeHint;
+
+  /// No description provided for @trip_whereHint.
+  ///
+  /// In vi, this message translates to:
+  /// **'Ghim kèo đặt ở chỗ này. Muốn hẹn chỗ khác: chạm chỗ đó trên bản đồ → \"Rủ đi câu ở đây\".'**
+  String get trip_whereHint;
+
+  /// No description provided for @trip_when.
+  ///
+  /// In vi, this message translates to:
+  /// **'Thời gian'**
+  String get trip_when;
+
+  /// No description provided for @trip_date.
+  ///
+  /// In vi, this message translates to:
+  /// **'Ngày'**
+  String get trip_date;
+
+  /// No description provided for @trip_start.
+  ///
+  /// In vi, this message translates to:
+  /// **'Bắt đầu'**
+  String get trip_start;
+
+  /// No description provided for @trip_duration.
+  ///
+  /// In vi, this message translates to:
+  /// **'Câu trong'**
+  String get trip_duration;
+
+  /// No description provided for @trip_hours.
+  ///
+  /// In vi, this message translates to:
+  /// **'{hours} giờ'**
+  String trip_hours(int hours);
+
+  /// No description provided for @trip_golden.
+  ///
+  /// In vi, this message translates to:
+  /// **'Giờ vàng ở đây (bấm để chọn)'**
+  String get trip_golden;
+
+  /// No description provided for @trip_goldenChip.
+  ///
+  /// In vi, this message translates to:
+  /// **'{when} · {score}'**
+  String trip_goldenChip(String when, String score);
+
+  /// No description provided for @trip_noGolden.
+  ///
+  /// In vi, this message translates to:
+  /// **'3 ngày tới chưa có giờ vàng ở đây'**
+  String get trip_noGolden;
+
+  /// No description provided for @trip_people.
+  ///
+  /// In vi, this message translates to:
+  /// **'Số người tối đa (kể cả bạn)'**
+  String get trip_people;
+
+  /// No description provided for @trip_contact.
+  ///
+  /// In vi, this message translates to:
+  /// **'Liên hệ (không bắt buộc)'**
+  String get trip_contact;
+
+  /// No description provided for @trip_contactHint.
+  ///
+  /// In vi, this message translates to:
+  /// **'Link nhóm Zalo/Facebook hoặc số điện thoại'**
+  String get trip_contactHint;
+
+  /// No description provided for @trip_contactNote.
+  ///
+  /// In vi, this message translates to:
+  /// **'Chỉ người đã tham gia kèo mới thấy.'**
+  String get trip_contactNote;
+
+  /// No description provided for @trip_noteHint.
+  ///
+  /// In vi, this message translates to:
+  /// **'Câu gì, mồi gì, đi xe máy hay ô tô ghép, chia tiền xăng…'**
+  String get trip_noteHint;
+
+  /// No description provided for @trip_submit.
+  ///
+  /// In vi, this message translates to:
+  /// **'Tạo kèo'**
+  String get trip_submit;
+
+  /// No description provided for @trip_save.
+  ///
+  /// In vi, this message translates to:
+  /// **'Lưu thay đổi'**
+  String get trip_save;
+
+  /// No description provided for @trip_created.
+  ///
+  /// In vi, this message translates to:
+  /// **'Đã tạo kèo! Anh em quanh đây sẽ thấy trên bản đồ.'**
+  String get trip_created;
+
+  /// No description provided for @trip_saved.
+  ///
+  /// In vi, this message translates to:
+  /// **'Đã lưu kèo'**
+  String get trip_saved;
+
+  /// No description provided for @trip_needName.
+  ///
+  /// In vi, this message translates to:
+  /// **'Đặt tên kèo (từ 2 ký tự)'**
+  String get trip_needName;
+
+  /// No description provided for @trip_badTime.
+  ///
+  /// In vi, this message translates to:
+  /// **'Giờ bắt đầu phải trong 30 ngày tới'**
+  String get trip_badTime;
+
+  /// No description provided for @trip_tooMany.
+  ///
+  /// In vi, this message translates to:
+  /// **'Hôm nay máy này đã tạo đủ 5 kèo. Mai tạo tiếp nhé.'**
+  String get trip_tooMany;
+
+  /// No description provided for @trip_error.
+  ///
+  /// In vi, this message translates to:
+  /// **'Chưa gửi được, kiểm tra mạng rồi thử lại'**
+  String get trip_error;
+
+  /// No description provided for @trip_tooFew.
+  ///
+  /// In vi, this message translates to:
+  /// **'Kèo đã có nhiều người hơn số này'**
+  String get trip_tooFew;
+
+  /// No description provided for @trip_running.
+  ///
+  /// In vi, this message translates to:
+  /// **'Đang diễn ra'**
+  String get trip_running;
+
+  /// No description provided for @trip_cancelled.
+  ///
+  /// In vi, this message translates to:
+  /// **'Đã hủy'**
+  String get trip_cancelled;
+
+  /// No description provided for @trip_full.
+  ///
+  /// In vi, this message translates to:
+  /// **'Đủ người'**
+  String get trip_full;
+
+  /// No description provided for @trip_left.
+  ///
+  /// In vi, this message translates to:
+  /// **'Còn {count} chỗ'**
+  String trip_left(int count);
+
+  /// No description provided for @trip_members.
+  ///
+  /// In vi, this message translates to:
+  /// **'{count}/{max} người'**
+  String trip_members(int count, int max);
+
+  /// No description provided for @trip_owner.
+  ///
+  /// In vi, this message translates to:
+  /// **'Chủ kèo: {name}'**
+  String trip_owner(String name);
+
+  /// No description provided for @trip_yours.
+  ///
+  /// In vi, this message translates to:
+  /// **'Kèo của bạn'**
+  String get trip_yours;
+
+  /// No description provided for @trip_joinedTag.
+  ///
+  /// In vi, this message translates to:
+  /// **'Bạn đã tham gia'**
+  String get trip_joinedTag;
+
+  /// No description provided for @trip_join.
+  ///
+  /// In vi, this message translates to:
+  /// **'Tham gia'**
+  String get trip_join;
+
+  /// No description provided for @trip_joinedSnack.
+  ///
+  /// In vi, this message translates to:
+  /// **'Đã tham gia! Xem liên hệ và nhắn tin với nhóm bên dưới.'**
+  String get trip_joinedSnack;
+
+  /// No description provided for @trip_joinFull.
+  ///
+  /// In vi, this message translates to:
+  /// **'Kèo đã đủ người'**
+  String get trip_joinFull;
+
+  /// No description provided for @trip_joinClosed.
+  ///
+  /// In vi, this message translates to:
+  /// **'Kèo đã kết thúc hoặc bị hủy'**
+  String get trip_joinClosed;
+
+  /// No description provided for @trip_leave.
+  ///
+  /// In vi, this message translates to:
+  /// **'Rời kèo'**
+  String get trip_leave;
+
+  /// No description provided for @trip_leaveTitle.
+  ///
+  /// In vi, this message translates to:
+  /// **'Rời kèo này?'**
+  String get trip_leaveTitle;
+
+  /// No description provided for @trip_cancel.
+  ///
+  /// In vi, this message translates to:
+  /// **'Hủy kèo'**
+  String get trip_cancel;
+
+  /// No description provided for @trip_cancelTitle.
+  ///
+  /// In vi, this message translates to:
+  /// **'Hủy kèo? Người đã tham gia sẽ thấy \"Đã hủy\".'**
+  String get trip_cancelTitle;
+
+  /// No description provided for @trip_edit.
+  ///
+  /// In vi, this message translates to:
+  /// **'Sửa'**
+  String get trip_edit;
+
+  /// No description provided for @trip_keep.
+  ///
+  /// In vi, this message translates to:
+  /// **'Giữ kèo'**
+  String get trip_keep;
+
+  /// No description provided for @trip_share.
+  ///
+  /// In vi, this message translates to:
+  /// **'Rủ thêm bạn'**
+  String get trip_share;
+
+  /// No description provided for @trip_shareText.
+  ///
+  /// In vi, this message translates to:
+  /// **'🎣 Kèo câu: {title}\n🕐 {when}\n📍 {place}\nBản đồ: {map}\nXem và tham gia trên app Con Nước: {app}'**
+  String trip_shareText(String title, String when, String place, String map, String app);
+
+  /// No description provided for @trip_report.
+  ///
+  /// In vi, this message translates to:
+  /// **'Báo cáo'**
+  String get trip_report;
+
+  /// No description provided for @trip_reportTitle.
+  ///
+  /// In vi, this message translates to:
+  /// **'Báo cáo kèo này?'**
+  String get trip_reportTitle;
+
+  /// No description provided for @trip_reportHint.
+  ///
+  /// In vi, this message translates to:
+  /// **'Lừa đảo, quảng cáo, nội dung xấu… Kèo bị 3 người báo cáo sẽ tự ẩn.'**
+  String get trip_reportHint;
+
+  /// No description provided for @trip_membersOnly.
+  ///
+  /// In vi, this message translates to:
+  /// **'Tham gia để xem liên hệ, danh sách người đi và nhắn tin với nhóm.'**
+  String get trip_membersOnly;
+
+  /// No description provided for @trip_contactLabel.
+  ///
+  /// In vi, this message translates to:
+  /// **'Liên hệ'**
+  String get trip_contactLabel;
+
+  /// No description provided for @trip_openContact.
+  ///
+  /// In vi, this message translates to:
+  /// **'Mở'**
+  String get trip_openContact;
+
+  /// No description provided for @trip_memberList.
+  ///
+  /// In vi, this message translates to:
+  /// **'Người đi'**
+  String get trip_memberList;
+
+  /// No description provided for @trip_chat.
+  ///
+  /// In vi, this message translates to:
+  /// **'Nhắn tin trong kèo'**
+  String get trip_chat;
+
+  /// No description provided for @trip_chatEmpty.
+  ///
+  /// In vi, this message translates to:
+  /// **'Chưa có tin nhắn. Hẹn giờ gặp, chỗ gửi xe ở đây nhé.'**
+  String get trip_chatEmpty;
+
+  /// No description provided for @trip_chatHint.
+  ///
+  /// In vi, this message translates to:
+  /// **'Nhắn cho cả nhóm…'**
+  String get trip_chatHint;
+
+  /// No description provided for @trip_send.
+  ///
+  /// In vi, this message translates to:
+  /// **'Gửi'**
+  String get trip_send;
+
+  /// No description provided for @trip_refresh.
+  ///
+  /// In vi, this message translates to:
+  /// **'Tải lại'**
+  String get trip_refresh;
+
+  /// No description provided for @trip_nearbyTitle.
+  ///
+  /// In vi, this message translates to:
+  /// **'Kèo câu quanh đây'**
+  String get trip_nearbyTitle;
+
+  /// No description provided for @trip_nearbyEmpty.
+  ///
+  /// In vi, this message translates to:
+  /// **'Chưa có kèo nào trong vòng 30 km. Tạo kèo đầu tiên để rủ anh em!'**
+  String get trip_nearbyEmpty;
+
+  /// No description provided for @trip_loadError.
+  ///
+  /// In vi, this message translates to:
+  /// **'Không tải được kèo câu'**
+  String get trip_loadError;
+
+  /// No description provided for @trip_notice.
+  ///
+  /// In vi, this message translates to:
+  /// **'Kèo hiện công khai cho người dùng quanh đây. Không hẹn ở nơi cấm câu; đi theo nhóm, giữ an toàn khi câu đêm.'**
+  String get trip_notice;
+
+  /// No description provided for @checkin_pill.
+  ///
+  /// In vi, this message translates to:
+  /// **'Tôi đang câu'**
+  String get checkin_pill;
+
+  /// No description provided for @checkin_pillOn.
+  ///
+  /// In vi, this message translates to:
+  /// **'Đang câu · còn {time}'**
+  String checkin_pillOn(String time);
+
+  /// No description provided for @checkin_count.
+  ///
+  /// In vi, this message translates to:
+  /// **'{count} người đang câu'**
+  String checkin_count(int count);
+
+  /// No description provided for @checkin_title.
+  ///
+  /// In vi, this message translates to:
+  /// **'Báo \"đang câu ở đây\"'**
+  String get checkin_title;
+
+  /// No description provided for @checkin_body.
+  ///
+  /// In vi, this message translates to:
+  /// **'Anh em quanh đây sẽ thấy có người đang câu ở khu này. Chỉ hiện con số, không hiện tên; vị trí làm tròn khoảng 200 m; tự tắt sau 4 giờ.'**
+  String get checkin_body;
+
+  /// No description provided for @checkin_biting.
+  ///
+  /// In vi, this message translates to:
+  /// **'Đang dính 🐟'**
+  String get checkin_biting;
+
+  /// No description provided for @checkin_noBite.
+  ///
+  /// In vi, this message translates to:
+  /// **'Chưa dính'**
+  String get checkin_noBite;
+
+  /// No description provided for @checkin_start.
+  ///
+  /// In vi, this message translates to:
+  /// **'Bắt đầu'**
+  String get checkin_start;
+
+  /// No description provided for @checkin_update.
+  ///
+  /// In vi, this message translates to:
+  /// **'Cập nhật'**
+  String get checkin_update;
+
+  /// No description provided for @checkin_stop.
+  ///
+  /// In vi, this message translates to:
+  /// **'Về rồi'**
+  String get checkin_stop;
+
+  /// No description provided for @checkin_on.
+  ///
+  /// In vi, this message translates to:
+  /// **'Đã báo đang câu. Chúc dính cá to!'**
+  String get checkin_on;
+
+  /// No description provided for @checkin_off.
+  ///
+  /// In vi, this message translates to:
+  /// **'Đã tắt. Về an toàn nhé!'**
+  String get checkin_off;
+
+  /// No description provided for @checkin_error.
+  ///
+  /// In vi, this message translates to:
+  /// **'Chưa gửi được, kiểm tra mạng rồi thử lại'**
+  String get checkin_error;
+
+  /// No description provided for @checkin_needLocation.
+  ///
+  /// In vi, this message translates to:
+  /// **'Cần vị trí của bạn để báo đang câu'**
+  String get checkin_needLocation;
+
+  /// No description provided for @checkin_cellTitle.
+  ///
+  /// In vi, this message translates to:
+  /// **'{count} người đang câu quanh đây'**
+  String checkin_cellTitle(int count);
+
+  /// No description provided for @checkin_cellBiting.
+  ///
+  /// In vi, this message translates to:
+  /// **'{count} người báo đang dính cá'**
+  String checkin_cellBiting(int count);
+
+  /// No description provided for @checkin_cellNoBite.
+  ///
+  /// In vi, this message translates to:
+  /// **'Chưa ai báo dính cá'**
+  String get checkin_cellNoBite;
+
+  /// No description provided for @checkin_cellLatest.
+  ///
+  /// In vi, this message translates to:
+  /// **'Người mới nhất tới lúc {time}'**
+  String checkin_cellLatest(String time);
+
+  /// No description provided for @checkin_cellYou.
+  ///
+  /// In vi, this message translates to:
+  /// **'Có cả bạn'**
+  String get checkin_cellYou;
+
+  /// No description provided for @checkin_listTitle.
+  ///
+  /// In vi, this message translates to:
+  /// **'Chỗ đang có người câu'**
+  String get checkin_listTitle;
+
+  /// No description provided for @checkin_hint.
+  ///
+  /// In vi, this message translates to:
+  /// **'Vị trí làm tròn ~200 m, không hiện tên ai.'**
+  String get checkin_hint;
 
   /// No description provided for @spot_publicTag.
   ///

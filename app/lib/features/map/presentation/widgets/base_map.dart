@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rivertide/features/map/domain/map_marker.dart';
 import 'package:rivertide/features/map/domain/water_layers.dart';
 import 'package:rivertide/features/map/presentation/widgets/maplibre_station_map.dart';
+import 'package:rivertide/features/map/presentation/widgets/overlay_layers.dart';
 
 /// Camera commands the screen can send to whichever map is mounted.
 abstract interface class BaseMapHandle {
@@ -27,6 +28,7 @@ typedef MarkerPalette = ({
   Color flowFalling,
   Color flowSlack,
   Color community,
+  Color trip,
 
   /// Fish activity bands, indexed by FishActivity.index.
   List<Color> fish,
@@ -47,8 +49,7 @@ class BaseMapConfig {
     this.riverFlow = const {'type': 'FeatureCollection', 'features': <Object>[]},
     this.weather = const {'type': 'FeatureCollection', 'features': <Object>[]},
     this.onCameraIdle,
-    this.community = const {'type': 'FeatureCollection', 'features': <Object>[]},
-    this.onCommunityTap,
+    this.overlays = const {},
     this.blocksTapAt,
     this.gesturesEnabled = true,
     this.userPosition,
@@ -73,11 +74,8 @@ class BaseMapConfig {
   /// Rain/wind grid points (`rain`, `wind`, `toDeg`), GeoJSON.
   final Map<String, Object?> weather;
 
-  /// Community fishing spots (feature `id` = index, `title`), GeoJSON.
-  final Map<String, Object?> community;
-
-  /// A community pin was tapped (its feature id).
-  final ValueChanged<int>? onCommunityTap;
+  /// Community spots, trips and "đang câu" bubbles (see [MapOverlayId]).
+  final Map<MapOverlayId, MapOverlay> overlays;
 
   /// Centre and zoom whenever the camera stops moving.
   final void Function(double lat, double lon, double zoom)? onCameraIdle;
