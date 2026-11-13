@@ -4,10 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rivertide/core/clock/clock_provider.dart';
 import 'package:rivertide/core/config/env.dart';
+import 'package:rivertide/core/format/text_fold.dart';
 import 'package:rivertide/core/l10n/l10n_ext.dart';
+import 'package:rivertide/core/theme/app_colors.dart';
 import 'package:rivertide/core/theme/app_spacing.dart';
 import 'package:rivertide/core/theme/app_text.dart';
 import 'package:rivertide/core/widgets/state_views.dart';
+import 'package:rivertide/core/widgets/ui_kit.dart';
 import 'package:rivertide/features/map/map.dart';
 import 'package:rivertide/features/ponds/application/ponds_providers.dart';
 import 'package:rivertide/features/ponds/domain/pond.dart';
@@ -29,6 +32,7 @@ class _PondsScreenState extends ConsumerState<PondsScreen> {
   ({double lat, double lon})? _origin;
   bool _locating = true;
   final Set<_Filter> _filters = {};
+  String _query = '';
 
   @override
   void initState() {
@@ -100,6 +104,8 @@ class _PondsScreenState extends ConsumerState<PondsScreen> {
         final o => _PondList(
           areaKey: pondsAreaKey(o.lat, o.lon),
           filters: _filters,
+          query: _query,
+          onQuery: (q) => setState(() => _query = q),
           onFilter: (f) =>
               setState(() => _filters.contains(f) ? _filters.remove(f) : _filters.add(f)),
         ),
@@ -138,10 +144,18 @@ class _NeedLocation extends StatelessWidget {
 }
 
 class _PondList extends ConsumerWidget {
-  const _PondList({required this.areaKey, required this.filters, required this.onFilter});
+  const _PondList({
+    required this.areaKey,
+    required this.filters,
+    required this.query,
+    required this.onQuery,
+    required this.onFilter,
+  });
 
   final String areaKey;
   final Set<_Filter> filters;
+  final String query;
+  final ValueChanged<String> onQuery;
   final ValueChanged<_Filter> onFilter;
 
   @override
@@ -151,6 +165,7 @@ class _PondList extends ConsumerWidget {
     final followed = ref.watch(followedPondsProvider).value ?? const <String>{};
     final now = ref.watch(clockProvider)();
     bool keep(Pond p) =>
+        (query.trim().isEmpty || TextFold.matches('${p.name} ${p.address}', query)) &&
         (!filters.contains(_Filter.release) || p.nextReleaseAt != null) &&
         (!filters.contains(_Filter.verified) || p.verified) &&
         (!filters.contains(_Filter.followed) || followed.contains(p.id));
@@ -164,6 +179,8 @@ class _PondList extends ConsumerWidget {
           AppSpacing.xxl * 3,
         ),
         children: [
+          _PondsHeader(ponds: ponds.value ?? const [], nowUtc: now, onQuery: onQuery),
+          const SizedBox(height: AppSpacing.md),
           Wrap(
             spacing: AppSpacing.sm,
             children: [
@@ -216,5 +233,58 @@ class _PondList extends ConsumerWidget {
       final r = rank(a).compareTo(rank(b));
       return r != 0 ? r : (a.distanceKm ?? 1e9).compareTo(b.distanceKm ?? 1e9);
     });
+  }
+}
+
+/// Gradient header: how many ponds, how many release soon, and name search.
+class _PondsHeader extends StatelessWidget {
+  const _PondsHeader({required this.ponds, required this.nowUtc, required this.onQuery});
+
+  final List<Pond> ponds;
+  final DateTime nowUtc;
+  final ValueChanged<String> onQuery;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = context.l10n;
+    final c = context.colors;
+    final soon = ponds
+        .where((p) => p.nextReleaseAt?.isBefore(nowUtc.add(const Duration(days: 3))) ?? false)
+        .length;
+    return HeroPanel(
+      colors: [c.pond, c.primary],
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        spacing: AppSpacing.xs,
+        children: [
+          Text(
+            l10n.pond_header(ponds.length),
+            style: context.text.headline.copyWith(color: c.surface),
+          ),
+          Text(
+            soon > 0 ? l10n.pond_headerSoon(soon) : l10n.pond_headerNone,
+            style: context.text.body.copyWith(color: c.surface),
+          ),
+          const SizedBox(height: AppSpacing.sm),
+          TextField(
+            onChanged: onQuery,
+            style: context.text.body,
+            decoration: InputDecoration(
+              hintText: l10n.pond_search,
+              prefixIcon: const Icon(Icons.search_rounded),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(AppRadius.pill),
+                borderSide: BorderSide.none,
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(AppRadius.pill),
+                borderSide: BorderSide.none,
+              ),
+              contentPadding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

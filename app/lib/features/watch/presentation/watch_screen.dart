@@ -1,7 +1,9 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:rivertide/core/l10n/l10n_ext.dart';
+import 'package:rivertide/core/navigation/map_focus.dart';
 import 'package:rivertide/core/theme/app_spacing.dart';
 import 'package:rivertide/core/theme/app_text.dart';
 import 'package:rivertide/core/widgets/state_views.dart';
@@ -37,7 +39,18 @@ class WatchScreen extends ConsumerWidget {
             case final station?)
           (fav: f, station: station),
     ];
-    if (rows.isEmpty) return EmptyView(message: context.l10n.watch_empty);
+    if (rows.isEmpty) {
+      return EmptyView(
+        icon: Icons.star_outline_rounded,
+        title: context.l10n.watch_emptyTitle,
+        message: context.l10n.watch_empty,
+        action: FilledButton.icon(
+          onPressed: () => context.go(mapRoute),
+          icon: const Icon(Icons.map_rounded),
+          label: Text(context.l10n.watch_openMap),
+        ),
+      );
+    }
     final groups = groupBy(rows, (r) => r.fav.group);
     // Named groups A→Z, ungrouped last.
     final names = groups.keys.whereType<String>().sorted();

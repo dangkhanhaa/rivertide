@@ -30,7 +30,10 @@ abstract final class AppTheme {
       extensions: [c, text],
       cardTheme: CardThemeData(
         color: c.surface,
-        elevation: 0,
+        // A soft lift so cards read on the pale background.
+        elevation: outlined ? 0 : 1,
+        shadowColor: c.onSurface.withValues(alpha: 0.12),
+        surfaceTintColor: Colors.transparent,
         margin: EdgeInsets.zero,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(AppRadius.lg),

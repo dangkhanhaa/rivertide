@@ -1,11 +1,19 @@
+import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:rivertide/core/config/env.dart';
 import 'package:rivertide/core/l10n/l10n_ext.dart';
+import 'package:rivertide/core/navigation/fishing_spot.dart';
+import 'package:rivertide/core/social/display_name_dialog.dart';
+import 'package:rivertide/core/social/social_backend.dart';
 import 'package:rivertide/core/theme/app_colors.dart';
 import 'package:rivertide/core/theme/app_spacing.dart';
 import 'package:rivertide/core/theme/app_text.dart';
+import 'package:rivertide/core/widgets/ui_kit.dart';
+import 'package:rivertide/features/journal/journal.dart';
 import 'package:rivertide/features/more/application/outdoor_mode_provider.dart';
 import 'package:rivertide/features/more/application/theme_mode_provider.dart';
 import 'package:rivertide/features/more/application/update_provider.dart';
@@ -21,87 +29,165 @@ class MoreScreen extends ConsumerWidget {
     final l10n = context.l10n;
     final mode = ref.watch(appThemeModeProvider).value ?? ThemeMode.system;
     final update = ref.watch(updateAvailableProvider).value ?? false;
+    final c = context.colors;
     return Scaffold(
-      appBar: AppBar(
-        title: Text(l10n.more_title),
-        actions: [
-          IconButton(
-            tooltip: l10n.more_info,
-            icon: Badge(isLabelVisible: update, child: const Icon(Icons.info_outline_rounded)),
-            onPressed: () => showModalBottomSheet<void>(
-              context: context,
-              showDragHandle: true,
-              isScrollControlled: true,
-              builder: (_) => const _AppInfo(),
+      appBar: AppBar(title: Text(l10n.more_title)),
+      body: ListView(
+        padding: const EdgeInsets.fromLTRB(AppSpacing.lg, 0, AppSpacing.lg, AppSpacing.xxl),
+        children: [
+          const _ProfileHeader(),
+          if (update) ...[
+            const SizedBox(height: AppSpacing.md),
+            ActionGroup(
+              children: [
+                ActionRow(
+                  icon: Icons.system_update_rounded,
+                  color: c.primary,
+                  title: l10n.more_update,
+                ),
+              ],
             ),
+          ],
+          SectionTitle(title: l10n.more_explore),
+          ActionGroup(
+            children: [
+              ActionRow(
+                icon: Icons.explore_rounded,
+                color: c.fishGood,
+                title: l10n.where_title,
+                subtitle: l10n.where_entryHint,
+                onTap: () => unawaited(context.push(whereRoute)),
+              ),
+              ActionRow(
+                icon: Icons.menu_book_rounded,
+                color: c.spot,
+                title: l10n.journal_title,
+                subtitle: l10n.more_journalHint,
+                onTap: () =>
+                    Navigator.of(context)
+                        .push(MaterialPageRoute<void>(builder: (_) => const JournalScreen())),
+              ),
+              ActionRow(
+                icon: Icons.water_rounded,
+                color: c.water,
+                title: l10n.stations_menu,
+                subtitle: l10n.stations_menuHint,
+                onTap: () =>
+                    Navigator.of(context)
+                        .push(MaterialPageRoute<void>(builder: (_) => const StationsScreen())),
+              ),
+            ],
+          ),
+          SectionTitle(title: l10n.more_theme),
+          ActionGroup(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(AppSpacing.md),
+                child: SegmentedButton<ThemeMode>(
+                  segments: [
+                    ButtonSegment(value: ThemeMode.system, label: Text(l10n.more_themeSystem)),
+                    ButtonSegment(value: ThemeMode.light, label: Text(l10n.more_themeLight)),
+                    ButtonSegment(value: ThemeMode.dark, label: Text(l10n.more_themeDark)),
+                  ],
+                  selected: {mode},
+                  showSelectedIcon: false,
+                  onSelectionChanged: (s) => ref.read(appThemeModeProvider.notifier).set(s.first),
+                ),
+              ),
+              ActionRow(
+                icon: Icons.wb_sunny_rounded,
+                color: c.alarm1,
+                title: l10n.more_outdoor,
+                subtitle: l10n.more_outdoorHint,
+                trailing: Switch(
+                  value: ref.watch(outdoorModeProvider).value ?? false,
+                  onChanged: (v) => ref.read(outdoorModeProvider.notifier).set(on: v),
+                ),
+              ),
+            ],
+          ),
+          SectionTitle(title: l10n.more_app),
+          ActionGroup(
+            children: [
+              if (kIsWeb) ...[
+                ActionRow(
+                  icon: Icons.install_mobile_rounded,
+                  color: c.primary,
+                  title: l10n.more_install,
+                  subtitle: l10n.more_installHow,
+                ),
+                ActionRow(
+                  icon: Icons.android_rounded,
+                  color: c.fishGood,
+                  title: l10n.more_apk,
+                  subtitle: l10n.more_apkHint,
+                  trailing: const Icon(Icons.download_rounded),
+                  onTap: () => unawaited(launchUrl(Uri.parse(Env.apkUrl))),
+                ),
+              ],
+              ActionRow(
+                icon: Icons.info_outline_rounded,
+                color: c.onSurfaceMuted,
+                title: l10n.more_info,
+                subtitle: l10n.more_version(Env.version),
+                onTap: () => unawaited(
+                  showModalBottomSheet<void>(
+                    context: context,
+                    isScrollControlled: true,
+                    builder: (_) => const _AppInfo(),
+                  ),
+                ),
+              ),
+            ],
           ),
         ],
       ),
-      body: ListView(
-        padding: const EdgeInsets.all(AppSpacing.lg),
+    );
+  }
+}
+
+/// Avatar with the display name used on comments, trips and reviews.
+class _ProfileHeader extends ConsumerWidget {
+  const _ProfileHeader();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = context.l10n;
+    final c = context.colors;
+    final name = ref.watch(displayNameProvider).value ?? '';
+    final shown = name.isEmpty ? l10n.cmt_anon : name;
+    return HeroPanel(
+      child: Row(
+        spacing: AppSpacing.md,
         children: [
-          if (update) ...[
-            Card(
-              color: context.colors.primary.withValues(alpha: 0.12),
-              child: ListTile(
-                leading: const Icon(Icons.system_update_rounded),
-                title: Text(l10n.more_update),
-              ),
-            ),
-            const SizedBox(height: AppSpacing.md),
-          ],
-          Card(
-            child: ListTile(
-              leading: const Icon(Icons.water_rounded),
-              title: Text(l10n.stations_menu),
-              subtitle: Text(l10n.stations_menuHint),
-              trailing: const Icon(Icons.chevron_right_rounded),
-              onTap: () =>
-                  Navigator.of(context)
-                      .push(MaterialPageRoute<void>(builder: (_) => const StationsScreen())),
+          CircleAvatar(
+            radius: AppSpacing.xxl,
+            backgroundColor: c.surface.withValues(alpha: 0.25),
+            child: Text(
+              shown.characters.first.toUpperCase(),
+              style: context.text.headline.copyWith(color: c.surface),
             ),
           ),
-          const SizedBox(height: AppSpacing.lg),
-          Text(l10n.more_theme, style: context.text.title),
-          const SizedBox(height: AppSpacing.sm),
-          SegmentedButton<ThemeMode>(
-            segments: [
-              ButtonSegment(value: ThemeMode.system, label: Text(l10n.more_themeSystem)),
-              ButtonSegment(value: ThemeMode.light, label: Text(l10n.more_themeLight)),
-              ButtonSegment(value: ThemeMode.dark, label: Text(l10n.more_themeDark)),
-            ],
-            selected: {mode},
-            onSelectionChanged: (s) => ref.read(appThemeModeProvider.notifier).set(s.first),
-          ),
-          const SizedBox(height: AppSpacing.lg),
-          SwitchListTile(
-            contentPadding: EdgeInsets.zero,
-            secondary: const Icon(Icons.wb_sunny_rounded),
-            title: Text(l10n.more_outdoor),
-            subtitle: Text(l10n.more_outdoorHint),
-            value: ref.watch(outdoorModeProvider).value ?? false,
-            onChanged: (v) => ref.read(outdoorModeProvider.notifier).set(on: v),
-          ),
-          if (kIsWeb) ...[
-            const SizedBox(height: AppSpacing.lg),
-            Card(
-              child: ListTile(
-                leading: const Icon(Icons.install_mobile_rounded),
-                title: Text(l10n.more_install),
-                subtitle: Text(l10n.more_installHow),
-              ),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(shown, style: context.text.title.copyWith(color: c.surface)),
+                Text(
+                  l10n.more_profileHint,
+                  style: context.text.caption.copyWith(color: c.surface.withValues(alpha: 0.85)),
+                ),
+              ],
             ),
-            const SizedBox(height: AppSpacing.sm),
-            Card(
-              child: ListTile(
-                leading: const Icon(Icons.android_rounded),
-                title: Text(l10n.more_apk),
-                subtitle: Text(l10n.more_apkHint),
-                trailing: const Icon(Icons.download_rounded),
-                onTap: () => launchUrl(Uri.parse(Env.apkUrl)),
-              ),
+          ),
+          FilledButton.tonal(
+            style: FilledButton.styleFrom(
+              backgroundColor: c.surface.withValues(alpha: 0.2),
+              foregroundColor: c.surface,
             ),
-          ],
+            onPressed: () => unawaited(editDisplayName(context, ref)),
+            child: Text(l10n.more_editName),
+          ),
         ],
       ),
     );

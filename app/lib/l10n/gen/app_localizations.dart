@@ -3914,6 +3914,54 @@ abstract class AppLocalizations {
   /// **'Xem cá ăn theo giờ'**
   String get fishTime_expand;
 
+  /// No description provided for @fishing_changeSpot.
+  ///
+  /// In vi, this message translates to:
+  /// **'Đổi'**
+  String get fishing_changeSpot;
+
+  /// No description provided for @fishing_plan.
+  ///
+  /// In vi, this message translates to:
+  /// **'Kế hoạch'**
+  String get fishing_plan;
+
+  /// No description provided for @pond_search.
+  ///
+  /// In vi, this message translates to:
+  /// **'Tìm hồ theo tên…'**
+  String get pond_search;
+
+  /// No description provided for @pond_header.
+  ///
+  /// In vi, this message translates to:
+  /// **'{count} hồ quanh bạn'**
+  String pond_header(int count);
+
+  /// No description provided for @pond_headerSoon.
+  ///
+  /// In vi, this message translates to:
+  /// **'{count} hồ sắp xả cá trong 3 ngày'**
+  String pond_headerSoon(int count);
+
+  /// No description provided for @pond_headerNone.
+  ///
+  /// In vi, this message translates to:
+  /// **'Chưa có lịch xả cá nào sắp tới'**
+  String get pond_headerNone;
+
+  /// No description provided for @fishing_nextGolden.
+  ///
+  /// In vi, this message translates to:
+  /// **'Giờ vàng {range}'**
+  String fishing_nextGolden(String range);
+
+  /// No description provided for @fishing_hourly.
+  ///
+  /// In vi, this message translates to:
+  /// **'Từng giờ hôm nay'**
+  String get fishing_hourly;
+
   /// No description provided for @fish_now_title.
   ///
   /// In vi, this message translates to:
@@ -4337,13 +4385,25 @@ abstract class AppLocalizations {
   /// No description provided for @watch_empty.
   ///
   /// In vi, this message translates to:
-  /// **'Bạn chưa theo dõi trạm nào. Mở một trạm và bấm ⭐ để thêm.'**
+  /// **'Chạm một điểm trên bản đồ (hoặc một trạm) rồi bấm ⭐ để lưu. Điểm đã lưu xem nhanh ở đây, có báo thức và dùng được khi mất sóng.'**
   String get watch_empty;
+
+  /// No description provided for @watch_emptyTitle.
+  ///
+  /// In vi, this message translates to:
+  /// **'Chưa có điểm nào'**
+  String get watch_emptyTitle;
+
+  /// No description provided for @watch_openMap.
+  ///
+  /// In vi, this message translates to:
+  /// **'Mở bản đồ'**
+  String get watch_openMap;
 
   /// No description provided for @fishing_title.
   ///
   /// In vi, this message translates to:
-  /// **'Chỉ số câu cá'**
+  /// **'Câu cá'**
   String get fishing_title;
 
   /// No description provided for @fishing_pickStation.
@@ -4561,6 +4621,36 @@ abstract class AppLocalizations {
   /// In vi, this message translates to:
   /// **'Thêm'**
   String get more_title;
+
+  /// No description provided for @more_explore.
+  ///
+  /// In vi, this message translates to:
+  /// **'Khám phá'**
+  String get more_explore;
+
+  /// No description provided for @more_app.
+  ///
+  /// In vi, this message translates to:
+  /// **'Ứng dụng'**
+  String get more_app;
+
+  /// No description provided for @more_journalHint.
+  ///
+  /// In vi, this message translates to:
+  /// **'Mẻ cá của bạn và thói quen câu'**
+  String get more_journalHint;
+
+  /// No description provided for @more_profileHint.
+  ///
+  /// In vi, this message translates to:
+  /// **'Tên hiện trên bình luận, kèo câu, đánh giá'**
+  String get more_profileHint;
+
+  /// No description provided for @more_editName.
+  ///
+  /// In vi, this message translates to:
+  /// **'Đổi tên'**
+  String get more_editName;
 
   /// No description provided for @more_theme.
   ///

@@ -59,29 +59,57 @@ class ErrorView extends StatelessWidget {
 }
 
 class EmptyView extends StatelessWidget {
-  const EmptyView({required this.message, this.action, super.key});
+  const EmptyView({
+    required this.message,
+    this.action,
+    this.icon = Icons.water_drop_outlined,
+    this.title,
+    super.key,
+  });
 
   final String message;
   final Widget? action;
+  final IconData icon;
+  final String? title;
 
   @override
-  Widget build(BuildContext context) => Center(
-    child: Padding(
-      padding: const EdgeInsets.all(AppSpacing.xl),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(Icons.water_drop_outlined, size: AppIconSize.lg, color: context.colors.stale),
-          const SizedBox(height: AppSpacing.md),
-          Text(message, style: context.text.body, textAlign: TextAlign.center),
-          if (action case final a?) ...[const SizedBox(height: AppSpacing.lg), a],
-        ],
+  Widget build(BuildContext context) {
+    final c = context.colors;
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(AppSpacing.xl),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              width: AppSpacing.xxl * 3,
+              height: AppSpacing.xxl * 3,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                gradient: LinearGradient(
+                  colors: [c.primary.withValues(alpha: 0.18), c.fishGood.withValues(alpha: 0.18)],
+                ),
+              ),
+              child: Icon(icon, size: AppIconSize.lg * 1.5, color: c.primary),
+            ),
+            const SizedBox(height: AppSpacing.lg),
+            if (title case final t?) ...[
+              Text(t, style: context.text.title, textAlign: TextAlign.center),
+              const SizedBox(height: AppSpacing.xs),
+            ],
+            Text(
+              message,
+              style: context.text.body.copyWith(color: c.onSurfaceMuted),
+              textAlign: TextAlign.center,
+            ),
+            if (action case final a?) ...[const SizedBox(height: AppSpacing.lg), a],
+          ],
+        ),
       ),
-    ),
-  );
+    );
+  }
 }
 
-/// "Ngoại tuyến · cập nhật lúc 14:05" shown above stale data.
 class StaleBanner extends StatelessWidget {
   const StaleBanner({required this.updatedAtText, super.key});
 

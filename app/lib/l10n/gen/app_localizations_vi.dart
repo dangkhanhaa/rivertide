@@ -2226,6 +2226,36 @@ class AppLocalizationsVi extends AppLocalizations {
   String get fishTime_expand => 'Xem cá ăn theo giờ';
 
   @override
+  String get fishing_changeSpot => 'Đổi';
+
+  @override
+  String get fishing_plan => 'Kế hoạch';
+
+  @override
+  String get pond_search => 'Tìm hồ theo tên…';
+
+  @override
+  String pond_header(int count) {
+    return '$count hồ quanh bạn';
+  }
+
+  @override
+  String pond_headerSoon(int count) {
+    return '$count hồ sắp xả cá trong 3 ngày';
+  }
+
+  @override
+  String get pond_headerNone => 'Chưa có lịch xả cá nào sắp tới';
+
+  @override
+  String fishing_nextGolden(String range) {
+    return 'Giờ vàng $range';
+  }
+
+  @override
+  String get fishing_hourly => 'Từng giờ hôm nay';
+
+  @override
   String get fish_now_title => 'Câu cá lúc này';
 
   @override
@@ -2481,10 +2511,17 @@ class AppLocalizationsVi extends AppLocalizations {
   String get chart_semantics => 'Biểu đồ mực nước, thực đo nét liền, dự báo nét đứt';
 
   @override
-  String get watch_empty => 'Bạn chưa theo dõi trạm nào. Mở một trạm và bấm ⭐ để thêm.';
+  String get watch_empty =>
+      'Chạm một điểm trên bản đồ (hoặc một trạm) rồi bấm ⭐ để lưu. Điểm đã lưu xem nhanh ở đây, có báo thức và dùng được khi mất sóng.';
 
   @override
-  String get fishing_title => 'Chỉ số câu cá';
+  String get watch_emptyTitle => 'Chưa có điểm nào';
+
+  @override
+  String get watch_openMap => 'Mở bản đồ';
+
+  @override
+  String get fishing_title => 'Câu cá';
 
   @override
   String get fishing_pickStation => 'Chọn trạm';
@@ -2605,6 +2642,21 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get more_title => 'Thêm';
+
+  @override
+  String get more_explore => 'Khám phá';
+
+  @override
+  String get more_app => 'Ứng dụng';
+
+  @override
+  String get more_journalHint => 'Mẻ cá của bạn và thói quen câu';
+
+  @override
+  String get more_profileHint => 'Tên hiện trên bình luận, kèo câu, đánh giá';
+
+  @override
+  String get more_editName => 'Đổi tên';
 
   @override
   String get more_theme => 'Giao diện';
