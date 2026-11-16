@@ -46,10 +46,14 @@ String localizeStyle(String raw, {({String fill, String line})? water}) {
     if (layout is! Map<String, Object?>) continue;
     final field = layout['text-field'];
     if (field is List<Object?> && _usesName(field)) {
+      // Not wrapping the original: it prefers `name_en`, so places without a
+      // `name:vi` tag (most of them) came out in English. In Vietnam `name` is
+      // already Vietnamese; abroad `name:latin` avoids non-Latin scripts.
       layout['text-field'] = [
         'coalesce',
         ['get', 'name:vi'],
-        field,
+        ['get', 'name:latin'],
+        ['get', 'name'],
       ];
     }
   }
@@ -86,8 +90,8 @@ class MapStyleSource {
   final DateTime Function() _clock;
 
   Future<String> load(String url, {({String fill, String line})? water}) async {
-    // v2: water tint added; older cached copies are not reused.
-    final key = 'map_style:v2:$url';
+    // v3: labels no longer fall back to English; older cached copies are not reused.
+    final key = 'map_style:v3:$url';
     final cached = await _db.readCache(key);
     final now = _clock();
     if (cached != null && now.difference(cached.fetchedAtUtc) < mapStyleTtl) {

@@ -207,6 +207,7 @@ class _Footer extends StatelessWidget {
     FishingFactor.solunar => context.l10n.fishing_factor_solunar,
     FishingFactor.pressure => context.l10n.fishing_factor_pressure,
     FishingFactor.daytime => context.l10n.fishing_factor_daytime,
+    FishingFactor.temperature => context.l10n.fishing_factor_temperature,
     FishingFactor.weather => context.l10n.fishing_factor_weather,
     FishingFactor.season => context.l10n.fishing_factor_season,
   };

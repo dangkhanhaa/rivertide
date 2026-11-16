@@ -4421,13 +4421,13 @@ abstract class AppLocalizations {
   /// No description provided for @fishing_reference.
   ///
   /// In vi, this message translates to:
-  /// **'Chỉ số mang tính tham khảo (công thức fs-1)'**
-  String get fishing_reference;
+  /// **'Chỉ số ước tính, chỉ để tham khảo (công thức {version}: con nước, giờ trăng, bình minh/hoàng hôn, áp suất 24 giờ, nhiệt độ, gió mưa)'**
+  String fishing_reference(String version);
 
   /// No description provided for @fishing_golden.
   ///
   /// In vi, this message translates to:
-  /// **'Giờ vàng'**
+  /// **'Giờ vàng sắp tới'**
   String get fishing_golden;
 
   /// No description provided for @fishing_noGolden.
@@ -4441,6 +4441,18 @@ abstract class AppLocalizations {
   /// In vi, this message translates to:
   /// **'7 ngày tới'**
   String get fishing_next7;
+
+  /// No description provided for @fishing_nowMark.
+  ///
+  /// In vi, this message translates to:
+  /// **'Giờ này'**
+  String get fishing_nowMark;
+
+  /// No description provided for @fishing_hourShort.
+  ///
+  /// In vi, this message translates to:
+  /// **'{hour}h'**
+  String fishing_hourShort(int hour);
 
   /// No description provided for @fishing_level.
   ///
@@ -4520,6 +4532,12 @@ abstract class AppLocalizations {
   /// **'thời tiết'**
   String get fishing_factor_weather;
 
+  /// No description provided for @fishing_factor_temperature.
+  ///
+  /// In vi, this message translates to:
+  /// **'nhiệt độ dễ chịu'**
+  String get fishing_factor_temperature;
+
   /// No description provided for @fishing_factor_season.
   ///
   /// In vi, this message translates to:
@@ -4529,7 +4547,7 @@ abstract class AppLocalizations {
   /// No description provided for @fishing_moon.
   ///
   /// In vi, this message translates to:
-  /// **'Trăng: {phase} ({pct}%)'**
+  /// **'{phase} · sáng {pct}%'**
   String fishing_moon(String phase, int pct);
 
   /// No description provided for @fishing_weatherSource.

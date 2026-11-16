@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:rivertide/core/calc/fishing/fish_activity.dart';
 import 'package:rivertide/core/calc/tide/tide_state.dart';
 
@@ -13,6 +14,7 @@ const Duration markerStaleAfter = Duration(hours: 6);
 /// KTTV river stations report 4 times a day in a daily bulletin.
 const Duration riverMarkerStaleAfter = Duration(hours: 30);
 
+@immutable
 class MapMarker {
   const MapMarker({
     required this.id,
@@ -47,6 +49,24 @@ class MapMarker {
   String get pinIcon => status.index >= MarkerStatus.alarm1.index
       ? alarmPinName(status, trend)
       : fishPinName(activity, trend);
+
+  /// Equal when the map would draw the same pin: the exact score does not
+  /// matter, only its band. Lets the map skip re-uploading (and re-clustering)
+  /// an unchanged station source after every pan.
+  @override
+  bool operator ==(Object other) =>
+      other is MapMarker &&
+      other.id == id &&
+      other.name == name &&
+      other.lat == lat &&
+      other.lon == lon &&
+      other.status == status &&
+      other.trend == trend &&
+      other.hasTide == hasTide &&
+      other.activity == activity;
+
+  @override
+  int get hashCode => Object.hash(id, name, lat, lon, status, trend, hasTide, activity);
 }
 
 /// What the map knows about one station's data at [nowUtc].

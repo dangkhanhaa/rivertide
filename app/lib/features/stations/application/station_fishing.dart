@@ -1,4 +1,6 @@
-import 'package:collection/collection.dart';
+import 'dart:math' as math;
+
+import 'package:rivertide/core/calc/astro/moon.dart';
 import 'package:rivertide/core/calc/astro/solunar.dart';
 import 'package:rivertide/core/calc/astro/sun.dart';
 import 'package:rivertide/core/calc/fishing/fishing_input.dart';
@@ -10,17 +12,23 @@ import 'package:rivertide/core/format/time_format.dart';
 import 'package:rivertide/features/stations/domain/station_tide.dart';
 import 'package:rivertide/features/stations/domain/weather.dart';
 
-/// Per-day astronomy reused for all 24 hours of that day.
-class _DayAstro {
-  _DayAstro(this.solunar, this.sunriseUtc, this.sunsetUtc, this.springNeap);
+/// Per-day astronomy and tide facts reused for every sample of that day.
+class _Day {
+  _Day(this.solunar, this.sunriseUtc, this.sunsetUtc, this.springNeap, this.maxRate);
 
   final SolunarDay solunar;
   final DateTime? sunriseUtc;
   final DateTime? sunsetUtc;
   final SpringNeap? springNeap;
+
+  /// Fastest |level change| of the day (cm/h); the tide score is relative to it.
+  final double? maxRate;
 }
 
-/// Hourly fishing scores (fs-1, PROJECT.md 9.6) for [days] Vietnam days from [fromDayUtc].
+/// Each hour is scored from these instants (fs-2).
+const List<int> _sampleMinutes = [0, 15, 30, 45];
+
+/// Hourly fishing scores (fs-2, PROJECT.md 9.6) for [days] Vietnam days from [fromDayUtc].
 List<FishingHourScore> scoreStationHours({
   required StationTide tide,
   required List<WeatherHour> weather,
@@ -32,10 +40,9 @@ List<FishingHourScore> scoreStationHours({
   final scores = <FishingHourScore>[];
   for (var d = 0; d < days; d++) {
     final dayStart = fromDayUtc.add(Duration(days: d));
-    final astro = _astroFor(dayStart, station.lat, station.lon, tide.prediction);
+    final day = _dayFor(dayStart, station.lat, station.lon, tide.prediction);
     for (var h = 0; h < 24; h++) {
-      final hourUtc = dayStart.add(Duration(hours: h));
-      scores.add(scoreHour(_input(hourUtc, tide.prediction, astro, byHour)));
+      scores.add(_scoreHour(dayStart.add(Duration(hours: h)), tide.prediction, day, byHour));
     }
   }
   return scores;
@@ -46,40 +53,84 @@ List<FishingHourScore> scoreStationHours({
 FishingHourScore scoreStationHourQuick(StationTide tide, DateTime hourUtc) {
   final station = tide.station;
   final dayStart = TimeFormat.vnDayStartUtc(hourUtc);
-  final astro = _astroFor(dayStart, station.lat, station.lon, tide.prediction);
-  return scoreHour(_input(hourUtc, tide.prediction, astro, const {}));
+  final day = _dayFor(dayStart, station.lat, station.lon, tide.prediction);
+  return _scoreHour(hourUtc, tide.prediction, day, const {});
 }
 
-_DayAstro _astroFor(DateTime dayStartUtc, double lat, double lon, TideSeries? prediction) {
+FishingHourScore _scoreHour(
+  DateTime hourUtc,
+  TideSeries? prediction,
+  _Day day,
+  Map<DateTime, WeatherHour> weather,
+) => scoreHour(hourUtc, [
+  for (final m in _sampleMinutes)
+    _input(hourUtc.add(Duration(minutes: m)), hourUtc, prediction, day, weather),
+]);
+
+/// Sun + solunar per (place, day). Pure functions of their key, so caching is
+/// safe; it matters because the map re-scores every station after each pan
+/// and the moon search costs far more than the score itself.
+final Map<String, (SolunarDay, SunTimes)> _skyCache = {};
+const int _skyCacheMax = 4000;
+
+_Day _dayFor(DateTime dayStartUtc, double lat, double lon, TideSeries? prediction) {
   final vn = TimeFormat.toVn(dayStartUtc);
-  final sun = sunTimes(year: vn.year, month: vn.month, day: vn.day, lat: lat, lon: lon);
-  final solunar = solunarForDay(year: vn.year, month: vn.month, day: vn.day, lat: lat, lon: lon);
-  return _DayAstro(solunar, sun.sunrise, sun.sunset, prediction?.springNeapAt(dayStartUtc));
+  final key = '$lat,$lon,${vn.year}-${vn.month}-${vn.day}';
+  final (solunar, sun) = _skyCache[key] ??= () {
+    if (_skyCache.length >= _skyCacheMax) _skyCache.clear();
+    return (
+      solunarForDay(year: vn.year, month: vn.month, day: vn.day, lat: lat, lon: lon),
+      sunTimes(year: vn.year, month: vn.month, day: vn.day, lat: lat, lon: lon),
+    );
+  }();
+  return _Day(
+    solunar,
+    sun.sunrise,
+    sun.sunset,
+    prediction?.springNeapAt(dayStartUtc),
+    prediction == null ? null : _maxRate(prediction, dayStartUtc),
+  );
+}
+
+double? _maxRate(TideSeries prediction, DateTime dayStartUtc) {
+  double? best;
+  for (var m = 0; m < 24 * 60; m += 20) {
+    final r = prediction.rateCmPerHAt(dayStartUtc.add(Duration(minutes: m)))?.abs();
+    if (r != null && (best == null || r > best)) best = r;
+  }
+  return best;
 }
 
 FishingHourInput _input(
+  DateTime t,
   DateTime hourUtc,
   TideSeries? prediction,
-  _DayAstro astro,
+  _Day day,
   Map<DateTime, WeatherHour> weather,
 ) {
-  // Score the middle of the hour: that is when someone fishing "at 6h" is there.
-  final mid = hourUtc.add(const Duration(minutes: 30));
   final w = weather[hourUtc];
-  final pressure3hAgo = weather[hourUtc.subtract(const Duration(hours: 3))]?.pressureHpa;
-  final pressureNow = w?.pressureHpa;
+  final yesterday = weather[hourUtc.subtract(const Duration(days: 1))];
+  final p = w?.pressureHpa;
+  final p24 = yesterday?.pressureHpa;
+  final temp = w?.temperatureC;
+  final temp24 = yesterday?.temperatureC;
+  final tide = prediction == null ? null : _tideAt(prediction, t, day.maxRate);
   return FishingHourInput(
-    hourUtc: hourUtc,
+    timeUtc: t,
     hasTide: prediction != null,
-    minutesToTurn: prediction == null ? null : _minutesToTurn(prediction, mid),
-    springNeap: astro.springNeap,
-    solunar: solunarAt(mid, astro.solunar),
-    isSolunarGoodDay: astro.solunar.isGoodDay,
-    sunriseUtc: astro.sunriseUtc,
-    sunsetUtc: astro.sunsetUtc,
-    pressureDelta3hHpa: pressureNow == null || pressure3hAgo == null
-        ? null
-        : pressureNow - pressure3hAgo,
+    tideRateNorm: tide?.rateNorm,
+    minutesSinceTurn: tide?.sinceTurn,
+    tideRising: tide?.rising ?? false,
+    springNeap: day.springNeap,
+    solunar: solunarAt(t, day.solunar),
+    solunarStrength: solunarStrengthAt(t, day.solunar),
+    daysFromNewOrFull: daysFromNewOrFullMoon(t),
+    moonFraction: moonIllumination(t).fraction,
+    sunriseUtc: day.sunriseUtc,
+    sunsetUtc: day.sunsetUtc,
+    pressureDelta24hHpa: p == null || p24 == null ? null : p - p24,
+    temperatureC: temp,
+    temperatureDrop24h: temp == null || temp24 == null ? 0 : math.max(0, temp24 - temp),
     windKmh: w?.windKmh,
     gustKmh: w?.gustKmh,
     rainMmPerH: w?.precipitationMm,
@@ -90,8 +141,17 @@ FishingHourInput _input(
   );
 }
 
-int? _minutesToTurn(TideSeries prediction, DateTime t) {
-  final candidates = [prediction.previousExtreme(t), prediction.nextExtreme(t)].nonNulls;
-  if (candidates.isEmpty) return null;
-  return candidates.map((e) => e.timeUtc.difference(t).inMinutes.abs()).min;
+({double rateNorm, int? sinceTurn, bool rising})? _tideAt(
+  TideSeries prediction,
+  DateTime t,
+  double? maxRate,
+) {
+  final rate = prediction.rateCmPerHAt(t);
+  if (rate == null || maxRate == null || maxRate <= 0) return null;
+  final last = prediction.previousExtreme(t);
+  return (
+    rateNorm: (rate.abs() / maxRate).clamp(0.0, 1.0),
+    sinceTurn: last == null ? null : t.difference(last.timeUtc).inMinutes,
+    rising: rate > 0,
+  );
 }

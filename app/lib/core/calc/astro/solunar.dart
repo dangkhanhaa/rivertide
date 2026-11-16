@@ -2,6 +2,8 @@
 // major = ±60 min around moon upper/lower transit, minor = ±30 min around
 // moonrise/moonset; "good day" = within ±2 calendar days of new/full moon.
 
+import 'dart:math' as math;
+
 import 'package:collection/collection.dart';
 import 'package:rivertide/core/calc/astro/astro_math.dart';
 import 'package:rivertide/core/calc/astro/moon.dart';
@@ -119,3 +121,23 @@ bool _isGoodDay(int year, int month, int day, double tzOffsetHours) {
   final diffDays = DateTime.utc(year, month, day).difference(eventDate).inDays.abs();
   return diffDays <= goodDayWindowDays;
 }
+
+/// Solunar strength at [utc], 0–1 (fs-2): a bell around each event instead of
+/// an on/off window, so the score rises and falls with the moon rather than
+/// jumping at ±60 min. Major (transits) peak at 1.0 and stay ≥ 0.37 at ±75
+/// min; minor (rise/set) peak at 0.75 with ±40 min.
+double solunarStrengthAt(DateTime utc, SolunarDay day) {
+  var best = 0.0;
+  for (final p in day.periods) {
+    final minutes = utc.difference(p.centerUtc).inSeconds / 60;
+    final major = p.kind == SolunarKind.major;
+    final width = major ? 75.0 : 40.0;
+    final v = (major ? 1.0 : 0.75) * math.exp(-math.pow(minutes / width, 2).toDouble());
+    if (v > best) best = v;
+  }
+  return best;
+}
+
+/// Days (fractional) between [utc] and the nearest new or full moon.
+double daysFromNewOrFullMoon(DateTime utc) =>
+    nearestNewOrFullMoon(utc).utc.difference(utc).inMinutes.abs() / (24 * 60);

@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:rivertide/core/calc/fishing/fishing_score.dart';
 import 'package:rivertide/core/calc/fishing/golden_window.dart';
+import 'package:rivertide/core/clock/clock_provider.dart';
 import 'package:rivertide/core/l10n/l10n_ext.dart';
 import 'package:rivertide/core/navigation/fishing_spot.dart';
 import 'package:rivertide/core/theme/app_colors.dart';
@@ -51,13 +52,24 @@ class _FishingScreenState extends ConsumerState<FishingScreen> {
     final spot = ref.watch(fishingSpotProvider);
     final fishing = ref.watch(stationFishingProvider(spot.id));
     final today = fishing.value?.hours.take(24).toList() ?? const <FishingHourScore>[];
+    final now = ref.watch(clockProvider)();
+    final ahead =
+        fishing.value?.hours
+            .where((h) => h.hourUtc.add(const Duration(hours: 1)).isAfter(now))
+            .take(24)
+            .toList() ??
+        const <FishingHourScore>[];
     return Scaffold(
       appBar: AppBar(title: Text(l10n.fishing_title)),
       body: ListView(
         padding: const EdgeInsets.fromLTRB(AppSpacing.lg, 0, AppSpacing.lg, AppSpacing.xxl),
         children: [
-          FishingHero(today: today, hasWarning: SafetyBanner.worstOf(today) != SafetyLevel.none),
-          const SizedBox(height: AppSpacing.md),
+          FishingHero(
+            today: today,
+            ahead: ahead,
+            hasWarning: SafetyBanner.worstOf(today) != SafetyLevel.none,
+          ),
+          const SizedBox(height: AppSpacing.sm),
           QuickActionRow(
             actions: [
               QuickAction(
@@ -100,16 +112,22 @@ class _FishingScreenState extends ConsumerState<FishingScreen> {
   }
 }
 
-class _FishingBody extends StatelessWidget {
+class _FishingBody extends ConsumerWidget {
   const _FishingBody({required this.fishing, required this.spotId});
 
   final StationFishing fishing;
   final String spotId;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final l10n = context.l10n;
     final today = fishing.hours.take(24).toList();
+    final now = ref.watch(clockProvider)();
+    // Golden hours still ahead (next 24 h), not ones already past this morning.
+    final ahead = fishing.hours
+        .where((h) => h.hourUtc.add(const Duration(hours: 1)).isAfter(now))
+        .take(24)
+        .toList();
     final worst = SafetyBanner.worstOf(today);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -120,13 +138,13 @@ class _FishingBody extends StatelessWidget {
         ],
         AdviceCard(spotId: spotId),
         SectionTitle(title: l10n.fishing_golden, icon: Icons.star_rounded),
-        GoldenList(windows: goldenWindows(today)),
+        GoldenList(windows: goldenWindows(ahead), nowUtc: now),
         SectionTitle(title: l10n.fishing_hourly, icon: Icons.bar_chart_rounded),
         ScoreBars(hours: today),
         SectionTitle(title: l10n.fishing_next7, icon: Icons.calendar_view_week_rounded),
         WeekStrip(hours: fishing.hours),
         const SizedBox(height: AppSpacing.lg),
-        Text(l10n.fishing_reference, style: context.text.caption),
+        Text(l10n.fishing_reference(fishingScoreVersion), style: context.text.caption),
       ],
     );
   }

@@ -4,7 +4,7 @@ import 'package:rivertide/core/calc/fishing/fishing_components.dart';
 import 'package:rivertide/core/calc/fishing/fishing_input.dart';
 
 /// Bump on any weight/threshold change and log it in docs/fishing-score.md.
-const String fishingScoreVersion = 'fs-1';
+const String fishingScoreVersion = 'fs-2';
 
 enum SafetyLevel { none, yellow, red }
 
@@ -23,21 +23,53 @@ enum SafetyReason {
   possibleThunderstorm,
 }
 
-enum FishingFactor { tide, flow, solunar, pressure, daytime, weather, season }
+enum FishingFactor { tide, flow, solunar, pressure, daytime, temperature, weather, season }
 
-/// Weights of PROJECT.md 9.6; flow replaces tide for non-tidal stations.
-const Map<FishingFactor, double> fishingWeights = {
-  FishingFactor.tide: 0.30,
-  FishingFactor.flow: 0.30,
-  FishingFactor.solunar: 0.25,
-  FishingFactor.pressure: 0.20,
-  FishingFactor.daytime: 0.10,
-  FishingFactor.weather: 0.10,
-  FishingFactor.season: 0.05,
+/// fs-2 splits the factors in two (PROJECT.md 9.6):
+/// - timing decides WHICH hours fish feed (moving water, moon, light);
+/// - conditions scale the whole day up or down (pressure, temperature,
+///   wind/rain, season).
+/// A single weighted mean (fs-1) let good weather lift every hour to ≥ 7, so
+/// the golden hours did not stand out.
+const Map<FishingFactor, double> timingWeights = {
+  FishingFactor.tide: 0.40,
+  FishingFactor.flow: 0.40,
+  FishingFactor.solunar: 0.33,
+  FishingFactor.daytime: 0.27,
+};
+const Map<FishingFactor, double> conditionWeights = {
+  FishingFactor.pressure: 0.35,
+  FishingFactor.temperature: 0.30,
+  FishingFactor.weather: 0.25,
+  FishingFactor.season: 0.10,
 };
 
-/// Component threshold counted as a "reason" in golden-window text.
-const double positiveFactorThreshold = 0.9;
+/// Combined view of both maps, used to rank reasons (heaviest first).
+const Map<FishingFactor, double> fishingWeights = {...timingWeights, ...conditionWeights};
+
+/// Conditions value assumed when no weather is loaded (quick map scores), so
+/// those pins land near the full score on an ordinary day.
+const double neutralConditions = 0.85;
+
+/// Conditions multiplier = floor + (1 − floor) × conditions: the worst weather
+/// roughly halves a score, the best leaves it whole.
+const double conditionFloor = 0.5;
+
+/// Extra points when moving water or dawn/dusk falls inside a strong solunar
+/// period: anglers and Knight's tables both rate that overlap highest.
+const double coincidenceBonus = 0.8;
+
+const Set<FishingFactor> _reasonFactors = {
+  FishingFactor.tide,
+  FishingFactor.flow,
+  FishingFactor.solunar,
+  FishingFactor.daytime,
+  FishingFactor.pressure,
+};
+
+/// Component threshold counted as a "reason" in golden-window text (0.85 in
+/// fs-2: hour averages of smooth curves rarely reach 0.9 even at a peak).
+const double positiveFactorThreshold = 0.85;
 
 const Set<int> _thunderstormCodes = {95, 96, 99};
 
@@ -61,38 +93,77 @@ class FishingHourScore {
   final SafetyLevel safety;
   final List<SafetyReason> safetyReasons;
 
-  /// Components ≥ 0.9, heaviest weight first.
+  /// Timing components and pressure ≥ [positiveFactorThreshold], heaviest first.
   final List<FishingFactor> positiveFactors;
 }
 
-/// Scores one hour; components without data are dropped from Σw.
-FishingHourScore scoreHour(FishingHourInput input) {
-  final components = _components(input);
-  var weightSum = 0.0;
-  var weighted = 0.0;
-  for (final entry in components.entries) {
-    final w = fishingWeights[entry.key] ?? 0;
-    weightSum += w;
-    weighted += w * entry.value;
+/// Scores one hour from instants inside it (fs-2 uses :00, :15, :30, :45):
+/// each component is averaged over the samples that have it, so an event at
+/// 10:40 lifts the 10h and 11h scores by how much of the hour it covers.
+/// Components without data are dropped from Σw; safety takes the worst sample.
+FishingHourScore scoreHour(DateTime hourUtc, List<FishingHourInput> samples) {
+  final sums = <FishingFactor, double>{};
+  final counts = <FishingFactor, int>{};
+  final reasons = <SafetyReason>{};
+  for (final s in samples) {
+    for (final e in _components(s).entries) {
+      sums[e.key] = (sums[e.key] ?? 0) + e.value;
+      counts[e.key] = (counts[e.key] ?? 0) + 1;
+    }
+    reasons.addAll(_safetyReasons(s));
   }
-  // Solunar and daytime always have data, so weightSum > 0.
-  var score = 10 * weighted / weightSum;
-  final reasons = _safetyReasons(input);
+  final components = {for (final e in sums.entries) e.key: e.value / (counts[e.key] ?? 1)};
+  final timing = _mean(components, timingWeights);
+  final conditions = _mean(components, conditionWeights) ?? neutralConditions;
+  var score = timing == null
+      ? 0.0
+      : 10 * timing * (conditionFloor + (1 - conditionFloor) * conditions) +
+            _coincidence(components);
+  score = math.min(score, 10);
   if (reasons.contains(SafetyReason.thunderstorm) || reasons.contains(SafetyReason.strongGust)) {
     score = math.min(score, 2);
   }
   if (reasons.contains(SafetyReason.heavyRain)) score = math.min(score, 3);
+  // Reasons are what makes THIS hour stand out; temperature, wind and season
+  // are the same all day, so listing them under every golden hour is noise.
   final positives =
-      components.entries.where((e) => e.value >= positiveFactorThreshold).map((e) => e.key).toList()
+      components.entries
+          .where((e) => e.value >= positiveFactorThreshold && _reasonFactors.contains(e.key))
+          .map((e) => e.key)
+          .toList()
         ..sort((a, b) => (fishingWeights[b] ?? 0).compareTo(fishingWeights[a] ?? 0));
+  final reasonList = SafetyReason.values.where(reasons.contains).toList();
   return FishingHourScore(
-    hourUtc: input.hourUtc,
+    hourUtc: hourUtc,
     score: roundTo1(score),
     components: Map.unmodifiable(components),
-    safety: _safetyLevel(reasons),
-    safetyReasons: List.unmodifiable(reasons),
+    safety: _safetyLevel(reasonList),
+    safetyReasons: List.unmodifiable(reasonList),
     positiveFactors: List.unmodifiable(positives),
   );
+}
+
+/// Weighted mean of the components present in [weights]; null when none are.
+double? _mean(Map<FishingFactor, double> components, Map<FishingFactor, double> weights) {
+  var weightSum = 0.0;
+  var weighted = 0.0;
+  for (final e in components.entries) {
+    final w = weights[e.key];
+    if (w == null) continue;
+    weightSum += w;
+    weighted += w * e.value;
+  }
+  return weightSum == 0 ? null : weighted / weightSum;
+}
+
+double _coincidence(Map<FishingFactor, double> c) {
+  final solunar = c[FishingFactor.solunar] ?? 0;
+  final other = math.max(
+    math.max(c[FishingFactor.tide] ?? 0, c[FishingFactor.flow] ?? 0),
+    c[FishingFactor.daytime] ?? 0,
+  );
+  // Both must be strong; scales from 0 (either ≤ 0.75) to full (both ≥ 0.95).
+  return coincidenceBonus * math.min(1, math.max(0, (math.min(solunar, other) - 0.75) / 0.2));
 }
 
 /// Rounds half away from zero to 1 decimal.
@@ -100,29 +171,38 @@ double roundTo1(double value) => (value * 10).round() / 10;
 
 Map<FishingFactor, double> _components(FishingHourInput input) {
   final result = <FishingFactor, double>{};
-  final minutes = input.minutesToTurn;
+  final rate = input.tideRateNorm;
   final flow = input.flowRateCmPerH;
-  if (input.hasTide && minutes != null) {
-    result[FishingFactor.tide] = tideScore(minutes, input.springNeap);
+  if (input.hasTide && rate != null) {
+    result[FishingFactor.tide] = tideScore(
+      rateNorm: rate,
+      minutesSinceTurn: input.minutesSinceTurn,
+      rising: input.tideRising,
+      springNeap: input.springNeap,
+    );
   } else if (!input.hasTide && flow != null) {
     result[FishingFactor.flow] = flowScore(flow);
   }
-  result[FishingFactor.solunar] = solunarScore(input.solunar, isGoodDay: input.isSolunarGoodDay);
-  final pressure = input.pressureDelta3hHpa;
+  result[FishingFactor.solunar] = solunarScore(
+    strength: input.solunarStrength,
+    daysFromNewOrFull: input.daysFromNewOrFull,
+  );
+  final pressure = input.pressureDelta24hHpa;
   if (pressure != null) result[FishingFactor.pressure] = pressureScore(pressure);
   result[FishingFactor.daytime] = daytimeScore(
-    timeUtc: input.hourUtc,
+    timeUtc: input.timeUtc,
     sunriseUtc: input.sunriseUtc,
     sunsetUtc: input.sunsetUtc,
-    tzOffsetHours: input.tzOffsetHours,
+    cloudPct: input.cloudPct,
+    moonFraction: input.moonFraction,
   );
+  final temp = input.temperatureC;
+  if (temp != null) {
+    result[FishingFactor.temperature] = temperatureScore(temp, drop24h: input.temperatureDrop24h);
+  }
   final wind = input.windKmh;
   if (wind != null) {
-    result[FishingFactor.weather] = weatherScore(
-      windKmh: wind,
-      rainMmPerH: input.rainMmPerH,
-      cloudPct: input.cloudPct,
-    );
+    result[FishingFactor.weather] = weatherScore(windKmh: wind, rainMmPerH: input.rainMmPerH);
   }
   final season = input.isBestSeason;
   if (season != null) result[FishingFactor.season] = seasonScore(isBestSeason: season);

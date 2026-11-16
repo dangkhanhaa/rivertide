@@ -21,10 +21,18 @@ import 'package:rivertide/features/stations/stations.dart';
 
 /// Top of the fishing tab: where, today's score in big, the next golden window.
 class FishingHero extends ConsumerWidget {
-  const FishingHero({required this.today, required this.hasWarning, super.key});
+  const FishingHero({
+    required this.today,
+    required this.hasWarning,
+    this.ahead = const [],
+    super.key,
+  });
 
   /// The 24 hours of today at the chosen spot (empty while loading).
   final List<FishingHourScore> today;
+
+  /// The next 24 hours from now: the "next golden window" may be tomorrow.
+  final List<FishingHourScore> ahead;
   final bool hasWarning;
 
   @override
@@ -37,7 +45,7 @@ class FishingHero extends ConsumerWidget {
     final name = !isPoint ? station?.name ?? '' : (spot.mine ? l10n.spot_mine : l10n.spot_point);
     final where = station == null ? null : adminLine(ref, station.lat, station.lon);
     final now = ref.watch(clockProvider)();
-    final next = goldenWindows(today).where((w) => w.endUtc.isAfter(now)).firstOrNull;
+    final next = goldenWindows(ahead).where((w) => w.endUtc.isAfter(now)).firstOrNull;
     final score = today.isEmpty ? null : dayScore(today);
     final moon = moonIllumination(now);
     final white = c.surface;
@@ -48,7 +56,7 @@ class FishingHero extends ConsumerWidget {
       colors: [c.primary, accent],
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        spacing: AppSpacing.md,
+        spacing: AppSpacing.sm,
         children: [
           Row(
             children: [
@@ -96,14 +104,14 @@ class FishingHero extends ConsumerWidget {
           Row(
             children: [
               _ScoreRing(score: score),
-              const SizedBox(width: AppSpacing.lg),
+              const SizedBox(width: AppSpacing.md),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   spacing: 2,
                   children: [
                     Text(
-                      l10n.fishing_dayScore,
+                      '${l10n.fishing_dayScore} · ${l10n.common_reference}',
                       style: context.text.label.copyWith(color: white.withValues(alpha: 0.85)),
                     ),
                     Text(
@@ -123,6 +131,8 @@ class FishingHero extends ConsumerWidget {
                         context.moonPhaseName(moon.phaseName),
                         (moon.fraction * 100).round(),
                       ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                       style: context.text.caption.copyWith(color: white.withValues(alpha: 0.85)),
                     ),
                     if (hasWarning)
@@ -131,10 +141,6 @@ class FishingHero extends ConsumerWidget {
                 ),
               ),
             ],
-          ),
-          Text(
-            l10n.common_reference,
-            style: context.text.caption.copyWith(color: white.withValues(alpha: 0.7)),
           ),
         ],
       ),
@@ -152,14 +158,14 @@ class _ScoreRing extends StatelessWidget {
     final white = context.colors.surface;
     final s = score;
     return SizedBox.square(
-      dimension: 96,
+      dimension: 76,
       child: Stack(
         alignment: Alignment.center,
         children: [
           SizedBox.expand(
             child: CircularProgressIndicator(
               value: s == null ? null : s / 10,
-              strokeWidth: 8,
+              strokeWidth: 7,
               strokeCap: StrokeCap.round,
               color: white,
               backgroundColor: white.withValues(alpha: 0.25),

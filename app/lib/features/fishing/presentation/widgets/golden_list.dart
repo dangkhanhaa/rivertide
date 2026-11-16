@@ -10,9 +10,12 @@ import 'package:rivertide/features/fishing/presentation/widgets/score_style.dart
 
 /// Up to 3 golden windows as cards side by side (swipe on narrow screens).
 class GoldenList extends StatelessWidget {
-  const GoldenList({required this.windows, super.key});
+  const GoldenList({required this.windows, required this.nowUtc, super.key});
 
   final List<GoldenWindow> windows;
+
+  /// Decides the "Hôm nay" / "Mai" tag on each card.
+  final DateTime nowUtc;
 
   @override
   Widget build(BuildContext context) {
@@ -25,26 +28,34 @@ class GoldenList extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         spacing: AppSpacing.sm,
-        children: [for (final w in windows) _GoldenCard(window: w)],
+        children: [
+          for (final w in windows)
+            _GoldenCard(
+              window: w,
+              tomorrow: TimeFormat.vnDayStartUtc(w.startUtc)
+                  .isAfter(TimeFormat.vnDayStartUtc(nowUtc)),
+            ),
+        ],
       ),
     );
   }
 }
 
 class _GoldenCard extends StatelessWidget {
-  const _GoldenCard({required this.window});
+  const _GoldenCard({required this.window, required this.tomorrow});
 
   final GoldenWindow window;
+  final bool tomorrow;
 
   @override
   Widget build(BuildContext context) {
     final c = context.colors;
     final w = window;
     return SizedBox(
-      width: 200,
+      width: 172,
       child: Card(
         child: Padding(
-          padding: const EdgeInsets.all(AppSpacing.md),
+          padding: const EdgeInsets.all(AppSpacing.sm + AppSpacing.xs),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             spacing: AppSpacing.xs,
@@ -52,7 +63,13 @@ class _GoldenCard extends StatelessWidget {
               Row(
                 children: [
                   Icon(Icons.star_rounded, color: c.alarm1),
-                  const Spacer(),
+                  const SizedBox(width: AppSpacing.xs),
+                  Expanded(
+                    child: Text(
+                      tomorrow ? context.l10n.common_tomorrow : context.l10n.common_today,
+                      style: context.text.label.copyWith(color: c.onSurfaceMuted),
+                    ),
+                  ),
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm, vertical: 2),
                     decoration: BoxDecoration(

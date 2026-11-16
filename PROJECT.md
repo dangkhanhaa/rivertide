@@ -946,22 +946,31 @@ Theo **SunCalc** (Agafonkin) / **Meeus**:
 | **Phụ (minor)** | ±30 phút quanh trăng mọc và trăng lặn |
 | **Ngày tốt** | Trong ±2 ngày quanh trăng non / trăng tròn |
 
-### 9.6. Chỉ số câu cá (`core/calc/fishing/`)
+### 9.6. Chỉ số câu cá (`core/calc/fishing/`) — công thức `fs-2`
 
-Tính cho mỗi giờ `h` tại điểm (trạm hoặc điểm lưu). Mỗi thành phần ∈ [0, 1].
+Tính cho mỗi giờ `h` tại điểm (trạm hoặc điểm lưu). Mỗi giờ lấy **4 mẫu** (:00, :15, :30, :45), mỗi thành phần ∈ [0, 1] lấy trung bình 4 mẫu. Mọi thành phần là **đường cong trơn** (không bậc thang).
 
 ```
-S = 10 × Σ(w_i × s_i) / Σ(w_i đang có dữ liệu)       → làm tròn 1 chữ số
+T (thời điểm) = trung bình có trọng số của {tide|flow 0.40, solunar 0.33, daytime 0.27}
+C (điều kiện) = trung bình có trọng số của {pressure 0.35, temperature 0.30, weather 0.25, season 0.10}
+               (không có thời tiết → C = 0.85)
+S = 10 × T × (0.5 + 0.5 × C) + thưởng trùng khớp (≤ 0.8)      → tối đa 10, làm tròn 1 chữ số
 ```
 
-| Thành phần | w | Cách tính `s` |
-|---|---|---|
-| **tide** | 0.30 | Chỉ khi `has_tide`. `m` = phút tới lần đổi con nước gần nhất (đỉnh/chân, trước hoặc sau). `m ≤ 20`: 0.5 (nước đứng) · `20 < m ≤ 120`: 1.0 · `120 < m ≤ 180`: 0.75 · `> 180`: 0.5. Nhân hệ số con nước: rong 1.0 · trung bình 0.85 · kém 0.7. Trạm không triều: dùng `flow` thay thế: mực nước thay đổi nhẹ (2–10 cm/h) 0.9, đứng yên 0.6, lên rất nhanh (> 20 cm/h, nước đục) 0.3 |
-| **solunar** | 0.25 | Trong giờ chính 1.0 · giờ phụ 0.75 · ngoài 0.35. Cộng 0.1 nếu là "ngày tốt" (tối đa 1.0) |
-| **pressure** | 0.20 | `Δp` = thay đổi áp suất 3 giờ (hPa). Giảm 1–3: 1.0 · \|Δp\| < 1: 0.8 · tăng 1–3: 0.6 · giảm > 3: 0.3 · tăng > 3: 0.4 |
-| **daytime** | 0.10 | Trong ±90 phút quanh bình minh/hoàng hôn: 1.0 · ban đêm: 0.6 · 11h–14h: 0.4 · còn lại 0.6 |
-| **weather** | 0.10 | Gió < 15 km/h: 1.0 · 15–25: 0.6 · > 25: 0.2. Nhân mưa: < 1 mm/h ×1.0 · 1–5 ×0.8 · > 5 ×0.4. Mây 30–80%: +0.1 (tối đa 1.0) |
-| **season** | 0.05 | Có loài cá người dùng chọn: tháng hiện tại ∈ `best_months` → 1.0, không → 0.4. Không chọn loài → bỏ thành phần này |
+| Thành phần | Cách tính `s` |
+|---|---|
+| **tide** | `r` = \|tốc độ đổi mực nước\| ÷ tốc độ lớn nhất trong ngày (0 = nước đứng, 1 = chảy mạnh nhất). `0.25 + 0.65 × ramp(r; 0.15→0.85)` + thưởng "nước bắt đầu chảy" `0.12 × bell(phút từ lần đổi nước; 90, 60)` + 0.05 khi nước lên; × hệ số con nước: rong 1.0 · trung bình 0.92 · kém 0.8 |
+| **flow** (trạm không triều) | thay đổi nhẹ 2–10 cm/h 0.9 · đứng yên 0.6 · lên > 20 cm/h (nước đục) 0.3 · còn lại 0.6 |
+| **solunar** | Độ mạnh = max các "chuông" quanh sự kiện: trăng lên đỉnh/xuống chân (đỉnh 1.0, rộng 75 phút), trăng mọc/lặn (đỉnh 0.75, rộng 40 phút). `0.3 + 0.7 × độ mạnh` + tối đa 0.12 khi gần trăng non/tròn (giảm dần trong 4 ngày) |
+| **daytime** | Chuông quanh bình minh (+20 phút, rộng 75) và hoàng hôn (−10 phút, rộng 80) = 1.0. Ban ngày 0.68, trưa nắng (10h30–14h) xuống 0.38 — trời nhiều mây bớt phạt. Ban đêm 0.5 + 0.12 × độ sáng trăng |
+| **pressure** | `Δp` = áp suất **so với cùng giờ hôm qua** (hPa). −8: 0.3 · −5: 0.55 · −3.5…−1: 1.0 · +1: 0.8 · +4: 0.55 · +7: 0.4 (nội suy tuyến tính). ⚠ Không dùng Δ3h: vùng nhiệt đới áp suất tự dao động 2–3 hPa hai lần/ngày → Δ3h làm chiều nào cũng "tốt", sáng nào cũng "kém" |
+| **temperature** | Nhiệt độ không khí: 10°C 0.2 · 15 0.45 · 20 0.75 · 24–30 1.0 · 33 0.7 · 36 0.45; lạnh hơn hôm qua 3–7°C (gió mùa về) × tới 0.75 |
+| **weather** | Gió: lặng 0.8 · 4–15 km/h 1.0 · 25 0.6 · 40 0.2. × mưa: ≤ 2 mm/h 1.0 · 8 0.7 · 15 0.45 |
+| **season** | Có loài cá người dùng chọn: đúng mùa 1.0, không 0.4. Không chọn loài → bỏ |
+
+**Thưởng trùng khớp:** khi solunar và (con nước hoặc bình minh/hoàng hôn) cùng ≥ 0.75 → cộng tới 0.8 điểm (đủ khi cả hai ≥ 0.95).
+
+**Lý do hiện cho giờ vàng:** chỉ con nước/dòng chảy, giờ trăng, bình minh/hoàng hôn, áp suất (nhiệt độ, gió, mùa giống nhau cả ngày nên không nêu).
 
 **Luật ghi đè an toàn (bắt buộc):**
 - Có dông/sét (`weather_code` ∈ {95, 96, 99}) **hoặc** gió giật > 50 km/h → `S = min(S, 2.0)` + cảnh báo **đỏ**.
@@ -969,9 +978,11 @@ S = 10 × Σ(w_i × s_i) / Σ(w_i đang có dữ liệu)       → làm tròn 1 
 - `cape ≥ 3000` **và** `precipitation_probability ≥ 50` → **không** khóa điểm, chỉ hiện cảnh báo **vàng** "Có thể có dông".
 - ⚠ KHÔNG dùng `cape > 2000` làm điều kiện khóa: khảo sát P0-03 cho thấy CAPE ở Việt Nam thường > 2000 kể cả trời quang (Cần Thơ 06/11/2026: 2070–2860) → sẽ báo động giả hằng ngày.
 
-**Giờ vàng:** các khoảng liên tục có `S ≥ 7.0`, gộp khoảng cách < 30 phút; hiện tối đa 3 khoảng có điểm cao nhất, kèm **lý do** (ví dụ "bình minh + nước ròng + solunar chính").
+**Giờ vàng:** các khoảng liên tục có `S ≥ 7.0`, gộp khoảng cách < 30 phút; hiện tối đa 3 khoảng có điểm cao nhất **trong 24 giờ tới** (không hiện khung đã qua), kèm **lý do**.
 
-**Điểm ngày:** trung bình 4 giờ có điểm cao nhất trong ngày.
+**Điểm ngày:** (trung bình 3 giờ cao nhất + trung vị 24 giờ) ÷ 2.
+
+**Mức hiển thị** (giống ghim bản đồ): Thấp < 5 · Vừa 5–7 · Cao 7–8,5 · Rất cao ≥ 8,5.
 
 **Snapshot điều kiện cho nhật ký câu** (`catches.conditions`):
 
@@ -979,7 +990,7 @@ S = 10 × Σ(w_i × s_i) / Σ(w_i đang có dữ liệu)       → làm tròn 1 
 { "tide_state":"falling","tide_level_cm":180,"minutes_to_turn":75,"spring_neap":"spring",
   "lunar_day":15,"moon_phase":0.98,"solunar":"major",
   "pressure_hpa":1008,"pressure_trend_3h":-1.4,"wind_kmh":8,"rain_mm":0,"cloud":40,"temp_c":29,
-  "score":8.2,"version":"fs-1" }
+  "score":8.2,"version":"fs-2" }
 ```
 
 > File `docs/fishing-score.md` ghi lại mọi lần chỉnh trọng số, kèm `version` (`fs-1`, `fs-2`…).
@@ -1538,145 +1549,5 @@ Hoãn tới khi cần máy chủ: P1-05 → P1-12, P1-18, P1-30, P1-32 (phần D
 - [x] **P2-27** ✅ 2026-11-12 Đang câu ở đây: báo đang câu (chưa dính / đang dính), tự tắt sau 4 giờ hoặc "Về rồi"; máy chủ làm tròn vị trí ~200 m trước khi lưu, chỉ trả con số theo ô (không danh tính); bản đồ hiện bong bóng số người (sáng hơn khi có người dính). DoD: thử với 4 thiết bị giả lập + web — đã thử.
 - [x] Thanh trên bản đồ thu gọn: ô tìm kiếm thành nút 🔍 (bấm mở tìm toàn màn hình); một hàng 🔍 · Đi đâu? · lối tắt đang có việc · ⋯ (đủ lối tắt kèm giải thích); tự đo chữ để luôn 1 dòng, không phải vuốt ngang (trên web vuốt ngang làm kéo cả bản đồ).
 - [x] **P2-28** ✅ 2026-11-13 Hồ câu dịch vụ: tab "Hồ câu" (thay tab Trạm; danh sách trạm chuyển vào Thêm), ghim xanh ngọc trên bản đồ, thẻ hồ (giá, giờ, loài, gọi, chỉ đường, theo dõi), lịch xả cá (chủ hồ đăng = chính thức; người dùng báo lại = chưa xác nhận, 3 báo sai → ẩn), **dán bài Facebook/TikTok → tự đọc ngày, giờ, loài, kg** (`core/calc/ponds/release_parse.dart`, chạy trên máy), "lúc này ở hồ" (đông/vắng/cá ăn/vừa xả, 6 giờ), đánh giá sao, xác nhận hồ có thật (3 máy → ✓), sửa kiểu wiki khi chưa có chủ (có lịch sử), chủ hồ nhận hồ → **quản trị duyệt trong bảng `pond_claims`** (đặt status = approved). Dữ liệu khởi đầu: 66 hồ Hà Nội + TP.HCM gom từ trang web công khai (bài tổng hợp, báo, OSM), vị trí theo địa chỉ đánh dấu gần đúng. `supabase/migrations/0003_ponds.sql`. Thẻ trạm/điểm trên bản đồ thu gọn (mực nước, giờ đổi nước, cá ăn; còn lại trong "Xem chi tiết"). DoD: 30 phép thử API + quyền chủ hồ + xem trên web Hà Nội/TP.HCM — đã thử.
-
-### Giai đoạn 3 — Bản 3 🔵
-
-- [ ] **P3-01** Nhận diện cá TFLite (F-FISH-14).
-- [ ] **P3-02** Dự báo kết hợp triều + mưa + lũ (F-TIDE-08), lớp nguy cơ ngập (F-MAP-08).
-- [ ] **P3-03** Độ mặn (F-WL-05, F-AGRI-02).
-- [ ] **P3-04** Tĩnh không cầu (F-BOAT-01).
-- [ ] **P3-05** Xả lũ hồ chứa (F-SAFE-06).
-- [ ] **P3-06** Đo khoảng cách, vẽ vùng (F-MAP-09); đọc to, tiếng Anh (F-UX-08).
-
-### Giai đoạn 4 — Phát hành & cộng đồng ⚪ (chưa tính — xem mục 17)
-
----
-
-## 15. Mẫu prompt vibe code
-
-### 15.1. Làm 1 task
-
-```
-Đọc CLAUDE.md và PROJECT.md. Thực hiện task <MÃ TASK> trong mục 14.
-- Đọc các mục spec liên quan (ghi rõ mục nào bạn đã đọc).
-- Lập kế hoạch ngắn (các file sẽ tạo/sửa) rồi mới code.
-- Chạy flutter analyze, build web, rồi kiểm bằng dữ liệu thật (docs/rules/05).
-- Cuối cùng: tóm tắt đã làm gì, cách tôi tự kiểm tra theo Tiêu chí xong, và những gì còn thiếu.
-```
-
-### 15.2. Sửa lỗi
-
-```
-Lỗi: <dán thông báo lỗi / mô tả hiện tượng / ảnh chụp>
-Bước tái hiện: <1, 2, 3>
-Mong muốn: <...>
-Tìm nguyên nhân gốc trước khi sửa, giải thích ngắn nguyên nhân, sửa, thêm test chống tái phát.
-```
-
-### 15.3. Khảo sát nguồn dữ liệu (P0-03)
-
-```
-Tôi đã lưu phản hồi mẫu từ <nguồn> vào <đường dẫn fixtures>. Endpoint: <URL>.
-Phân tích định dạng, múi giờ, đơn vị; đề xuất parser TypeScript thuần + test theo chuẩn mục 6.3;
-ghi kết quả vào docs/data-sources.md.
-```
-
-### 15.4. Review trước khi commit
-
-```
-Review thay đổi hiện tại theo mục 12 (Bảo mật) và 0.3 (Definition of Done) trong PROJECT.md.
-Liệt kê vấn đề theo mức độ nghiêm trọng; không tự sửa khi chưa hỏi.
-```
-
-### 15.5. Cập nhật spec
-
-```
-Tôi quyết định <thay đổi>. Cập nhật PROJECT.md ở các mục liên quan và thêm 1 dòng vào mục 19 Nhật ký quyết định.
-```
-
----
-
-## 16. Rủi ro & phương án dự phòng
-
-| Rủi ro | Khả năng | Ảnh hưởng | Phương án |
-|---|---|---|---|
-| Nguồn VN đổi giao diện/endpoint, chặn truy cập | Cao | Mất dữ liệu thực đo | Parser tách riêng + fixtures; `source_runs` + UptimeRobot báo lỗi ngay; nhiều nguồn dự phòng; app vẫn chạy với dự báo triều + thời tiết |
-| Không lấy được dữ liệu lịch sử để fit triều | Trung bình | Dự báo triều kém | Tích lũy dữ liệu từ ngày đầu ingest; dùng UHSLC/trạm tham chiếu; nhãn độ tin cậy |
-| Mốc cao độ các nguồn khác nhau | Cao | So sánh sai | Lưu `datum` mỗi trạm; không so sánh chéo trạm khác mốc; hiển thị mốc trong tab Thông tin |
-| Vượt hạn mức miễn phí (Vietmap, Open-Meteo, Supabase) | Trung bình | Gián đoạn | Cache mạnh theo ô lưới; theo dõi số lượt; giới hạn tốc độ |
-| Supabase free tạm dừng project | Trung bình (dev) | Dev gián đoạn | Cron giữ hoạt động; khôi phục tay trên dashboard; prod dùng Pro |
-| Chỉ số câu cá không "đúng" với người dùng | Cao | Mất tin tưởng | Nhãn tham khảo; thu nhật ký để tinh chỉnh; cho người dùng xem "lý do" |
-| Lũ làm triều lệch lớn | Cao (mùa lũ) | Dự báo sai | Hiệu chỉnh theo thực đo (F-TIDE-07); hiện thực đo nổi bật hơn dự báo |
-| Pin/hiệu năng máy yếu | Trung bình | Đánh giá thấp | Không chạy nền liên tục; tính toán nhẹ; test máy tầm thấp |
-
----
-
-## 17. Việc để sau (chưa tính)
-
-Theo yêu cầu, các mục dưới **chưa làm** ở bản dev — ghi lại để không quên:
-
-- ⚪ **Pháp lý:** Luật Khí tượng thủy văn 2015 (giấy phép dự báo), Nghị định 13/2023 (bảo vệ dữ liệu cá nhân), quy định mạng xã hội khi có tính năng cộng đồng, điều khoản sử dụng các nguồn (Open-Meteo thương mại, Vietmap).
-- ⚪ **Phát hành store:** Google Play (closed testing), App Store (Codemagic, TestFlight), ảnh chụp màn hình, mô tả, chính sách quyền riêng tư, trang xóa tài khoản.
-- ⚪ **Kiếm tiền:** quảng cáo / gói Pro (ảnh hưởng tới điều khoản Open-Meteo).
-- ⚪ **Cộng đồng:** báo cáo ngập, điểm câu cộng đồng, nhóm, giải câu, kiểm duyệt (F-COMM-*, F-FISH-13, 16).
-- ⚪ **Quy định khai thác thủy sản** (F-FISH-15).
-- ⚪ Supabase prod (Pro), sao lưu, App Check bắt buộc, OWASP MASVS.
-- ⚪ Tên app & thương hiệu chính thức, đổi `--org` nếu cần (**phải chốt trước khi phát hành**, không đổi được sau đó).
-
----
-
-## 18. Thuật ngữ
-
-| Thuật ngữ | Nghĩa |
-|---|---|
-| **Đỉnh triều / chân triều** | Mực nước cao nhất / thấp nhất trong một chu kỳ triều |
-| **Nước rong / nước kém** | Kỳ triều biên độ lớn (quanh rằm, mùng 1) / nhỏ (quanh mùng 8, 23) |
-| **Nước đứng (slack)** | Lúc đổi chiều, nước gần như không lên xuống |
-| **Báo động I/II/III** | Các mức cảnh báo lũ chính thức theo trạm |
-| **Mốc cao độ (datum)** | Mốc 0 để đo mực nước (Hòn Dấu, Mũi Nai, hải đồ…) |
-| **Hằng số điều hòa** | Biên độ & pha các sóng triều thành phần (M2, S2, K1, O1…) để tính triều |
-| **Solunar** | Lý thuyết giờ hoạt động của cá theo vị trí mặt trăng |
-| **Transit** | Lúc mặt trăng lên cao nhất (đỉnh) / thấp nhất (chân) trên bầu trời |
-| **RLS** | Row Level Security — quy tắc quyền đọc/ghi từng dòng trong Postgres |
-| **Edge Function** | Hàm chạy trên máy chủ Supabase (Deno/TypeScript) |
-| **Geohash** | Mã chuỗi đại diện ô lưới trên bản đồ (dùng để cache) |
-| **App Check** | Cơ chế Firebase xác nhận yêu cầu đến từ app thật |
-| **MVP** | Phiên bản tối thiểu dùng được |
-
----
-
-## 19. Nhật ký quyết định
-
-| Ngày | Quyết định | Lý do |
-|---|---|---|
-| 2026-11-06 | Flutter (Dart) cho app | 1 code Android + iOS, nhẹ, mượt biểu đồ, khó dịch ngược |
-| 2026-11-06 | Supabase (Postgres + PostGIS, Edge Functions, Auth, Storage) | Gói miễn phí đủ cho dev, có sẵn đăng nhập, RLS bảo mật |
-| 2026-11-06 | Bản đồ Vietmap | Thể hiện đúng chủ quyền Việt Nam |
-| 2026-11-06 | Thủy triều tính trước bằng Python (utide), app nội suy offline | Chính xác, không phải viết hiệu chỉnh nodal bằng Dart, chạy offline |
-| 2026-11-06 | Phạm vi toàn quốc | Yêu cầu của chủ dự án |
-| 2026-11-06 | Ưu tiên bản dev; pháp lý/phát hành để sau | Yêu cầu của chủ dự án |
-| 2026-11-06 | Đối tượng chính: dân câu cá | Yêu cầu của chủ dự án |
-| 2026-11-06 | Nguồn thực đo: IOC (ven biển, 15 phút) + bản tin PDF KTTV (sông, 1 lần/ngày); bỏ vndms/MRC/thủy lợi khỏi bản dev | P0-03: vndms/thủy lợi/KTTV Nam Bộ lỗi chứng chỉ SSL, MRC cần đăng nhập |
-| 2026-11-06 | Ingest PDF bằng Python trên GitHub Actions, không dùng Edge Function | PDF cần `pdfplumber`, chạy 1 lần/ngày |
-| 2026-11-06 | Bỏ UHSLC, dùng IOC để fit hằng số triều | UHSLC không kết nối được; IOC có lịch sử ≥ 2 năm |
-| 2026-11-06 | CAPE không còn khóa chỉ số câu cá, chỉ cảnh báo vàng | CAPE ở VN thường > 2000 kể cả trời quang |
-| 2026-11-06 | Không kết luận "có thể ngập" từ độ cao mô hình trong bản dev | Open-Meteo Elevation lệch cao vài mét ở đồng bằng |
-| 2026-11-09 | **Bản dùng thử V0 không máy chủ, không DB**: 1 app Flutter gọi thẳng IOC + Open-Meteo; dự báo triều sinh sẵn bằng Python và đóng gói vào app; sai số 30 ngày tính trên máy | Chủ dự án muốn miễn phí hoàn toàn, không thuê máy chủ, có app dùng thử sớm |
-| 2026-11-09 | Khi cần DB: dùng Supabase (Postgres) như thiết kế mục 7; BE .NET được cân nhắc nhưng chưa chốt | Supabase có sẵn Auth + RLS, không phải dựng API; vẫn là Postgres chuẩn nên chuyển đi được |
-| 2026-11-09 | V0 chỉ Android | iOS cần tài khoản Apple trả phí + máy Mac/dịch vụ build |
-| 2026-11-09 | **Bản đồ nền: OpenFreeMap + `maplibre_gl`** thay Vietmap | Chủ dự án yêu cầu miễn phí 100%, không đăng ký; OpenFreeMap không khóa, không giới hạn lượt xem, cho phép thương mại; nhãn lấy `name:vi`, tự vẽ nhãn chủ quyền Hoàng Sa/Trường Sa. Rủi ro: dịch vụ không cam kết SLA |
-| 2026-11-09 | **Mực nước sông = bản tin KTTV + mô hình triều trong app**; dữ liệu đưa qua GitHub Actions + GitHub Pages (kho mã công khai) | Không có nguồn mực nước sông thời gian thực miễn phí; trong kiểm thử ngược, mô hình tốt hơn 2,4 lần (Hà Nội) và 4 lần (Nam Đàn) so với cách nối mốc 6 giờ — docs/river-model.md |
-| 2026-11-09 | **Nguồn dữ liệu gom về Thêm → Nguồn dữ liệu** và tab Thông tin của trạm; khung trạm/điểm/tổng quan không còn dòng nguồn. Vẫn giữ nhãn "Ước tính"/"Dự báo · tham khảo", dòng "Dựa theo trạm X · cách Y km", và 1 dòng © nhỏ trên bản đồ (giấy phép OSM/OpenFreeMap/EOX bắt buộc) | Chủ dự án yêu cầu giao diện gọn. Đây là ngoại lệ có chủ đích của CLAUDE.md §3.3 ("ghi nguồn cạnh số liệu") |
-| 2026-11-10 | **Mực nước theo vị trí dọc sông** (sông Hồng, sông Cả): nối giữa triều cửa sông và mô hình trạm theo km dọc đường sông OSM; **lưu lượng GloFAS** cho dòng chính | Người dùng muốn mỗi điểm trên sông có số riêng. Mọi tham số đo từ dữ liệu thật (docs/river-model.md mục 4–5). Không hiển thị vận tốc vì không có số liệu đo |
-| 2026-11-10 | **Khung điểm/trạm chỉ hiện số của chính vị trí** (không giải thích "dựa theo trạm"); **tab Câu cá tính theo điểm câu** người dùng chọn (vị trí của tôi / điểm trên bản đồ / điểm đã lưu) + gợi ý gần bờ/xa bờ theo con nước, gió, dông, mưa, ánh sáng; **tab Thêm** chỉ còn cài đặt, phiên bản + nguồn trong ⓘ, báo "có phiên bản mới" chỉ khi bản web khác bản đang chạy | Chủ dự án muốn giao diện trực quan, thương mại. Phương pháp và sai số vẫn ở docs/river-model.md và tab Thông tin |
-| 2026-11-10 | **Điểm nào cũng có số liệu**: thứ tự nguồn cho 1 điểm = mô hình biển tại điểm (chỉ khi độ cao địa hình ≤ 0 m và ô lưới ≤ 8 km) → mô hình dọc sông → trạm KTTV ≤ 40 km → triều ven bờ ≤ 25 km (ước tính, độ tin cậy thấp) → không có mực nước: hiện lưu lượng + xu hướng lên/rút + 7 ngày, giờ câu, thời tiết | Người dùng: "bất cứ điểm nào trên sông đều phải có". Open-Meteo Marine trả mực nước biển cho cả đất liền (TP Thái Bình 11 m, TP Thanh Hóa dời ô 16 km) nên trước đây gọi nhầm là "Vùng biển". Không bịa mực nước khi không có nguồn |
-| 2026-11-10 | **Dữ liệu hết hạn vẫn hiện số mới nhất kèm giờ** ("Số mới nhất lúc 07:00 · chưa có số cho giờ này", tối đa 36 giờ), biểu đồ lùi về đoạn có số; không tính "hôm nay cao/thấp" từ nửa ngày. Bộ tải bản tin KTTV nhận mọi thư mục `upload/thuyvanN`; lịch GitHub chạy 2 giờ/lần (10:17–22:17 VN) | Dự báo trạm KTTV (vd Phú Thọ) chỉ đến 07:00 VN hôm sau, bản tin mới ~10:30. Ngày 10/11 KTTV đổi thư mục PDF từ thuyvan2 → thuyvan1 và GitHub không chạy lịch nào → điểm trên sông Hồng hiện "—" + biểu đồ trống |
-| 2026-11-11 | **Bỏ toàn bộ test tự động** (app/test, tools/*/tests, fixtures đi kèm); kiểm tra bằng dữ liệu thật + xem bản build. CI không chạy test, chỉ lấy bản tin + build + đăng. Bộ tải bản tin đọc tới 12 trang danh sách, lưu mọi ngày còn sót | Chủ dự án chọn sau khi được báo luật cũ cấm xóa test. Lượt cập nhật dữ liệu 11/11 bị chặn vì test đọc file dữ liệu mà CI vừa thay |
-| 2026-11-11 | **Bộ tính năng V1**: lịch tháng âm lịch (P1-27), giờ trăng, "Đi câu ngay" + thẻ "Lúc này ở đây", cảnh báo nguy hiểm (dông, gió giật, mưa to, nước lên bất thường so với 3 ngày trước, lũ về theo GloFAS, nước dâng = đo − triều ≥ 30 cm), tên/ghi chú/nhóm điểm (CSDL máy v2), tải sẵn điểm đã lưu để dùng khi mất sóng, kế hoạch chuyến câu, nhật ký câu, tìm địa danh trên máy, chia sẻ ảnh thẻ, chế độ ngoài trời, đoạn sông tô màu lên/rút, lớp mưa & gió, báo thức + widget Android | Chủ dự án yêu cầu "làm tất cả, không mất phí". Mọi nguồn miễn phí, không đăng ký; không có máy chủ |
-| 2026-11-11 | **Không vẽ dòng chảy ngược khi triều lên** | Không có số đo vận tốc; ở Hà Nội nước luôn chảy ra biển, triều chỉ làm mực nước lên xuống. Màu = mực nước lên/rút tại đoạn đó; vệt chạy = hướng dòng sông ra biển |
-| 2026-11-11 | **Không dùng Nominatim, RainViewer** | Nominatim: tối đa 1 yêu cầu/giây cho toàn bộ người dùng, phải đổi được dịch vụ không cần cập nhật app. RainViewer: chỉ dùng cá nhân/giáo dục |
-| 2026-11-12 | **Chỉ đường = mở Google Maps**; ô tìm kiếm gợi ý trạm + địa danh trộn chung, gần vùng đang xem trước, có km, "Tìm gần đây" (lưu trên máy) | Không có dịch vụ tìm đường miễn phí, không đăng ký, cho phép thương mại (OSRM công khai chỉ để thử; ORS/GraphHopper cần khóa). Google Maps URLs không cần khóa và chỉ đường từng bước |
-| 2026-11-12 | **Ghim bản đồ = mức "cá ăn" thay cho chấm mực nước** (trạm V0 chưa có ngưỡng báo động nên màu cũ chỉ là có/không có số; không có số → ghim xám). Không tô cả dòng sông theo mức cá ăn, không dùng ảnh vệ tinh | Chủ dự án muốn giống ảnh quảng cáo Windy.app. Chỉ trạm/điểm có dữ liệu mới có ghim — tô cả sông là bịa số; ảnh vệ tinh miễn phí đều cấm thương mại |
-| 2026-11-12 | **"Thói quen câu" chỉ mô tả nhật ký** ("6/9 mẻ lúc hoàng hôn"), có ngưỡng so với mức bình thường của từng điều kiện, kèm câu nhắc giờ hay đi câu sẽ nhiều mẻ hơn; không đổi CSDL nên chưa có áp suất | Tránh nói quá (vd "cá ăn mạnh lúc hoàng hôn") khi chỉ là thói quen đi câu của người dùng |
-| 2026-11-12 | **Cộng đồng không đăng nhập** (bình luận, kèo câu, đang câu): mỗi máy một mã bí mật, máy chủ lưu băm; tên hiển thị tự đặt; chat kèo tải lại 20 giây thay vì realtime; vị trí \"đang câu\" làm tròn ~200 m ngay trong hàm SQL | Miễn phí, không thu thập email/số điện thoại. Đổi lại: tên có thể bị mạo danh, xóa app/đổi máy thì mất quyền sửa điểm/kèo cũ |
-| 2026-11-13 | **Không nạp hàng loạt dữ liệu từ danh bạ hồ câu khác** (canthuviet.vn: 141 hồ chỉ có nguồn này, giữ lại chờ chủ dự án quyết); không quét Facebook/TikTok (điều khoản cấm). Lịch xả lấy bằng cách chủ hồ/người dùng **dán bài** để app tự đọc | Rủi ro pháp lý khi chép cơ sở dữ liệu của trang khác. Dán bài giữ việc nhập gần như tự động mà hợp lệ |
+- [x] **P2-29** ✅ 2026-11-16 Giờ cá ăn chuẩn hơn — công thức `fs-2` (mục 9.6, `docs/fishing-score.md`): áp suất so với cùng giờ hôm qua (bỏ lệch do áp suất tự dao động trong ngày), con nước theo tốc độ dòng chảy thật + "nước bắt đầu chảy", solunar/bình minh/hoàng hôn dạng đường cong trơn, thêm nhiệt độ (nắng nóng/gió mùa), mỗi giờ lấy 4 mẫu 15 phút, tách "thời điểm × điều kiện" để giờ vàng nổi bật, thưởng khi giờ trăng trùng nước chảy/bình minh. Tab Câu cá gọn hơn: phần đầu nhỏ, lối tắt 1 thẻ, giờ vàng **sắp tới** (Hôm nay/Mai), biểu đồ giờ tối giản (màu = mức cá ăn như bản đồ, chú thích, mờ giờ đã qua, nền giờ vàng, vạch "Giờ này"), 7 ngày trên 1 hàng. DoD: thử công thức với ngày giả lập (Cần Thơ 16/11, 24/11, 20/12) + xem trên web với dữ liệu thật Cần Thơ — đã thử.
+- [x] **P2-30** ✅ 2026-11-16 Bản đồ: nhãn tiếng Việt (style gốc ưu tiên `name_en` → đổi thành `name:vi` → `name:latin` → `name`; cache style v3), mượt hơn: bỏ khung hình nước chảy khi đang kéo/zoom (200 ms thay 120 ms), nhớ thiên văn theo trạm/ngày, không nạp lại ghim khi không đổi. Dữ liệu hồ: thêm 128 hồ (miền Nam, miền Trung, Tây Nguyên, miền Bắc) → 194 hồ cả nước. DoD: xem web Cần Thơ (nhãn "Sông Hậu", "Cồn Sơn"…) — đã thử; độ mượt trên điện thoại thật: chưa đo.

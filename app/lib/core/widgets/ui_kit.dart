@@ -56,7 +56,7 @@ class HeroPanel extends StatelessWidget {
           ),
         ],
       ),
-      padding: const EdgeInsets.all(AppSpacing.lg),
+      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg, vertical: AppSpacing.md),
       child: DefaultTextStyle.merge(
         style: TextStyle(color: c.surface),
         child: IconTheme.merge(
@@ -78,7 +78,7 @@ class SectionTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Padding(
-    padding: const EdgeInsets.only(top: AppSpacing.md, bottom: AppSpacing.sm),
+    padding: const EdgeInsets.only(top: AppSpacing.md, bottom: AppSpacing.xs),
     child: Row(
       children: [
         if (icon case final i?) ...[
@@ -92,7 +92,8 @@ class SectionTitle extends StatelessWidget {
   );
 }
 
-/// One square-ish shortcut in a grid: coloured icon over a short label.
+/// One shortcut: coloured icon over a short label. Lives inside a
+/// [QuickActionRow], which draws the single card around all of them.
 class QuickAction extends StatelessWidget {
   const QuickAction({
     required this.icon,
@@ -108,43 +109,46 @@ class QuickAction extends StatelessWidget {
   final VoidCallback onTap;
 
   @override
-  Widget build(BuildContext context) => Card(
-    child: InkWell(
-      borderRadius: BorderRadius.circular(AppRadius.lg),
-      onTap: onTap,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: AppSpacing.md, horizontal: AppSpacing.xs),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          spacing: AppSpacing.sm,
-          children: [
-            IconBadge(icon: icon, color: color, size: 44),
-            Text(
-              label,
-              style: context.text.label,
-              textAlign: TextAlign.center,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-            ),
-          ],
-        ),
+  Widget build(BuildContext context) => InkWell(
+    borderRadius: BorderRadius.circular(AppRadius.md),
+    onTap: onTap,
+    child: Padding(
+      padding: const EdgeInsets.symmetric(vertical: AppSpacing.sm, horizontal: 2),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        spacing: AppSpacing.xs,
+        children: [
+          IconBadge(icon: icon, color: color, size: 36),
+          Text(
+            label,
+            style: context.text.caption.copyWith(color: context.colors.onSurface),
+            textAlign: TextAlign.center,
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+          ),
+        ],
       ),
     ),
   );
 }
 
-/// Row of [QuickAction]s that share the width evenly.
+/// Shortcuts sharing one compact card, width split evenly.
 class QuickActionRow extends StatelessWidget {
   const QuickActionRow({required this.actions, super.key});
 
   final List<QuickAction> actions;
 
   @override
-  Widget build(BuildContext context) => IntrinsicHeight(
-    child: Row(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      spacing: AppSpacing.sm,
-      children: [for (final a in actions) Expanded(child: a)],
+  Widget build(BuildContext context) => Card(
+    margin: EdgeInsets.zero,
+    child: Padding(
+      padding: const EdgeInsets.all(AppSpacing.xs),
+      child: IntrinsicHeight(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [for (final a in actions) Expanded(child: a)],
+        ),
+      ),
     ),
   );
 }

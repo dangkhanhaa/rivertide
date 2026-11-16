@@ -1,17 +1,17 @@
 import 'dart:async';
 import 'dart:math' show Point;
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:maplibre_gl/maplibre_gl.dart';
-import 'package:rivertide/core/calc/fishing/fish_activity.dart';
 import 'package:rivertide/core/calc/geo/camera_offset.dart';
 import 'package:rivertide/core/logging/log.dart';
 import 'package:rivertide/features/map/domain/map_marker.dart';
 import 'package:rivertide/features/map/domain/water_layers.dart';
 import 'package:rivertide/features/map/presentation/widgets/base_map.dart';
-import 'package:rivertide/features/map/presentation/widgets/fish_pin_icons.dart';
 import 'package:rivertide/features/map/presentation/widgets/marker_icons.dart';
 import 'package:rivertide/features/map/presentation/widgets/overlay_layers.dart';
+import 'package:rivertide/features/map/presentation/widgets/pin_images.dart';
 import 'package:rivertide/features/map/presentation/widgets/river_flow_layer.dart';
 import 'package:rivertide/features/map/presentation/widgets/station_layers.dart';
 import 'package:rivertide/features/map/presentation/widgets/weather_map_layer.dart';
@@ -40,11 +40,15 @@ class _MapLibreStationMapState extends State<MapLibreStationMap> implements Base
   /// Markers currently in the source; feature ids index into this list.
   List<MapMarker> _shown = const [];
 
+  /// [_shown] is in the current style's source (reset when a new style loads).
+  bool _synced = false;
+
   @override
   void didUpdateWidget(MapLibreStationMap old) {
     super.didUpdateWidget(old);
     if (old.config.styleString != widget.config.styleString) {
       _styleReady = false;
+      _synced = false;
       _water = waterLayerIds(widget.config.styleString);
     }
     if (!_styleReady) return;
@@ -126,51 +130,21 @@ class _MapLibreStationMapState extends State<MapLibreStationMap> implements Base
   Future<void> _addImages(MapLibreMapController c) async {
     final ratio = MediaQuery.devicePixelRatioOf(context);
     final p = widget.config.palette;
-    await _addPinImages(c, p, ratio);
+    await addPinImages(c, p, ratio);
     for (var i = 0; i < windArrowDirections; i++) {
       final png = await windArrowPng(i * 360 / windArrowDirections, p.label, p.labelHalo, ratio);
       await c.addImage(windArrowName(i), png, false, ratio);
     }
   }
 
-  Future<void> _addPinImages(MapLibreMapController c, MarkerPalette p, double ratio) async {
-    for (final a in [null, ...FishActivity.values]) {
-      final style = (
-        fill: a == null ? p.fishNone : p.fish[a.index],
-        ink: p.stroke,
-        shadow: p.shadow,
-        glow: a == FishActivity.peak,
-      );
-      for (final t in MarkerTrend.values) {
-        final png = await fishPinPng(style, t, ratio, fishes: a == null ? 1 : 2);
-        await c.addImage(fishPinName(a, t), png, false, ratio);
-      }
-    }
-    for (final s in [MarkerStatus.alarm1, MarkerStatus.alarm2, MarkerStatus.alarm3]) {
-      final style = (fill: p.status[s] ?? p.pin, ink: p.stroke, shadow: p.shadow, glow: false);
-      for (final t in MarkerTrend.values) {
-        await c.addImage(alarmPinName(s, t), await fishPinPng(style, t, ratio), false, ratio);
-      }
-    }
-    final spot = (fill: p.community, ink: p.stroke, shadow: p.shadow, glow: false);
-    final png = await fishPinPng(spot, MarkerTrend.unknown, ratio, fishes: 1, star: true);
-    await c.addImage(communityPinImage, png, false, ratio);
-    final trip = (fill: p.trip, ink: p.stroke, shadow: p.shadow, glow: false);
-    final tripPng = await fishPinPng(trip, MarkerTrend.unknown, ratio, glyph: PinGlyph.people);
-    await c.addImage(tripPinImage, tripPng, false, ratio);
-    final pond = (fill: p.pond, ink: p.stroke, shadow: p.shadow, glow: false);
-    await c.addImage(
-      pondPinImage,
-      await fishPinPng(pond, MarkerTrend.unknown, ratio, fishes: 1, star: true),
-      false,
-      ratio,
-    );
-  }
-
   Future<void> _syncMarkers() async {
     final c = _controller;
     if (c == null || !_styleReady) return;
-    _shown = widget.config.markers;
+    final next = widget.config.markers;
+    // Same pins as on screen: skip the upload, it re-clusters every station.
+    if (_synced && listEquals(next, _shown)) return;
+    _shown = next;
+    _synced = true;
     await c.setGeoJsonSource(stationSourceId, markersToGeoJson(_shown));
   }
 
@@ -196,10 +170,18 @@ class _MapLibreStationMapState extends State<MapLibreStationMap> implements Base
   /// Steps the dash frames while the map is shown; off with reduced motion.
   void _startFlowAnimation() {
     if (_flowTimer != null || MediaQuery.disableAnimationsOf(context)) return;
-    _flowTimer = Timer.periodic(const Duration(milliseconds: 120), (_) async {
+    _flowTimer = Timer.periodic(const Duration(milliseconds: 200), (_) async {
       final c = _controller;
-      // Skip while hidden (other tab) or while the last update is in flight.
-      if (c == null || !_styleReady || _flowBusy || !TickerMode.valuesOf(context).enabled) return;
+      // Skip while hidden (other tab), while the last update is in flight, and
+      // while the user pans/zooms: each frame forces a full map repaint, which
+      // made dragging stutter.
+      if (c == null ||
+          !_styleReady ||
+          _flowBusy ||
+          c.isCameraMoving ||
+          !TickerMode.valuesOf(context).enabled) {
+        return;
+      }
       _flowBusy = true;
       _flowFrame = (_flowFrame + 1) % flowDashFrames.length;
       try {

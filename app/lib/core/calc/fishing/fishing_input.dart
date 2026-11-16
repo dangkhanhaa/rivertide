@@ -1,23 +1,29 @@
 import 'package:rivertide/core/calc/astro/solunar_kind.dart';
 import 'package:rivertide/core/calc/tide/spring_neap.dart';
 
-/// All per-hour inputs of the fishing score (PROJECT.md 9.6).
+/// Inputs of the fishing score at one instant (PROJECT.md 9.6, fs-2). An hour
+/// is scored from four of these (:00, :15, :30, :45).
 ///
 /// Every weather-derived field is nullable: a missing value drops the whole
 /// component from the weighted mean instead of guessing a neutral value.
 class FishingHourInput {
   const FishingHourInput({
-    required this.hourUtc,
+    required this.timeUtc,
     required this.hasTide,
-    this.minutesToTurn,
+    this.tideRateNorm,
+    this.minutesSinceTurn,
+    this.tideRising = false,
     this.springNeap,
     this.flowRateCmPerH,
     this.solunar = SolunarKind.none,
-    this.isSolunarGoodDay = false,
+    this.solunarStrength = 0,
+    this.daysFromNewOrFull,
+    this.moonFraction = 0,
     this.sunriseUtc,
     this.sunsetUtc,
-    this.tzOffsetHours = 7,
-    this.pressureDelta3hHpa,
+    this.pressureDelta24hHpa,
+    this.temperatureC,
+    this.temperatureDrop24h = 0,
     this.windKmh,
     this.gustKmh,
     this.rainMmPerH,
@@ -28,14 +34,17 @@ class FishingHourInput {
     this.isBestSeason,
   });
 
-  /// Start of the hour being scored (UTC).
-  final DateTime hourUtc;
+  final DateTime timeUtc;
 
   /// Station is tidal → use the tide component, otherwise the flow component.
   final bool hasTide;
 
-  /// Minutes to the nearest tide turn (high/low), before or after; sign ignored.
-  final int? minutesToTurn;
+  /// |water level change rate| ÷ the fastest rate of that local day (0–1).
+  final double? tideRateNorm;
+
+  /// Minutes since the last high/low water.
+  final int? minutesSinceTurn;
+  final bool tideRising;
 
   /// Range class of the day; null is treated as [SpringNeap.normal].
   final SpringNeap? springNeap;
@@ -43,20 +52,28 @@ class FishingHourInput {
   /// Water level change for non-tidal stations; positive = rising.
   final double? flowRateCmPerH;
 
+  /// Kind of solunar period covering this instant (for reasons/advice).
   final SolunarKind solunar;
 
-  /// Within ±2 days of new/full moon (PROJECT.md 9.5).
-  final bool isSolunarGoodDay;
+  /// 0–1, peaking at moon transit (major) / rise-set (minor).
+  final double solunarStrength;
 
-  /// Sunrise/sunset of the local day containing [hourUtc].
+  /// Days to the nearest new or full moon.
+  final double? daysFromNewOrFull;
+
+  /// Lit fraction of the moon, 0–1.
+  final double moonFraction;
+
+  /// Sunrise/sunset of the local day containing [timeUtc].
   final DateTime? sunriseUtc;
   final DateTime? sunsetUtc;
 
-  /// Local offset used by the 11h–14h rule (Asia/Ho_Chi_Minh = +7).
-  final double tzOffsetHours;
+  /// Pressure now minus the same hour yesterday (hPa); negative = falling.
+  final double? pressureDelta24hHpa;
+  final double? temperatureC;
 
-  /// Pressure change over the last 3 hours; negative = falling.
-  final double? pressureDelta3hHpa;
+  /// Degrees colder than the same hour yesterday (0 when warmer/unknown).
+  final double temperatureDrop24h;
   final double? windKmh;
   final double? gustKmh;
   final double? rainMmPerH;

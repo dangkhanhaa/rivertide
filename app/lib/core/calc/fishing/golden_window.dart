@@ -67,9 +67,14 @@ GoldenWindow _toWindow(List<FishingHourScore> group, Duration slot) {
   );
 }
 
-/// Day score: mean of the top 4 hour scores, 1 decimal; 0 when no hours.
+/// Day score (fs-2): half the best 3 hours, half the typical (median) hour,
+/// 1 decimal; 0 when no hours. fs-1 used only the top 4 hours, so almost
+/// every day came out "good" — the median adds how good the rest of the day is.
 double dayScore(List<FishingHourScore> hoursOfDay) {
   if (hoursOfDay.isEmpty) return 0;
-  final top = hoursOfDay.map((h) => h.score).sorted((a, b) => b.compareTo(a)).take(4);
-  return roundTo1(top.average);
+  final sorted = hoursOfDay.map((h) => h.score).sorted((a, b) => b.compareTo(a));
+  final top = sorted.take(3).average;
+  final n = sorted.length;
+  final median = n.isOdd ? sorted[n ~/ 2] : (sorted[n ~/ 2 - 1] + sorted[n ~/ 2]) / 2;
+  return roundTo1((top + median) / 2);
 }

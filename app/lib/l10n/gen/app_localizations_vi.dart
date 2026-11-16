@@ -2530,16 +2530,26 @@ class AppLocalizationsVi extends AppLocalizations {
   String get fishing_dayScore => 'Điểm hôm nay';
 
   @override
-  String get fishing_reference => 'Chỉ số mang tính tham khảo (công thức fs-1)';
+  String fishing_reference(String version) {
+    return 'Chỉ số ước tính, chỉ để tham khảo (công thức $version: con nước, giờ trăng, bình minh/hoàng hôn, áp suất 24 giờ, nhiệt độ, gió mưa)';
+  }
 
   @override
-  String get fishing_golden => 'Giờ vàng';
+  String get fishing_golden => 'Giờ vàng sắp tới';
 
   @override
   String get fishing_noGolden => 'Hôm nay không có khung giờ đạt ≥ 7 điểm.';
 
   @override
   String get fishing_next7 => '7 ngày tới';
+
+  @override
+  String get fishing_nowMark => 'Giờ này';
+
+  @override
+  String fishing_hourShort(int hour) {
+    return '${hour}h';
+  }
 
   @override
   String fishing_level(String score, String label) {
@@ -2589,11 +2599,14 @@ class AppLocalizationsVi extends AppLocalizations {
   String get fishing_factor_weather => 'thời tiết';
 
   @override
+  String get fishing_factor_temperature => 'nhiệt độ dễ chịu';
+
+  @override
   String get fishing_factor_season => 'mùa cá';
 
   @override
   String fishing_moon(String phase, int pct) {
-    return 'Trăng: $phase ($pct%)';
+    return '$phase · sáng $pct%';
   }
 
   @override
