@@ -33,6 +33,7 @@ class GoldenWindow {
 List<GoldenWindow> goldenWindows(
   List<FishingHourScore> hours, {
   Duration slot = const Duration(hours: 1),
+  int maxCount = goldenWindowMaxCount,
 }) {
   final good = hours.where((h) => h.score >= goldenWindowThreshold).toList()
     ..sort((a, b) => a.hourUtc.compareTo(b.hourUtc));
@@ -53,7 +54,7 @@ List<GoldenWindow> goldenWindows(
       final byPeak = b.peakScore.compareTo(a.peakScore);
       return byPeak != 0 ? byPeak : a.startUtc.compareTo(b.startUtc);
     });
-  return windows.take(goldenWindowMaxCount).sortedBy((w) => w.startUtc);
+  return windows.take(maxCount).sortedBy((w) => w.startUtc);
 }
 
 GoldenWindow _toWindow(List<FishingHourScore> group, Duration slot) {

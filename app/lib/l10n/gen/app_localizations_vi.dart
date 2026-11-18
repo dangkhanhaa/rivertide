@@ -3373,4 +3373,50 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get shift_note => 'Theo dự báo thời tiết Open-Meteo, chỉ để tham khảo.';
+
+  @override
+  String get alert_evening => 'Báo tối hôm trước (20:00)';
+
+  @override
+  String get alert_eveningHint =>
+      '\"Mai đi câu không?\": giờ vàng tốt nhất ngày mai ở điểm của bạn';
+
+  @override
+  String digest_title(String place) {
+    return 'Mai đi câu không? · $place';
+  }
+
+  @override
+  String digest_body(String range, String band, String score) {
+    return 'Giờ vàng $range: cá ăn $band ($score). Chuẩn bị đồ từ tối nay nhé!';
+  }
+
+  @override
+  String get digest_none =>
+      'Mai chưa có giờ vàng ở đây. Mở app xem \"Đi đâu?\" để tìm chỗ tốt hơn.';
+
+  @override
+  String get brag_open => 'Khoe ảnh mẻ cá';
+
+  @override
+  String get brag_title => 'Khoe cá';
+
+  @override
+  String get brag_share => 'Chia sẻ ảnh';
+
+  @override
+  String get brag_showPlace => 'Hiện tên chỗ câu';
+
+  @override
+  String get brag_showPlaceHint => 'Tắt sẵn để giữ bí mật chỗ ngon';
+
+  @override
+  String brag_score(String score) {
+    return 'Cá ăn $score';
+  }
+
+  @override
+  String brag_text(String species, String link) {
+    return 'Vừa dính $species! Xem giờ cá ăn, con nước ở Con Nước: $link';
+  }
 }

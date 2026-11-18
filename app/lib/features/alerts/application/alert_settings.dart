@@ -41,7 +41,12 @@ const List<int> alertLeadChoicesMin = [15, 30, 60];
 
 /// What rings and how early (P2-22). Defaults = the behaviour before options.
 class AlertOptions {
-  const AlertOptions({this.golden = true, this.tides = true, this.leadMinutes = 30});
+  const AlertOptions({
+    this.golden = true,
+    this.tides = true,
+    this.leadMinutes = 30,
+    this.evening = true,
+  });
 
   /// Read from settings JSON; unknown or out-of-range values fall back to defaults.
   factory AlertOptions.fromJson(Object? json) {
@@ -51,6 +56,7 @@ class AlertOptions {
       golden: json['golden'] != false,
       tides: json['tides'] != false,
       leadMinutes: lead is int && alertLeadChoicesMin.contains(lead) ? lead : 30,
+      evening: json['evening'] != false,
     );
   }
 
@@ -58,15 +64,25 @@ class AlertOptions {
   final bool tides;
   final int leadMinutes;
 
+  /// 20:00 "Mai đi câu không?" summary for tomorrow (P2-35).
+  final bool evening;
+
   Duration get lead => Duration(minutes: leadMinutes);
 
-  Map<String, Object> toJson() => {'golden': golden, 'tides': tides, 'lead': leadMinutes};
+  Map<String, Object> toJson() => {
+    'golden': golden,
+    'tides': tides,
+    'lead': leadMinutes,
+    'evening': evening,
+  };
 
-  AlertOptions copyWith({bool? golden, bool? tides, int? leadMinutes}) => AlertOptions(
-    golden: golden ?? this.golden,
-    tides: tides ?? this.tides,
-    leadMinutes: leadMinutes ?? this.leadMinutes,
-  );
+  AlertOptions copyWith({bool? golden, bool? tides, int? leadMinutes, bool? evening}) =>
+      AlertOptions(
+        golden: golden ?? this.golden,
+        tides: tides ?? this.tides,
+        leadMinutes: leadMinutes ?? this.leadMinutes,
+        evening: evening ?? this.evening,
+      );
 }
 
 class AlertOptionsNotifier extends AsyncNotifier<AlertOptions> {

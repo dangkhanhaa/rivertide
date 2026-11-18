@@ -12,6 +12,7 @@ import 'package:rivertide/core/format/level_format.dart';
 import 'package:rivertide/core/format/time_format.dart';
 import 'package:rivertide/core/logging/log.dart';
 import 'package:rivertide/features/alerts/application/alert_settings.dart';
+import 'package:rivertide/features/alerts/application/evening_digest.dart';
 import 'package:rivertide/features/alerts/data/alert_notifier.dart';
 import 'package:rivertide/features/journal/journal.dart';
 import 'package:rivertide/features/stations/stations.dart';
@@ -32,6 +33,13 @@ Future<void> rescheduleAlerts(WidgetRef ref) async {
   final ids = (await ref.read(alertPlacesProvider.future)).toList()..sort();
   final options = await ref.read(alertOptionsProvider.future);
   await notifier.cancelAll();
+  if (options.evening) {
+    try {
+      await scheduleEveningDigest(ref, notifier, l10n, ids);
+    } on AppException catch (e) {
+      log.info('alerts: evening summary skipped', {'error': e.debugMessage});
+    }
+  }
   if (ids.isEmpty || (!options.golden && !options.tides)) return;
   final db = ref.read(appDatabaseProvider);
   final names = {for (final f in await db.watchFavorites().first) f.stationId: ?f.label};

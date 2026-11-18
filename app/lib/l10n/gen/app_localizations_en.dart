@@ -3431,4 +3431,50 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get shift_note => 'From the Open-Meteo forecast, for reference only.';
+
+  @override
+  String get alert_evening => 'Evening heads-up (20:00)';
+
+  @override
+  String get alert_eveningHint =>
+      '\"Fishing tomorrow?\": tomorrow\'s best golden hours at your spot';
+
+  @override
+  String digest_title(String place) {
+    return 'Fishing tomorrow? · $place';
+  }
+
+  @override
+  String digest_body(String range, String band, String score) {
+    return 'Golden hours $range: fish activity $band ($score). Get your gear ready tonight!';
+  }
+
+  @override
+  String get digest_none =>
+      'No golden hours here tomorrow. Open \"Where to fish?\" to find a better spot.';
+
+  @override
+  String get brag_open => 'Show off this catch';
+
+  @override
+  String get brag_title => 'Show off';
+
+  @override
+  String get brag_share => 'Share picture';
+
+  @override
+  String get brag_showPlace => 'Show the place name';
+
+  @override
+  String get brag_showPlaceHint => 'Off by default to keep your spot secret';
+
+  @override
+  String brag_score(String score) {
+    return 'Fish activity $score';
+  }
+
+  @override
+  String brag_text(String species, String link) {
+    return 'Just landed a $species! Fish times and tides on Con Nước: $link';
+  }
 }

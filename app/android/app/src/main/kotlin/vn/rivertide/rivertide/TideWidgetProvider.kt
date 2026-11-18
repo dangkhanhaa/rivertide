@@ -51,6 +51,10 @@ class TideWidgetProvider : HomeWidgetProvider() {
                 )
             }
             views.setTextViewText(R.id.widget_next, nextTurn(context, widgetData.getString("extremes", null), nowSec))
+            views.setTextViewText(
+                R.id.widget_fish,
+                fishLine(context, widgetData.getString("fish", null), widgetData.getString("golden", null), nowSec),
+            )
             views.setOnClickPendingIntent(
                 R.id.widget_root,
                 HomeWidgetLaunchIntent.getActivity(context, MainActivity::class.java),
@@ -98,6 +102,54 @@ class TideWidgetProvider : HomeWidgetProvider() {
                 return "$name ${fmt.format(java.util.Date(t * 1000))} · ${metres(e.getDouble(1))}"
             }
             ""
+        } catch (e: org.json.JSONException) {
+            ""
+        }
+    }
+
+    /**
+     * "Cá ăn: Cao · Giờ vàng 18:00–20:00" (P2-35): band of the hour containing
+     * now (same thresholds as the app: 5 / 7 / 8.5) and the next golden window.
+     */
+    private fun fishLine(context: Context, fish: String?, golden: String?, nowSec: Long): String {
+        if (fish == null) return ""
+        return try {
+            val hours = JSONArray(fish)
+            var score: Double? = null
+            for (i in 0 until hours.length()) {
+                val h = hours.getJSONArray(i)
+                if (nowSec >= h.getLong(0) && nowSec < h.getLong(0) + 3600) score = h.getDouble(1)
+            }
+            val band = when {
+                score == null -> return ""
+                score >= 8.5 -> R.string.widget_fish_peak
+                score >= 7 -> R.string.widget_fish_high
+                score >= 5 -> R.string.widget_fish_fair
+                else -> R.string.widget_fish_low
+            }
+            val fmt = java.text.SimpleDateFormat("HH:mm", Locale.US).apply {
+                timeZone = java.util.TimeZone.getTimeZone("Asia/Ho_Chi_Minh")
+            }
+            var next = ""
+            if (golden != null) {
+                val ws = JSONArray(golden)
+                for (i in 0 until ws.length()) {
+                    val w = ws.getJSONArray(i)
+                    val start = w.getLong(0)
+                    val end = w.getLong(1)
+                    if (end <= nowSec) continue
+                    next = if (start <= nowSec) {
+                        context.getString(R.string.widget_golden_now)
+                    } else {
+                        context.getString(R.string.widget_golden) + " " +
+                            fmt.format(java.util.Date(start * 1000)) + "–" +
+                            fmt.format(java.util.Date(end * 1000))
+                    }
+                    break
+                }
+            }
+            val head = context.getString(band)
+            if (next.isEmpty()) head else "$head · $next"
         } catch (e: org.json.JSONException) {
             ""
         }

@@ -1168,5 +1168,21 @@
   "@shift_pressureDrop": {"placeholders": {"when": {"type": "String"}}},
   "shift_heatWave": "{when} nắng nóng trên 36°C: câu sáng sớm, chiều tối, chỗ sâu và bóng cây.",
   "@shift_heatWave": {"placeholders": {"when": {"type": "String"}}},
-  "shift_note": "Theo dự báo thời tiết Open-Meteo, chỉ để tham khảo."
+  "shift_note": "Theo dự báo thời tiết Open-Meteo, chỉ để tham khảo.",
+  "alert_evening": "Báo tối hôm trước (20:00)",
+  "alert_eveningHint": "\"Mai đi câu không?\": giờ vàng tốt nhất ngày mai ở điểm của bạn",
+  "digest_title": "Mai đi câu không? · {place}",
+  "@digest_title": {"placeholders": {"place": {"type": "String"}}},
+  "digest_body": "Giờ vàng {range}: cá ăn {band} ({score}). Chuẩn bị đồ từ tối nay nhé!",
+  "@digest_body": {"placeholders": {"range": {"type": "String"}, "band": {"type": "String"}, "score": {"type": "String"}}},
+  "digest_none": "Mai chưa có giờ vàng ở đây. Mở app xem \"Đi đâu?\" để tìm chỗ tốt hơn.",
+  "brag_open": "Khoe ảnh mẻ cá",
+  "brag_title": "Khoe cá",
+  "brag_share": "Chia sẻ ảnh",
+  "brag_showPlace": "Hiện tên chỗ câu",
+  "brag_showPlaceHint": "Tắt sẵn để giữ bí mật chỗ ngon",
+  "brag_score": "Cá ăn {score}",
+  "@brag_score": {"placeholders": {"score": {"type": "String"}}},
+  "brag_text": "Vừa dính {species}! Xem giờ cá ăn, con nước ở Con Nước: {link}",
+  "@brag_text": {"placeholders": {"species": {"type": "String"}, "link": {"type": "String"}}}
 }

@@ -33,6 +33,16 @@
         android:textSize="14sp" />
 
     <TextView
+        android:id="@+id/widget_fish"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:maxLines="2"
+        android:textColor="#16A874"
+        android:textSize="13sp"
+        android:textStyle="bold" />
+
+    <TextView
         android:id="@+id/widget_next"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

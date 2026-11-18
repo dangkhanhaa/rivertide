@@ -61,6 +61,13 @@ class _AlertSettingsSheet extends ConsumerWidget {
             ] else ...[
               SwitchListTile(
                 contentPadding: EdgeInsets.zero,
+                title: Text(l10n.alert_evening, style: context.text.bodyStrong),
+                subtitle: Text(l10n.alert_eveningHint, style: context.text.caption),
+                value: options.evening,
+                onChanged: (v) => unawaited(save(options.copyWith(evening: v))),
+              ),
+              SwitchListTile(
+                contentPadding: EdgeInsets.zero,
                 title: Text(l10n.alert_golden, style: context.text.bodyStrong),
                 subtitle: Text(l10n.alert_goldenHint, style: context.text.caption),
                 value: options.golden,

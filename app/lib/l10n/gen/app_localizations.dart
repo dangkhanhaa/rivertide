@@ -5942,6 +5942,78 @@ abstract class AppLocalizations {
   /// In vi, this message translates to:
   /// **'Theo dự báo thời tiết Open-Meteo, chỉ để tham khảo.'**
   String get shift_note;
+
+  /// No description provided for @alert_evening.
+  ///
+  /// In vi, this message translates to:
+  /// **'Báo tối hôm trước (20:00)'**
+  String get alert_evening;
+
+  /// No description provided for @alert_eveningHint.
+  ///
+  /// In vi, this message translates to:
+  /// **'\"Mai đi câu không?\": giờ vàng tốt nhất ngày mai ở điểm của bạn'**
+  String get alert_eveningHint;
+
+  /// No description provided for @digest_title.
+  ///
+  /// In vi, this message translates to:
+  /// **'Mai đi câu không? · {place}'**
+  String digest_title(String place);
+
+  /// No description provided for @digest_body.
+  ///
+  /// In vi, this message translates to:
+  /// **'Giờ vàng {range}: cá ăn {band} ({score}). Chuẩn bị đồ từ tối nay nhé!'**
+  String digest_body(String range, String band, String score);
+
+  /// No description provided for @digest_none.
+  ///
+  /// In vi, this message translates to:
+  /// **'Mai chưa có giờ vàng ở đây. Mở app xem \"Đi đâu?\" để tìm chỗ tốt hơn.'**
+  String get digest_none;
+
+  /// No description provided for @brag_open.
+  ///
+  /// In vi, this message translates to:
+  /// **'Khoe ảnh mẻ cá'**
+  String get brag_open;
+
+  /// No description provided for @brag_title.
+  ///
+  /// In vi, this message translates to:
+  /// **'Khoe cá'**
+  String get brag_title;
+
+  /// No description provided for @brag_share.
+  ///
+  /// In vi, this message translates to:
+  /// **'Chia sẻ ảnh'**
+  String get brag_share;
+
+  /// No description provided for @brag_showPlace.
+  ///
+  /// In vi, this message translates to:
+  /// **'Hiện tên chỗ câu'**
+  String get brag_showPlace;
+
+  /// No description provided for @brag_showPlaceHint.
+  ///
+  /// In vi, this message translates to:
+  /// **'Tắt sẵn để giữ bí mật chỗ ngon'**
+  String get brag_showPlaceHint;
+
+  /// No description provided for @brag_score.
+  ///
+  /// In vi, this message translates to:
+  /// **'Cá ăn {score}'**
+  String brag_score(String score);
+
+  /// No description provided for @brag_text.
+  ///
+  /// In vi, this message translates to:
+  /// **'Vừa dính {species}! Xem giờ cá ăn, con nước ở Con Nước: {link}'**
+  String brag_text(String species, String link);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
