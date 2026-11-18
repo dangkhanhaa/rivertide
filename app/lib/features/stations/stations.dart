@@ -5,6 +5,7 @@ export 'application/advice_now.dart' show adviceNow;
 export 'application/hour_extras_provider.dart' show StationFishing, stationFishingProvider;
 export 'application/place_conditions.dart' show placeConditionsAt;
 export 'application/prefetch.dart' show prefetchSavedPlaces;
+export 'application/spot_conditions_now.dart' show spotConditionsNow;
 export 'application/station_fishing.dart' show scoreStationHourQuick, scoreStationHours;
 export 'application/station_providers.dart'
     show

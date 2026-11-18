@@ -4994,6 +4994,780 @@ abstract class AppLocalizations {
   /// In vi, this message translates to:
   /// **'Đã khôi phục giao diện mặc định'**
   String get set_resetDone;
+
+  /// No description provided for @sp_title.
+  ///
+  /// In vi, this message translates to:
+  /// **'Câu cá gì hôm nay?'**
+  String get sp_title;
+
+  /// No description provided for @sp_seeAll.
+  ///
+  /// In vi, this message translates to:
+  /// **'Xem tất cả'**
+  String get sp_seeAll;
+
+  /// No description provided for @sp_guideTitle.
+  ///
+  /// In vi, this message translates to:
+  /// **'Sổ tay loài cá'**
+  String get sp_guideTitle;
+
+  /// No description provided for @sp_today.
+  ///
+  /// In vi, this message translates to:
+  /// **'Hôm nay'**
+  String get sp_today;
+
+  /// No description provided for @sp_bestTime.
+  ///
+  /// In vi, this message translates to:
+  /// **'Giờ hợp: {range}'**
+  String sp_bestTime(String range);
+
+  /// No description provided for @sp_noTime.
+  ///
+  /// In vi, this message translates to:
+  /// **'Hôm nay chưa có giờ hợp'**
+  String get sp_noTime;
+
+  /// No description provided for @sp_inSeason.
+  ///
+  /// In vi, this message translates to:
+  /// **'Đang mùa'**
+  String get sp_inSeason;
+
+  /// No description provided for @sp_offSeason.
+  ///
+  /// In vi, this message translates to:
+  /// **'Trái mùa'**
+  String get sp_offSeason;
+
+  /// No description provided for @sp_season.
+  ///
+  /// In vi, this message translates to:
+  /// **'Mùa chính'**
+  String get sp_season;
+
+  /// No description provided for @sp_where.
+  ///
+  /// In vi, this message translates to:
+  /// **'Ở đâu'**
+  String get sp_where;
+
+  /// No description provided for @sp_bait.
+  ///
+  /// In vi, this message translates to:
+  /// **'Mồi'**
+  String get sp_bait;
+
+  /// No description provided for @sp_chum.
+  ///
+  /// In vi, this message translates to:
+  /// **'Thính'**
+  String get sp_chum;
+
+  /// No description provided for @sp_how.
+  ///
+  /// In vi, this message translates to:
+  /// **'Cách câu'**
+  String get sp_how;
+
+  /// No description provided for @sp_todayTips.
+  ///
+  /// In vi, this message translates to:
+  /// **'Lưu ý hôm nay'**
+  String get sp_todayTips;
+
+  /// No description provided for @sp_note.
+  ///
+  /// In vi, this message translates to:
+  /// **'Kinh nghiệm câu phổ biến, đã tính theo con nước và thời tiết thật ở điểm này. Chỉ để tham khảo.'**
+  String get sp_note;
+
+  /// No description provided for @sp_noTips.
+  ///
+  /// In vi, this message translates to:
+  /// **'Điều kiện hôm nay bình thường, cứ câu theo cách quen thuộc.'**
+  String get sp_noTips;
+
+  /// No description provided for @habitat_pond.
+  ///
+  /// In vi, this message translates to:
+  /// **'Ao hồ'**
+  String get habitat_pond;
+
+  /// No description provided for @habitat_river.
+  ///
+  /// In vi, this message translates to:
+  /// **'Sông'**
+  String get habitat_river;
+
+  /// No description provided for @habitat_estuary.
+  ///
+  /// In vi, this message translates to:
+  /// **'Cửa sông'**
+  String get habitat_estuary;
+
+  /// No description provided for @habitat_sea.
+  ///
+  /// In vi, this message translates to:
+  /// **'Biển'**
+  String get habitat_sea;
+
+  /// No description provided for @depth_surface.
+  ///
+  /// In vi, this message translates to:
+  /// **'Tầng mặt'**
+  String get depth_surface;
+
+  /// No description provided for @depth_middle.
+  ///
+  /// In vi, this message translates to:
+  /// **'Tầng giữa'**
+  String get depth_middle;
+
+  /// No description provided for @depth_bottom.
+  ///
+  /// In vi, this message translates to:
+  /// **'Sát đáy'**
+  String get depth_bottom;
+
+  /// No description provided for @spTip_outOfSeason.
+  ///
+  /// In vi, this message translates to:
+  /// **'Chưa vào mùa chính: vẫn câu được nhưng ít hơn.'**
+  String get spTip_outOfSeason;
+
+  /// No description provided for @spTip_waitForCurrent.
+  ///
+  /// In vi, this message translates to:
+  /// **'Loài này ăn khi nước chảy: đang nước đứng, chờ nước chảy lại.'**
+  String get spTip_waitForCurrent;
+
+  /// No description provided for @spTip_murkyStrongBait.
+  ///
+  /// In vi, this message translates to:
+  /// **'Nước đục sau mưa: dùng mồi mùi mạnh (tanh), câu gần bờ, chỗ nước trong hơn.'**
+  String get spTip_murkyStrongBait;
+
+  /// No description provided for @spTip_coldSmallBaitDeep.
+  ///
+  /// In vi, this message translates to:
+  /// **'Trời trở lạnh: cá ăn chậm, dùng mồi nhỏ, câu sâu, kiên nhẫn.'**
+  String get spTip_coldSmallBaitDeep;
+
+  /// No description provided for @spTip_hotGoDeepShade.
+  ///
+  /// In vi, this message translates to:
+  /// **'Nắng nóng: câu sáng sớm, chiều tối, hoặc chỗ sâu và bóng cây.'**
+  String get spTip_hotGoDeepShade;
+
+  /// No description provided for @spTip_pressureFallingBite.
+  ///
+  /// In vi, this message translates to:
+  /// **'Áp suất đang giảm: cá thường ăn mạnh trước khi trời chuyển, tranh thủ.'**
+  String get spTip_pressureFallingBite;
+
+  /// No description provided for @spTip_pressureRisingFinesse.
+  ///
+  /// In vi, this message translates to:
+  /// **'Áp suất tăng mạnh sau đợt gió: cá kém ăn, dùng dây nhỏ, lưỡi nhỏ.'**
+  String get spTip_pressureRisingFinesse;
+
+  /// No description provided for @spTip_windDownwind.
+  ///
+  /// In vi, this message translates to:
+  /// **'Gió mạnh: sang bờ đón gió, nơi mồi và thức ăn dạt vào.'**
+  String get spTip_windDownwind;
+
+  /// No description provided for @spTip_risingNearBank.
+  ///
+  /// In vi, this message translates to:
+  /// **'Nước đang lên: cá vào gần bờ kiếm ăn, câu gần.'**
+  String get spTip_risingNearBank;
+
+  /// No description provided for @spTip_fallingDeeper.
+  ///
+  /// In vi, this message translates to:
+  /// **'Nước đang ròng: cá rút ra lạch sâu, cửa kênh, câu xa hơn.'**
+  String get spTip_fallingDeeper;
+
+  /// No description provided for @nb_button.
+  ///
+  /// In vi, this message translates to:
+  /// **'Cá không ăn?'**
+  String get nb_button;
+
+  /// No description provided for @nb_title.
+  ///
+  /// In vi, this message translates to:
+  /// **'Cá không ăn? Thử những cách này'**
+  String get nb_title;
+
+  /// No description provided for @nb_now.
+  ///
+  /// In vi, this message translates to:
+  /// **'Theo tình hình lúc này'**
+  String get nb_now;
+
+  /// No description provided for @nb_always.
+  ///
+  /// In vi, this message translates to:
+  /// **'Mấy việc nên kiểm tra'**
+  String get nb_always;
+
+  /// No description provided for @nb_waitCurrent.
+  ///
+  /// In vi, this message translates to:
+  /// **'Đang nước đứng: khoảng {time} nước chảy lại, cá sẽ ăn hơn. Tranh thủ thay mồi, rải thính.'**
+  String nb_waitCurrent(String time);
+
+  /// No description provided for @nb_goDeepShade.
+  ///
+  /// In vi, this message translates to:
+  /// **'Nắng gắt: cá xuống sâu, câu sâu hơn hoặc dời ra chỗ bóng cây, gốc cây.'**
+  String get nb_goDeepShade;
+
+  /// No description provided for @nb_coldSlow.
+  ///
+  /// In vi, this message translates to:
+  /// **'Trời lạnh: mồi nhỏ lại, kéo chậm, câu sát đáy chỗ sâu.'**
+  String get nb_coldSlow;
+
+  /// No description provided for @nb_murkySmell.
+  ///
+  /// In vi, this message translates to:
+  /// **'Nước đục: đổi mồi mùi mạnh (tanh), tìm chỗ nước trong hơn gần bờ.'**
+  String get nb_murkySmell;
+
+  /// No description provided for @nb_finesse.
+  ///
+  /// In vi, this message translates to:
+  /// **'Sau đợt gió, áp suất tăng: cá nhát, dùng dây nhỏ, lưỡi nhỏ, mồi ít.'**
+  String get nb_finesse;
+
+  /// No description provided for @nb_downwind.
+  ///
+  /// In vi, this message translates to:
+  /// **'Gió mạnh: sang bờ đón gió, thức ăn dạt vào đó.'**
+  String get nb_downwind;
+
+  /// No description provided for @nb_nextGolden.
+  ///
+  /// In vi, this message translates to:
+  /// **'Giờ vàng kế tiếp lúc {time}: nghỉ tay rồi quay lại đúng giờ.'**
+  String nb_nextGolden(String time);
+
+  /// No description provided for @nb_changeDepth.
+  ///
+  /// In vi, this message translates to:
+  /// **'Đổi độ sâu: thử sát đáy, rồi nâng dần 20–30 cm.'**
+  String get nb_changeDepth;
+
+  /// No description provided for @nb_moveSpot.
+  ///
+  /// In vi, this message translates to:
+  /// **'Sau 20–30 phút không có tăm: đổi chỗ, tìm rong, gốc cây, chỗ nước xoáy.'**
+  String get nb_moveSpot;
+
+  /// No description provided for @nb_freshBait.
+  ///
+  /// In vi, this message translates to:
+  /// **'Thay mồi mới, gắn lộ mồi; mồi, thính để lâu mất mùi.'**
+  String get nb_freshBait;
+
+  /// No description provided for @nb_stayQuiet.
+  ///
+  /// In vi, this message translates to:
+  /// **'Giữ yên lặng, không để bóng người đổ xuống mặt nước.'**
+  String get nb_stayQuiet;
+
+  /// No description provided for @nb_finerLine.
+  ///
+  /// In vi, this message translates to:
+  /// **'Cá nhát thì đổi dây nhỏ hơn, lưỡi nhỏ hơn.'**
+  String get nb_finerLine;
+
+  /// No description provided for @fishing_species.
+  ///
+  /// In vi, this message translates to:
+  /// **'Loài cá'**
+  String get fishing_species;
+
+  /// No description provided for @sp_carp.
+  ///
+  /// In vi, this message translates to:
+  /// **'Cá chép'**
+  String get sp_carp;
+
+  /// No description provided for @sp_carp_where.
+  ///
+  /// In vi, this message translates to:
+  /// **'Ao, hồ, sông nước chậm; quanh đám rong, gốc cây chìm, đáy bùn.'**
+  String get sp_carp_where;
+
+  /// No description provided for @sp_carp_bait.
+  ///
+  /// In vi, this message translates to:
+  /// **'Cám gạo rang, bột ngô, ngô ngâm, giun đỏ.'**
+  String get sp_carp_bait;
+
+  /// No description provided for @sp_carp_chum.
+  ///
+  /// In vi, this message translates to:
+  /// **'Thính chua (cám + bột ngô ủ men) hoặc thơm sữa, dứa. Thả thính trước 15–20 phút.'**
+  String get sp_carp_chum;
+
+  /// No description provided for @sp_carp_how.
+  ///
+  /// In vi, this message translates to:
+  /// **'Câu đài hoặc câu lăng xê sát đáy, phao nhạy; cá chép hay đẩy phao lên rồi mới kéo.'**
+  String get sp_carp_how;
+
+  /// No description provided for @sp_tilapia.
+  ///
+  /// In vi, this message translates to:
+  /// **'Cá rô phi'**
+  String get sp_tilapia;
+
+  /// No description provided for @sp_tilapia_where.
+  ///
+  /// In vi, this message translates to:
+  /// **'Ao, hồ, kênh, sông chảy chậm; vùng nước ấm, ven bờ nắng.'**
+  String get sp_tilapia_where;
+
+  /// No description provided for @sp_tilapia_bait.
+  ///
+  /// In vi, this message translates to:
+  /// **'Cám viên, bột mì nặn, giun, tép nhỏ.'**
+  String get sp_tilapia_bait;
+
+  /// No description provided for @sp_tilapia_chum.
+  ///
+  /// In vi, this message translates to:
+  /// **'Thính thơm (sữa, vani) hoặc tanh nhẹ, rải ít mà đều.'**
+  String get sp_tilapia_chum;
+
+  /// No description provided for @sp_tilapia_how.
+  ///
+  /// In vi, this message translates to:
+  /// **'Lưỡi nhỏ, câu tầng giữa đến sát đáy; giật nhẹ ngay khi phao chìm.'**
+  String get sp_tilapia_how;
+
+  /// No description provided for @sp_grassCarp.
+  ///
+  /// In vi, this message translates to:
+  /// **'Cá trắm cỏ'**
+  String get sp_grassCarp;
+
+  /// No description provided for @sp_grassCarp_where.
+  ///
+  /// In vi, this message translates to:
+  /// **'Hồ, sông lớn, ao dịch vụ; ven bờ có cỏ, bèo.'**
+  String get sp_grassCarp_where;
+
+  /// No description provided for @sp_grassCarp_bait.
+  ///
+  /// In vi, this message translates to:
+  /// **'Cỏ non, lá sắn, ngô hạt luộc, cám nặn.'**
+  String get sp_grassCarp_bait;
+
+  /// No description provided for @sp_grassCarp_chum.
+  ///
+  /// In vi, this message translates to:
+  /// **'Ngô ủ, cám trộn bột ngô.'**
+  String get sp_grassCarp_chum;
+
+  /// No description provided for @sp_grassCarp_how.
+  ///
+  /// In vi, this message translates to:
+  /// **'Dây và cần khỏe, nhả phanh vừa; cá chạy mạnh, kiên nhẫn dìu.'**
+  String get sp_grassCarp_how;
+
+  /// No description provided for @sp_snakehead.
+  ///
+  /// In vi, this message translates to:
+  /// **'Cá lóc (cá quả)'**
+  String get sp_snakehead;
+
+  /// No description provided for @sp_snakehead_where.
+  ///
+  /// In vi, this message translates to:
+  /// **'Ruộng, kênh, ao nhiều cỏ, lục bình; sát bờ, quanh đám rác.'**
+  String get sp_snakehead_where;
+
+  /// No description provided for @sp_snakehead_bait.
+  ///
+  /// In vi, this message translates to:
+  /// **'Nhái, ếch nhỏ, cá con sống, mồi giả (nhái hơi, thìa).'**
+  String get sp_snakehead_bait;
+
+  /// No description provided for @sp_snakehead_chum.
+  ///
+  /// In vi, this message translates to:
+  /// **'Không cần thính.'**
+  String get sp_snakehead_chum;
+
+  /// No description provided for @sp_snakehead_how.
+  ///
+  /// In vi, this message translates to:
+  /// **'Câu rê hoặc câu nhấp quanh đám cỏ, đi nhẹ, ít ồn; cá đớp mạnh rồi lôi vào cỏ.'**
+  String get sp_snakehead_how;
+
+  /// No description provided for @sp_walkingCatfish.
+  ///
+  /// In vi, this message translates to:
+  /// **'Cá trê'**
+  String get sp_walkingCatfish;
+
+  /// No description provided for @sp_walkingCatfish_where.
+  ///
+  /// In vi, this message translates to:
+  /// **'Ao, ruộng, kênh đáy bùn; hang hốc ven bờ.'**
+  String get sp_walkingCatfish_where;
+
+  /// No description provided for @sp_walkingCatfish_bait.
+  ///
+  /// In vi, this message translates to:
+  /// **'Giun, lòng gà, tép, mồi tanh.'**
+  String get sp_walkingCatfish_bait;
+
+  /// No description provided for @sp_walkingCatfish_chum.
+  ///
+  /// In vi, this message translates to:
+  /// **'Thính tanh (cá ươn, bột cá).'**
+  String get sp_walkingCatfish_chum;
+
+  /// No description provided for @sp_walkingCatfish_how.
+  ///
+  /// In vi, this message translates to:
+  /// **'Câu đáy ban đêm hoặc sau mưa; đường câu chắc, lưỡi vừa.'**
+  String get sp_walkingCatfish_how;
+
+  /// No description provided for @sp_pangasius.
+  ///
+  /// In vi, this message translates to:
+  /// **'Cá tra, basa'**
+  String get sp_pangasius;
+
+  /// No description provided for @sp_pangasius_where.
+  ///
+  /// In vi, this message translates to:
+  /// **'Sông lớn miền Tây, hồ dịch vụ; luồng nước sâu.'**
+  String get sp_pangasius_where;
+
+  /// No description provided for @sp_pangasius_bait.
+  ///
+  /// In vi, this message translates to:
+  /// **'Cám viên, lòng gà, cá ươn, bột nặn.'**
+  String get sp_pangasius_bait;
+
+  /// No description provided for @sp_pangasius_chum.
+  ///
+  /// In vi, this message translates to:
+  /// **'Thính tanh hoặc chua.'**
+  String get sp_pangasius_chum;
+
+  /// No description provided for @sp_pangasius_how.
+  ///
+  /// In vi, this message translates to:
+  /// **'Câu tầng giữa đến đáy, dây khỏe; cá kéo rất mạnh.'**
+  String get sp_pangasius_how;
+
+  /// No description provided for @sp_mystus.
+  ///
+  /// In vi, this message translates to:
+  /// **'Cá ngạnh'**
+  String get sp_mystus;
+
+  /// No description provided for @sp_mystus_where.
+  ///
+  /// In vi, this message translates to:
+  /// **'Sông suối nước chảy, khe đá sỏi; mỗi đoạn sông cá ăn một giờ khác nhau.'**
+  String get sp_mystus_where;
+
+  /// No description provided for @sp_mystus_bait.
+  ///
+  /// In vi, this message translates to:
+  /// **'Giun, tôm tép, sâu.'**
+  String get sp_mystus_bait;
+
+  /// No description provided for @sp_mystus_chum.
+  ///
+  /// In vi, this message translates to:
+  /// **'Tanh nhẹ, ít thôi.'**
+  String get sp_mystus_chum;
+
+  /// No description provided for @sp_mystus_how.
+  ///
+  /// In vi, this message translates to:
+  /// **'Câu đáy theo luồng lạch, đúng lúc nước bắt đầu chảy; hỏi người câu địa phương giờ cá vào.'**
+  String get sp_mystus_how;
+
+  /// No description provided for @sp_mullet.
+  ///
+  /// In vi, this message translates to:
+  /// **'Cá đối'**
+  String get sp_mullet;
+
+  /// No description provided for @sp_mullet_where.
+  ///
+  /// In vi, this message translates to:
+  /// **'Cửa sông, đầm phá, cảng; nước lên cá vào cửa kênh, nước ròng cá ra.'**
+  String get sp_mullet_where;
+
+  /// No description provided for @sp_mullet_bait.
+  ///
+  /// In vi, this message translates to:
+  /// **'Rêu, bột mì trộn cám, ruột bánh mì.'**
+  String get sp_mullet_bait;
+
+  /// No description provided for @sp_mullet_chum.
+  ///
+  /// In vi, this message translates to:
+  /// **'Thính chua tanh nhẹ, rải đều theo dòng.'**
+  String get sp_mullet_chum;
+
+  /// No description provided for @sp_mullet_how.
+  ///
+  /// In vi, this message translates to:
+  /// **'Phao nhỏ nhạy, lưỡi nhỏ, câu theo dòng lúc nước đang chảy.'**
+  String get sp_mullet_how;
+
+  /// No description provided for @sp_seabass.
+  ///
+  /// In vi, this message translates to:
+  /// **'Cá chẽm (vược)'**
+  String get sp_seabass;
+
+  /// No description provided for @sp_seabass_where.
+  ///
+  /// In vi, this message translates to:
+  /// **'Cửa sông, đầm, ghềnh; quanh trụ cầu, cửa cống, chỗ nước xoáy.'**
+  String get sp_seabass_where;
+
+  /// No description provided for @sp_seabass_bait.
+  ///
+  /// In vi, this message translates to:
+  /// **'Tôm sống, cá con, mồi giả (lure).'**
+  String get sp_seabass_bait;
+
+  /// No description provided for @sp_seabass_chum.
+  ///
+  /// In vi, this message translates to:
+  /// **'Không cần thính.'**
+  String get sp_seabass_chum;
+
+  /// No description provided for @sp_seabass_how.
+  ///
+  /// In vi, this message translates to:
+  /// **'Câu lure hoặc thả tôm sống trôi theo dòng, mạnh nhất lúc nước chảy mạnh và lúc bình minh, hoàng hôn.'**
+  String get sp_seabass_how;
+
+  /// No description provided for @sp_snapper.
+  ///
+  /// In vi, this message translates to:
+  /// **'Cá hồng'**
+  String get sp_snapper;
+
+  /// No description provided for @sp_snapper_where.
+  ///
+  /// In vi, this message translates to:
+  /// **'Biển, ghềnh, rạn đá; đáy rạn sâu.'**
+  String get sp_snapper_where;
+
+  /// No description provided for @sp_snapper_bait.
+  ///
+  /// In vi, this message translates to:
+  /// **'Mực, tôm, cá mồi tươi.'**
+  String get sp_snapper_bait;
+
+  /// No description provided for @sp_snapper_chum.
+  ///
+  /// In vi, this message translates to:
+  /// **'Không cần, hoặc mồi vụn thả đáy.'**
+  String get sp_snapper_chum;
+
+  /// No description provided for @sp_snapper_how.
+  ///
+  /// In vi, this message translates to:
+  /// **'Câu đáy, chì vừa đủ giữ đáy, dây chống mài; tốt vào con nước rong.'**
+  String get sp_snapper_how;
+
+  /// No description provided for @sp_grouper.
+  ///
+  /// In vi, this message translates to:
+  /// **'Cá mú'**
+  String get sp_grouper;
+
+  /// No description provided for @sp_grouper_where.
+  ///
+  /// In vi, this message translates to:
+  /// **'Rạn, ghềnh đá ven biển; hang hốc đáy đá.'**
+  String get sp_grouper_where;
+
+  /// No description provided for @sp_grouper_bait.
+  ///
+  /// In vi, this message translates to:
+  /// **'Cá con sống, mực, tôm.'**
+  String get sp_grouper_bait;
+
+  /// No description provided for @sp_grouper_chum.
+  ///
+  /// In vi, this message translates to:
+  /// **'Không cần thính.'**
+  String get sp_grouper_chum;
+
+  /// No description provided for @sp_grouper_how.
+  ///
+  /// In vi, this message translates to:
+  /// **'Ghìm cá ngay khi cắn để cá không chui vào hang; dây khỏe.'**
+  String get sp_grouper_how;
+
+  /// No description provided for @sp_goby.
+  ///
+  /// In vi, this message translates to:
+  /// **'Cá bống'**
+  String get sp_goby;
+
+  /// No description provided for @sp_goby_where.
+  ///
+  /// In vi, this message translates to:
+  /// **'Kênh, sông nước lợ; đáy cát bùn.'**
+  String get sp_goby_where;
+
+  /// No description provided for @sp_goby_bait.
+  ///
+  /// In vi, this message translates to:
+  /// **'Tép, giun.'**
+  String get sp_goby_bait;
+
+  /// No description provided for @sp_goby_chum.
+  ///
+  /// In vi, this message translates to:
+  /// **'Không cần thính.'**
+  String get sp_goby_chum;
+
+  /// No description provided for @sp_goby_how.
+  ///
+  /// In vi, this message translates to:
+  /// **'Câu đáy nhẹ nhàng, lưỡi nhỏ; cá cắn nhẹ, chờ phao đi hẳn.'**
+  String get sp_goby_how;
+
+  /// No description provided for @sp_climbingPerch.
+  ///
+  /// In vi, this message translates to:
+  /// **'Cá rô đồng'**
+  String get sp_climbingPerch;
+
+  /// No description provided for @sp_climbingPerch_where.
+  ///
+  /// In vi, this message translates to:
+  /// **'Ruộng, mương, ao; ven cỏ; mạnh sau những trận mưa đầu mùa.'**
+  String get sp_climbingPerch_where;
+
+  /// No description provided for @sp_climbingPerch_bait.
+  ///
+  /// In vi, this message translates to:
+  /// **'Giun, cào cào, cơm nặn.'**
+  String get sp_climbingPerch_bait;
+
+  /// No description provided for @sp_climbingPerch_chum.
+  ///
+  /// In vi, this message translates to:
+  /// **'Ít cám rang rải ven bờ.'**
+  String get sp_climbingPerch_chum;
+
+  /// No description provided for @sp_climbingPerch_how.
+  ///
+  /// In vi, this message translates to:
+  /// **'Câu tay sát bờ cỏ, lưỡi nhỏ, giật nhanh.'**
+  String get sp_climbingPerch_how;
+
+  /// No description provided for @sp_crucian.
+  ///
+  /// In vi, this message translates to:
+  /// **'Cá diếc'**
+  String get sp_crucian;
+
+  /// No description provided for @sp_crucian_where.
+  ///
+  /// In vi, this message translates to:
+  /// **'Ao, hồ; đáy và tầng giữa, ưa nước mát.'**
+  String get sp_crucian_where;
+
+  /// No description provided for @sp_crucian_bait.
+  ///
+  /// In vi, this message translates to:
+  /// **'Giun đỏ, bột mì.'**
+  String get sp_crucian_bait;
+
+  /// No description provided for @sp_crucian_chum.
+  ///
+  /// In vi, this message translates to:
+  /// **'Thính thơm, mịn, ít.'**
+  String get sp_crucian_chum;
+
+  /// No description provided for @sp_crucian_how.
+  ///
+  /// In vi, this message translates to:
+  /// **'Lưỡi nhỏ, phao nhạy, câu đài; nhiều vào mùa lạnh.'**
+  String get sp_crucian_how;
+
+  /// No description provided for @sp_bighead.
+  ///
+  /// In vi, this message translates to:
+  /// **'Cá mè'**
+  String get sp_bighead;
+
+  /// No description provided for @sp_bighead_where.
+  ///
+  /// In vi, this message translates to:
+  /// **'Hồ lớn, hồ dịch vụ; tầng mặt và tầng giữa khi trời nắng ấm.'**
+  String get sp_bighead_where;
+
+  /// No description provided for @sp_bighead_bait.
+  ///
+  /// In vi, this message translates to:
+  /// **'Bột mè: cám, bột đậu nặn tơi, tan lơ lửng.'**
+  String get sp_bighead_bait;
+
+  /// No description provided for @sp_bighead_chum.
+  ///
+  /// In vi, this message translates to:
+  /// **'Thính nổi, tan thành đám mây trong nước.'**
+  String get sp_bighead_chum;
+
+  /// No description provided for @sp_bighead_how.
+  ///
+  /// In vi, this message translates to:
+  /// **'Câu phao lơ lửng tầng mặt–giữa, chùm mồi bột tan; giật khi phao chìm từ từ.'**
+  String get sp_bighead_how;
+
+  /// No description provided for @nav_backAgain.
+  ///
+  /// In vi, this message translates to:
+  /// **'Vuốt quay lại lần nữa để thoát'**
+  String get nav_backAgain;
+
+  /// No description provided for @map_hereNow.
+  ///
+  /// In vi, this message translates to:
+  /// **'Lúc này quanh bạn'**
+  String get map_hereNow;
+
+  /// No description provided for @map_nextGolden.
+  ///
+  /// In vi, this message translates to:
+  /// **'giờ vàng {time}'**
+  String map_nextGolden(String time);
+
+  /// No description provided for @fishing_noGoldenShort.
+  ///
+  /// In vi, this message translates to:
+  /// **'chưa có giờ vàng'**
+  String get fishing_noGoldenShort;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

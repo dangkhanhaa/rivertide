@@ -9,6 +9,7 @@ import 'package:rivertide/core/theme/app_spacing.dart';
 import 'package:rivertide/core/theme/app_text.dart';
 import 'package:rivertide/core/widgets/fish_activity_style.dart';
 import 'package:rivertide/core/widgets/fish_scene.dart';
+import 'package:rivertide/features/map/presentation/widgets/here_now_line.dart';
 
 /// "Cá ăn lúc …" pill over the map (P2-20): tap to open an hour slider for the
 /// next two days and the colour legend; the fish pins follow the chosen hour.
@@ -42,6 +43,7 @@ class _FishTimeBarState extends ConsumerState<FishTimeBar> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            if (!_open && ahead == 0) const HereNowLine(),
             _Head(
               label: label,
               open: _open,

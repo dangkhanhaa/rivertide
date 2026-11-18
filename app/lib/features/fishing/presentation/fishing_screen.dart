@@ -13,12 +13,15 @@ import 'package:rivertide/core/theme/app_spacing.dart';
 import 'package:rivertide/core/theme/app_text.dart';
 import 'package:rivertide/core/widgets/async_value_view.dart';
 import 'package:rivertide/core/widgets/ui_kit.dart';
+import 'package:rivertide/features/fishing/presentation/species_screen.dart';
 import 'package:rivertide/features/fishing/presentation/trip_planner_screen.dart';
 import 'package:rivertide/features/fishing/presentation/widgets/advice_card.dart';
 import 'package:rivertide/features/fishing/presentation/widgets/fishing_hero.dart';
 import 'package:rivertide/features/fishing/presentation/widgets/golden_list.dart';
+import 'package:rivertide/features/fishing/presentation/widgets/no_bite_sheet.dart';
 import 'package:rivertide/features/fishing/presentation/widgets/safety_banner.dart';
 import 'package:rivertide/features/fishing/presentation/widgets/score_bars.dart';
+import 'package:rivertide/features/fishing/presentation/widgets/species_strip.dart';
 import 'package:rivertide/features/fishing/presentation/widgets/spot_card.dart'
     show unawaitedLocate;
 import 'package:rivertide/features/fishing/presentation/widgets/week_strip.dart';
@@ -79,6 +82,18 @@ class _FishingScreenState extends ConsumerState<FishingScreen> {
                 onTap: () => unawaited(context.push(whereRoute)),
               ),
               QuickAction(
+                icon: Icons.set_meal_rounded,
+                color: c.pond,
+                label: l10n.fishing_species,
+                onTap: () => _push(SpeciesScreen(spotId: spot.id)),
+              ),
+              QuickAction(
+                icon: Icons.help_outline_rounded,
+                color: c.alarm2,
+                label: l10n.nb_button,
+                onTap: () => showNoBiteSheet(context, spot.id),
+              ),
+              QuickAction(
                 icon: Icons.event_available_rounded,
                 color: c.primary,
                 label: l10n.fishing_plan,
@@ -89,12 +104,6 @@ class _FishingScreenState extends ConsumerState<FishingScreen> {
                 color: c.spot,
                 label: l10n.journal_open,
                 onTap: () => _push(const JournalScreen()),
-              ),
-              QuickAction(
-                icon: Icons.waves_rounded,
-                color: c.pond,
-                label: l10n.nav_ponds,
-                onTap: () => context.go(pondsRoute),
               ),
             ],
           ),
@@ -137,6 +146,7 @@ class _FishingBody extends ConsumerWidget {
           const SizedBox(height: AppSpacing.md),
         ],
         AdviceCard(spotId: spotId),
+        const SpeciesStrip(),
         SectionTitle(title: l10n.fishing_golden, icon: Icons.star_rounded),
         GoldenList(windows: goldenWindows(ahead), nowUtc: now),
         SectionTitle(title: l10n.fishing_hourly, icon: Icons.bar_chart_rounded),

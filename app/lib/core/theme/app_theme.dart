@@ -44,6 +44,19 @@ abstract final class AppTheme {
       colorScheme: scheme,
       scaffoldBackgroundColor: c.surfaceAlt,
       extensions: [c, text],
+      // Material widgets (list tiles, chips, inputs, menus) use the same
+      // compact scale as our own text, not Material's larger defaults.
+      textTheme: TextTheme(
+        titleLarge: text.title,
+        titleMedium: text.bodyStrong,
+        titleSmall: text.label,
+        bodyLarge: text.body,
+        bodyMedium: text.body,
+        bodySmall: text.caption,
+        labelLarge: text.label,
+        labelMedium: text.label,
+        labelSmall: text.caption,
+      ),
       cardTheme: CardThemeData(
         color: c.surface,
         // A soft lift so cards read on the pale background.

@@ -2839,4 +2839,416 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get set_resetDone => 'Đã khôi phục giao diện mặc định';
+
+  @override
+  String get sp_title => 'Câu cá gì hôm nay?';
+
+  @override
+  String get sp_seeAll => 'Xem tất cả';
+
+  @override
+  String get sp_guideTitle => 'Sổ tay loài cá';
+
+  @override
+  String get sp_today => 'Hôm nay';
+
+  @override
+  String sp_bestTime(String range) {
+    return 'Giờ hợp: $range';
+  }
+
+  @override
+  String get sp_noTime => 'Hôm nay chưa có giờ hợp';
+
+  @override
+  String get sp_inSeason => 'Đang mùa';
+
+  @override
+  String get sp_offSeason => 'Trái mùa';
+
+  @override
+  String get sp_season => 'Mùa chính';
+
+  @override
+  String get sp_where => 'Ở đâu';
+
+  @override
+  String get sp_bait => 'Mồi';
+
+  @override
+  String get sp_chum => 'Thính';
+
+  @override
+  String get sp_how => 'Cách câu';
+
+  @override
+  String get sp_todayTips => 'Lưu ý hôm nay';
+
+  @override
+  String get sp_note =>
+      'Kinh nghiệm câu phổ biến, đã tính theo con nước và thời tiết thật ở điểm này. Chỉ để tham khảo.';
+
+  @override
+  String get sp_noTips => 'Điều kiện hôm nay bình thường, cứ câu theo cách quen thuộc.';
+
+  @override
+  String get habitat_pond => 'Ao hồ';
+
+  @override
+  String get habitat_river => 'Sông';
+
+  @override
+  String get habitat_estuary => 'Cửa sông';
+
+  @override
+  String get habitat_sea => 'Biển';
+
+  @override
+  String get depth_surface => 'Tầng mặt';
+
+  @override
+  String get depth_middle => 'Tầng giữa';
+
+  @override
+  String get depth_bottom => 'Sát đáy';
+
+  @override
+  String get spTip_outOfSeason => 'Chưa vào mùa chính: vẫn câu được nhưng ít hơn.';
+
+  @override
+  String get spTip_waitForCurrent =>
+      'Loài này ăn khi nước chảy: đang nước đứng, chờ nước chảy lại.';
+
+  @override
+  String get spTip_murkyStrongBait =>
+      'Nước đục sau mưa: dùng mồi mùi mạnh (tanh), câu gần bờ, chỗ nước trong hơn.';
+
+  @override
+  String get spTip_coldSmallBaitDeep =>
+      'Trời trở lạnh: cá ăn chậm, dùng mồi nhỏ, câu sâu, kiên nhẫn.';
+
+  @override
+  String get spTip_hotGoDeepShade =>
+      'Nắng nóng: câu sáng sớm, chiều tối, hoặc chỗ sâu và bóng cây.';
+
+  @override
+  String get spTip_pressureFallingBite =>
+      'Áp suất đang giảm: cá thường ăn mạnh trước khi trời chuyển, tranh thủ.';
+
+  @override
+  String get spTip_pressureRisingFinesse =>
+      'Áp suất tăng mạnh sau đợt gió: cá kém ăn, dùng dây nhỏ, lưỡi nhỏ.';
+
+  @override
+  String get spTip_windDownwind => 'Gió mạnh: sang bờ đón gió, nơi mồi và thức ăn dạt vào.';
+
+  @override
+  String get spTip_risingNearBank => 'Nước đang lên: cá vào gần bờ kiếm ăn, câu gần.';
+
+  @override
+  String get spTip_fallingDeeper => 'Nước đang ròng: cá rút ra lạch sâu, cửa kênh, câu xa hơn.';
+
+  @override
+  String get nb_button => 'Cá không ăn?';
+
+  @override
+  String get nb_title => 'Cá không ăn? Thử những cách này';
+
+  @override
+  String get nb_now => 'Theo tình hình lúc này';
+
+  @override
+  String get nb_always => 'Mấy việc nên kiểm tra';
+
+  @override
+  String nb_waitCurrent(String time) {
+    return 'Đang nước đứng: khoảng $time nước chảy lại, cá sẽ ăn hơn. Tranh thủ thay mồi, rải thính.';
+  }
+
+  @override
+  String get nb_goDeepShade =>
+      'Nắng gắt: cá xuống sâu, câu sâu hơn hoặc dời ra chỗ bóng cây, gốc cây.';
+
+  @override
+  String get nb_coldSlow => 'Trời lạnh: mồi nhỏ lại, kéo chậm, câu sát đáy chỗ sâu.';
+
+  @override
+  String get nb_murkySmell => 'Nước đục: đổi mồi mùi mạnh (tanh), tìm chỗ nước trong hơn gần bờ.';
+
+  @override
+  String get nb_finesse => 'Sau đợt gió, áp suất tăng: cá nhát, dùng dây nhỏ, lưỡi nhỏ, mồi ít.';
+
+  @override
+  String get nb_downwind => 'Gió mạnh: sang bờ đón gió, thức ăn dạt vào đó.';
+
+  @override
+  String nb_nextGolden(String time) {
+    return 'Giờ vàng kế tiếp lúc $time: nghỉ tay rồi quay lại đúng giờ.';
+  }
+
+  @override
+  String get nb_changeDepth => 'Đổi độ sâu: thử sát đáy, rồi nâng dần 20–30 cm.';
+
+  @override
+  String get nb_moveSpot =>
+      'Sau 20–30 phút không có tăm: đổi chỗ, tìm rong, gốc cây, chỗ nước xoáy.';
+
+  @override
+  String get nb_freshBait => 'Thay mồi mới, gắn lộ mồi; mồi, thính để lâu mất mùi.';
+
+  @override
+  String get nb_stayQuiet => 'Giữ yên lặng, không để bóng người đổ xuống mặt nước.';
+
+  @override
+  String get nb_finerLine => 'Cá nhát thì đổi dây nhỏ hơn, lưỡi nhỏ hơn.';
+
+  @override
+  String get fishing_species => 'Loài cá';
+
+  @override
+  String get sp_carp => 'Cá chép';
+
+  @override
+  String get sp_carp_where => 'Ao, hồ, sông nước chậm; quanh đám rong, gốc cây chìm, đáy bùn.';
+
+  @override
+  String get sp_carp_bait => 'Cám gạo rang, bột ngô, ngô ngâm, giun đỏ.';
+
+  @override
+  String get sp_carp_chum =>
+      'Thính chua (cám + bột ngô ủ men) hoặc thơm sữa, dứa. Thả thính trước 15–20 phút.';
+
+  @override
+  String get sp_carp_how =>
+      'Câu đài hoặc câu lăng xê sát đáy, phao nhạy; cá chép hay đẩy phao lên rồi mới kéo.';
+
+  @override
+  String get sp_tilapia => 'Cá rô phi';
+
+  @override
+  String get sp_tilapia_where => 'Ao, hồ, kênh, sông chảy chậm; vùng nước ấm, ven bờ nắng.';
+
+  @override
+  String get sp_tilapia_bait => 'Cám viên, bột mì nặn, giun, tép nhỏ.';
+
+  @override
+  String get sp_tilapia_chum => 'Thính thơm (sữa, vani) hoặc tanh nhẹ, rải ít mà đều.';
+
+  @override
+  String get sp_tilapia_how => 'Lưỡi nhỏ, câu tầng giữa đến sát đáy; giật nhẹ ngay khi phao chìm.';
+
+  @override
+  String get sp_grassCarp => 'Cá trắm cỏ';
+
+  @override
+  String get sp_grassCarp_where => 'Hồ, sông lớn, ao dịch vụ; ven bờ có cỏ, bèo.';
+
+  @override
+  String get sp_grassCarp_bait => 'Cỏ non, lá sắn, ngô hạt luộc, cám nặn.';
+
+  @override
+  String get sp_grassCarp_chum => 'Ngô ủ, cám trộn bột ngô.';
+
+  @override
+  String get sp_grassCarp_how => 'Dây và cần khỏe, nhả phanh vừa; cá chạy mạnh, kiên nhẫn dìu.';
+
+  @override
+  String get sp_snakehead => 'Cá lóc (cá quả)';
+
+  @override
+  String get sp_snakehead_where => 'Ruộng, kênh, ao nhiều cỏ, lục bình; sát bờ, quanh đám rác.';
+
+  @override
+  String get sp_snakehead_bait => 'Nhái, ếch nhỏ, cá con sống, mồi giả (nhái hơi, thìa).';
+
+  @override
+  String get sp_snakehead_chum => 'Không cần thính.';
+
+  @override
+  String get sp_snakehead_how =>
+      'Câu rê hoặc câu nhấp quanh đám cỏ, đi nhẹ, ít ồn; cá đớp mạnh rồi lôi vào cỏ.';
+
+  @override
+  String get sp_walkingCatfish => 'Cá trê';
+
+  @override
+  String get sp_walkingCatfish_where => 'Ao, ruộng, kênh đáy bùn; hang hốc ven bờ.';
+
+  @override
+  String get sp_walkingCatfish_bait => 'Giun, lòng gà, tép, mồi tanh.';
+
+  @override
+  String get sp_walkingCatfish_chum => 'Thính tanh (cá ươn, bột cá).';
+
+  @override
+  String get sp_walkingCatfish_how => 'Câu đáy ban đêm hoặc sau mưa; đường câu chắc, lưỡi vừa.';
+
+  @override
+  String get sp_pangasius => 'Cá tra, basa';
+
+  @override
+  String get sp_pangasius_where => 'Sông lớn miền Tây, hồ dịch vụ; luồng nước sâu.';
+
+  @override
+  String get sp_pangasius_bait => 'Cám viên, lòng gà, cá ươn, bột nặn.';
+
+  @override
+  String get sp_pangasius_chum => 'Thính tanh hoặc chua.';
+
+  @override
+  String get sp_pangasius_how => 'Câu tầng giữa đến đáy, dây khỏe; cá kéo rất mạnh.';
+
+  @override
+  String get sp_mystus => 'Cá ngạnh';
+
+  @override
+  String get sp_mystus_where =>
+      'Sông suối nước chảy, khe đá sỏi; mỗi đoạn sông cá ăn một giờ khác nhau.';
+
+  @override
+  String get sp_mystus_bait => 'Giun, tôm tép, sâu.';
+
+  @override
+  String get sp_mystus_chum => 'Tanh nhẹ, ít thôi.';
+
+  @override
+  String get sp_mystus_how =>
+      'Câu đáy theo luồng lạch, đúng lúc nước bắt đầu chảy; hỏi người câu địa phương giờ cá vào.';
+
+  @override
+  String get sp_mullet => 'Cá đối';
+
+  @override
+  String get sp_mullet_where =>
+      'Cửa sông, đầm phá, cảng; nước lên cá vào cửa kênh, nước ròng cá ra.';
+
+  @override
+  String get sp_mullet_bait => 'Rêu, bột mì trộn cám, ruột bánh mì.';
+
+  @override
+  String get sp_mullet_chum => 'Thính chua tanh nhẹ, rải đều theo dòng.';
+
+  @override
+  String get sp_mullet_how => 'Phao nhỏ nhạy, lưỡi nhỏ, câu theo dòng lúc nước đang chảy.';
+
+  @override
+  String get sp_seabass => 'Cá chẽm (vược)';
+
+  @override
+  String get sp_seabass_where => 'Cửa sông, đầm, ghềnh; quanh trụ cầu, cửa cống, chỗ nước xoáy.';
+
+  @override
+  String get sp_seabass_bait => 'Tôm sống, cá con, mồi giả (lure).';
+
+  @override
+  String get sp_seabass_chum => 'Không cần thính.';
+
+  @override
+  String get sp_seabass_how =>
+      'Câu lure hoặc thả tôm sống trôi theo dòng, mạnh nhất lúc nước chảy mạnh và lúc bình minh, hoàng hôn.';
+
+  @override
+  String get sp_snapper => 'Cá hồng';
+
+  @override
+  String get sp_snapper_where => 'Biển, ghềnh, rạn đá; đáy rạn sâu.';
+
+  @override
+  String get sp_snapper_bait => 'Mực, tôm, cá mồi tươi.';
+
+  @override
+  String get sp_snapper_chum => 'Không cần, hoặc mồi vụn thả đáy.';
+
+  @override
+  String get sp_snapper_how => 'Câu đáy, chì vừa đủ giữ đáy, dây chống mài; tốt vào con nước rong.';
+
+  @override
+  String get sp_grouper => 'Cá mú';
+
+  @override
+  String get sp_grouper_where => 'Rạn, ghềnh đá ven biển; hang hốc đáy đá.';
+
+  @override
+  String get sp_grouper_bait => 'Cá con sống, mực, tôm.';
+
+  @override
+  String get sp_grouper_chum => 'Không cần thính.';
+
+  @override
+  String get sp_grouper_how => 'Ghìm cá ngay khi cắn để cá không chui vào hang; dây khỏe.';
+
+  @override
+  String get sp_goby => 'Cá bống';
+
+  @override
+  String get sp_goby_where => 'Kênh, sông nước lợ; đáy cát bùn.';
+
+  @override
+  String get sp_goby_bait => 'Tép, giun.';
+
+  @override
+  String get sp_goby_chum => 'Không cần thính.';
+
+  @override
+  String get sp_goby_how => 'Câu đáy nhẹ nhàng, lưỡi nhỏ; cá cắn nhẹ, chờ phao đi hẳn.';
+
+  @override
+  String get sp_climbingPerch => 'Cá rô đồng';
+
+  @override
+  String get sp_climbingPerch_where => 'Ruộng, mương, ao; ven cỏ; mạnh sau những trận mưa đầu mùa.';
+
+  @override
+  String get sp_climbingPerch_bait => 'Giun, cào cào, cơm nặn.';
+
+  @override
+  String get sp_climbingPerch_chum => 'Ít cám rang rải ven bờ.';
+
+  @override
+  String get sp_climbingPerch_how => 'Câu tay sát bờ cỏ, lưỡi nhỏ, giật nhanh.';
+
+  @override
+  String get sp_crucian => 'Cá diếc';
+
+  @override
+  String get sp_crucian_where => 'Ao, hồ; đáy và tầng giữa, ưa nước mát.';
+
+  @override
+  String get sp_crucian_bait => 'Giun đỏ, bột mì.';
+
+  @override
+  String get sp_crucian_chum => 'Thính thơm, mịn, ít.';
+
+  @override
+  String get sp_crucian_how => 'Lưỡi nhỏ, phao nhạy, câu đài; nhiều vào mùa lạnh.';
+
+  @override
+  String get sp_bighead => 'Cá mè';
+
+  @override
+  String get sp_bighead_where => 'Hồ lớn, hồ dịch vụ; tầng mặt và tầng giữa khi trời nắng ấm.';
+
+  @override
+  String get sp_bighead_bait => 'Bột mè: cám, bột đậu nặn tơi, tan lơ lửng.';
+
+  @override
+  String get sp_bighead_chum => 'Thính nổi, tan thành đám mây trong nước.';
+
+  @override
+  String get sp_bighead_how =>
+      'Câu phao lơ lửng tầng mặt–giữa, chùm mồi bột tan; giật khi phao chìm từ từ.';
+
+  @override
+  String get nav_backAgain => 'Vuốt quay lại lần nữa để thoát';
+
+  @override
+  String get map_hereNow => 'Lúc này quanh bạn';
+
+  @override
+  String map_nextGolden(String time) {
+    return 'giờ vàng $time';
+  }
+
+  @override
+  String get fishing_noGoldenShort => 'chưa có giờ vàng';
 }

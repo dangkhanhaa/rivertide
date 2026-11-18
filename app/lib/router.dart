@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:rivertide/core/l10n/l10n_ext.dart';
@@ -58,38 +60,81 @@ StatefulShellBranch _branch(String path, Widget screen) => StatefulShellBranch(
   routes: [GoRoute(path: path, builder: (_, _) => screen)],
 );
 
-class _Shell extends StatelessWidget {
+/// Bottom-tab shell. System back (Android swipe from the edge) on a tab
+/// other than the map returns to the map instead of closing the app; on the
+/// map a second back within 2 s closes it. Pages pushed inside a tab are
+/// popped first by the router, so back still returns to the previous screen.
+class _Shell extends StatefulWidget {
   const _Shell({required this.shell});
 
   final StatefulNavigationShell shell;
 
   @override
+  State<_Shell> createState() => _ShellState();
+}
+
+class _ShellState extends State<_Shell> {
+  static const Duration _exitWindow = Duration(seconds: 2);
+  Timer? _armed;
+
+  @override
+  void dispose() {
+    _armed?.cancel();
+    super.dispose();
+  }
+
+  void _onBack(bool didPop, Object? _) {
+    if (didPop) return;
+    final shell = widget.shell;
+    if (shell.currentIndex != 0) {
+      shell.goBranch(0);
+      return;
+    }
+    setState(
+      () => _armed = Timer(_exitWindow, () {
+        if (mounted) setState(() => _armed = null);
+      }),
+    );
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(SnackBar(content: Text(context.l10n.nav_backAgain), duration: _exitWindow));
+  }
+
+  @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
-    return Scaffold(
-      body: shell,
-      bottomNavigationBar: NavigationBar(
-        selectedIndex: shell.currentIndex,
-        onDestinationSelected: (i) => shell.goBranch(i, initialLocation: i == shell.currentIndex),
-        destinations: [
-          NavigationDestination(
-            icon: const Icon(Icons.map_outlined),
-            selectedIcon: const Icon(Icons.map_rounded),
-            label: l10n.nav_map,
-          ),
-          NavigationDestination(
-            icon: const Icon(Icons.waves_outlined),
-            selectedIcon: const Icon(Icons.waves_rounded),
-            label: l10n.nav_ponds,
-          ),
-          NavigationDestination(
-            icon: const Icon(Icons.star_outline_rounded),
-            selectedIcon: const Icon(Icons.star_rounded),
-            label: l10n.nav_watch,
-          ),
-          NavigationDestination(icon: const Icon(Icons.phishing_rounded), label: l10n.nav_fishing),
-          NavigationDestination(icon: const Icon(Icons.menu_rounded), label: l10n.nav_more),
-        ],
+    final shell = widget.shell;
+    return PopScope(
+      canPop: shell.currentIndex == 0 && (_armed?.isActive ?? false),
+      onPopInvokedWithResult: _onBack,
+      child: Scaffold(
+        body: shell,
+        bottomNavigationBar: NavigationBar(
+          selectedIndex: shell.currentIndex,
+          onDestinationSelected: (i) => shell.goBranch(i, initialLocation: i == shell.currentIndex),
+          destinations: [
+            NavigationDestination(
+              icon: const Icon(Icons.map_outlined),
+              selectedIcon: const Icon(Icons.map_rounded),
+              label: l10n.nav_map,
+            ),
+            NavigationDestination(
+              icon: const Icon(Icons.waves_outlined),
+              selectedIcon: const Icon(Icons.waves_rounded),
+              label: l10n.nav_ponds,
+            ),
+            NavigationDestination(
+              icon: const Icon(Icons.star_outline_rounded),
+              selectedIcon: const Icon(Icons.star_rounded),
+              label: l10n.nav_watch,
+            ),
+            NavigationDestination(
+              icon: const Icon(Icons.phishing_rounded),
+              label: l10n.nav_fishing,
+            ),
+            NavigationDestination(icon: const Icon(Icons.menu_rounded), label: l10n.nav_more),
+          ],
+        ),
       ),
     );
   }

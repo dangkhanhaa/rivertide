@@ -130,6 +130,10 @@ class _MapScreenState extends ConsumerState<MapScreen> with MapDetailPresenter<M
   Future<void> _showMe(({double lat, double lon}) p, {double zoom = 12}) async {
     setState(() => _me = p);
     unawaited(ref.read(locationPromptStoreProvider).saveLastPosition(p.lat, p.lon));
+    // Fish "around you" right away (map line + fishing tab), unless the user
+    // already picked another spot.
+    final spot = ref.read(fishingSpotProvider.notifier);
+    if (!spot.userChose) spot.choose(PointId.encode(p.lat, p.lon), mine: true, byUser: false);
     if (!isInVietnamBounds(p.lat, p.lon)) return;
     await _map?.flyTo(p.lat, p.lon, zoom: zoom, offset: visibleOffset(detailOpen: false));
   }

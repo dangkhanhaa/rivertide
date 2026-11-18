@@ -2881,4 +2881,432 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get set_resetDone => 'Default look restored';
+
+  @override
+  String get sp_title => 'What to fish for today?';
+
+  @override
+  String get sp_seeAll => 'See all';
+
+  @override
+  String get sp_guideTitle => 'Species guide';
+
+  @override
+  String get sp_today => 'Today';
+
+  @override
+  String sp_bestTime(String range) {
+    return 'Best time: $range';
+  }
+
+  @override
+  String get sp_noTime => 'No good time today';
+
+  @override
+  String get sp_inSeason => 'In season';
+
+  @override
+  String get sp_offSeason => 'Off season';
+
+  @override
+  String get sp_season => 'Main season';
+
+  @override
+  String get sp_where => 'Where';
+
+  @override
+  String get sp_bait => 'Bait';
+
+  @override
+  String get sp_chum => 'Groundbait';
+
+  @override
+  String get sp_how => 'How to fish';
+
+  @override
+  String get sp_todayTips => 'Today';
+
+  @override
+  String get sp_note =>
+      'Common angling practice, adjusted for the real tide and weather here. For reference only.';
+
+  @override
+  String get sp_noTips => 'Normal conditions today; fish the way you usually do.';
+
+  @override
+  String get habitat_pond => 'Ponds';
+
+  @override
+  String get habitat_river => 'Rivers';
+
+  @override
+  String get habitat_estuary => 'Estuaries';
+
+  @override
+  String get habitat_sea => 'Sea';
+
+  @override
+  String get depth_surface => 'Surface';
+
+  @override
+  String get depth_middle => 'Mid-water';
+
+  @override
+  String get depth_bottom => 'Bottom';
+
+  @override
+  String get spTip_outOfSeason => 'Not its main season yet: you can still catch it, just fewer.';
+
+  @override
+  String get spTip_waitForCurrent =>
+      'It feeds when the water runs: slack now, wait for the current.';
+
+  @override
+  String get spTip_murkyStrongBait =>
+      'Murky after rain: use strong-smelling bait, fish near the bank where it is clearer.';
+
+  @override
+  String get spTip_coldSmallBaitDeep =>
+      'Turning cold: fish feed slowly; smaller bait, deeper, be patient.';
+
+  @override
+  String get spTip_hotGoDeepShade => 'Hot: fish early or late, or go deep and into shade.';
+
+  @override
+  String get spTip_pressureFallingBite =>
+      'Pressure falling: fish often feed hard before the weather turns.';
+
+  @override
+  String get spTip_pressureRisingFinesse =>
+      'Pressure rising after a front: fish are shy; finer line, smaller hook.';
+
+  @override
+  String get spTip_windDownwind =>
+      'Strong wind: fish the bank the wind blows onto, food collects there.';
+
+  @override
+  String get spTip_risingNearBank => 'Rising water: fish move to the banks to feed, fish close.';
+
+  @override
+  String get spTip_fallingDeeper =>
+      'Falling water: fish drop back to deeper channels and creek mouths, fish farther out.';
+
+  @override
+  String get nb_button => 'No bites?';
+
+  @override
+  String get nb_title => 'No bites? Try these';
+
+  @override
+  String get nb_now => 'For right now';
+
+  @override
+  String get nb_always => 'Things to check';
+
+  @override
+  String nb_waitCurrent(String time) {
+    return 'Slack water: the current picks up around $time, fish will feed better. Re-bait and chum meanwhile.';
+  }
+
+  @override
+  String get nb_goDeepShade =>
+      'Harsh sun: fish go deep; fish deeper or move to shade and tree roots.';
+
+  @override
+  String get nb_coldSlow => 'Cold: smaller bait, slower retrieve, on the bottom in deeper water.';
+
+  @override
+  String get nb_murkySmell =>
+      'Murky water: switch to strong-smelling bait, find clearer water near the bank.';
+
+  @override
+  String get nb_finesse =>
+      'After a front, pressure rising: shy fish; finer line, smaller hook, less bait.';
+
+  @override
+  String get nb_downwind => 'Strong wind: move to the bank the wind blows onto, food drifts there.';
+
+  @override
+  String nb_nextGolden(String time) {
+    return 'Next golden hour at $time: take a break and come back on time.';
+  }
+
+  @override
+  String get nb_changeDepth => 'Change depth: start on the bottom, then raise 20–30 cm at a time.';
+
+  @override
+  String get nb_moveSpot => 'No bites in 20–30 minutes: move; look for weed, roots, eddies.';
+
+  @override
+  String get nb_freshBait =>
+      'Fresh bait, hook point showing; old bait and groundbait lose their smell.';
+
+  @override
+  String get nb_stayQuiet => 'Keep quiet and keep your shadow off the water.';
+
+  @override
+  String get nb_finerLine => 'Shy fish: go to finer line and a smaller hook.';
+
+  @override
+  String get fishing_species => 'Species';
+
+  @override
+  String get sp_carp => 'Common carp';
+
+  @override
+  String get sp_carp_where =>
+      'Ponds, lakes, slow rivers; around weed beds, sunken roots, muddy bottoms.';
+
+  @override
+  String get sp_carp_bait => 'Roasted rice bran, corn flour, soaked corn, red worms.';
+
+  @override
+  String get sp_carp_chum =>
+      'Sour groundbait (bran + corn flour fermented) or milk/pineapple scent. Bait the swim 15–20 min first.';
+
+  @override
+  String get sp_carp_how =>
+      'Float or ledger right on the bottom with a sensitive float; carp often lift the float before pulling.';
+
+  @override
+  String get sp_tilapia => 'Tilapia';
+
+  @override
+  String get sp_tilapia_where => 'Ponds, lakes, canals, slow rivers; warm, sunny margins.';
+
+  @override
+  String get sp_tilapia_bait => 'Pellets, kneaded flour, worms, small shrimp.';
+
+  @override
+  String get sp_tilapia_chum =>
+      'Sweet (milk, vanilla) or mildly fishy groundbait, a little and often.';
+
+  @override
+  String get sp_tilapia_how =>
+      'Small hooks, mid-water to just off the bottom; strike lightly as the float dips.';
+
+  @override
+  String get sp_grassCarp => 'Grass carp';
+
+  @override
+  String get sp_grassCarp_where => 'Lakes, big rivers, stocked ponds; grassy, weedy margins.';
+
+  @override
+  String get sp_grassCarp_bait => 'Young grass, cassava leaves, boiled corn, kneaded bran.';
+
+  @override
+  String get sp_grassCarp_chum => 'Fermented corn, bran mixed with corn flour.';
+
+  @override
+  String get sp_grassCarp_how =>
+      'Strong line and rod, moderate drag; it runs hard, play it patiently.';
+
+  @override
+  String get sp_snakehead => 'Snakehead';
+
+  @override
+  String get sp_snakehead_where =>
+      'Paddies, canals, weedy ponds; tight to banks and floating vegetation.';
+
+  @override
+  String get sp_snakehead_bait => 'Frogs, small live fish, lures (frog, spoon).';
+
+  @override
+  String get sp_snakehead_chum => 'No groundbait needed.';
+
+  @override
+  String get sp_snakehead_how =>
+      'Twitch or drag the bait along weed edges, move quietly; it strikes hard and heads for cover.';
+
+  @override
+  String get sp_walkingCatfish => 'Walking catfish';
+
+  @override
+  String get sp_walkingCatfish_where => 'Ponds, paddies, muddy canals; holes along the bank.';
+
+  @override
+  String get sp_walkingCatfish_bait => 'Worms, chicken guts, shrimp, smelly baits.';
+
+  @override
+  String get sp_walkingCatfish_chum => 'Fishy groundbait (old fish, fish meal).';
+
+  @override
+  String get sp_walkingCatfish_how =>
+      'Bottom fish at night or after rain; strong rig, medium hook.';
+
+  @override
+  String get sp_pangasius => 'Pangasius (tra, basa)';
+
+  @override
+  String get sp_pangasius_where => 'Big Mekong rivers, stocked ponds; deep channels.';
+
+  @override
+  String get sp_pangasius_bait => 'Pellets, chicken guts, old fish, dough.';
+
+  @override
+  String get sp_pangasius_chum => 'Fishy or sour groundbait.';
+
+  @override
+  String get sp_pangasius_how => 'Mid-water to bottom with strong line; it pulls very hard.';
+
+  @override
+  String get sp_mystus => 'Mystus catfish';
+
+  @override
+  String get sp_mystus_where =>
+      'Running rivers and streams, gravel runs; each stretch feeds at its own time.';
+
+  @override
+  String get sp_mystus_bait => 'Worms, shrimp, grubs.';
+
+  @override
+  String get sp_mystus_chum => 'Lightly fishy, sparingly.';
+
+  @override
+  String get sp_mystus_how =>
+      'Bottom fish along the current seams as the water starts to run; ask local anglers when it comes in.';
+
+  @override
+  String get sp_mullet => 'Mullet';
+
+  @override
+  String get sp_mullet_where =>
+      'Estuaries, lagoons, harbours; they come in on the rising tide and leave on the ebb.';
+
+  @override
+  String get sp_mullet_bait => 'Weed, flour mixed with bran, bread.';
+
+  @override
+  String get sp_mullet_chum => 'Sour, lightly fishy groundbait spread along the current.';
+
+  @override
+  String get sp_mullet_how =>
+      'Small sensitive float and hook, fish the current while the water runs.';
+
+  @override
+  String get sp_seabass => 'Barramundi (seabass)';
+
+  @override
+  String get sp_seabass_where =>
+      'Estuaries, lagoons, rocks; around bridge piles, sluice gates, eddies.';
+
+  @override
+  String get sp_seabass_bait => 'Live shrimp, small fish, lures.';
+
+  @override
+  String get sp_seabass_chum => 'No groundbait needed.';
+
+  @override
+  String get sp_seabass_how =>
+      'Cast lures or drift live shrimp with the current; best on strong flow and at dawn and dusk.';
+
+  @override
+  String get sp_snapper => 'Snapper';
+
+  @override
+  String get sp_snapper_where => 'Sea, rocks, reefs; deep reef bottoms.';
+
+  @override
+  String get sp_snapper_bait => 'Squid, prawns, fresh baitfish.';
+
+  @override
+  String get sp_snapper_chum => 'None, or chopped bait on the bottom.';
+
+  @override
+  String get sp_snapper_how =>
+      'Bottom fish with just enough lead to hold, abrasion-resistant leader; best on spring tides.';
+
+  @override
+  String get sp_grouper => 'Grouper';
+
+  @override
+  String get sp_grouper_where => 'Reefs and rocky shores; holes in the rock.';
+
+  @override
+  String get sp_grouper_bait => 'Live small fish, squid, prawns.';
+
+  @override
+  String get sp_grouper_chum => 'No groundbait needed.';
+
+  @override
+  String get sp_grouper_how =>
+      'Lock up as soon as it bites so it cannot reach its hole; strong line.';
+
+  @override
+  String get sp_goby => 'Goby';
+
+  @override
+  String get sp_goby_where => 'Canals, brackish rivers; sandy or muddy bottoms.';
+
+  @override
+  String get sp_goby_bait => 'Small shrimp, worms.';
+
+  @override
+  String get sp_goby_chum => 'No groundbait needed.';
+
+  @override
+  String get sp_goby_how =>
+      'Light bottom rig with a small hook; bites are gentle, wait for the float to move off.';
+
+  @override
+  String get sp_climbingPerch => 'Climbing perch';
+
+  @override
+  String get sp_climbingPerch_where =>
+      'Paddies, ditches, ponds; grassy edges; best after the first rains.';
+
+  @override
+  String get sp_climbingPerch_bait => 'Worms, grasshoppers, kneaded rice.';
+
+  @override
+  String get sp_climbingPerch_chum => 'A little roasted bran along the bank.';
+
+  @override
+  String get sp_climbingPerch_how => 'Hand line close to grassy banks, small hook, quick strike.';
+
+  @override
+  String get sp_crucian => 'Crucian carp';
+
+  @override
+  String get sp_crucian_where => 'Ponds and lakes; bottom and mid-water, likes cooler water.';
+
+  @override
+  String get sp_crucian_bait => 'Red worms, flour paste.';
+
+  @override
+  String get sp_crucian_chum => 'Fine sweet groundbait, sparingly.';
+
+  @override
+  String get sp_crucian_how => 'Small hook, sensitive float; good in the cool season.';
+
+  @override
+  String get sp_bighead => 'Bighead and silver carp';
+
+  @override
+  String get sp_bighead_where =>
+      'Large lakes, stocked ponds; surface and mid-water on warm sunny days.';
+
+  @override
+  String get sp_bighead_bait => 'Cloud bait: bran and bean flour that breaks up in the water.';
+
+  @override
+  String get sp_bighead_chum => 'Floating groundbait that forms a cloud.';
+
+  @override
+  String get sp_bighead_how =>
+      'Suspended float at surface to mid-water with a dissolving bait ball; strike as the float sinks slowly.';
+
+  @override
+  String get nav_backAgain => 'Swipe back again to exit';
+
+  @override
+  String get map_hereNow => 'Around you now';
+
+  @override
+  String map_nextGolden(String time) {
+    return 'golden hour $time';
+  }
+
+  @override
+  String get fishing_noGoldenShort => 'no golden hour yet';
 }
