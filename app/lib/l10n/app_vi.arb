@@ -1157,5 +1157,16 @@
   "@flood_alarmTitle": {"placeholders": {"place": {"type": "String"}}},
   "flood_alarmBody": "Nước tới khoảng {time}. Thu cần, rời chỗ đứng ngay.",
   "@flood_alarmBody": {"placeholders": {"time": {"type": "String"}}},
-  "flood_channel": "Báo nước ngập lối về"
+  "flood_channel": "Báo nước ngập lối về",
+  "shift_title": "Sắp đổi thời tiết",
+  "shift_dayAfter": "Ngày kia",
+  "shift_coldFront": "{when} trời trở lạnh (gió mùa): trước đó cá thường ăn mạnh, nên tranh thủ đi. Sau đó cá kém ăn 1–2 ngày.",
+  "@shift_coldFront": {"placeholders": {"when": {"type": "String"}}},
+  "shift_heavyRain": "{when} có mưa to: sau mưa nước đục, câu sát đáy, mồi tanh, chỗ nước trong hơn gần bờ.",
+  "@shift_heavyRain": {"placeholders": {"when": {"type": "String"}}},
+  "shift_pressureDrop": "Từ {when} áp suất giảm mạnh: thời tiết xấu đi, theo dõi cảnh báo dông, áp thấp.",
+  "@shift_pressureDrop": {"placeholders": {"when": {"type": "String"}}},
+  "shift_heatWave": "{when} nắng nóng trên 36°C: câu sáng sớm, chiều tối, chỗ sâu và bóng cây.",
+  "@shift_heatWave": {"placeholders": {"when": {"type": "String"}}},
+  "shift_note": "Theo dự báo thời tiết Open-Meteo, chỉ để tham khảo."
 }

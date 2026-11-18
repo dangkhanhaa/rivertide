@@ -24,6 +24,7 @@ import 'package:rivertide/features/fishing/presentation/widgets/score_bars.dart'
 import 'package:rivertide/features/fishing/presentation/widgets/species_strip.dart';
 import 'package:rivertide/features/fishing/presentation/widgets/spot_card.dart'
     show unawaitedLocate;
+import 'package:rivertide/features/fishing/presentation/widgets/weather_shift_card.dart';
 import 'package:rivertide/features/fishing/presentation/widgets/week_strip.dart';
 import 'package:rivertide/features/journal/journal.dart';
 import 'package:rivertide/features/stations/stations.dart';
@@ -145,6 +146,7 @@ class _FishingBody extends ConsumerWidget {
           SafetyBanner(hours: today),
           const SizedBox(height: AppSpacing.md),
         ],
+        WeatherShiftCard(spotId: spotId),
         AdviceCard(spotId: spotId),
         const SpeciesStrip(),
         SectionTitle(title: l10n.fishing_golden, icon: Icons.star_rounded),

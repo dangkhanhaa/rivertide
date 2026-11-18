@@ -967,5 +967,12 @@
   "flood_alarmApk": "Alarms work in the Android app (download the APK in More).",
   "flood_alarmTitle": "Water coming: {place}",
   "flood_alarmBody": "Water arrives around {time}. Pack up and leave your spot now.",
-  "flood_channel": "Cut-off by rising water"
+  "flood_channel": "Cut-off by rising water",
+  "shift_title": "Weather is changing",
+  "shift_dayAfter": "In two days",
+  "shift_coldFront": "{when} turns cold (monsoon): fish often feed hard just before, worth going. They bite poorly for 1–2 days after.",
+  "shift_heavyRain": "{when} heavy rain: murky water afterwards, fish the bottom with smelly bait, near clearer banks.",
+  "shift_pressureDrop": "From {when} pressure drops fast: weather worsening, watch for storm and depression warnings.",
+  "shift_heatWave": "{when} heat above 36°C: fish early and late, deep water and shade.",
+  "shift_note": "From the Open-Meteo forecast, for reference only."
 }

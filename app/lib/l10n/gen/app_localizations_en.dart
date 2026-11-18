@@ -3402,4 +3402,33 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get flood_channel => 'Cut-off by rising water';
+
+  @override
+  String get shift_title => 'Weather is changing';
+
+  @override
+  String get shift_dayAfter => 'In two days';
+
+  @override
+  String shift_coldFront(String when) {
+    return '$when turns cold (monsoon): fish often feed hard just before, worth going. They bite poorly for 1–2 days after.';
+  }
+
+  @override
+  String shift_heavyRain(String when) {
+    return '$when heavy rain: murky water afterwards, fish the bottom with smelly bait, near clearer banks.';
+  }
+
+  @override
+  String shift_pressureDrop(String when) {
+    return 'From $when pressure drops fast: weather worsening, watch for storm and depression warnings.';
+  }
+
+  @override
+  String shift_heatWave(String when) {
+    return '$when heat above 36°C: fish early and late, deep water and shade.';
+  }
+
+  @override
+  String get shift_note => 'From the Open-Meteo forecast, for reference only.';
 }

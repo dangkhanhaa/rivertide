@@ -3344,4 +3344,33 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get flood_channel => 'Báo nước ngập lối về';
+
+  @override
+  String get shift_title => 'Sắp đổi thời tiết';
+
+  @override
+  String get shift_dayAfter => 'Ngày kia';
+
+  @override
+  String shift_coldFront(String when) {
+    return '$when trời trở lạnh (gió mùa): trước đó cá thường ăn mạnh, nên tranh thủ đi. Sau đó cá kém ăn 1–2 ngày.';
+  }
+
+  @override
+  String shift_heavyRain(String when) {
+    return '$when có mưa to: sau mưa nước đục, câu sát đáy, mồi tanh, chỗ nước trong hơn gần bờ.';
+  }
+
+  @override
+  String shift_pressureDrop(String when) {
+    return 'Từ $when áp suất giảm mạnh: thời tiết xấu đi, theo dõi cảnh báo dông, áp thấp.';
+  }
+
+  @override
+  String shift_heatWave(String when) {
+    return '$when nắng nóng trên 36°C: câu sáng sớm, chiều tối, chỗ sâu và bóng cây.';
+  }
+
+  @override
+  String get shift_note => 'Theo dự báo thời tiết Open-Meteo, chỉ để tham khảo.';
 }

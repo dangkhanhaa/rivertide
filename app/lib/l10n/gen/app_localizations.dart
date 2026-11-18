@@ -5900,6 +5900,48 @@ abstract class AppLocalizations {
   /// In vi, this message translates to:
   /// **'Báo nước ngập lối về'**
   String get flood_channel;
+
+  /// No description provided for @shift_title.
+  ///
+  /// In vi, this message translates to:
+  /// **'Sắp đổi thời tiết'**
+  String get shift_title;
+
+  /// No description provided for @shift_dayAfter.
+  ///
+  /// In vi, this message translates to:
+  /// **'Ngày kia'**
+  String get shift_dayAfter;
+
+  /// No description provided for @shift_coldFront.
+  ///
+  /// In vi, this message translates to:
+  /// **'{when} trời trở lạnh (gió mùa): trước đó cá thường ăn mạnh, nên tranh thủ đi. Sau đó cá kém ăn 1–2 ngày.'**
+  String shift_coldFront(String when);
+
+  /// No description provided for @shift_heavyRain.
+  ///
+  /// In vi, this message translates to:
+  /// **'{when} có mưa to: sau mưa nước đục, câu sát đáy, mồi tanh, chỗ nước trong hơn gần bờ.'**
+  String shift_heavyRain(String when);
+
+  /// No description provided for @shift_pressureDrop.
+  ///
+  /// In vi, this message translates to:
+  /// **'Từ {when} áp suất giảm mạnh: thời tiết xấu đi, theo dõi cảnh báo dông, áp thấp.'**
+  String shift_pressureDrop(String when);
+
+  /// No description provided for @shift_heatWave.
+  ///
+  /// In vi, this message translates to:
+  /// **'{when} nắng nóng trên 36°C: câu sáng sớm, chiều tối, chỗ sâu và bóng cây.'**
+  String shift_heatWave(String when);
+
+  /// No description provided for @shift_note.
+  ///
+  /// In vi, this message translates to:
+  /// **'Theo dự báo thời tiết Open-Meteo, chỉ để tham khảo.'**
+  String get shift_note;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
