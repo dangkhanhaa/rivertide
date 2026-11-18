@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:rivertide/core/notify/flood_alarm.dart';
 import 'package:timezone/timezone.dart' as tz;
 
 /// Thin wrapper over the OS notifications (Android). On the web nothing is
@@ -44,8 +45,13 @@ class AlertNotifier {
     return await android?.requestNotificationsPermission() ?? false;
   }
 
+  /// Cancels the tide/golden alarms only: the flood-out alarm (P2-33) is set
+  /// by hand for one trip and must survive the rebuild on app start.
   Future<void> cancelAll() async {
-    if (await _init()) await _plugin.cancelAll();
+    if (!await _init()) return;
+    for (final p in await _plugin.pendingNotificationRequests()) {
+      if (p.id != FloodAlarm.id) await _plugin.cancel(id: p.id);
+    }
   }
 
   Future<void> schedule({

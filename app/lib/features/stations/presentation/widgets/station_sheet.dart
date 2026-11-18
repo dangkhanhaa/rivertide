@@ -16,6 +16,7 @@ import 'package:rivertide/features/stations/domain/station_tide.dart';
 import 'package:rivertide/features/stations/presentation/widgets/daily_extremes_card.dart';
 import 'package:rivertide/features/stations/presentation/widgets/directions_button.dart';
 import 'package:rivertide/features/stations/presentation/widgets/fish_activity_card.dart';
+import 'package:rivertide/features/stations/presentation/widgets/flood_out_sheet.dart';
 import 'package:rivertide/features/stations/presentation/widgets/flow_card.dart';
 import 'package:rivertide/features/stations/presentation/widgets/hazard_banner.dart';
 import 'package:rivertide/features/stations/presentation/widgets/location_summary.dart';
@@ -150,7 +151,17 @@ class StationSummaryBody extends StatelessWidget {
       children: [
         LocationHero(view: view, place: place),
         HazardBanner(view: view),
-        if (tide.prediction != null) NextTurns(view: view),
+        if (tide.prediction != null) ...[
+          NextTurns(view: view),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: TextButton.icon(
+              onPressed: () => showFloodOutSheet(context, view, place ?? tide.station.name),
+              icon: const Icon(Icons.directions_walk_rounded),
+              label: Text(context.l10n.flood_entry),
+            ),
+          ),
+        ],
         FishActivityCard(view: view),
       ],
     );

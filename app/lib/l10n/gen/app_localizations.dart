@@ -5768,6 +5768,138 @@ abstract class AppLocalizations {
   /// In vi, this message translates to:
   /// **'chưa có giờ vàng'**
   String get fishing_noGoldenShort;
+
+  /// No description provided for @flood_entry.
+  ///
+  /// In vi, this message translates to:
+  /// **'Mấy giờ nước ngập lối về?'**
+  String get flood_entry;
+
+  /// No description provided for @flood_title.
+  ///
+  /// In vi, this message translates to:
+  /// **'Mấy giờ nước ngập lối về?'**
+  String get flood_title;
+
+  /// No description provided for @flood_ask.
+  ///
+  /// In vi, this message translates to:
+  /// **'Lúc này mặt nước còn thấp hơn chỗ bạn đứng (hoặc lối về) khoảng bao nhiêu?'**
+  String get flood_ask;
+
+  /// No description provided for @flood_margin.
+  ///
+  /// In vi, this message translates to:
+  /// **'{cm} cm'**
+  String flood_margin(int cm);
+
+  /// No description provided for @flood_noTide.
+  ///
+  /// In vi, this message translates to:
+  /// **'Chỗ này chưa có dự báo triều nên chưa tính được.'**
+  String get flood_noTide;
+
+  /// No description provided for @flood_safe.
+  ///
+  /// In vi, this message translates to:
+  /// **'24 giờ tới nước không lên tới đó'**
+  String get flood_safe;
+
+  /// No description provided for @flood_at.
+  ///
+  /// In vi, this message translates to:
+  /// **'Nước tới lúc {time}'**
+  String flood_at(String time);
+
+  /// No description provided for @flood_already.
+  ///
+  /// In vi, this message translates to:
+  /// **'Nước đã ở mức này, nên rời ngay.'**
+  String get flood_already;
+
+  /// No description provided for @flood_leave.
+  ///
+  /// In vi, this message translates to:
+  /// **'Nên rời trước {time}.'**
+  String flood_leave(String time);
+
+  /// No description provided for @flood_in.
+  ///
+  /// In vi, this message translates to:
+  /// **'Còn khoảng {duration}.'**
+  String flood_in(String duration);
+
+  /// No description provided for @flood_recede.
+  ///
+  /// In vi, this message translates to:
+  /// **'Nước rút xuống lại khoảng {time}.'**
+  String flood_recede(String time);
+
+  /// No description provided for @flood_peak.
+  ///
+  /// In vi, this message translates to:
+  /// **'Đỉnh triều {time}, khoảng {level} so với mốc trạm.'**
+  String flood_peak(String time, String level);
+
+  /// No description provided for @flood_windy.
+  ///
+  /// In vi, this message translates to:
+  /// **'Gió mạnh: nước có thể dâng cao hơn dự báo, app đã tính sớm hơn 20 cm. Nên rời sớm hơn.'**
+  String get flood_windy;
+
+  /// No description provided for @flood_note.
+  ///
+  /// In vi, this message translates to:
+  /// **'Ước tính từ dự báo triều tại điểm này, chỉ để tham khảo. Sóng, gió và lũ có thể làm nước lên nhanh hơn: luôn chừa đường lui.'**
+  String get flood_note;
+
+  /// No description provided for @flood_minutes.
+  ///
+  /// In vi, this message translates to:
+  /// **'{m} phút'**
+  String flood_minutes(int m);
+
+  /// No description provided for @flood_hoursMinutes.
+  ///
+  /// In vi, this message translates to:
+  /// **'{h} giờ {m} phút'**
+  String flood_hoursMinutes(int h, int m);
+
+  /// No description provided for @flood_alarmButton.
+  ///
+  /// In vi, this message translates to:
+  /// **'Báo chuông lúc {time}'**
+  String flood_alarmButton(String time);
+
+  /// No description provided for @flood_alarmSet.
+  ///
+  /// In vi, this message translates to:
+  /// **'Đã đặt chuông {time} · bấm để hủy'**
+  String flood_alarmSet(String time);
+
+  /// No description provided for @flood_alarmApk.
+  ///
+  /// In vi, this message translates to:
+  /// **'Báo chuông có trên app Android (tải APK ở tab Thêm).'**
+  String get flood_alarmApk;
+
+  /// No description provided for @flood_alarmTitle.
+  ///
+  /// In vi, this message translates to:
+  /// **'Sắp ngập: {place}'**
+  String flood_alarmTitle(String place);
+
+  /// No description provided for @flood_alarmBody.
+  ///
+  /// In vi, this message translates to:
+  /// **'Nước tới khoảng {time}. Thu cần, rời chỗ đứng ngay.'**
+  String flood_alarmBody(String time);
+
+  /// No description provided for @flood_channel.
+  ///
+  /// In vi, this message translates to:
+  /// **'Báo nước ngập lối về'**
+  String get flood_channel;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

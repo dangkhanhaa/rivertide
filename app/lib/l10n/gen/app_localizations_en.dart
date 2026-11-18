@@ -3309,4 +3309,97 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get fishing_noGoldenShort => 'no golden hour yet';
+
+  @override
+  String get flood_entry => 'When does the water cut me off?';
+
+  @override
+  String get flood_title => 'When does the water cut me off?';
+
+  @override
+  String get flood_ask =>
+      'Roughly how far below your spot (or your way back) is the water right now?';
+
+  @override
+  String flood_margin(int cm) {
+    return '$cm cm';
+  }
+
+  @override
+  String get flood_noTide => 'No tide forecast here, so this cannot be worked out.';
+
+  @override
+  String get flood_safe => 'The water stays below it for 24 hours';
+
+  @override
+  String flood_at(String time) {
+    return 'Water arrives at $time';
+  }
+
+  @override
+  String get flood_already => 'The water is already at this level, leave now.';
+
+  @override
+  String flood_leave(String time) {
+    return 'Leave before $time.';
+  }
+
+  @override
+  String flood_in(String duration) {
+    return 'About $duration from now.';
+  }
+
+  @override
+  String flood_recede(String time) {
+    return 'It drops back below around $time.';
+  }
+
+  @override
+  String flood_peak(String time, String level) {
+    return 'High water $time, about $level on the station datum.';
+  }
+
+  @override
+  String get flood_windy =>
+      'Strong wind: water may rise above the forecast; the app already counts 20 cm earlier. Leave sooner.';
+
+  @override
+  String get flood_note =>
+      'Estimated from the tide forecast here, for reference only. Waves, wind and floods can raise the water faster: always keep a way out.';
+
+  @override
+  String flood_minutes(int m) {
+    return '$m min';
+  }
+
+  @override
+  String flood_hoursMinutes(int h, int m) {
+    return '$h h $m min';
+  }
+
+  @override
+  String flood_alarmButton(String time) {
+    return 'Ring at $time';
+  }
+
+  @override
+  String flood_alarmSet(String time) {
+    return 'Alarm set for $time · tap to cancel';
+  }
+
+  @override
+  String get flood_alarmApk => 'Alarms work in the Android app (download the APK in More).';
+
+  @override
+  String flood_alarmTitle(String place) {
+    return 'Water coming: $place';
+  }
+
+  @override
+  String flood_alarmBody(String time) {
+    return 'Water arrives around $time. Pack up and leave your spot now.';
+  }
+
+  @override
+  String get flood_channel => 'Cut-off by rising water';
 }

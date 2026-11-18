@@ -3251,4 +3251,97 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get fishing_noGoldenShort => 'chưa có giờ vàng';
+
+  @override
+  String get flood_entry => 'Mấy giờ nước ngập lối về?';
+
+  @override
+  String get flood_title => 'Mấy giờ nước ngập lối về?';
+
+  @override
+  String get flood_ask =>
+      'Lúc này mặt nước còn thấp hơn chỗ bạn đứng (hoặc lối về) khoảng bao nhiêu?';
+
+  @override
+  String flood_margin(int cm) {
+    return '$cm cm';
+  }
+
+  @override
+  String get flood_noTide => 'Chỗ này chưa có dự báo triều nên chưa tính được.';
+
+  @override
+  String get flood_safe => '24 giờ tới nước không lên tới đó';
+
+  @override
+  String flood_at(String time) {
+    return 'Nước tới lúc $time';
+  }
+
+  @override
+  String get flood_already => 'Nước đã ở mức này, nên rời ngay.';
+
+  @override
+  String flood_leave(String time) {
+    return 'Nên rời trước $time.';
+  }
+
+  @override
+  String flood_in(String duration) {
+    return 'Còn khoảng $duration.';
+  }
+
+  @override
+  String flood_recede(String time) {
+    return 'Nước rút xuống lại khoảng $time.';
+  }
+
+  @override
+  String flood_peak(String time, String level) {
+    return 'Đỉnh triều $time, khoảng $level so với mốc trạm.';
+  }
+
+  @override
+  String get flood_windy =>
+      'Gió mạnh: nước có thể dâng cao hơn dự báo, app đã tính sớm hơn 20 cm. Nên rời sớm hơn.';
+
+  @override
+  String get flood_note =>
+      'Ước tính từ dự báo triều tại điểm này, chỉ để tham khảo. Sóng, gió và lũ có thể làm nước lên nhanh hơn: luôn chừa đường lui.';
+
+  @override
+  String flood_minutes(int m) {
+    return '$m phút';
+  }
+
+  @override
+  String flood_hoursMinutes(int h, int m) {
+    return '$h giờ $m phút';
+  }
+
+  @override
+  String flood_alarmButton(String time) {
+    return 'Báo chuông lúc $time';
+  }
+
+  @override
+  String flood_alarmSet(String time) {
+    return 'Đã đặt chuông $time · bấm để hủy';
+  }
+
+  @override
+  String get flood_alarmApk => 'Báo chuông có trên app Android (tải APK ở tab Thêm).';
+
+  @override
+  String flood_alarmTitle(String place) {
+    return 'Sắp ngập: $place';
+  }
+
+  @override
+  String flood_alarmBody(String time) {
+    return 'Nước tới khoảng $time. Thu cần, rời chỗ đứng ngay.';
+  }
+
+  @override
+  String get flood_channel => 'Báo nước ngập lối về';
 }
