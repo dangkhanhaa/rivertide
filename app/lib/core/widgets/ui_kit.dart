@@ -29,12 +29,22 @@ class IconBadge extends StatelessWidget {
 }
 
 /// Big gradient card at the top of a tab: title, subtitle and any content.
+/// Second gradient stop for [accent]: hue turned ~30° back and a little lighter,
+/// so every accent the user picks gets a matching two-tone gradient.
+Color accentPartner(Color accent) {
+  final hsl = HSLColor.fromColor(accent);
+  return hsl
+      .withHue((hsl.hue + 330) % 360)
+      .withLightness((hsl.lightness + 0.08).clamp(0.0, 0.7))
+      .toColor();
+}
+
 class HeroPanel extends StatelessWidget {
   const HeroPanel({required this.child, this.colors, super.key});
 
   final Widget child;
 
-  /// Gradient stops; defaults to primary → fish green.
+  /// Gradient stops; defaults to the accent → its [accentPartner].
   final List<Color>? colors;
 
   @override
@@ -46,7 +56,7 @@ class HeroPanel extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: colors ?? [c.primary, c.fishGood],
+          colors: colors ?? [c.primary, accentPartner(c.primary)],
         ),
         boxShadow: [
           BoxShadow(

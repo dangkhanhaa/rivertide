@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart' as intl;
 
+import 'app_localizations_en.dart';
 import 'app_localizations_vi.dart';
 
 // ignore_for_file: type=lint
@@ -90,7 +91,7 @@ abstract class AppLocalizations {
       ];
 
   /// A list of this localizations delegate's supported locales.
-  static const List<Locale> supportedLocales = <Locale>[Locale('vi')];
+  static const List<Locale> supportedLocales = <Locale>[Locale('en'), Locale('vi')];
 
   /// No description provided for @appTitle.
   ///
@@ -4711,6 +4712,288 @@ abstract class AppLocalizations {
   /// In vi, this message translates to:
   /// **'Phiên bản {version}'**
   String more_version(String version);
+
+  /// No description provided for @set_title.
+  ///
+  /// In vi, this message translates to:
+  /// **'Cài đặt'**
+  String get set_title;
+
+  /// No description provided for @set_entry.
+  ///
+  /// In vi, this message translates to:
+  /// **'Giao diện & cài đặt'**
+  String get set_entry;
+
+  /// No description provided for @set_entryHint.
+  ///
+  /// In vi, this message translates to:
+  /// **'Màu sắc, hình nền, phông chữ, cỡ chữ, ngôn ngữ, thông báo'**
+  String get set_entryHint;
+
+  /// No description provided for @set_previewTitle.
+  ///
+  /// In vi, this message translates to:
+  /// **'Cá ăn: CAO · 8,2'**
+  String get set_previewTitle;
+
+  /// No description provided for @set_previewBody.
+  ///
+  /// In vi, this message translates to:
+  /// **'Giờ vàng 17:00–18:30 · nước đang lên'**
+  String get set_previewBody;
+
+  /// No description provided for @set_look.
+  ///
+  /// In vi, this message translates to:
+  /// **'Giao diện'**
+  String get set_look;
+
+  /// No description provided for @set_mode.
+  ///
+  /// In vi, this message translates to:
+  /// **'Sáng hay tối'**
+  String get set_mode;
+
+  /// No description provided for @set_accent.
+  ///
+  /// In vi, this message translates to:
+  /// **'Màu chủ đạo'**
+  String get set_accent;
+
+  /// No description provided for @set_backdrop.
+  ///
+  /// In vi, this message translates to:
+  /// **'Hình nền'**
+  String get set_backdrop;
+
+  /// No description provided for @set_font.
+  ///
+  /// In vi, this message translates to:
+  /// **'Phông chữ'**
+  String get set_font;
+
+  /// No description provided for @set_textSize.
+  ///
+  /// In vi, this message translates to:
+  /// **'Cỡ chữ'**
+  String get set_textSize;
+
+  /// No description provided for @accent_ocean.
+  ///
+  /// In vi, this message translates to:
+  /// **'Biển'**
+  String get accent_ocean;
+
+  /// No description provided for @accent_jade.
+  ///
+  /// In vi, this message translates to:
+  /// **'Ngọc'**
+  String get accent_jade;
+
+  /// No description provided for @accent_leaf.
+  ///
+  /// In vi, this message translates to:
+  /// **'Lá'**
+  String get accent_leaf;
+
+  /// No description provided for @accent_sunset.
+  ///
+  /// In vi, this message translates to:
+  /// **'Hoàng hôn'**
+  String get accent_sunset;
+
+  /// No description provided for @accent_coral.
+  ///
+  /// In vi, this message translates to:
+  /// **'San hô'**
+  String get accent_coral;
+
+  /// No description provided for @accent_violet.
+  ///
+  /// In vi, this message translates to:
+  /// **'Tím'**
+  String get accent_violet;
+
+  /// No description provided for @accent_slate.
+  ///
+  /// In vi, this message translates to:
+  /// **'Than chì'**
+  String get accent_slate;
+
+  /// No description provided for @accent_gold.
+  ///
+  /// In vi, this message translates to:
+  /// **'Vàng đồng'**
+  String get accent_gold;
+
+  /// No description provided for @backdrop_mist.
+  ///
+  /// In vi, this message translates to:
+  /// **'Sương'**
+  String get backdrop_mist;
+
+  /// No description provided for @backdrop_warm.
+  ///
+  /// In vi, this message translates to:
+  /// **'Giấy ấm'**
+  String get backdrop_warm;
+
+  /// No description provided for @backdrop_pure.
+  ///
+  /// In vi, this message translates to:
+  /// **'Trắng / AMOLED'**
+  String get backdrop_pure;
+
+  /// No description provided for @backdrop_tinted.
+  ///
+  /// In vi, this message translates to:
+  /// **'Theo màu chủ đạo'**
+  String get backdrop_tinted;
+
+  /// No description provided for @font_beVietnam.
+  ///
+  /// In vi, this message translates to:
+  /// **'Be Vietnam'**
+  String get font_beVietnam;
+
+  /// No description provided for @font_nunito.
+  ///
+  /// In vi, this message translates to:
+  /// **'Nunito tròn'**
+  String get font_nunito;
+
+  /// No description provided for @font_system.
+  ///
+  /// In vi, this message translates to:
+  /// **'Của máy'**
+  String get font_system;
+
+  /// No description provided for @size_small.
+  ///
+  /// In vi, this message translates to:
+  /// **'Nhỏ'**
+  String get size_small;
+
+  /// No description provided for @size_normal.
+  ///
+  /// In vi, this message translates to:
+  /// **'Vừa'**
+  String get size_normal;
+
+  /// No description provided for @size_large.
+  ///
+  /// In vi, this message translates to:
+  /// **'Lớn'**
+  String get size_large;
+
+  /// No description provided for @size_huge.
+  ///
+  /// In vi, this message translates to:
+  /// **'Rất lớn'**
+  String get size_huge;
+
+  /// No description provided for @set_general.
+  ///
+  /// In vi, this message translates to:
+  /// **'Chung'**
+  String get set_general;
+
+  /// No description provided for @set_language.
+  ///
+  /// In vi, this message translates to:
+  /// **'Ngôn ngữ'**
+  String get set_language;
+
+  /// No description provided for @lang_system.
+  ///
+  /// In vi, this message translates to:
+  /// **'Theo máy'**
+  String get lang_system;
+
+  /// No description provided for @lang_vi.
+  ///
+  /// In vi, this message translates to:
+  /// **'Tiếng Việt'**
+  String get lang_vi;
+
+  /// No description provided for @lang_en.
+  ///
+  /// In vi, this message translates to:
+  /// **'English'**
+  String get lang_en;
+
+  /// No description provided for @set_start.
+  ///
+  /// In vi, this message translates to:
+  /// **'Mở app vào'**
+  String get set_start;
+
+  /// No description provided for @set_notifications.
+  ///
+  /// In vi, this message translates to:
+  /// **'Thông báo'**
+  String get set_notifications;
+
+  /// No description provided for @set_notificationsHint.
+  ///
+  /// In vi, this message translates to:
+  /// **'Giờ vàng, đỉnh/chân triều, báo trước bao lâu'**
+  String get set_notificationsHint;
+
+  /// No description provided for @set_motion.
+  ///
+  /// In vi, this message translates to:
+  /// **'Giảm hiệu ứng chuyển động'**
+  String get set_motion;
+
+  /// No description provided for @set_motionHint.
+  ///
+  /// In vi, this message translates to:
+  /// **'Tắt cá bơi, nước chảy và hoạt ảnh — mượt hơn trên máy yếu, đỡ tốn pin'**
+  String get set_motionHint;
+
+  /// No description provided for @set_data.
+  ///
+  /// In vi, this message translates to:
+  /// **'Dữ liệu & bộ nhớ'**
+  String get set_data;
+
+  /// No description provided for @set_cache.
+  ///
+  /// In vi, this message translates to:
+  /// **'Dữ liệu tạm: {mb} MB'**
+  String set_cache(String mb);
+
+  /// No description provided for @set_cacheHint.
+  ///
+  /// In vi, this message translates to:
+  /// **'Dự báo, thời tiết, bản đồ nền — tự tải lại khi cần. Không xóa nhật ký, điểm đã lưu, cài đặt.'**
+  String get set_cacheHint;
+
+  /// No description provided for @set_cacheClear.
+  ///
+  /// In vi, this message translates to:
+  /// **'Xóa'**
+  String get set_cacheClear;
+
+  /// No description provided for @set_cacheCleared.
+  ///
+  /// In vi, this message translates to:
+  /// **'Đã xóa dữ liệu tạm'**
+  String get set_cacheCleared;
+
+  /// No description provided for @set_reset.
+  ///
+  /// In vi, this message translates to:
+  /// **'Khôi phục giao diện mặc định'**
+  String get set_reset;
+
+  /// No description provided for @set_resetDone.
+  ///
+  /// In vi, this message translates to:
+  /// **'Đã khôi phục giao diện mặc định'**
+  String get set_resetDone;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
@@ -4722,7 +5005,7 @@ class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> 
   }
 
   @override
-  bool isSupported(Locale locale) => <String>['vi'].contains(locale.languageCode);
+  bool isSupported(Locale locale) => <String>['en', 'vi'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;
@@ -4731,6 +5014,8 @@ class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> 
 AppLocalizations lookupAppLocalizations(Locale locale) {
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
+    case 'en':
+      return AppLocalizationsEn();
     case 'vi':
       return AppLocalizationsVi();
   }

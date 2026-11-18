@@ -138,8 +138,32 @@ class AppColors extends ThemeExtension<AppColors> {
   /// Fishing ponds ("hồ câu dịch vụ").
   final Color pond;
 
+  /// Personal accent and backdrop (P2-31); everything else stays the palette's.
   @override
-  AppColors copyWith({Color? primary}) => this;
+  AppColors copyWith({Color? primary, Color? surface, Color? surfaceAlt}) => AppColors(
+    primary: primary ?? this.primary,
+    water: water,
+    tidePred: tidePred,
+    ok: ok,
+    alarm1: alarm1,
+    alarm2: alarm2,
+    alarm3: alarm3,
+    stale: stale,
+    fishHigh: fishHigh,
+    surface: surface ?? this.surface,
+    surfaceAlt: surfaceAlt ?? this.surfaceAlt,
+    onSurface: onSurface,
+    onSurfaceMuted: onSurfaceMuted,
+    estimateHatch: estimateHatch,
+    fishLow: fishLow,
+    fishFair: fishFair,
+    fishGood: fishGood,
+    fishPeak: fishPeak,
+    spot: spot,
+    deepWater: deepWater,
+    trip: trip,
+    pond: pond,
+  );
 
   @override
   AppColors lerp(AppColors? other, double t) => t < 0.5 || other == null ? this : other;

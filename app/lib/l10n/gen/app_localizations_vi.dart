@@ -2694,4 +2694,149 @@ class AppLocalizationsVi extends AppLocalizations {
   String more_version(String version) {
     return 'Phiên bản $version';
   }
+
+  @override
+  String get set_title => 'Cài đặt';
+
+  @override
+  String get set_entry => 'Giao diện & cài đặt';
+
+  @override
+  String get set_entryHint => 'Màu sắc, hình nền, phông chữ, cỡ chữ, ngôn ngữ, thông báo';
+
+  @override
+  String get set_previewTitle => 'Cá ăn: CAO · 8,2';
+
+  @override
+  String get set_previewBody => 'Giờ vàng 17:00–18:30 · nước đang lên';
+
+  @override
+  String get set_look => 'Giao diện';
+
+  @override
+  String get set_mode => 'Sáng hay tối';
+
+  @override
+  String get set_accent => 'Màu chủ đạo';
+
+  @override
+  String get set_backdrop => 'Hình nền';
+
+  @override
+  String get set_font => 'Phông chữ';
+
+  @override
+  String get set_textSize => 'Cỡ chữ';
+
+  @override
+  String get accent_ocean => 'Biển';
+
+  @override
+  String get accent_jade => 'Ngọc';
+
+  @override
+  String get accent_leaf => 'Lá';
+
+  @override
+  String get accent_sunset => 'Hoàng hôn';
+
+  @override
+  String get accent_coral => 'San hô';
+
+  @override
+  String get accent_violet => 'Tím';
+
+  @override
+  String get accent_slate => 'Than chì';
+
+  @override
+  String get accent_gold => 'Vàng đồng';
+
+  @override
+  String get backdrop_mist => 'Sương';
+
+  @override
+  String get backdrop_warm => 'Giấy ấm';
+
+  @override
+  String get backdrop_pure => 'Trắng / AMOLED';
+
+  @override
+  String get backdrop_tinted => 'Theo màu chủ đạo';
+
+  @override
+  String get font_beVietnam => 'Be Vietnam';
+
+  @override
+  String get font_nunito => 'Nunito tròn';
+
+  @override
+  String get font_system => 'Của máy';
+
+  @override
+  String get size_small => 'Nhỏ';
+
+  @override
+  String get size_normal => 'Vừa';
+
+  @override
+  String get size_large => 'Lớn';
+
+  @override
+  String get size_huge => 'Rất lớn';
+
+  @override
+  String get set_general => 'Chung';
+
+  @override
+  String get set_language => 'Ngôn ngữ';
+
+  @override
+  String get lang_system => 'Theo máy';
+
+  @override
+  String get lang_vi => 'Tiếng Việt';
+
+  @override
+  String get lang_en => 'English';
+
+  @override
+  String get set_start => 'Mở app vào';
+
+  @override
+  String get set_notifications => 'Thông báo';
+
+  @override
+  String get set_notificationsHint => 'Giờ vàng, đỉnh/chân triều, báo trước bao lâu';
+
+  @override
+  String get set_motion => 'Giảm hiệu ứng chuyển động';
+
+  @override
+  String get set_motionHint =>
+      'Tắt cá bơi, nước chảy và hoạt ảnh — mượt hơn trên máy yếu, đỡ tốn pin';
+
+  @override
+  String get set_data => 'Dữ liệu & bộ nhớ';
+
+  @override
+  String set_cache(String mb) {
+    return 'Dữ liệu tạm: $mb MB';
+  }
+
+  @override
+  String get set_cacheHint =>
+      'Dự báo, thời tiết, bản đồ nền — tự tải lại khi cần. Không xóa nhật ký, điểm đã lưu, cài đặt.';
+
+  @override
+  String get set_cacheClear => 'Xóa';
+
+  @override
+  String get set_cacheCleared => 'Đã xóa dữ liệu tạm';
+
+  @override
+  String get set_reset => 'Khôi phục giao diện mặc định';
+
+  @override
+  String get set_resetDone => 'Đã khôi phục giao diện mặc định';
 }

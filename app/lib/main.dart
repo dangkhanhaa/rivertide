@@ -14,6 +14,9 @@ Future<void> main() async {
     yield LicenseEntryWithLineBreaks([
       'Be Vietnam Pro',
     ], await rootBundle.loadString('assets/fonts/OFL.txt'));
+    yield LicenseEntryWithLineBreaks([
+      'Nunito',
+    ], await rootBundle.loadString('assets/fonts/OFL-Nunito.txt'));
   });
   // Community spots (P2-19) only when a Supabase project is configured.
   if (Env.communityEnabled) {

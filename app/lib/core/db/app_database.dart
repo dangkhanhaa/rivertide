@@ -121,6 +121,16 @@ class AppDatabase extends _$AppDatabase {
   Future<KvCacheData?> readCache(String key) =>
       (select(kvCache)..where((t) => t.cacheKey.equals(key))).getSingleOrNull();
 
+  /// "Xóa dữ liệu tạm" (P2-31): forecasts, styles and tiles metadata are
+  /// re-downloaded; favourites, journal and settings are untouched.
+  Future<int> clearCache() => delete(kvCache).go();
+
+  /// Approximate size of the cache in bytes (payload text length).
+  Future<int> cacheBytes() {
+    final len = kvCache.payload.length.sum();
+    return (selectOnly(kvCache)..addColumns([len])).map((r) => r.read(len) ?? 0).getSingle();
+  }
+
   Future<void> writeCache(String key, String payload, DateTime fetchedAtUtc) => into(kvCache)
       .insertOnConflictUpdate(
         KvCacheCompanion.insert(cacheKey: key, payload: payload, fetchedAtUtc: fetchedAtUtc),

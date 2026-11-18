@@ -2,15 +2,31 @@ import 'package:flutter/material.dart';
 import 'package:rivertide/core/theme/app_colors.dart';
 import 'package:rivertide/core/theme/app_spacing.dart';
 import 'package:rivertide/core/theme/app_text.dart';
+import 'package:rivertide/core/theme/appearance.dart';
 
 abstract final class AppTheme {
-  static ThemeData light() => _build(AppColors.light, Brightness.light);
-  static ThemeData dark() => _build(AppColors.dark, Brightness.dark);
+  static ThemeData light([Appearance a = const Appearance()]) =>
+      _build(_personal(AppColors.light, a, dark: false), Brightness.light, a.font.family);
+  static ThemeData dark([Appearance a = const Appearance()]) =>
+      _build(_personal(AppColors.dark, a, dark: true), Brightness.dark, a.font.family);
 
   /// High contrast for full sun; cards get a solid outline instead of a tint.
-  static ThemeData outdoor() => _build(AppColors.outdoor, Brightness.light, outlined: true);
+  /// Ignores accent and backdrop on purpose: contrast comes first outside.
+  static ThemeData outdoor([Appearance a = const Appearance()]) =>
+      _build(AppColors.outdoor, Brightness.light, a.font.family, outlined: true);
 
-  static ThemeData _build(AppColors c, Brightness brightness, {bool outlined = false}) {
+  static AppColors _personal(AppColors base, Appearance a, {required bool dark}) {
+    final accent = dark ? a.accent.dark : a.accent.light;
+    final bg = backdropColors(a.backdrop, accent, dark: dark);
+    return base.copyWith(primary: accent, surface: bg.card, surfaceAlt: bg.page);
+  }
+
+  static ThemeData _build(
+    AppColors c,
+    Brightness brightness,
+    String? fontFamily, {
+    bool outlined = false,
+  }) {
     final scheme = ColorScheme.fromSeed(
       seedColor: c.primary,
       brightness: brightness,
@@ -19,12 +35,12 @@ abstract final class AppTheme {
       onSurface: c.onSurface,
       error: c.alarm3,
     );
-    final text = AppText.from(c.onSurface, c.onSurfaceMuted);
+    final text = AppText.from(c.onSurface, c.onSurfaceMuted, family: fontFamily);
     const pill = StadiumBorder();
     const buttonSize = Size(AppSpacing.minTouch, AppSpacing.minTouch);
     return ThemeData(
       useMaterial3: true,
-      fontFamily: appFontFamily,
+      fontFamily: fontFamily,
       colorScheme: scheme,
       scaffoldBackgroundColor: c.surfaceAlt,
       extensions: [c, text],

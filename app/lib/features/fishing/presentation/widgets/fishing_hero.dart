@@ -119,7 +119,10 @@ class FishingHero extends ConsumerWidget {
                       style: context.text.headline.copyWith(color: white),
                     ),
                     Text(
-                      next == null
+                      // Nothing scored yet = still loading, not "no golden hours".
+                      ahead.isEmpty
+                          ? '…'
+                          : next == null
                           ? l10n.fishing_noGolden
                           : l10n.fishing_nextGolden(
                               '${TimeFormat.hm(next.startUtc)}–${TimeFormat.hm(next.endUtc)}',

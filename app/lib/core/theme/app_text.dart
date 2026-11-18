@@ -16,11 +16,12 @@ class AppText extends ThemeExtension<AppText> {
     required this.caption,
   });
 
-  factory AppText.from(Color onSurface, Color muted) {
+  /// [family] null = the device font (P2-31 lets people pick).
+  factory AppText.from(Color onSurface, Color muted, {String? family = appFontFamily}) {
     const tabular = [FontFeature.tabularFigures()];
     return AppText(
       displayLevel: TextStyle(
-        fontFamily: appFontFamily,
+        fontFamily: family,
         fontSize: 52,
         fontWeight: FontWeight.w700,
         height: 1.1,
@@ -28,37 +29,32 @@ class AppText extends ThemeExtension<AppText> {
         fontFeatures: tabular,
       ),
       headline: TextStyle(
-        fontFamily: appFontFamily,
+        fontFamily: family,
         fontSize: 24,
         fontWeight: FontWeight.w700,
         color: onSurface,
       ),
       title: TextStyle(
-        fontFamily: appFontFamily,
+        fontFamily: family,
         fontSize: 18,
         fontWeight: FontWeight.w600,
         color: onSurface,
       ),
-      body: TextStyle(
-        fontFamily: appFontFamily,
-        fontSize: 16,
-        color: onSurface,
-        fontFeatures: tabular,
-      ),
+      body: TextStyle(fontFamily: family, fontSize: 16, color: onSurface, fontFeatures: tabular),
       bodyStrong: TextStyle(
-        fontFamily: appFontFamily,
+        fontFamily: family,
         fontSize: 16,
         fontWeight: FontWeight.w700,
         color: onSurface,
         fontFeatures: tabular,
       ),
       label: TextStyle(
-        fontFamily: appFontFamily,
+        fontFamily: family,
         fontSize: 14,
         fontWeight: FontWeight.w500,
         color: onSurface,
       ),
-      caption: TextStyle(fontFamily: appFontFamily, fontSize: 13, color: muted),
+      caption: TextStyle(fontFamily: family, fontSize: 13, color: muted),
     );
   }
 

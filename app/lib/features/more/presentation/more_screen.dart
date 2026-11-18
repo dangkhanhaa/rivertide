@@ -14,9 +14,8 @@ import 'package:rivertide/core/theme/app_spacing.dart';
 import 'package:rivertide/core/theme/app_text.dart';
 import 'package:rivertide/core/widgets/ui_kit.dart';
 import 'package:rivertide/features/journal/journal.dart';
-import 'package:rivertide/features/more/application/outdoor_mode_provider.dart';
-import 'package:rivertide/features/more/application/theme_mode_provider.dart';
 import 'package:rivertide/features/more/application/update_provider.dart';
+import 'package:rivertide/features/more/presentation/settings_screen.dart';
 import 'package:rivertide/features/stations/stations.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -27,11 +26,21 @@ class MoreScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = context.l10n;
-    final mode = ref.watch(appThemeModeProvider).value ?? ThemeMode.system;
     final update = ref.watch(updateAvailableProvider).value ?? false;
     final c = context.colors;
     return Scaffold(
-      appBar: AppBar(title: Text(l10n.more_title)),
+      appBar: AppBar(
+        title: Text(l10n.more_title),
+        actions: [
+          IconButton(
+            tooltip: l10n.set_title,
+            icon: const Icon(Icons.settings_rounded),
+            onPressed: () =>
+                Navigator.of(context)
+                    .push(MaterialPageRoute<void>(builder: (_) => const SettingsScreen())),
+          ),
+        ],
+      ),
       body: ListView(
         padding: const EdgeInsets.fromLTRB(AppSpacing.lg, 0, AppSpacing.lg, AppSpacing.xxl),
         children: [
@@ -78,31 +87,17 @@ class MoreScreen extends ConsumerWidget {
               ),
             ],
           ),
-          SectionTitle(title: l10n.more_theme),
+          SectionTitle(title: l10n.set_title),
           ActionGroup(
             children: [
-              Padding(
-                padding: const EdgeInsets.all(AppSpacing.md),
-                child: SegmentedButton<ThemeMode>(
-                  segments: [
-                    ButtonSegment(value: ThemeMode.system, label: Text(l10n.more_themeSystem)),
-                    ButtonSegment(value: ThemeMode.light, label: Text(l10n.more_themeLight)),
-                    ButtonSegment(value: ThemeMode.dark, label: Text(l10n.more_themeDark)),
-                  ],
-                  selected: {mode},
-                  showSelectedIcon: false,
-                  onSelectionChanged: (s) => ref.read(appThemeModeProvider.notifier).set(s.first),
-                ),
-              ),
               ActionRow(
-                icon: Icons.wb_sunny_rounded,
-                color: c.alarm1,
-                title: l10n.more_outdoor,
-                subtitle: l10n.more_outdoorHint,
-                trailing: Switch(
-                  value: ref.watch(outdoorModeProvider).value ?? false,
-                  onChanged: (v) => ref.read(outdoorModeProvider.notifier).set(on: v),
-                ),
+                icon: Icons.palette_rounded,
+                color: c.primary,
+                title: l10n.set_entry,
+                subtitle: l10n.set_entryHint,
+                onTap: () =>
+                    Navigator.of(context)
+                        .push(MaterialPageRoute<void>(builder: (_) => const SettingsScreen())),
               ),
             ],
           ),

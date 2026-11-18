@@ -20,15 +20,16 @@ class AlertSettingsButton extends StatelessWidget {
   Widget build(BuildContext context) => IconButton(
     tooltip: context.l10n.alert_settings,
     icon: const Icon(Icons.notifications_active_outlined),
-    onPressed: () => unawaited(
-      showModalBottomSheet<void>(
-        context: context,
-        isScrollControlled: true,
-        builder: (_) => const _AlertSettingsSheet(),
-      ),
-    ),
+    onPressed: () => unawaited(showAlertSettings(context)),
   );
 }
+
+/// Alarm settings sheet; also opened from Thêm → Cài đặt → Thông báo (P2-31).
+Future<void> showAlertSettings(BuildContext context) => showModalBottomSheet<void>(
+  context: context,
+  isScrollControlled: true,
+  builder: (_) => const _AlertSettingsSheet(),
+);
 
 class _AlertSettingsSheet extends ConsumerWidget {
   const _AlertSettingsSheet();
