@@ -11,6 +11,7 @@ import 'package:rivertide/core/theme/app_colors.dart';
 import 'package:rivertide/core/theme/app_spacing.dart';
 import 'package:rivertide/core/theme/app_text.dart';
 import 'package:rivertide/features/journal/application/journal_providers.dart';
+import 'package:rivertide/features/journal/presentation/brag_screen.dart';
 import 'package:rivertide/features/journal/presentation/journal_screen.dart';
 import 'package:rivertide/features/stations/stations.dart';
 
@@ -60,6 +61,13 @@ class CatchDetailSheet extends ConsumerWidget {
               Text(conditions.join(' · '), style: context.text.body),
             ],
             const SizedBox(height: AppSpacing.sm),
+            FilledButton.icon(
+              onPressed: () =>
+                  Navigator.of(context)
+                      .push(MaterialPageRoute<void>(builder: (_) => BragScreen(entry: entry))),
+              icon: const Icon(Icons.auto_awesome_rounded),
+              label: Text(l10n.brag_open),
+            ),
             OutlinedButton.icon(
               style: OutlinedButton.styleFrom(foregroundColor: context.colors.alarm3),
               onPressed: () async {
