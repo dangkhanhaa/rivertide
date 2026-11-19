@@ -4281,13 +4281,13 @@ abstract class AppLocalizations {
   /// No description provided for @map_creditShort.
   ///
   /// In vi, this message translates to:
-  /// **'© OpenFreeMap · © OpenStreetMap'**
+  /// **'© OpenStreetMap'**
   String get map_creditShort;
 
   /// No description provided for @map_creditShortSat.
   ///
   /// In vi, this message translates to:
-  /// **'© EOX · Copernicus · © OpenStreetMap'**
+  /// **'© EOX · © OpenStreetMap'**
   String get map_creditShortSat;
 
   /// No description provided for @station_datumNote.

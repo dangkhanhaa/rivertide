@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:rivertide/core/config/env.dart';
 import 'package:rivertide/core/l10n/l10n_ext.dart';
 import 'package:rivertide/core/navigation/fishing_spot.dart';
@@ -65,7 +64,7 @@ class MoreScreen extends ConsumerWidget {
                 color: c.fishGood,
                 title: l10n.where_title,
                 subtitle: l10n.where_entryHint,
-                onTap: () => unawaited(context.push(whereRoute)),
+                onTap: () => unawaited(pushInTab<void>(context, whereRoute)),
               ),
               ActionRow(
                 icon: Icons.menu_book_rounded,

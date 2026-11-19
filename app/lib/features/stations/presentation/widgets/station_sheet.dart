@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:rivertide/core/l10n/l10n_ext.dart';
 import 'package:rivertide/core/navigation/fishing_spot.dart';
+import 'package:rivertide/core/navigation/push_page.dart';
 import 'package:rivertide/core/theme/app_spacing.dart';
 import 'package:rivertide/core/theme/app_text.dart';
 import 'package:rivertide/core/widgets/async_value_view.dart';
@@ -94,7 +95,7 @@ class StationSheet extends ConsumerWidget {
             style: FilledButton.styleFrom(minimumSize: const Size.fromHeight(AppSpacing.minTouch)),
             onPressed: () {
               DetailHost.closeOf(context);
-              unawaited(context.push('/station/${station.id}'));
+              unawaited(pushInTab<void>(context, '/station/${station.id}'));
             },
             child: Text(l10n.map_openDetail),
           ),

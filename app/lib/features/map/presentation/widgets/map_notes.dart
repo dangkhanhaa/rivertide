@@ -30,48 +30,28 @@ class MapNote extends StatelessWidget {
   );
 }
 
-/// One-line licence credit kept visible on the map; tap for the full text.
+/// Licence line in the map corner (P2-46: tiny, bottom right, OSM only).
+/// Not a button: the full credits are in More → Nguồn dữ liệu.
 class MapCredit extends StatelessWidget {
-  const MapCredit({required this.satellite, required this.onTap, super.key});
+  const MapCredit({required this.satellite, super.key});
 
   final bool satellite;
-  final void Function(WidgetBuilder builder) onTap;
 
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
-    return Semantics(
-      button: true,
-      label: l10n.map_credits,
-      child: InkWell(
-        onTap: () => onTap(
-          (ctx) => SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(AppSpacing.lg, 0, AppSpacing.lg, AppSpacing.lg),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(l10n.map_credits, style: ctx.text.title),
-                  const SizedBox(height: AppSpacing.sm),
-                  Text(l10n.map_baseMapCredit, style: ctx.text.body),
-                  if (satellite) Text(l10n.map_satelliteCredit, style: ctx.text.body),
-                ],
-              ),
-            ),
-          ),
-        ),
-        // Touch target ≥ 48 dp while the visible text stays one small line.
-        child: Container(
-          constraints: const BoxConstraints(minHeight: AppSpacing.minTouch),
-          alignment: Alignment.bottomLeft,
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: AppSpacing.xs, vertical: 2),
-            color: context.colors.surface.withValues(alpha: 0.7),
-            child: Text(
-              satellite ? l10n.map_creditShortSat : l10n.map_creditShort,
-              style: context.text.caption.copyWith(color: context.colors.onSurfaceMuted),
-            ),
+    return IgnorePointer(
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 2),
+        color: context.colors.surface.withValues(alpha: 0.6),
+        child: Text(
+          satellite ? l10n.map_creditShortSat : l10n.map_creditShort,
+          // Fixed size: a licence line, not reading text.
+          textScaler: TextScaler.noScaling,
+          style: context.text.caption.copyWith(
+            fontSize: creditFontSize,
+            height: 1.2,
+            color: context.colors.onSurfaceMuted,
           ),
         ),
       ),

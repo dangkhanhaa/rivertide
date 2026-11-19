@@ -11,6 +11,7 @@ import 'package:rivertide/core/format/level_format.dart';
 import 'package:rivertide/core/geo/admin_provider.dart';
 import 'package:rivertide/core/l10n/l10n_ext.dart';
 import 'package:rivertide/core/navigation/fishing_spot.dart';
+import 'package:rivertide/core/navigation/push_page.dart';
 import 'package:rivertide/core/theme/app_spacing.dart';
 import 'package:rivertide/core/theme/app_text.dart';
 import 'package:rivertide/core/widgets/detail_host.dart';
@@ -147,7 +148,7 @@ class PointSheet extends ConsumerWidget {
               ),
               onPressed: () {
                 DetailHost.closeOf(context);
-                unawaited(context.push('/station/$id'));
+                unawaited(pushInTab<void>(context, '/station/$id'));
               },
               child: Text(l10n.point_openDetail),
             ),
@@ -186,7 +187,7 @@ class _Nearby extends ConsumerWidget {
             ),
             onTap: () {
               DetailHost.closeOf(context);
-              unawaited(context.push('/station/${r.s.id}'));
+              unawaited(pushInTab<void>(context, '/station/${r.s.id}'));
             },
           ),
       ],

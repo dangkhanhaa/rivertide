@@ -2474,10 +2474,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get map_credits => 'Map sources';
 
   @override
-  String get map_creditShort => '© OpenFreeMap · © OpenStreetMap';
+  String get map_creditShort => '© OpenStreetMap';
 
   @override
-  String get map_creditShortSat => '© EOX · Copernicus · © OpenStreetMap';
+  String get map_creditShortSat => '© EOX · © OpenStreetMap';
 
   @override
   String station_datumNote(String datum) {

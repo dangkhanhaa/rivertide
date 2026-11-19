@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:rivertide/core/calc/fishing/fishing_score.dart';
 import 'package:rivertide/core/calc/fishing/golden_window.dart';
 import 'package:rivertide/core/clock/clock_provider.dart';
@@ -81,7 +80,7 @@ class _FishingScreenState extends ConsumerState<FishingScreen> {
                 icon: Icons.explore_rounded,
                 color: c.fishGood,
                 label: l10n.where_short,
-                onTap: () => unawaited(context.push(whereRoute)),
+                onTap: () => unawaited(pushInTab<void>(context, whereRoute)),
               ),
               QuickAction(
                 icon: Icons.set_meal_rounded,

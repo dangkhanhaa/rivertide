@@ -2385,10 +2385,10 @@ class AppLocalizationsZh extends AppLocalizations {
   String get map_credits => '地图来源';
 
   @override
-  String get map_creditShort => '© OpenFreeMap · © OpenStreetMap';
+  String get map_creditShort => '© OpenStreetMap';
 
   @override
-  String get map_creditShortSat => '© EOX · Copernicus · © OpenStreetMap';
+  String get map_creditShortSat => '© EOX · © OpenStreetMap';
 
   @override
   String station_datumNote(String datum) {

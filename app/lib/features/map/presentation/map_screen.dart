@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -14,6 +15,7 @@ import 'package:rivertide/core/navigation/map_focus.dart';
 import 'package:rivertide/core/navigation/push_page.dart';
 import 'package:rivertide/core/theme/app_colors.dart';
 import 'package:rivertide/core/theme/app_spacing.dart';
+import 'package:rivertide/core/widgets/floating_nav_bar.dart';
 import 'package:rivertide/core/widgets/map_pill.dart';
 import 'package:rivertide/core/widgets/state_views.dart';
 import 'package:rivertide/features/checkin/checkin.dart';
@@ -73,7 +75,6 @@ class _MapScreenState extends ConsumerState<MapScreen> with MapDetailPresenter<M
   @override
   GlobalKey get topOverlayKey => _topKey;
   final GlobalKey _controlsKey = GlobalKey();
-  final GlobalKey _creditKey = GlobalKey();
   final GlobalKey _fishBarKey = GlobalKey();
 
   bool _blocksTapAt(Offset global) {
@@ -82,7 +83,7 @@ class _MapScreenState extends ConsumerState<MapScreen> with MapDetailPresenter<M
     final navTop = MediaQuery.sizeOf(context).height - MediaQuery.paddingOf(context).bottom;
     if (!(ModalRoute.of(context)?.isCurrent ?? true) || sheetBusy) return true;
     if (!TickerMode.valuesOf(context).enabled || global.dy > navTop) return true;
-    for (final key in [_topKey, _controlsKey, _creditKey, _fishBarKey]) {
+    for (final key in [_topKey, _controlsKey, _fishBarKey]) {
       final box = key.currentContext?.findRenderObject();
       if (box is RenderBox && box.hasSize) {
         final rect = box.localToGlobal(Offset.zero) & box.size;
@@ -278,18 +279,13 @@ class _MapScreenState extends ConsumerState<MapScreen> with MapDetailPresenter<M
               ),
             ),
           ),
-          // Credit turned sideways on the right edge under the compass: the
-          // licence stays visible without a bar across the bottom (P2-44).
+          // Tiny licence line in the bottom-right corner, just above the
+          // floating tab bar (P2-46).
           Positioned(
             right: 0,
-            top: MediaQuery.paddingOf(context).top + AppSpacing.xxl * 3,
-            child: RotatedBox(
-              quarterTurns: 1,
-              child: MapCredit(
-                key: _creditKey,
-                satellite: ref.watch(baseLayerChoiceProvider).value == BaseLayer.satellite,
-                onTap: (b) => unawaited(showGuardedSheet(b)),
-              ),
+            bottom: math.max(0, navPad - FloatingNavBar.rise),
+            child: MapCredit(
+              satellite: ref.watch(baseLayerChoiceProvider).value == BaseLayer.satellite,
             ),
           ),
           buildSidePanel(context),

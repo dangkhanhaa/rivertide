@@ -53,32 +53,41 @@ GoRouter buildRouter() => GoRouter(
         _branch(Routes.more, const MoreScreen()),
       ],
     ),
-    GoRoute(path: whereRoute, builder: (_, _) => const WhereToGoScreen()),
-    // Web pages opened with pushPage (P2-44): one browser-history entry each.
-    GoRoute(
-      path: pageRoute,
-      redirect: (_, state) => pageForKey(state.pathParameters['k']) == null ? Routes.map : null,
-      builder: (_, state) => pageForKey(state.pathParameters['k']) ?? const SizedBox.shrink(),
-    ),
-    GoRoute(
-      path: Routes.station,
-      builder: (context, state) {
-        final id = state.pathParameters['id'] ?? '';
-        if (!_stationId.hasMatch(id)) {
-          return Scaffold(
-            appBar: AppBar(),
-            body: EmptyView(message: context.l10n.error_notFound),
-          );
-        }
-        return StationDetailScreen(stationId: id);
-      },
-    ),
+    // Old shared links (#/station/x, #/where, #/p/k): open inside the map
+    // tab so the tab bar stays (P2-46).
+    GoRoute(path: whereRoute, redirect: (_, _) => '${Routes.map}$whereRoute'),
+    GoRoute(path: Routes.station, redirect: (_, s) => '${Routes.map}${s.uri.path}'),
+    GoRoute(path: '/$pageSubRoute', redirect: (_, s) => '${Routes.map}${s.uri.path}'),
   ],
 );
 
 StatefulShellBranch _branch(String path, Widget screen) => StatefulShellBranch(
-  routes: [GoRoute(path: path, builder: (_, _) => screen)],
+  routes: [GoRoute(path: path, builder: (_, _) => screen, routes: _details)],
 );
+
+/// Detail screens, available under every tab (P2-46): they open inside the
+/// current tab, so the floating tab bar stays on screen.
+final List<RouteBase> _details = [
+  GoRoute(path: whereRoute.substring(1), builder: (_, _) => const WhereToGoScreen()),
+  GoRoute(
+    path: pageSubRoute,
+    redirect: (_, state) => pageForKey(state.pathParameters['k']) == null ? Routes.map : null,
+    builder: (_, state) => pageForKey(state.pathParameters['k']) ?? const SizedBox.shrink(),
+  ),
+  GoRoute(
+    path: 'station/:id',
+    builder: (context, state) {
+      final id = state.pathParameters['id'] ?? '';
+      if (!_stationId.hasMatch(id)) {
+        return Scaffold(
+          appBar: AppBar(),
+          body: EmptyView(message: context.l10n.error_notFound),
+        );
+      }
+      return StationDetailScreen(stationId: id);
+    },
+  ),
+];
 
 /// Bottom-tab shell. System back (Android swipe from the edge) on a tab
 /// other than the map returns to the map instead of closing the app; on the
@@ -99,6 +108,7 @@ class _ShellState extends ConsumerState<_Shell> {
 
   @override
   void dispose() {
+    _delegate?.removeListener(_routeChanged);
     _armed?.cancel();
     super.dispose();
   }
@@ -120,6 +130,27 @@ class _ShellState extends ConsumerState<_Shell> {
       ..showSnackBar(SnackBar(content: Text(context.l10n.nav_backAgain), duration: _exitWindow));
   }
 
+  GoRouterDelegate? _delegate;
+  bool _onMap = true;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final delegate = GoRouter.of(context).routerDelegate;
+    if (delegate != _delegate) {
+      _delegate?.removeListener(_routeChanged);
+      _delegate = delegate..addListener(_routeChanged);
+    }
+    _routeChanged();
+  }
+
+  /// True only on the map itself, not on a page pushed in the map tab.
+  void _routeChanged() {
+    final last = _delegate?.currentConfiguration.lastOrNull?.matchedLocation;
+    final onMap = last == null || last == Routes.map;
+    if (onMap != _onMap && mounted) setState(() => _onMap = onMap);
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
@@ -130,7 +161,9 @@ class _ShellState extends ConsumerState<_Shell> {
       child: Scaffold(
         // The map runs under the floating bar (no grey band); the map screen
         // lifts its own controls by the bar height it gets as padding.
-        extendBody: shell.currentIndex == 0,
+        // Only on the map itself: detail pages opened in the map tab end
+        // above the bar like on every other tab.
+        extendBody: shell.currentIndex == 0 && _onMap,
         body: shell,
         bottomNavigationBar: FloatingNavBar(
           index: shell.currentIndex,

@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 /// Bundled in pubspec.yaml (Be Vietnam Pro, SIL OFL).
 const String appFontFamily = 'BeVietnamPro';
 
+/// Size of the map licence line: as small as a credit can be while the
+/// letters still render (P2-46, owner's request).
+const double creditFontSize = 6.5;
+
 /// Text styles. Use via `context.text`.
 @immutable
 class AppText extends ThemeExtension<AppText> {

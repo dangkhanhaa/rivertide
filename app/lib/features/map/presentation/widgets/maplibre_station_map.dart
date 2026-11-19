@@ -91,6 +91,9 @@ class _MapLibreStationMapState extends State<MapLibreStationMap> implements Base
         log.warn('water query failed', {'type': e.runtimeType.toString()});
       }
     }
+    // The same click may have opened a page meanwhile (web passes clicks on
+    // Flutter UI to the map too): check again after the await.
+    if (!mounted || _blocked(p)) return;
     widget.config.onMapTap(at.latitude, at.longitude, surface);
   }
 

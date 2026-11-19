@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:rivertide/core/l10n/l10n_ext.dart';
 import 'package:rivertide/core/navigation/fishing_spot.dart';
+import 'package:rivertide/core/navigation/push_page.dart';
 import 'package:rivertide/core/theme/app_colors.dart';
 import 'package:rivertide/core/theme/app_spacing.dart';
 import 'package:rivertide/core/theme/app_text.dart';
@@ -58,13 +58,13 @@ class MapShortcuts extends StatelessWidget {
               icon: Icons.explore_rounded,
               color: context.colors.fishGood,
               label: where,
-              onTap: () => unawaited(context.push(whereRoute)),
+              onTap: () => unawaited(pushInTab<void>(context, whereRoute)),
             )
           else
             MapRoundButton(
               icon: Icons.explore_rounded,
               tooltip: l10n.where_title,
-              onTap: () => unawaited(context.push(whereRoute)),
+              onTap: () => unawaited(pushInTab<void>(context, whereRoute)),
             ),
           for (final a in shown) MapPill.of(a),
           if (shown.length < actions.length)
