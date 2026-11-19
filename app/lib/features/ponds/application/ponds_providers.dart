@@ -72,12 +72,57 @@ class FollowedPonds extends AsyncNotifier<Set<String>> {
     }
   }
 
-  Future<void> toggle(String id) async {
+  /// [name] is remembered so release alarms can say which pond (P2-39).
+  Future<void> toggle(String id, {String? name}) async {
     final next = {...state.value ?? const <String>{}};
     if (!next.remove(id)) next.add(id);
     state = AsyncData(next);
-    await ref.read(appDatabaseProvider).writeSetting(_followKey, jsonEncode(next.toList()));
+    final db = ref.read(appDatabaseProvider);
+    await db.writeSetting(_followKey, jsonEncode(next.toList()));
+    final names = await followedPondNames(db);
+    names.removeWhere((k, _) => !next.contains(k));
+    if (name != null && next.contains(id)) {
+      names[id] = name.length > 80 ? name.substring(0, 80) : name;
+    }
+    await db.writeSetting(_namesKey, jsonEncode(names));
   }
+}
+
+const String _namesKey = 'pond_follow_names';
+
+/// Names of followed ponds (id → name), as saved when following.
+Future<Map<String, String>> followedPondNames(AppDatabase db) async {
+  final raw = await db.readSetting(_namesKey);
+  if (raw == null || raw.length > 20000) return {};
+  try {
+    final m = jsonDecode(raw);
+    if (m is! Map<String, Object?>) return {};
+    return {
+      for (final e in m.entries)
+        if (e.value case final String v) e.key: v,
+    };
+  } on FormatException {
+    return {};
+  }
+}
+
+/// Releases of followed ponds in the next 7 days with the pond's name, for
+/// the Android release alarms (P2-39). Empty without the backend.
+Future<List<(PondRelease, String?)>> upcomingFollowedReleases(
+  WidgetRef ref,
+  DateTime nowUtc,
+) async {
+  final repo = ref.read(pondsRepositoryProvider);
+  final ids = await ref.read(followedPondsProvider.future);
+  if (repo == null || ids.isEmpty) return const [];
+  final names = await followedPondNames(ref.read(appDatabaseProvider));
+  final all = await repo.releases(ids.toList());
+  final until = nowUtc.add(const Duration(days: 7));
+  return [
+    for (final r in all)
+      if (!r.cancelled && r.startsAt.isAfter(nowUtc) && r.startsAt.isBefore(until))
+        (r, names[r.pondId]),
+  ];
 }
 
 final AsyncNotifierProvider<FollowedPonds, Set<String>> followedPondsProvider =

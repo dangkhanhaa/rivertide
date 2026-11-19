@@ -16,9 +16,10 @@ import 'package:rivertide/features/ponds/application/ponds_providers.dart';
 import 'package:rivertide/features/ponds/domain/pond.dart';
 import 'package:rivertide/features/ponds/presentation/pond_detail.dart';
 import 'package:rivertide/features/ponds/presentation/pond_form_screen.dart';
+import 'package:rivertide/features/ponds/presentation/pond_format.dart';
 import 'package:rivertide/features/ponds/presentation/widgets/pond_card.dart';
 
-enum _Filter { release, verified, followed }
+enum _Filter { release, weekend, verified, followed }
 
 /// Hồ câu tab (P2-28): ponds near the user, upcoming releases first.
 class PondsScreen extends ConsumerStatefulWidget {
@@ -167,6 +168,7 @@ class _PondList extends ConsumerWidget {
     bool keep(Pond p) =>
         (query.trim().isEmpty || TextFold.matches('${p.name} ${p.address}', query)) &&
         (!filters.contains(_Filter.release) || p.nextReleaseAt != null) &&
+        (!filters.contains(_Filter.weekend) || releaseThisWeekend(p.nextReleaseAt, now)) &&
         (!filters.contains(_Filter.verified) || p.verified) &&
         (!filters.contains(_Filter.followed) || followed.contains(p.id));
     return RefreshIndicator(
@@ -186,6 +188,7 @@ class _PondList extends ConsumerWidget {
             children: [
               for (final (f, label) in [
                 (_Filter.release, l10n.pond_filterRelease),
+                (_Filter.weekend, l10n.pond_filterWeekend),
                 (_Filter.verified, l10n.pond_filterVerified),
                 (_Filter.followed, l10n.pond_filterFollowed),
               ])

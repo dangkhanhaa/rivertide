@@ -21,3 +21,12 @@ String pondWhen(DateTime utc) => '${TimeFormat.dayShort(utc)} · ${TimeFormat.hm
 String pondFish(BuildContext context, PondRelease r) => r.fish
     .map((f) => f.kg == null ? f.species : '${f.species} ${pondAmount(context, f.kg ?? 0)}')
     .join(', ');
+
+/// Release on the coming (or current) Saturday/Sunday, Vietnam time.
+bool releaseThisWeekend(DateTime? at, DateTime nowUtc) {
+  if (at == null) return false;
+  final today = TimeFormat.vnDayStartUtc(nowUtc);
+  final weekday = TimeFormat.toVn(nowUtc).weekday; // 1 = Monday … 7 = Sunday
+  final saturday = today.add(Duration(days: weekday == 7 ? -1 : 6 - weekday));
+  return !at.isBefore(saturday) && at.isBefore(saturday.add(const Duration(days: 2)));
+}

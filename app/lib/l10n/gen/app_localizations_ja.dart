@@ -1206,7 +1206,7 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String pond_rating(String rating, int count) {
-    return '$rating ★ ($count)';
+    return '$rating ★（$count）';
   }
 
   @override
@@ -3353,240 +3353,237 @@ class AppLocalizationsJa extends AppLocalizations {
   }
 
   @override
-  String get bite_question => 'Fishing here? Getting bites?';
+  String get bite_question => 'ここで釣りをしていますか？アタリはありますか？';
 
   @override
-  String get bite_yes => 'Biting';
+  String get bite_yes => 'アタリあり';
 
   @override
-  String get bite_no => 'No bites';
+  String get bite_no => 'アタリなし';
 
   @override
-  String get bite_thanks => 'Thanks! Your answer tells anglers nearby whether fish are biting.';
+  String get bite_thanks => 'ありがとうございます！あなたの報告で近くの釣り人が魚の食いを知ることができます。';
 
   @override
-  String get bite_tooSoon => 'You just answered; try again in 30 minutes.';
+  String get bite_tooSoon => 'さっき報告しました。30分後にまた報告してください。';
 
   @override
-  String get bite_failed => 'Could not send, please try again later.';
+  String get bite_failed => '送信できませんでした。後でもう一度お試しください。';
 
   @override
   String bite_summary(int bites, int misses) {
-    return 'Around here, last 3 hours: $bites biting, $misses no bites.';
+    return 'この付近の過去3時間：アタリあり $bites 人、アタリなし $misses 人。';
   }
 
   @override
-  String get bite_first => 'Nobody nearby has answered yet. Be the first!';
+  String get bite_first => 'この付近ではまだ報告がありません。最初の一人になりましょう！';
 
   @override
   String bite_pattern(String state, int rate) {
-    return 'Fish here bite best on $state ($rate% biting, last 60 days).';
+    return 'この場所は$stateのときによく釣れます（アタリあり $rate%、過去60日）。';
   }
 
   @override
-  String get bite_rising => 'a rising tide';
+  String get bite_rising => '上げ潮';
 
   @override
-  String get bite_falling => 'a falling tide';
+  String get bite_falling => '下げ潮';
 
   @override
-  String get bite_slack => 'slack water';
+  String get bite_slack => '潮止まり';
 
   @override
-  String get bite_note => 'From anglers\' answers; only a ~2 km area is stored, never who you are.';
+  String get bite_note => '釣り人の報告をまとめたものです。約2 kmの範囲だけを保存し、個人は特定しません。';
 
   @override
-  String get gear_title => 'Gear & knots';
+  String get gear_title => '道具と結び';
 
   @override
-  String get gear_entry => 'Gear & knots';
+  String get gear_entry => '道具と結び';
 
   @override
-  String get gear_entryHint => 'What to pack, how to tie the six most used knots';
+  String get gear_entryHint => '持ち物リスト、よく使う6つの結び方';
 
   @override
-  String get gear_tabPack => 'What to pack';
+  String get gear_tabPack => '持ち物';
 
   @override
-  String get gear_tabKnots => 'Knots';
+  String get gear_tabKnots => '結び';
 
   @override
   String gear_progress(int done, int total) {
-    return '$done/$total items';
+    return '$done/$total 点';
   }
 
   @override
-  String get gear_clear => 'Untick all for the next trip';
+  String get gear_clear => '次の釣行のためにチェックを全解除';
 
   @override
-  String get trip_night => 'Night fishing';
+  String get trip_night => '夜釣り';
 
   @override
-  String get trip_sea => 'Sea, rocks';
+  String get trip_sea => '海・磯';
 
   @override
-  String get trip_pond => 'Paid pond';
+  String get trip_pond => '釣り堀';
 
   @override
-  String get trip_river => 'River, canal';
+  String get trip_river => '川・水路';
 
   @override
-  String get gear_rodReel => 'Rod and reel (check reel and drag)';
+  String get gear_rodReel => '竿・リール（回転とドラグを確認）';
 
   @override
-  String get gear_spareLine => 'Spare line';
+  String get gear_spareLine => '予備のライン';
 
   @override
-  String get gear_hooksWeights => 'Spare hooks, sinkers, floats, snaps';
+  String get gear_hooksWeights => '予備の針・オモリ・ウキ・スナップ';
 
   @override
-  String get gear_baitChum => 'Bait and groundbait';
+  String get gear_baitChum => 'エサと寄せエサ';
 
   @override
-  String get gear_netTowel => 'Landing net and towel';
+  String get gear_netTowel => 'タモ網と手拭きタオル';
 
   @override
-  String get gear_waterFood => 'Water and food';
+  String get gear_waterFood => '飲み水・食べ物';
 
   @override
-  String get gear_sunHat => 'Hat, sunscreen, sunglasses';
+  String get gear_sunHat => '帽子・日焼け止め・サングラス';
 
   @override
-  String get gear_raincoat => 'Raincoat';
+  String get gear_raincoat => 'レインウェア';
 
   @override
-  String get gear_phonePower => 'Charged phone, power bank';
+  String get gear_phonePower => '充電済みのスマホ・モバイルバッテリー';
 
   @override
-  String get gear_trashBag => 'Bag to take your rubbish home';
+  String get gear_trashBag => 'ゴミを持ち帰る袋';
 
   @override
-  String get gear_headlamp => 'Headlamp, spare batteries';
+  String get gear_headlamp => 'ヘッドライト・予備電池';
 
   @override
-  String get gear_glowSticks => 'Glow sticks, float lights';
+  String get gear_glowSticks => 'ケミホタル・電気ウキ';
 
   @override
-  String get gear_mosquito => 'Mosquito repellent';
+  String get gear_mosquito => '虫よけ';
 
   @override
-  String get gear_jacket => 'Jacket (cold, windy nights)';
+  String get gear_jacket => '上着（風が冷たい夜に）';
 
   @override
-  String get gear_nonSlipShoes => 'Non-slip shoes';
+  String get gear_nonSlipShoes => '滑りにくい靴';
 
   @override
-  String get gear_lifeJacket => 'Life jacket';
+  String get gear_lifeJacket => 'ライフジャケット';
 
   @override
-  String get gear_tideCheck => 'Check tide times and \"water cuts me off\" in the app';
+  String get gear_tideCheck => 'アプリで潮汐時刻と「帰り道の水没」を確認';
 
   @override
-  String get gear_leader => 'Abrasion-resistant leader';
+  String get gear_leader => '耐摩耗リーダー';
 
   @override
-  String get gear_pliers => 'Pliers to unhook';
+  String get gear_pliers => '針外し用プライヤー';
 
   @override
-  String get gear_pondCall => 'Call the pond: price, hours, stocking';
+  String get gear_pondCall => '釣り堀に電話：料金・営業時間・放流日';
 
   @override
-  String get gear_chairUmbrella => 'Chair, sun umbrella';
+  String get gear_chairUmbrella => '椅子・日よけパラソル';
 
   @override
-  String get gear_keepNet => 'Keep net or fish box';
+  String get gear_keepNet => 'スカリ・クーラーボックス';
 
   @override
-  String get gear_boots => 'Boots or wading shoes';
+  String get gear_boots => '長靴またはウェーディングシューズ';
 
   @override
-  String get gear_rodRest => 'Rod rests, bank sticks';
+  String get gear_rodRest => '竿掛け・竿受け';
 
   @override
   String knot_strength(int pct) {
-    return 'Keeps about $pct% of line strength';
+    return 'ライン強度の約$pct%を保持';
   }
 
   @override
-  String get knot_note =>
-      'General tips: wet the knot before tightening, pull slowly so it does not heat up, trim leaving 2–3 mm. Drawings are diagrams.';
+  String get knot_note => '共通のコツ：締める前に唾で湿らせ、熱を持たないようゆっくり締め、端糸は2–3 mm残して切ります。図は模式図です。';
 
   @override
-  String get knot_improvedClinch => 'Improved clinch knot';
+  String get knot_improvedClinch => '改良クリンチノット';
 
   @override
-  String get knot_improvedClinch_use =>
-      'Hooks and snaps on mono. The easiest one; everyone should know it.';
+  String get knot_improvedClinch_use => 'ナイロンラインに針・スナップを結ぶ。一番簡単で、誰もが覚えておきたい結び。';
 
   @override
   String get knot_improvedClinch_steps =>
-      'Pass the line through the hook eye, leaving about 15 cm.\nWrap the tag end around the main line 5–7 times.\nPass the tag through the small loop by the eye, then through the big loop you just made.\nWet it, pull the main line tight, trim.';
+      'ラインを針のアイに通し、約15 cm余らせます。\n端糸を本線に5–7回巻き付けます。\n端糸をアイ近くの小さな輪に通し、できた大きな輪にも通します。\n湿らせて本線を引いて締め、端糸を切ります。';
 
   @override
-  String get knot_palomar => 'Palomar knot';
+  String get knot_palomar => 'パロマーノット';
 
   @override
-  String get knot_palomar_use => 'Hooks and lures on braid (PE). Very strong and quick.';
+  String get knot_palomar_use => 'PEラインに針・ルアーを結ぶ。とても強く、素早く結べる。';
 
   @override
   String get knot_palomar_steps =>
-      'Double about 15 cm of line and push the fold through the hook eye.\nTie a loose overhand knot with the doubled line.\nPass the whole hook through the folded loop.\nWet it, pull both ends tight, trim.';
+      'ラインを約15 cm二つ折りにし、折り目を針のアイに通します。\n二重のラインでゆるくひと結びします。\n針全体を折り返しの輪にくぐらせます。\n湿らせて両端を引いて締め、端糸を切ります。';
 
   @override
-  String get knot_uni => 'Uni knot';
+  String get knot_uni => 'ユニノット';
 
   @override
-  String get knot_uni_use => 'Hooks, snaps and lures; works on mono and braid.';
+  String get knot_uni_use => '針・スナップ・ルアーを結ぶ。ナイロンにもPEにも使える。';
 
   @override
   String get knot_uni_steps =>
-      'Pass the line through the eye and lay the tag alongside the main line to form a loop.\nWrap the tag around both lines inside the loop 5–6 times.\nPull the tag so the wraps sit neatly.\nWet it, pull the main line to slide the knot to the eye, trim.';
+      'ラインをアイに通し、端糸を本線に沿わせて折り返し輪を作ります。\n端糸で輪の中の2本を5–6回巻きます。\n端糸を引いて巻きをきれいに揃えます。\n湿らせて本線を引き、結び目をアイまで寄せて端糸を切ります。';
 
   @override
-  String get knot_doubleUni => 'Double uni knot';
+  String get knot_doubleUni => 'ダブルユニノット';
 
   @override
-  String get knot_doubleUni_use => 'Joins two lines (braid to mono leader, or a broken line).';
+  String get knot_doubleUni_use => '2本のラインをつなぐ（PEとナイロンリーダー、または切れたライン）。';
 
   @override
   String get knot_doubleUni_steps =>
-      'Overlap the two line ends by about 20 cm.\nWith the first end tie a uni knot around the second line (3–4 wraps; 6–8 for braid).\nDo the same with the second end.\nWet them, pull the main lines so the knots slide together, trim.';
+      '2本のラインの端を約20 cm重ねます。\n1本目の端でもう1本にユニノットを結びます（3–4回巻き、PEは6–8回）。\n2本目の端も同じように結びます。\n湿らせて両方の本線を引き、2つの結び目を寄せて端糸を切ります。';
 
   @override
-  String get knot_perfectionLoop => 'Perfection loop';
+  String get knot_perfectionLoop => 'パーフェクションループ';
 
   @override
-  String get knot_perfectionLoop_use => 'A loop at the line end to clip rigs and leaders on fast.';
+  String get knot_perfectionLoop_use => 'ライン先端に輪を作り、仕掛けやリーダーを素早く接続。';
 
   @override
   String get knot_perfectionLoop_steps =>
-      'Make a small loop at the end, tag behind.\nWrap the tag around to make a second loop in front.\nPass the tag between the two loops.\nPull the second loop through the first, tighten, trim.';
+      'ライン先端に小さな輪を作り、端糸を後ろ側に置きます。\n端糸を回して前側に2つ目の輪を作ります。\n端糸を2つの輪の間に通します。\n2つ目の輪を1つ目の輪から引き出し、締めて端糸を切ります。';
 
   @override
-  String get knot_snell => 'Snell knot';
+  String get knot_snell => 'スネルノット（外掛け結び）';
 
   @override
-  String get knot_snell_use =>
-      'Ties a hook so the line runs straight down the shank, hooking more fish.';
+  String get knot_snell_use => 'へら・単針の針結び。ラインが軸に沿ってまっすぐ出るので掛かりが良くなる。';
 
   @override
   String get knot_snell_steps =>
-      'Pass the line through the eye and lay it along the shank to make a loop.\nWrap the loop around the shank and line 7–8 times, from the eye down.\nHold the wraps and pull the main line tight.\nWet it, tighten again, trim.';
+      'ラインをアイに通し、針の軸に沿わせて輪を作ります。\n輪で軸とラインをアイから下へ7–8回巻きます。\n巻きを押さえて本線を引き締めます。\n湿らせてもう一度締め、端糸を切ります。';
 
   @override
-  String get font_quicksand => 'Quicksand soft';
+  String get font_quicksand => 'Quicksand';
 
   @override
-  String get set_navStyle => 'Tab bar style';
+  String get set_navStyle => 'タブバーのスタイル';
 
   @override
-  String get nav_styleBubble => 'Bubble';
+  String get nav_styleBubble => 'バブル';
 
   @override
-  String get nav_styleDot => 'Dot';
+  String get nav_styleDot => 'ドット';
 
   @override
-  String get nav_styleGlow => 'Glow';
+  String get nav_styleGlow => 'グロー';
 
   @override
   String get lang_zh => '中文';
@@ -3596,4 +3593,28 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get lang_ja => '日本語';
+
+  @override
+  String get pond_zalo => 'Zaloで連絡';
+
+  @override
+  String get pond_filterWeekend => '週末の放流';
+
+  @override
+  String get release_alarmPond => 'フォロー中の釣り堀';
+
+  @override
+  String release_alarmTitle(String pond) {
+    return 'まもなく放流：$pond';
+  }
+
+  @override
+  String release_alarmBody(String when) {
+    return '$when に放流。早めに行って良い場所を！';
+  }
+
+  @override
+  String release_alarmBodyKg(String when, int kg) {
+    return '$when に約 $kg kg 放流。早めに行って良い場所を！';
+  }
 }

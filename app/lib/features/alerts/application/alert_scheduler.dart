@@ -16,6 +16,7 @@ import 'package:rivertide/features/alerts/application/alert_settings.dart';
 import 'package:rivertide/features/alerts/application/evening_digest.dart';
 import 'package:rivertide/features/alerts/data/alert_notifier.dart';
 import 'package:rivertide/features/journal/journal.dart';
+import 'package:rivertide/features/ponds/ponds.dart';
 import 'package:rivertide/features/stations/stations.dart';
 import 'package:rivertide/l10n/gen/app_localizations.dart';
 
@@ -41,6 +42,7 @@ Future<void> rescheduleAlerts(WidgetRef ref) async {
       log.info('alerts: evening summary skipped', {'error': e.debugMessage});
     }
   }
+  await _scheduleReleases(ref, notifier, l10n);
   if (ids.isEmpty || (!options.golden && !options.tides)) return;
   final db = ref.read(appDatabaseProvider);
   final names = {for (final f in await db.watchFavorites().first) f.stationId: ?f.label};
@@ -131,4 +133,27 @@ bool _unsafe(List<FishingHourScore> hours, GoldenWindow w) => hours.any(
           : l10n.alert_fishBody(LevelFormat.decimal1(a.score ?? 0), mins),
     ),
   };
+}
+
+/// Followed ponds' fish releases (P2-39): a ring 2 hours before each one in
+/// the next 7 days. Ids 990200+ (below the flood alarm, above place alarms).
+Future<void> _scheduleReleases(WidgetRef ref, AlertNotifier notifier, AppLocalizations l10n) async {
+  final now = ref.read(clockProvider)();
+  try {
+    final releases = await upcomingFollowedReleases(ref, now);
+    for (final (i, (r, name)) in releases.take(20).indexed) {
+      final at = r.startsAt.subtract(const Duration(hours: 2));
+      if (!at.isAfter(now)) continue;
+      final kg = r.totalKg;
+      final when = '${TimeFormat.hm(r.startsAt)} ${TimeFormat.dayShort(r.startsAt)}';
+      await notifier.schedule(
+        id: 990200 + i,
+        atUtc: at,
+        title: l10n.release_alarmTitle(name ?? l10n.release_alarmPond),
+        body: kg == null ? l10n.release_alarmBody(when) : l10n.release_alarmBodyKg(when, kg),
+      );
+    }
+  } on AppException catch (e) {
+    log.info('alerts: releases skipped', {'error': e.debugMessage});
+  }
 }

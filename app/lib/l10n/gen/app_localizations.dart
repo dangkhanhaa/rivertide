@@ -6435,7 +6435,7 @@ abstract class AppLocalizations {
   /// No description provided for @font_quicksand.
   ///
   /// In vi, this message translates to:
-  /// **'Quicksand mềm'**
+  /// **'Quicksand'**
   String get font_quicksand;
 
   /// No description provided for @set_navStyle.
@@ -6479,6 +6479,42 @@ abstract class AppLocalizations {
   /// In vi, this message translates to:
   /// **'日本語'**
   String get lang_ja;
+
+  /// No description provided for @pond_zalo.
+  ///
+  /// In vi, this message translates to:
+  /// **'Nhắn Zalo'**
+  String get pond_zalo;
+
+  /// No description provided for @pond_filterWeekend.
+  ///
+  /// In vi, this message translates to:
+  /// **'Xả cuối tuần'**
+  String get pond_filterWeekend;
+
+  /// No description provided for @release_alarmPond.
+  ///
+  /// In vi, this message translates to:
+  /// **'Hồ bạn theo dõi'**
+  String get release_alarmPond;
+
+  /// No description provided for @release_alarmTitle.
+  ///
+  /// In vi, this message translates to:
+  /// **'Sắp xả cá: {pond}'**
+  String release_alarmTitle(String pond);
+
+  /// No description provided for @release_alarmBody.
+  ///
+  /// In vi, this message translates to:
+  /// **'Xả lúc {when}. Đi sớm giữ chỗ đẹp!'**
+  String release_alarmBody(String when);
+
+  /// No description provided for @release_alarmBodyKg.
+  ///
+  /// In vi, this message translates to:
+  /// **'Xả khoảng {kg} kg lúc {when}. Đi sớm giữ chỗ đẹp!'**
+  String release_alarmBodyKg(String when, int kg);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

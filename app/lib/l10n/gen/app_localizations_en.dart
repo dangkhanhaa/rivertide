@@ -3700,7 +3700,7 @@ class AppLocalizationsEn extends AppLocalizations {
       'Pass the line through the eye and lay it along the shank to make a loop.\nWrap the loop around the shank and line 7–8 times, from the eye down.\nHold the wraps and pull the main line tight.\nWet it, tighten again, trim.';
 
   @override
-  String get font_quicksand => 'Quicksand soft';
+  String get font_quicksand => 'Quicksand';
 
   @override
   String get set_navStyle => 'Tab bar style';
@@ -3722,4 +3722,28 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get lang_ja => '日本語';
+
+  @override
+  String get pond_zalo => 'Zalo chat';
+
+  @override
+  String get pond_filterWeekend => 'Weekend stocking';
+
+  @override
+  String get release_alarmPond => 'A pond you follow';
+
+  @override
+  String release_alarmTitle(String pond) {
+    return 'Stocking soon: $pond';
+  }
+
+  @override
+  String release_alarmBody(String when) {
+    return 'Fish go in at $when. Go early for a good spot!';
+  }
+
+  @override
+  String release_alarmBodyKg(String when, int kg) {
+    return 'About $kg kg go in at $when. Go early for a good spot!';
+  }
 }

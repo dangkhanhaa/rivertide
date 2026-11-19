@@ -1055,12 +1055,18 @@
   "knot_snell": "Snell knot",
   "knot_snell_use": "Ties a hook so the line runs straight down the shank, hooking more fish.",
   "knot_snell_steps": "Pass the line through the eye and lay it along the shank to make a loop.\nWrap the loop around the shank and line 7–8 times, from the eye down.\nHold the wraps and pull the main line tight.\nWet it, tighten again, trim.",
-  "font_quicksand": "Quicksand soft",
+  "font_quicksand": "Quicksand",
   "set_navStyle": "Tab bar style",
   "nav_styleBubble": "Bubble",
   "nav_styleDot": "Dot",
   "nav_styleGlow": "Glow",
   "lang_zh": "中文",
   "lang_ko": "한국어",
-  "lang_ja": "日本語"
+  "lang_ja": "日本語",
+  "pond_zalo": "Zalo chat",
+  "pond_filterWeekend": "Weekend stocking",
+  "release_alarmPond": "A pond you follow",
+  "release_alarmTitle": "Stocking soon: {pond}",
+  "release_alarmBody": "Fish go in at {when}. Go early for a good spot!",
+  "release_alarmBodyKg": "About {kg} kg go in at {when}. Go early for a good spot!"
 }

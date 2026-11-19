@@ -560,7 +560,7 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String where_km(int km) {
-    return '$km km';
+    return '$km 公里';
   }
 
   @override
@@ -1204,7 +1204,7 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String pond_rating(String rating, int count) {
-    return '$rating ★ ($count)';
+    return '$rating ★（$count）';
   }
 
   @override
@@ -1222,7 +1222,7 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String pond_kg(String kg) {
-    return '$kg kg';
+    return '$kg 公斤';
   }
 
   @override
@@ -1474,7 +1474,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get release_fishName => '鱼种';
 
   @override
-  String get release_fishKg => 'kg';
+  String get release_fishKg => '公斤';
 
   @override
   String release_total(String amount) {
@@ -3194,7 +3194,7 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String flood_margin(int cm) {
-    return '$cm cm';
+    return '$cm 厘米';
   }
 
   @override
@@ -3347,240 +3347,237 @@ class AppLocalizationsZh extends AppLocalizations {
   }
 
   @override
-  String get bite_question => 'Fishing here? Getting bites?';
+  String get bite_question => '你在这里钓鱼吗？有口吗？';
 
   @override
-  String get bite_yes => 'Biting';
+  String get bite_yes => '有口';
 
   @override
-  String get bite_no => 'No bites';
+  String get bite_no => '没口';
 
   @override
-  String get bite_thanks => 'Thanks! Your answer tells anglers nearby whether fish are biting.';
+  String get bite_thanks => '谢谢！你的反馈能让附近钓友知道鱼有没有开口。';
 
   @override
-  String get bite_tooSoon => 'You just answered; try again in 30 minutes.';
+  String get bite_tooSoon => '你刚反馈过，30 分钟后再来吧。';
 
   @override
-  String get bite_failed => 'Could not send, please try again later.';
+  String get bite_failed => '暂时发送失败，请稍后再试。';
 
   @override
   String bite_summary(int bites, int misses) {
-    return 'Around here, last 3 hours: $bites biting, $misses no bites.';
+    return '附近过去 3 小时：$bites 人有口，$misses 人没口。';
   }
 
   @override
-  String get bite_first => 'Nobody nearby has answered yet. Be the first!';
+  String get bite_first => '附近还没人反馈，你来当第一个吧！';
 
   @override
   String bite_pattern(String state, int rate) {
-    return 'Fish here bite best on $state ($rate% biting, last 60 days).';
+    return '这一带$state时鱼最爱咬钩（$rate% 反馈有口，近 60 天）。';
   }
 
   @override
-  String get bite_rising => 'a rising tide';
+  String get bite_rising => '涨潮';
 
   @override
-  String get bite_falling => 'a falling tide';
+  String get bite_falling => '退潮';
 
   @override
-  String get bite_slack => 'slack water';
+  String get bite_slack => '平潮';
 
   @override
-  String get bite_note => 'From anglers\' answers; only a ~2 km area is stored, never who you are.';
+  String get bite_note => '汇总自钓友反馈，仅保存约 2 公里范围的区域，不保存身份信息。';
 
   @override
-  String get gear_title => 'Gear & knots';
+  String get gear_title => '钓具与绑结';
 
   @override
-  String get gear_entry => 'Gear & knots';
+  String get gear_entry => '钓具与绑结';
 
   @override
-  String get gear_entryHint => 'What to pack, how to tie the six most used knots';
+  String get gear_entryHint => '出钓装备清单，6 种常用结的绑法';
 
   @override
-  String get gear_tabPack => 'What to pack';
+  String get gear_tabPack => '装备清单';
 
   @override
-  String get gear_tabKnots => 'Knots';
+  String get gear_tabKnots => '绑结';
 
   @override
   String gear_progress(int done, int total) {
-    return '$done/$total items';
+    return '$done/$total 件';
   }
 
   @override
-  String get gear_clear => 'Untick all for the next trip';
+  String get gear_clear => '全部取消勾选，留给下次出钓';
 
   @override
-  String get trip_night => 'Night fishing';
+  String get trip_night => '夜钓';
 
   @override
-  String get trip_sea => 'Sea, rocks';
+  String get trip_sea => '海钓、矶钓';
 
   @override
-  String get trip_pond => 'Paid pond';
+  String get trip_pond => '收费鱼塘';
 
   @override
-  String get trip_river => 'River, canal';
+  String get trip_river => '江河、渠道';
 
   @override
-  String get gear_rodReel => 'Rod and reel (check reel and drag)';
+  String get gear_rodReel => '鱼竿、渔轮（检查渔轮顺滑、卸力）';
 
   @override
-  String get gear_spareLine => 'Spare line';
+  String get gear_spareLine => '备用钓线';
 
   @override
-  String get gear_hooksWeights => 'Spare hooks, sinkers, floats, snaps';
+  String get gear_hooksWeights => '备用鱼钩、铅坠、浮漂、别针';
 
   @override
-  String get gear_baitChum => 'Bait and groundbait';
+  String get gear_baitChum => '饵料和窝料';
 
   @override
-  String get gear_netTowel => 'Landing net and towel';
+  String get gear_netTowel => '抄网和擦手毛巾';
 
   @override
-  String get gear_waterFood => 'Water and food';
+  String get gear_waterFood => '饮用水、食物';
 
   @override
-  String get gear_sunHat => 'Hat, sunscreen, sunglasses';
+  String get gear_sunHat => '帽子、防晒霜、墨镜';
 
   @override
-  String get gear_raincoat => 'Raincoat';
+  String get gear_raincoat => '雨衣';
 
   @override
-  String get gear_phonePower => 'Charged phone, power bank';
+  String get gear_phonePower => '充满电的手机、充电宝';
 
   @override
-  String get gear_trashBag => 'Bag to take your rubbish home';
+  String get gear_trashBag => '垃圾袋（把垃圾带走）';
 
   @override
-  String get gear_headlamp => 'Headlamp, spare batteries';
+  String get gear_headlamp => '头灯、备用电池';
 
   @override
-  String get gear_glowSticks => 'Glow sticks, float lights';
+  String get gear_glowSticks => '荧光棒、夜光漂灯';
 
   @override
-  String get gear_mosquito => 'Mosquito repellent';
+  String get gear_mosquito => '驱蚊液';
 
   @override
-  String get gear_jacket => 'Jacket (cold, windy nights)';
+  String get gear_jacket => '外套（夜里风大寒冷）';
 
   @override
-  String get gear_nonSlipShoes => 'Non-slip shoes';
+  String get gear_nonSlipShoes => '防滑鞋';
 
   @override
-  String get gear_lifeJacket => 'Life jacket';
+  String get gear_lifeJacket => '救生衣';
 
   @override
-  String get gear_tideCheck => 'Check tide times and \"water cuts me off\" in the app';
+  String get gear_tideCheck => '在应用里查看潮汐时间和“回程路被淹”';
 
   @override
-  String get gear_leader => 'Abrasion-resistant leader';
+  String get gear_leader => '耐磨前导线（子线）';
 
   @override
-  String get gear_pliers => 'Pliers to unhook';
+  String get gear_pliers => '摘钩钳';
 
   @override
-  String get gear_pondCall => 'Call the pond: price, hours, stocking';
+  String get gear_pondCall => '打电话问鱼塘：价格、营业时间、放鱼时间';
 
   @override
-  String get gear_chairUmbrella => 'Chair, sun umbrella';
+  String get gear_chairUmbrella => '钓椅、遮阳伞';
 
   @override
-  String get gear_keepNet => 'Keep net or fish box';
+  String get gear_keepNet => '鱼护或养鱼箱';
 
   @override
-  String get gear_boots => 'Boots or wading shoes';
+  String get gear_boots => '雨靴或涉水鞋';
 
   @override
-  String get gear_rodRest => 'Rod rests, bank sticks';
+  String get gear_rodRest => '竿架、炮台地插';
 
   @override
   String knot_strength(int pct) {
-    return 'Keeps about $pct% of line strength';
+    return '约保留钓线 $pct% 的强度';
   }
 
   @override
-  String get knot_note =>
-      'General tips: wet the knot before tightening, pull slowly so it does not heat up, trim leaving 2–3 mm. Drawings are diagrams.';
+  String get knot_note => '通用技巧：收紧前先用口水润湿，慢慢拉紧以免发热，剪线头时留 2–3 毫米。图为示意图。';
 
   @override
-  String get knot_improvedClinch => 'Improved clinch knot';
+  String get knot_improvedClinch => '改良克林奇结';
 
   @override
-  String get knot_improvedClinch_use =>
-      'Hooks and snaps on mono. The easiest one; everyone should know it.';
+  String get knot_improvedClinch_use => '用尼龙线绑鱼钩、别针。最简单，人人都该会。';
 
   @override
   String get knot_improvedClinch_steps =>
-      'Pass the line through the hook eye, leaving about 15 cm.\nWrap the tag end around the main line 5–7 times.\nPass the tag through the small loop by the eye, then through the big loop you just made.\nWet it, pull the main line tight, trim.';
+      '将钓线穿过钩眼，留出约 15 厘米。\n用线头绕主线 5–7 圈。\n线头穿过钩眼旁的小圈，再穿过刚形成的大圈。\n润湿后拉主线收紧，剪掉线头。';
 
   @override
-  String get knot_palomar => 'Palomar knot';
+  String get knot_palomar => '帕洛马结（Palomar）';
 
   @override
-  String get knot_palomar_use => 'Hooks and lures on braid (PE). Very strong and quick.';
+  String get knot_palomar_use => '用 PE 线绑鱼钩、路亚饵。非常牢固，绑得快。';
 
   @override
   String get knot_palomar_steps =>
-      'Double about 15 cm of line and push the fold through the hook eye.\nTie a loose overhand knot with the doubled line.\nPass the whole hook through the folded loop.\nWet it, pull both ends tight, trim.';
+      '将约 15 厘米的线对折，把折头穿过钩眼。\n用双股线打一个松的单结。\n把整个鱼钩穿过对折形成的线圈。\n润湿后拉两端收紧，剪掉线头。';
 
   @override
-  String get knot_uni => 'Uni knot';
+  String get knot_uni => 'Uni 结';
 
   @override
-  String get knot_uni_use => 'Hooks, snaps and lures; works on mono and braid.';
+  String get knot_uni_use => '绑鱼钩、别针、路亚饵；尼龙线和 PE 线都适用。';
 
   @override
   String get knot_uni_steps =>
-      'Pass the line through the eye and lay the tag alongside the main line to form a loop.\nWrap the tag around both lines inside the loop 5–6 times.\nPull the tag so the wraps sit neatly.\nWet it, pull the main line to slide the knot to the eye, trim.';
+      '将钓线穿过钩眼，线头与主线平行折回形成一个圈。\n用线头在圈内缠绕两股线 5–6 圈。\n拉线头让线圈排列整齐。\n润湿后拉主线把结推到钩眼处，剪掉线头。';
 
   @override
-  String get knot_doubleUni => 'Double uni knot';
+  String get knot_doubleUni => '双 Uni 接线结';
 
   @override
-  String get knot_doubleUni_use => 'Joins two lines (braid to mono leader, or a broken line).';
+  String get knot_doubleUni_use => '连接两根线（PE 线接尼龙前导线，或接断线）。';
 
   @override
   String get knot_doubleUni_steps =>
-      'Overlap the two line ends by about 20 cm.\nWith the first end tie a uni knot around the second line (3–4 wraps; 6–8 for braid).\nDo the same with the second end.\nWet them, pull the main lines so the knots slide together, trim.';
+      '将两根线头重叠约 20 厘米。\n用第一根线头绕第二根线打 Uni 结（3–4 圈；PE 线 6–8 圈）。\n第二根线头同样操作。\n润湿后拉两根主线使两个结滑到一起，剪掉线头。';
 
   @override
-  String get knot_perfectionLoop => 'Perfection loop';
+  String get knot_perfectionLoop => '完美环结（Perfection）';
 
   @override
-  String get knot_perfectionLoop_use => 'A loop at the line end to clip rigs and leaders on fast.';
+  String get knot_perfectionLoop_use => '在线端做一个环，快速挂接线组、前导线。';
 
   @override
   String get knot_perfectionLoop_steps =>
-      'Make a small loop at the end, tag behind.\nWrap the tag around to make a second loop in front.\nPass the tag between the two loops.\nPull the second loop through the first, tighten, trim.';
+      '在线端做一个小圈，线头在后。\n用线头绕过小圈，在前面形成第二个圈。\n把线头从两个圈之间穿过。\n将第二个圈从第一个圈中拉出，收紧，剪掉线头。';
 
   @override
-  String get knot_snell => 'Snell knot';
+  String get knot_snell => 'Snell 绑钩结';
 
   @override
-  String get knot_snell_use =>
-      'Ties a hook so the line runs straight down the shank, hooking more fish.';
+  String get knot_snell_use => '绑台钓、单钩，让线顺着钩柄笔直走，提高中鱼率。';
 
   @override
   String get knot_snell_steps =>
-      'Pass the line through the eye and lay it along the shank to make a loop.\nWrap the loop around the shank and line 7–8 times, from the eye down.\nHold the wraps and pull the main line tight.\nWet it, tighten again, trim.';
+      '将钓线穿过钩眼，沿钩柄放置形成一个圈。\n用线圈从钩眼往下缠绕钩柄和线 7–8 圈。\n按住线圈，拉主线收紧。\n润湿后再收紧一次，剪掉线头。';
 
   @override
-  String get font_quicksand => 'Quicksand soft';
+  String get font_quicksand => 'Quicksand';
 
   @override
-  String get set_navStyle => 'Tab bar style';
+  String get set_navStyle => '标签栏样式';
 
   @override
-  String get nav_styleBubble => 'Bubble';
+  String get nav_styleBubble => '气泡';
 
   @override
-  String get nav_styleDot => 'Dot';
+  String get nav_styleDot => '圆点';
 
   @override
-  String get nav_styleGlow => 'Glow';
+  String get nav_styleGlow => '发光';
 
   @override
   String get lang_zh => '中文';
@@ -3590,4 +3587,28 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get lang_ja => '日本語';
+
+  @override
+  String get pond_zalo => 'Zalo 聊天';
+
+  @override
+  String get pond_filterWeekend => '周末放鱼';
+
+  @override
+  String get release_alarmPond => '你关注的钓场';
+
+  @override
+  String release_alarmTitle(String pond) {
+    return '即将放鱼：$pond';
+  }
+
+  @override
+  String release_alarmBody(String when) {
+    return '$when 放鱼。早点去占个好位置！';
+  }
+
+  @override
+  String release_alarmBodyKg(String when, int kg) {
+    return '$when 放约 $kg 公斤鱼。早点去占个好位置！';
+  }
 }

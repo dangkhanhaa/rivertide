@@ -2,7 +2,12 @@
 library;
 
 export 'application/ponds_providers.dart'
-    show followedReleasesProvider, nearbyPondsProvider, pondsAreaKey, pondsRadiusKm;
+    show
+        followedReleasesProvider,
+        nearbyPondsProvider,
+        pondsAreaKey,
+        pondsRadiusKm,
+        upcomingFollowedReleases;
 export 'domain/pond.dart' show Pond, PondRelease;
 export 'presentation/pond_detail.dart' show PondDetail, PondPage;
 export 'presentation/pond_form_screen.dart' show PondFormScreen;

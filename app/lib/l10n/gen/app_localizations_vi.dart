@@ -3643,7 +3643,7 @@ class AppLocalizationsVi extends AppLocalizations {
       'Luồn dây qua lỗ lưỡi, đặt dây dọc thân lưỡi tạo một vòng.\nQuấn vòng dây quanh thân lưỡi và dây 7–8 vòng, từ lỗ xuống.\nGiữ các vòng, kéo thân dây siết chặt.\nThấm ướt, siết lại lần nữa, cắt đuôi.';
 
   @override
-  String get font_quicksand => 'Quicksand mềm';
+  String get font_quicksand => 'Quicksand';
 
   @override
   String get set_navStyle => 'Kiểu thanh tab';
@@ -3665,4 +3665,28 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get lang_ja => '日本語';
+
+  @override
+  String get pond_zalo => 'Nhắn Zalo';
+
+  @override
+  String get pond_filterWeekend => 'Xả cuối tuần';
+
+  @override
+  String get release_alarmPond => 'Hồ bạn theo dõi';
+
+  @override
+  String release_alarmTitle(String pond) {
+    return 'Sắp xả cá: $pond';
+  }
+
+  @override
+  String release_alarmBody(String when) {
+    return 'Xả lúc $when. Đi sớm giữ chỗ đẹp!';
+  }
+
+  @override
+  String release_alarmBodyKg(String when, int kg) {
+    return 'Xả khoảng $kg kg lúc $when. Đi sớm giữ chỗ đẹp!';
+  }
 }

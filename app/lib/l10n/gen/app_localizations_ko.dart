@@ -562,7 +562,7 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String where_km(int km) {
-    return '$km km';
+    return '${km}km';
   }
 
   @override
@@ -1225,7 +1225,7 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String pond_kg(String kg) {
-    return '$kg kg';
+    return '${kg}kg';
   }
 
   @override
@@ -3204,7 +3204,7 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String flood_margin(int cm) {
-    return '$cm cm';
+    return '${cm}cm';
   }
 
   @override
@@ -3357,240 +3357,237 @@ class AppLocalizationsKo extends AppLocalizations {
   }
 
   @override
-  String get bite_question => 'Fishing here? Getting bites?';
+  String get bite_question => '여기서 낚시 중이세요? 입질 있나요?';
 
   @override
-  String get bite_yes => 'Biting';
+  String get bite_yes => '입질 있음';
 
   @override
-  String get bite_no => 'No bites';
+  String get bite_no => '입질 없음';
 
   @override
-  String get bite_thanks => 'Thanks! Your answer tells anglers nearby whether fish are biting.';
+  String get bite_thanks => '감사합니다! 알려 주신 덕분에 근처 낚시꾼들이 입질 여부를 알 수 있어요.';
 
   @override
-  String get bite_tooSoon => 'You just answered; try again in 30 minutes.';
+  String get bite_tooSoon => '방금 알려 주셨어요. 30분 뒤에 다시 알려 주세요.';
 
   @override
-  String get bite_failed => 'Could not send, please try again later.';
+  String get bite_failed => '보내지 못했어요. 잠시 후 다시 시도해 주세요.';
 
   @override
   String bite_summary(int bites, int misses) {
-    return 'Around here, last 3 hours: $bites biting, $misses no bites.';
+    return '근처 최근 3시간: 입질 있음 $bites명, 입질 없음 $misses명.';
   }
 
   @override
-  String get bite_first => 'Nobody nearby has answered yet. Be the first!';
+  String get bite_first => '아직 근처에서 알려 준 사람이 없어요. 첫 번째가 되어 주세요!';
 
   @override
   String bite_pattern(String state, int rate) {
-    return 'Fish here bite best on $state ($rate% biting, last 60 days).';
+    return '이곳은 $state 때 입질이 가장 좋아요 (입질 $rate%, 최근 60일).';
   }
 
   @override
-  String get bite_rising => 'a rising tide';
+  String get bite_rising => '들물';
 
   @override
-  String get bite_falling => 'a falling tide';
+  String get bite_falling => '날물';
 
   @override
-  String get bite_slack => 'slack water';
+  String get bite_slack => '정조';
 
   @override
-  String get bite_note => 'From anglers\' answers; only a ~2 km area is stored, never who you are.';
+  String get bite_note => '낚시꾼들의 응답을 모은 것으로, 약 2km 범위의 지역만 저장하며 신원은 저장하지 않아요.';
 
   @override
-  String get gear_title => 'Gear & knots';
+  String get gear_title => '장비 & 매듭';
 
   @override
-  String get gear_entry => 'Gear & knots';
+  String get gear_entry => '장비 & 매듭';
 
   @override
-  String get gear_entryHint => 'What to pack, how to tie the six most used knots';
+  String get gear_entryHint => '챙길 장비 목록, 자주 쓰는 매듭 6가지 묶는 법';
 
   @override
-  String get gear_tabPack => 'What to pack';
+  String get gear_tabPack => '챙길 것';
 
   @override
-  String get gear_tabKnots => 'Knots';
+  String get gear_tabKnots => '매듭';
 
   @override
   String gear_progress(int done, int total) {
-    return '$done/$total items';
+    return '$done/$total개';
   }
 
   @override
-  String get gear_clear => 'Untick all for the next trip';
+  String get gear_clear => '다음 출조를 위해 모두 체크 해제';
 
   @override
-  String get trip_night => 'Night fishing';
+  String get trip_night => '밤낚시';
 
   @override
-  String get trip_sea => 'Sea, rocks';
+  String get trip_sea => '바다, 갯바위';
 
   @override
-  String get trip_pond => 'Paid pond';
+  String get trip_pond => '유료 낚시터';
 
   @override
-  String get trip_river => 'River, canal';
+  String get trip_river => '강, 수로';
 
   @override
-  String get gear_rodReel => 'Rod and reel (check reel and drag)';
+  String get gear_rodReel => '낚싯대, 릴 (릴 회전·드랙 점검)';
 
   @override
-  String get gear_spareLine => 'Spare line';
+  String get gear_spareLine => '여분 낚싯줄';
 
   @override
-  String get gear_hooksWeights => 'Spare hooks, sinkers, floats, snaps';
+  String get gear_hooksWeights => '여분 바늘, 봉돌, 찌, 스냅';
 
   @override
-  String get gear_baitChum => 'Bait and groundbait';
+  String get gear_baitChum => '미끼와 밑밥';
 
   @override
-  String get gear_netTowel => 'Landing net and towel';
+  String get gear_netTowel => '뜰채와 손수건';
 
   @override
-  String get gear_waterFood => 'Water and food';
+  String get gear_waterFood => '마실 물, 먹을 것';
 
   @override
-  String get gear_sunHat => 'Hat, sunscreen, sunglasses';
+  String get gear_sunHat => '모자, 선크림, 선글라스';
 
   @override
-  String get gear_raincoat => 'Raincoat';
+  String get gear_raincoat => '우비';
 
   @override
-  String get gear_phonePower => 'Charged phone, power bank';
+  String get gear_phonePower => '완충한 휴대폰, 보조배터리';
 
   @override
-  String get gear_trashBag => 'Bag to take your rubbish home';
+  String get gear_trashBag => '쓰레기 되가져갈 봉투';
 
   @override
-  String get gear_headlamp => 'Headlamp, spare batteries';
+  String get gear_headlamp => '헤드랜턴, 여분 배터리';
 
   @override
-  String get gear_glowSticks => 'Glow sticks, float lights';
+  String get gear_glowSticks => '케미라이트, 전자찌 불빛';
 
   @override
-  String get gear_mosquito => 'Mosquito repellent';
+  String get gear_mosquito => '모기 기피제';
 
   @override
-  String get gear_jacket => 'Jacket (cold, windy nights)';
+  String get gear_jacket => '겉옷 (바람 불고 추운 밤)';
 
   @override
-  String get gear_nonSlipShoes => 'Non-slip shoes';
+  String get gear_nonSlipShoes => '미끄럼 방지 신발';
 
   @override
-  String get gear_lifeJacket => 'Life jacket';
+  String get gear_lifeJacket => '구명조끼';
 
   @override
-  String get gear_tideCheck => 'Check tide times and \"water cuts me off\" in the app';
+  String get gear_tideCheck => '앱에서 물때와 \"돌아갈 길 침수\" 확인';
 
   @override
-  String get gear_leader => 'Abrasion-resistant leader';
+  String get gear_leader => '내마모 쇼크리더';
 
   @override
-  String get gear_pliers => 'Pliers to unhook';
+  String get gear_pliers => '바늘 빼기 플라이어';
 
   @override
-  String get gear_pondCall => 'Call the pond: price, hours, stocking';
+  String get gear_pondCall => '낚시터에 전화: 요금, 영업시간, 방류 일정';
 
   @override
-  String get gear_chairUmbrella => 'Chair, sun umbrella';
+  String get gear_chairUmbrella => '의자, 파라솔';
 
   @override
-  String get gear_keepNet => 'Keep net or fish box';
+  String get gear_keepNet => '살림망 또는 물칸';
 
   @override
-  String get gear_boots => 'Boots or wading shoes';
+  String get gear_boots => '장화 또는 웨이딩 슈즈';
 
   @override
-  String get gear_rodRest => 'Rod rests, bank sticks';
+  String get gear_rodRest => '받침틀, 뒷꽂이';
 
   @override
   String knot_strength(int pct) {
-    return 'Keeps about $pct% of line strength';
+    return '줄 강도의 약 $pct% 유지';
   }
 
   @override
-  String get knot_note =>
-      'General tips: wet the knot before tightening, pull slowly so it does not heat up, trim leaving 2–3 mm. Drawings are diagrams.';
+  String get knot_note => '공통 팁: 조이기 전에 침으로 적시고, 열이 나지 않게 천천히 조이고, 끝은 2–3mm 남기고 자르세요. 그림은 개략도입니다.';
 
   @override
-  String get knot_improvedClinch => 'Improved clinch knot';
+  String get knot_improvedClinch => '개량 클린치 매듭';
 
   @override
-  String get knot_improvedClinch_use =>
-      'Hooks and snaps on mono. The easiest one; everyone should know it.';
+  String get knot_improvedClinch_use => '모노줄에 바늘, 스냅 연결. 가장 쉬워서 누구나 알아 두면 좋아요.';
 
   @override
   String get knot_improvedClinch_steps =>
-      'Pass the line through the hook eye, leaving about 15 cm.\nWrap the tag end around the main line 5–7 times.\nPass the tag through the small loop by the eye, then through the big loop you just made.\nWet it, pull the main line tight, trim.';
+      '줄을 바늘 귀에 통과시키고 약 15cm 남깁니다.\n줄 끝을 원줄에 5–7번 감습니다.\n줄 끝을 바늘 귀 쪽 작은 고리에 넣고, 방금 생긴 큰 고리로 다시 통과시킵니다.\n적신 뒤 원줄을 당겨 조이고 끝을 자릅니다.';
 
   @override
-  String get knot_palomar => 'Palomar knot';
+  String get knot_palomar => '팔로마 매듭';
 
   @override
-  String get knot_palomar_use => 'Hooks and lures on braid (PE). Very strong and quick.';
+  String get knot_palomar_use => '합사(PE)에 바늘, 루어 연결. 매우 튼튼하고 빨라요.';
 
   @override
   String get knot_palomar_steps =>
-      'Double about 15 cm of line and push the fold through the hook eye.\nTie a loose overhand knot with the doubled line.\nPass the whole hook through the folded loop.\nWet it, pull both ends tight, trim.';
+      '줄을 약 15cm 두 겹으로 접어 접힌 부분을 바늘 귀에 넣습니다.\n두 겹 줄로 느슨한 옭매듭을 맵니다.\n바늘 전체를 접힌 고리 안으로 통과시킵니다.\n적신 뒤 양쪽을 당겨 조이고 끝을 자릅니다.';
 
   @override
-  String get knot_uni => 'Uni knot';
+  String get knot_uni => '유니 매듭';
 
   @override
-  String get knot_uni_use => 'Hooks, snaps and lures; works on mono and braid.';
+  String get knot_uni_use => '바늘, 스냅, 루어 연결; 모노줄과 합사 모두 사용 가능.';
 
   @override
   String get knot_uni_steps =>
-      'Pass the line through the eye and lay the tag alongside the main line to form a loop.\nWrap the tag around both lines inside the loop 5–6 times.\nPull the tag so the wraps sit neatly.\nWet it, pull the main line to slide the knot to the eye, trim.';
+      '줄을 바늘 귀에 통과시키고 줄 끝을 원줄과 나란히 접어 고리를 만듭니다.\n줄 끝으로 고리 안의 두 줄을 5–6번 감습니다.\n줄 끝을 당겨 감은 부분을 가지런히 정리합니다.\n적신 뒤 원줄을 당겨 매듭을 바늘 귀까지 밀고 끝을 자릅니다.';
 
   @override
-  String get knot_doubleUni => 'Double uni knot';
+  String get knot_doubleUni => '더블 유니 매듭';
 
   @override
-  String get knot_doubleUni_use => 'Joins two lines (braid to mono leader, or a broken line).';
+  String get knot_doubleUni_use => '두 줄 연결 (합사와 모노 쇼크리더, 또는 끊어진 줄).';
 
   @override
   String get knot_doubleUni_steps =>
-      'Overlap the two line ends by about 20 cm.\nWith the first end tie a uni knot around the second line (3–4 wraps; 6–8 for braid).\nDo the same with the second end.\nWet them, pull the main lines so the knots slide together, trim.';
+      '두 줄 끝을 약 20cm 겹칩니다.\n첫 번째 줄 끝으로 두 번째 줄에 유니 매듭을 맵니다 (3–4회; 합사는 6–8회).\n두 번째 줄 끝도 똑같이 합니다.\n적신 뒤 두 원줄을 당겨 두 매듭이 맞붙게 하고 끝을 자릅니다.';
 
   @override
-  String get knot_perfectionLoop => 'Perfection loop';
+  String get knot_perfectionLoop => '퍼펙션 루프';
 
   @override
-  String get knot_perfectionLoop_use => 'A loop at the line end to clip rigs and leaders on fast.';
+  String get knot_perfectionLoop_use => '줄 끝에 고리를 만들어 채비, 쇼크리더를 빠르게 연결.';
 
   @override
   String get knot_perfectionLoop_steps =>
-      'Make a small loop at the end, tag behind.\nWrap the tag around to make a second loop in front.\nPass the tag between the two loops.\nPull the second loop through the first, tighten, trim.';
+      '줄 끝에 작은 고리를 만들고 줄 끝은 뒤쪽에 둡니다.\n줄 끝을 감아 앞쪽에 두 번째 고리를 만듭니다.\n줄 끝을 두 고리 사이로 넣습니다.\n두 번째 고리를 첫 번째 고리로 빼내 조이고 끝을 자릅니다.';
 
   @override
-  String get knot_snell => 'Snell knot';
+  String get knot_snell => '스넬 매듭';
 
   @override
-  String get knot_snell_use =>
-      'Ties a hook so the line runs straight down the shank, hooking more fish.';
+  String get knot_snell_use => '대낚시·외바늘 묶기. 줄이 바늘 축을 따라 곧게 뻗어 걸림률이 높아져요.';
 
   @override
   String get knot_snell_steps =>
-      'Pass the line through the eye and lay it along the shank to make a loop.\nWrap the loop around the shank and line 7–8 times, from the eye down.\nHold the wraps and pull the main line tight.\nWet it, tighten again, trim.';
+      '줄을 바늘 귀에 통과시키고 바늘 축을 따라 놓아 고리를 만듭니다.\n고리로 바늘 축과 줄을 귀에서 아래로 7–8번 감습니다.\n감은 부분을 잡고 원줄을 당겨 조입니다.\n적신 뒤 한 번 더 조이고 끝을 자릅니다.';
 
   @override
-  String get font_quicksand => 'Quicksand soft';
+  String get font_quicksand => 'Quicksand';
 
   @override
-  String get set_navStyle => 'Tab bar style';
+  String get set_navStyle => '탭 바 스타일';
 
   @override
-  String get nav_styleBubble => 'Bubble';
+  String get nav_styleBubble => '버블';
 
   @override
-  String get nav_styleDot => 'Dot';
+  String get nav_styleDot => '점';
 
   @override
-  String get nav_styleGlow => 'Glow';
+  String get nav_styleGlow => '글로우';
 
   @override
   String get lang_zh => '中文';
@@ -3600,4 +3597,28 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get lang_ja => '日本語';
+
+  @override
+  String get pond_zalo => 'Zalo 채팅';
+
+  @override
+  String get pond_filterWeekend => '주말 방류';
+
+  @override
+  String get release_alarmPond => '팔로우한 낚시터';
+
+  @override
+  String release_alarmTitle(String pond) {
+    return '곧 방류: $pond';
+  }
+
+  @override
+  String release_alarmBody(String when) {
+    return '$when 방류. 일찍 가서 좋은 자리 잡으세요!';
+  }
+
+  @override
+  String release_alarmBodyKg(String when, int kg) {
+    return '$when 약 ${kg}kg 방류. 일찍 가서 좋은 자리 잡으세요!';
+  }
 }

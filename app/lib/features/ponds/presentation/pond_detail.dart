@@ -89,18 +89,32 @@ class _MainActions extends ConsumerWidget {
             icon: const Icon(Icons.call_rounded),
             label: Text(l10n.pond_call),
           ),
+        if (phone.length >= 8)
+          OutlinedButton.icon(
+            // zalo.me/<số điện thoại> opens a chat with that number in Zalo.
+            onPressed: () => unawaited(
+              launchUrl(
+                Uri.https('zalo.me', '/${_zaloNumber(phone)}'),
+                mode: LaunchMode.externalApplication,
+              ),
+            ),
+            icon: const Icon(Icons.chat_rounded),
+            label: Text(l10n.pond_zalo),
+          ),
         Tooltip(
           message: l10n.pond_followHint,
           child: followed
               ? FilledButton.icon(
-                  onPressed: () =>
-                      unawaited(ref.read(followedPondsProvider.notifier).toggle(pond.id)),
+                  onPressed: () => unawaited(
+                    ref.read(followedPondsProvider.notifier).toggle(pond.id, name: pond.name),
+                  ),
                   icon: const Icon(Icons.notifications_active_rounded),
                   label: Text(l10n.pond_following),
                 )
               : OutlinedButton.icon(
-                  onPressed: () =>
-                      unawaited(ref.read(followedPondsProvider.notifier).toggle(pond.id)),
+                  onPressed: () => unawaited(
+                    ref.read(followedPondsProvider.notifier).toggle(pond.id, name: pond.name),
+                  ),
                   icon: const Icon(Icons.notifications_none_rounded),
                   label: Text(l10n.pond_follow),
                 ),
@@ -216,3 +230,6 @@ class PondPage extends StatelessWidget {
     ),
   );
 }
+
+/// Zalo links take the local form: +84 912… → 0912….
+String _zaloNumber(String phone) => phone.startsWith('+84') ? '0${phone.substring(3)}' : phone;
