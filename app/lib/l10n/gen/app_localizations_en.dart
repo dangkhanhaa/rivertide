@@ -3477,4 +3477,47 @@ class AppLocalizationsEn extends AppLocalizations {
   String brag_text(String species, String link) {
     return 'Just landed a $species! Fish times and tides on Con Nước: $link';
   }
+
+  @override
+  String get bite_question => 'Fishing here? Getting bites?';
+
+  @override
+  String get bite_yes => 'Biting';
+
+  @override
+  String get bite_no => 'No bites';
+
+  @override
+  String get bite_thanks => 'Thanks! Your answer tells anglers nearby whether fish are biting.';
+
+  @override
+  String get bite_tooSoon => 'You just answered; try again in 30 minutes.';
+
+  @override
+  String get bite_failed => 'Could not send, please try again later.';
+
+  @override
+  String bite_summary(int bites, int misses) {
+    return 'Around here, last 3 hours: $bites biting, $misses no bites.';
+  }
+
+  @override
+  String get bite_first => 'Nobody nearby has answered yet. Be the first!';
+
+  @override
+  String bite_pattern(String state, int rate) {
+    return 'Fish here bite best on $state ($rate% biting, last 60 days).';
+  }
+
+  @override
+  String get bite_rising => 'a rising tide';
+
+  @override
+  String get bite_falling => 'a falling tide';
+
+  @override
+  String get bite_slack => 'slack water';
+
+  @override
+  String get bite_note => 'From anglers\' answers; only a ~2 km area is stored, never who you are.';
 }

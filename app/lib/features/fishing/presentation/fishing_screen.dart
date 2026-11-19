@@ -16,6 +16,7 @@ import 'package:rivertide/core/widgets/ui_kit.dart';
 import 'package:rivertide/features/fishing/presentation/species_screen.dart';
 import 'package:rivertide/features/fishing/presentation/trip_planner_screen.dart';
 import 'package:rivertide/features/fishing/presentation/widgets/advice_card.dart';
+import 'package:rivertide/features/fishing/presentation/widgets/bite_prompt.dart';
 import 'package:rivertide/features/fishing/presentation/widgets/fishing_hero.dart';
 import 'package:rivertide/features/fishing/presentation/widgets/golden_list.dart';
 import 'package:rivertide/features/fishing/presentation/widgets/no_bite_sheet.dart';
@@ -146,6 +147,7 @@ class _FishingBody extends ConsumerWidget {
           SafetyBanner(hours: today),
           const SizedBox(height: AppSpacing.md),
         ],
+        BitePrompt(spotId: spotId),
         WeatherShiftCard(spotId: spotId),
         AdviceCard(spotId: spotId),
         const SpeciesStrip(),

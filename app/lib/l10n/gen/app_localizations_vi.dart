@@ -3419,4 +3419,48 @@ class AppLocalizationsVi extends AppLocalizations {
   String brag_text(String species, String link) {
     return 'Vừa dính $species! Xem giờ cá ăn, con nước ở Con Nước: $link';
   }
+
+  @override
+  String get bite_question => 'Bạn đang câu ở đây? Có dính không?';
+
+  @override
+  String get bite_yes => 'Có dính';
+
+  @override
+  String get bite_no => 'Chưa dính';
+
+  @override
+  String get bite_thanks => 'Cảm ơn bạn! Báo của bạn giúp anh em quanh đây biết cá có ăn không.';
+
+  @override
+  String get bite_tooSoon => 'Bạn vừa báo rồi, 30 phút nữa báo tiếp nhé.';
+
+  @override
+  String get bite_failed => 'Chưa gửi được, thử lại sau nhé.';
+
+  @override
+  String bite_summary(int bites, int misses) {
+    return 'Quanh đây 3 giờ qua: $bites người báo dính, $misses người chưa dính.';
+  }
+
+  @override
+  String get bite_first => 'Chưa ai quanh đây báo. Bạn là người đầu tiên!';
+
+  @override
+  String bite_pattern(String state, int rate) {
+    return 'Khu này cá hay ăn khi $state ($rate% báo dính, 60 ngày qua).';
+  }
+
+  @override
+  String get bite_rising => 'nước lên';
+
+  @override
+  String get bite_falling => 'nước rút';
+
+  @override
+  String get bite_slack => 'nước đứng';
+
+  @override
+  String get bite_note =>
+      'Gộp từ báo của người câu, chỉ lưu vùng khoảng 2 km, không lưu danh tính.';
 }

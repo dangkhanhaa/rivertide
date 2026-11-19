@@ -6014,6 +6014,84 @@ abstract class AppLocalizations {
   /// In vi, this message translates to:
   /// **'Vừa dính {species}! Xem giờ cá ăn, con nước ở Con Nước: {link}'**
   String brag_text(String species, String link);
+
+  /// No description provided for @bite_question.
+  ///
+  /// In vi, this message translates to:
+  /// **'Bạn đang câu ở đây? Có dính không?'**
+  String get bite_question;
+
+  /// No description provided for @bite_yes.
+  ///
+  /// In vi, this message translates to:
+  /// **'Có dính'**
+  String get bite_yes;
+
+  /// No description provided for @bite_no.
+  ///
+  /// In vi, this message translates to:
+  /// **'Chưa dính'**
+  String get bite_no;
+
+  /// No description provided for @bite_thanks.
+  ///
+  /// In vi, this message translates to:
+  /// **'Cảm ơn bạn! Báo của bạn giúp anh em quanh đây biết cá có ăn không.'**
+  String get bite_thanks;
+
+  /// No description provided for @bite_tooSoon.
+  ///
+  /// In vi, this message translates to:
+  /// **'Bạn vừa báo rồi, 30 phút nữa báo tiếp nhé.'**
+  String get bite_tooSoon;
+
+  /// No description provided for @bite_failed.
+  ///
+  /// In vi, this message translates to:
+  /// **'Chưa gửi được, thử lại sau nhé.'**
+  String get bite_failed;
+
+  /// No description provided for @bite_summary.
+  ///
+  /// In vi, this message translates to:
+  /// **'Quanh đây 3 giờ qua: {bites} người báo dính, {misses} người chưa dính.'**
+  String bite_summary(int bites, int misses);
+
+  /// No description provided for @bite_first.
+  ///
+  /// In vi, this message translates to:
+  /// **'Chưa ai quanh đây báo. Bạn là người đầu tiên!'**
+  String get bite_first;
+
+  /// No description provided for @bite_pattern.
+  ///
+  /// In vi, this message translates to:
+  /// **'Khu này cá hay ăn khi {state} ({rate}% báo dính, 60 ngày qua).'**
+  String bite_pattern(String state, int rate);
+
+  /// No description provided for @bite_rising.
+  ///
+  /// In vi, this message translates to:
+  /// **'nước lên'**
+  String get bite_rising;
+
+  /// No description provided for @bite_falling.
+  ///
+  /// In vi, this message translates to:
+  /// **'nước rút'**
+  String get bite_falling;
+
+  /// No description provided for @bite_slack.
+  ///
+  /// In vi, this message translates to:
+  /// **'nước đứng'**
+  String get bite_slack;
+
+  /// No description provided for @bite_note.
+  ///
+  /// In vi, this message translates to:
+  /// **'Gộp từ báo của người câu, chỉ lưu vùng khoảng 2 km, không lưu danh tính.'**
+  String get bite_note;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

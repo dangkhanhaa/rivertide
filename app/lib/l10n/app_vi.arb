@@ -1184,5 +1184,20 @@
   "brag_score": "Cá ăn {score}",
   "@brag_score": {"placeholders": {"score": {"type": "String"}}},
   "brag_text": "Vừa dính {species}! Xem giờ cá ăn, con nước ở Con Nước: {link}",
-  "@brag_text": {"placeholders": {"species": {"type": "String"}, "link": {"type": "String"}}}
+  "@brag_text": {"placeholders": {"species": {"type": "String"}, "link": {"type": "String"}}},
+  "bite_question": "Bạn đang câu ở đây? Có dính không?",
+  "bite_yes": "Có dính",
+  "bite_no": "Chưa dính",
+  "bite_thanks": "Cảm ơn bạn! Báo của bạn giúp anh em quanh đây biết cá có ăn không.",
+  "bite_tooSoon": "Bạn vừa báo rồi, 30 phút nữa báo tiếp nhé.",
+  "bite_failed": "Chưa gửi được, thử lại sau nhé.",
+  "bite_summary": "Quanh đây 3 giờ qua: {bites} người báo dính, {misses} người chưa dính.",
+  "@bite_summary": {"placeholders": {"bites": {"type": "int"}, "misses": {"type": "int"}}},
+  "bite_first": "Chưa ai quanh đây báo. Bạn là người đầu tiên!",
+  "bite_pattern": "Khu này cá hay ăn khi {state} ({rate}% báo dính, 60 ngày qua).",
+  "@bite_pattern": {"placeholders": {"state": {"type": "String"}, "rate": {"type": "int"}}},
+  "bite_rising": "nước lên",
+  "bite_falling": "nước rút",
+  "bite_slack": "nước đứng",
+  "bite_note": "Gộp từ báo của người câu, chỉ lưu vùng khoảng 2 km, không lưu danh tính."
 }

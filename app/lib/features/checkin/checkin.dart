@@ -3,4 +3,5 @@ library;
 
 export 'application/checkin_providers.dart' show myCheckinProvider, nearbyCheckinsProvider;
 export 'data/checkin_repository.dart' show CheckinCell;
+export 'presentation/bite_card.dart' show BiteCard;
 export 'presentation/checkin_sheets.dart' show CheckinCellSheet, CheckinListSheet, CheckinSheet;
