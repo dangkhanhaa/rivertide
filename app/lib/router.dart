@@ -34,6 +34,12 @@ final _stationId = RegExp(r'^[a-z0-9-]{3,64}$');
 
 GoRouter buildRouter() => GoRouter(
   initialLocation: Routes.map,
+  // Going back to the very first browser-history entry lands on "/" (the
+  // page as it was loaded): that is the map, not an error page.
+  redirect: (_, state) => state.uri.path.isEmpty || state.uri.path == '/' ? Routes.map : null,
+  // Any other unknown location (old or hand-typed link): home, never the
+  // router's error page.
+  onException: (_, _, router) => router.go(Routes.map),
   routes: [
     StatefulShellRoute(
       builder: (context, state, shell) => _Shell(shell: shell),
@@ -49,7 +55,11 @@ GoRouter buildRouter() => GoRouter(
     ),
     GoRoute(path: whereRoute, builder: (_, _) => const WhereToGoScreen()),
     // Web pages opened with pushPage (P2-44): one browser-history entry each.
-    GoRoute(path: pageRoute, builder: (context, state) => pageFromExtra(context, state.extra)),
+    GoRoute(
+      path: pageRoute,
+      redirect: (_, state) => pageForKey(state.pathParameters['k']) == null ? Routes.map : null,
+      builder: (_, state) => pageForKey(state.pathParameters['k']) ?? const SizedBox.shrink(),
+    ),
     GoRoute(
       path: Routes.station,
       builder: (context, state) {
@@ -125,7 +135,12 @@ class _ShellState extends ConsumerState<_Shell> {
         bottomNavigationBar: FloatingNavBar(
           index: shell.currentIndex,
           style: ref.watch(appearanceSettingsProvider).value?.navStyle ?? NavStyle.notch,
-          onTap: (i) => shell.goBranch(i, initialLocation: i == shell.currentIndex),
+          onTap: (i) {
+            // Sheets live on the root navigator: close them so a map sheet
+            // never stays open over another tab.
+            Navigator.of(context, rootNavigator: true).popUntil((r) => r is! PopupRoute);
+            shell.goBranch(i, initialLocation: i == shell.currentIndex);
+          },
           items: [
             (icon: Icons.map_outlined, selectedIcon: Icons.map_rounded, label: l10n.nav_map),
             (icon: Icons.waves_outlined, selectedIcon: Icons.waves_rounded, label: l10n.nav_ponds),

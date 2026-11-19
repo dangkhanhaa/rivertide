@@ -70,7 +70,6 @@ class _MapScreenState extends ConsumerState<MapScreen> with MapDetailPresenter<M
 
   @override
   GlobalKey get mapAreaKey => _mapKey;
-
   @override
   GlobalKey get topOverlayKey => _topKey;
   final GlobalKey _controlsKey = GlobalKey();
@@ -78,8 +77,11 @@ class _MapScreenState extends ConsumerState<MapScreen> with MapDetailPresenter<M
   final GlobalKey _fishBarKey = GlobalKey();
 
   bool _blocksTapAt(Offset global) {
-    // A sheet or dialog is open above the map: the click was meant for it.
+    // A sheet is open, another tab shows, or the click hit the floating tab
+    // bar (on the web the map DOM element below gets that click too).
+    final navTop = MediaQuery.sizeOf(context).height - MediaQuery.paddingOf(context).bottom;
     if (!(ModalRoute.of(context)?.isCurrent ?? true) || sheetBusy) return true;
+    if (!TickerMode.valuesOf(context).enabled || global.dy > navTop) return true;
     for (final key in [_topKey, _controlsKey, _creditKey, _fishBarKey]) {
       final box = key.currentContext?.findRenderObject();
       if (box is RenderBox && box.hasSize) {
