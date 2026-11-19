@@ -1057,9 +1057,7 @@
   "knot_snell_steps": "将钓线穿过钩眼，沿钩柄放置形成一个圈。\n用线圈从钩眼往下缠绕钩柄和线 7–8 圈。\n按住线圈，拉主线收紧。\n润湿后再收紧一次，剪掉线头。",
   "font_quicksand": "Quicksand",
   "set_navStyle": "标签栏样式",
-  "nav_styleBubble": "气泡",
   "nav_styleDot": "圆点",
-  "nav_styleGlow": "发光",
   "lang_zh": "中文",
   "lang_ko": "한국어",
   "lang_ja": "日本語",
@@ -1068,5 +1066,8 @@
   "release_alarmPond": "你关注的钓场",
   "release_alarmTitle": "即将放鱼：{pond}",
   "release_alarmBody": "{when} 放鱼。早点去占个好位置！",
-  "release_alarmBodyKg": "{when} 放约 {kg} 公斤鱼。早点去占个好位置！"
+  "release_alarmBodyKg": "{when} 放约 {kg} 公斤鱼。早点去占个好位置！",
+  "nav_styleArc": "弧光",
+  "nav_styleNotch": "凹槽",
+  "nav_styleGlass": "玻璃"
 }

@@ -1057,9 +1057,7 @@
   "knot_snell_steps": "줄을 바늘 귀에 통과시키고 바늘 축을 따라 놓아 고리를 만듭니다.\n고리로 바늘 축과 줄을 귀에서 아래로 7–8번 감습니다.\n감은 부분을 잡고 원줄을 당겨 조입니다.\n적신 뒤 한 번 더 조이고 끝을 자릅니다.",
   "font_quicksand": "Quicksand",
   "set_navStyle": "탭 바 스타일",
-  "nav_styleBubble": "버블",
   "nav_styleDot": "점",
-  "nav_styleGlow": "글로우",
   "lang_zh": "中文",
   "lang_ko": "한국어",
   "lang_ja": "日本語",
@@ -1068,5 +1066,8 @@
   "release_alarmPond": "팔로우한 낚시터",
   "release_alarmTitle": "곧 방류: {pond}",
   "release_alarmBody": "{when} 방류. 일찍 가서 좋은 자리 잡으세요!",
-  "release_alarmBodyKg": "{when} 약 {kg}kg 방류. 일찍 가서 좋은 자리 잡으세요!"
+  "release_alarmBodyKg": "{when} 약 {kg}kg 방류. 일찍 가서 좋은 자리 잡으세요!",
+  "nav_styleArc": "아치",
+  "nav_styleNotch": "노치",
+  "nav_styleGlass": "글래스"
 }

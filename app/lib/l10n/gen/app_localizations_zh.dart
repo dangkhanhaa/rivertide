@@ -3571,13 +3571,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get set_navStyle => '标签栏样式';
 
   @override
-  String get nav_styleBubble => '气泡';
-
-  @override
   String get nav_styleDot => '圆点';
-
-  @override
-  String get nav_styleGlow => '发光';
 
   @override
   String get lang_zh => '中文';
@@ -3611,4 +3605,13 @@ class AppLocalizationsZh extends AppLocalizations {
   String release_alarmBodyKg(String when, int kg) {
     return '$when 放约 $kg 公斤鱼。早点去占个好位置！';
   }
+
+  @override
+  String get nav_styleArc => '弧光';
+
+  @override
+  String get nav_styleNotch => '凹槽';
+
+  @override
+  String get nav_styleGlass => '玻璃';
 }

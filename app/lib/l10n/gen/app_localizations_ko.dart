@@ -3581,13 +3581,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get set_navStyle => '탭 바 스타일';
 
   @override
-  String get nav_styleBubble => '버블';
-
-  @override
   String get nav_styleDot => '점';
-
-  @override
-  String get nav_styleGlow => '글로우';
 
   @override
   String get lang_zh => '中文';
@@ -3621,4 +3615,13 @@ class AppLocalizationsKo extends AppLocalizations {
   String release_alarmBodyKg(String when, int kg) {
     return '$when 약 ${kg}kg 방류. 일찍 가서 좋은 자리 잡으세요!';
   }
+
+  @override
+  String get nav_styleArc => '아치';
+
+  @override
+  String get nav_styleNotch => '노치';
+
+  @override
+  String get nav_styleGlass => '글래스';
 }

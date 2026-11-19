@@ -3706,13 +3706,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get set_navStyle => 'Tab bar style';
 
   @override
-  String get nav_styleBubble => 'Bubble';
-
-  @override
   String get nav_styleDot => 'Dot';
-
-  @override
-  String get nav_styleGlow => 'Glow';
 
   @override
   String get lang_zh => '中文';
@@ -3746,4 +3740,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String release_alarmBodyKg(String when, int kg) {
     return 'About $kg kg go in at $when. Go early for a good spot!';
   }
+
+  @override
+  String get nav_styleArc => 'Arc';
+
+  @override
+  String get nav_styleNotch => 'Notch';
+
+  @override
+  String get nav_styleGlass => 'Glass';
 }

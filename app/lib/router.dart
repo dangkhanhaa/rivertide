@@ -7,6 +7,7 @@ import 'package:rivertide/core/l10n/l10n_ext.dart';
 import 'package:rivertide/core/navigation/fishing_spot.dart';
 import 'package:rivertide/core/navigation/map_focus.dart';
 import 'package:rivertide/core/theme/appearance.dart';
+import 'package:rivertide/core/widgets/fade_branches.dart';
 import 'package:rivertide/core/widgets/floating_nav_bar.dart';
 import 'package:rivertide/core/widgets/state_views.dart';
 import 'package:rivertide/features/fishing/presentation/fishing_screen.dart';
@@ -33,8 +34,10 @@ final _stationId = RegExp(r'^[a-z0-9-]{3,64}$');
 GoRouter buildRouter() => GoRouter(
   initialLocation: Routes.map,
   routes: [
-    StatefulShellRoute.indexedStack(
+    StatefulShellRoute(
       builder: (context, state, shell) => _Shell(shell: shell),
+      navigatorContainerBuilder: (context, shell, children) =>
+          FadeBranches(index: shell.currentIndex, children: children),
       branches: [
         _branch(Routes.map, const MapScreen()),
         _branch(Routes.ponds, const PondsScreen()),
@@ -115,7 +118,7 @@ class _ShellState extends ConsumerState<_Shell> {
         body: shell,
         bottomNavigationBar: FloatingNavBar(
           index: shell.currentIndex,
-          style: ref.watch(appearanceSettingsProvider).value?.navStyle ?? NavStyle.bubble,
+          style: ref.watch(appearanceSettingsProvider).value?.navStyle ?? NavStyle.arc,
           onTap: (i) => shell.goBranch(i, initialLocation: i == shell.currentIndex),
           items: [
             (icon: Icons.map_outlined, selectedIcon: Icons.map_rounded, label: l10n.nav_map),

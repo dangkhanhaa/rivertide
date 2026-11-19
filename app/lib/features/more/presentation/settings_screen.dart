@@ -140,9 +140,10 @@ class _LookSection extends ConsumerWidget {
           spacing: AppSpacing.sm,
           children: [
             for (final (st, icon) in [
-              (NavStyle.bubble, Icons.bubble_chart_rounded),
+              (NavStyle.arc, Icons.gesture_rounded),
+              (NavStyle.notch, Icons.radio_button_checked_rounded),
+              (NavStyle.glass, Icons.blur_on_rounded),
               (NavStyle.dot, Icons.more_horiz_rounded),
-              (NavStyle.glow, Icons.flare_rounded),
             ])
               ChoiceChip(
                 avatar: Icon(icon, size: AppIconSize.sm),

@@ -6444,23 +6444,11 @@ abstract class AppLocalizations {
   /// **'Kiểu thanh tab'**
   String get set_navStyle;
 
-  /// No description provided for @nav_styleBubble.
-  ///
-  /// In vi, this message translates to:
-  /// **'Bong bóng'**
-  String get nav_styleBubble;
-
   /// No description provided for @nav_styleDot.
   ///
   /// In vi, this message translates to:
   /// **'Chấm'**
   String get nav_styleDot;
-
-  /// No description provided for @nav_styleGlow.
-  ///
-  /// In vi, this message translates to:
-  /// **'Phát sáng'**
-  String get nav_styleGlow;
 
   /// No description provided for @lang_zh.
   ///
@@ -6515,6 +6503,24 @@ abstract class AppLocalizations {
   /// In vi, this message translates to:
   /// **'Xả khoảng {kg} kg lúc {when}. Đi sớm giữ chỗ đẹp!'**
   String release_alarmBodyKg(String when, int kg);
+
+  /// No description provided for @nav_styleArc.
+  ///
+  /// In vi, this message translates to:
+  /// **'Vòng cung'**
+  String get nav_styleArc;
+
+  /// No description provided for @nav_styleNotch.
+  ///
+  /// In vi, this message translates to:
+  /// **'Khuyết tròn'**
+  String get nav_styleNotch;
+
+  /// No description provided for @nav_styleGlass.
+  ///
+  /// In vi, this message translates to:
+  /// **'Kính trong'**
+  String get nav_styleGlass;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

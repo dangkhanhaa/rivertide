@@ -36,9 +36,10 @@ extension AppearanceNames on BuildContext {
   };
 
   String navStyleName(NavStyle s) => switch (s) {
-    NavStyle.bubble => l10n.nav_styleBubble,
+    NavStyle.arc => l10n.nav_styleArc,
+    NavStyle.notch => l10n.nav_styleNotch,
+    NavStyle.glass => l10n.nav_styleGlass,
     NavStyle.dot => l10n.nav_styleDot,
-    NavStyle.glow => l10n.nav_styleGlow,
   };
 
   String textSizeName(AppTextSize s) => switch (s) {

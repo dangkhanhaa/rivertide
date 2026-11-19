@@ -3649,13 +3649,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get set_navStyle => 'Kiểu thanh tab';
 
   @override
-  String get nav_styleBubble => 'Bong bóng';
-
-  @override
   String get nav_styleDot => 'Chấm';
-
-  @override
-  String get nav_styleGlow => 'Phát sáng';
 
   @override
   String get lang_zh => '中文';
@@ -3689,4 +3683,13 @@ class AppLocalizationsVi extends AppLocalizations {
   String release_alarmBodyKg(String when, int kg) {
     return 'Xả khoảng $kg kg lúc $when. Đi sớm giữ chỗ đẹp!';
   }
+
+  @override
+  String get nav_styleArc => 'Vòng cung';
+
+  @override
+  String get nav_styleNotch => 'Khuyết tròn';
+
+  @override
+  String get nav_styleGlass => 'Kính trong';
 }

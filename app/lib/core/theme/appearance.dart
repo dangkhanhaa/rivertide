@@ -80,16 +80,19 @@ enum AppLanguage {
 /// Tab opened at launch.
 enum StartTab { map, ponds, fishing }
 
-/// Look of the floating bottom bar (P2-41).
+/// Look of the floating bottom bar (P2-41, redrawn in P2-42).
 enum NavStyle {
-  /// The current tab rises out of the bar in an accent bubble.
-  bubble,
+  /// A glowing line runs along the bar and arcs over the current tab.
+  arc,
 
-  /// Accent icon with a small dot above it.
+  /// The current tab floats in a round button sitting in a notch.
+  notch,
+
+  /// Frosted, see-through bar with a light edge.
+  glass,
+
+  /// Minimal: accent icon and a small dot.
   dot,
-
-  /// Dark bar, the current tab glows in the accent colour.
-  glow,
 }
 
 @immutable
@@ -102,7 +105,7 @@ class Appearance {
     this.language = AppLanguage.vi,
     this.reduceMotion = false,
     this.startTab = StartTab.map,
-    this.navStyle = NavStyle.bubble,
+    this.navStyle = NavStyle.arc,
   });
 
   /// Parses stored JSON; anything invalid becomes the default for that field.
@@ -126,7 +129,7 @@ class Appearance {
       language: pick(AppLanguage.values, 'language', AppLanguage.vi),
       reduceMotion: map['reduceMotion'] == true,
       startTab: pick(StartTab.values, 'startTab', StartTab.map),
-      navStyle: pick(NavStyle.values, 'navStyle', NavStyle.bubble),
+      navStyle: pick(NavStyle.values, 'navStyle', NavStyle.arc),
     );
   }
 

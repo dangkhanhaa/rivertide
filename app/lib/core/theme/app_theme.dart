@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart' show CupertinoPageTransitionsBuilder;
 import 'package:flutter/material.dart';
 import 'package:rivertide/core/theme/app_colors.dart';
 import 'package:rivertide/core/theme/app_spacing.dart';
@@ -168,6 +169,14 @@ abstract final class AppTheme {
         inactiveTrackColor: c.primary.withValues(alpha: 0.2),
       ),
       materialTapTargetSize: MaterialTapTargetSize.padded,
+      // Back swipe follows the finger (Android 14 predictive back; iOS edge
+      // swipe) instead of a fixed zoom, so going back feels native and smooth.
+      pageTransitionsTheme: const PageTransitionsTheme(
+        builders: {
+          TargetPlatform.android: PredictiveBackPageTransitionsBuilder(),
+          TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
+        },
+      ),
     );
   }
 }

@@ -3,14 +3,16 @@ import 'package:rivertide/core/theme/app_colors.dart';
 import 'package:rivertide/core/theme/app_spacing.dart';
 import 'package:rivertide/core/theme/app_text.dart';
 import 'package:rivertide/core/theme/appearance.dart';
+import 'package:rivertide/core/widgets/floating_nav_painter.dart';
 import 'package:rivertide/core/widgets/ui_kit.dart';
 
 typedef NavItem = ({IconData icon, IconData selectedIcon, String label});
 
-/// Floating, rounded bottom bar (P2-41) in three looks the user picks in
-/// Settings. Every item keeps a 48 dp target and its label, so colour and
-/// position are never the only cue.
-class FloatingNavBar extends StatelessWidget {
+/// Floating bottom bar (P2-41/P2-42). One painter draws the bar and its
+/// indicator, which slides between tabs on a single animation, so switching
+/// costs one repaint of a small layer. Every item keeps its label and a
+/// 48 dp target; colour and position are never the only cue.
+class FloatingNavBar extends StatefulWidget {
   const FloatingNavBar({
     required this.items,
     required this.index,
@@ -24,73 +26,158 @@ class FloatingNavBar extends StatelessWidget {
   final ValueChanged<int> onTap;
   final NavStyle style;
 
-  static const double barHeight = 66;
+  /// Bar height, plus room above it for the notch button.
+  static const double barHeight = 64;
+  static const double rise = 22;
+
+  @override
+  State<FloatingNavBar> createState() => _FloatingNavBarState();
+}
+
+class _FloatingNavBarState extends State<FloatingNavBar> with SingleTickerProviderStateMixin {
+  late final AnimationController _pos = AnimationController(
+    vsync: this,
+    upperBound: (widget.items.length - 1).toDouble(),
+    value: widget.index.toDouble(),
+  );
+
+  @override
+  void didUpdateWidget(FloatingNavBar old) {
+    super.didUpdateWidget(old);
+    if (old.index == widget.index) return;
+    final reduce = MediaQuery.disableAnimationsOf(context);
+    _pos.animateTo(
+      widget.index.toDouble(),
+      duration: reduce ? Duration.zero : const Duration(milliseconds: 420),
+      curve: Curves.easeOutCubic,
+    );
+  }
+
+  @override
+  void dispose() {
+    _pos.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     final c = context.colors;
-    final glow = style == NavStyle.glow;
-    final bg = glow ? c.deepWater : c.surface;
+    final dark = Theme.of(context).brightness == Brightness.dark;
+    final palette = (
+      bar: widget.style == NavStyle.glass
+          ? c.surface.withValues(alpha: dark ? 0.55 : 0.68)
+          : c.surface,
+      accent: c.primary,
+      accent2: accentPartner(c.primary),
+      shadow: c.onSurface.withValues(alpha: dark ? 0.5 : 0.18),
+      edge: dark ? c.onSurface.withValues(alpha: 0.12) : c.surface.withValues(alpha: 0.9),
+    );
     return SafeArea(
       top: false,
       minimum: const EdgeInsets.only(bottom: AppSpacing.sm),
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(AppSpacing.md, AppSpacing.lg, AppSpacing.md, 0),
-        child: Container(
-          height: barHeight,
-          decoration: BoxDecoration(
-            color: bg,
-            borderRadius: BorderRadius.circular(AppRadius.xl + AppSpacing.xs),
-            boxShadow: [
-              BoxShadow(
-                color: (glow ? c.primary : c.onSurface).withValues(alpha: glow ? 0.25 : 0.10),
-                blurRadius: 28,
-                offset: const Offset(0, 10),
+        padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
+        child: SizedBox(
+          height: FloatingNavBar.barHeight + FloatingNavBar.rise,
+          child: RepaintBoundary(
+            child: CustomPaint(
+              painter: NavBarPainter(
+                style: widget.style,
+                position: _pos,
+                count: widget.items.length,
+                palette: palette,
+                top: FloatingNavBar.rise,
               ),
-            ],
-          ),
-          child: Row(
-            children: [
-              for (final (i, item) in items.indexed)
-                Expanded(
-                  child: _NavButton(
-                    item: item,
-                    selected: i == index,
-                    style: style,
-                    onTap: () => onTap(i),
+              child: Stack(
+                children: [
+                  if (widget.style == NavStyle.notch) _floatingButton(context, palette),
+                  Positioned.fill(
+                    top: FloatingNavBar.rise,
+                    child: Row(
+                      children: [
+                        for (final (i, item) in widget.items.indexed)
+                          Expanded(
+                            child: _NavButton(
+                              item: item,
+                              selected: i == widget.index,
+                              hideIcon: widget.style == NavStyle.notch && i == widget.index,
+                              onTap: () => widget.onTap(i),
+                            ),
+                          ),
+                      ],
+                    ),
                   ),
-                ),
-            ],
+                ],
+              ),
+            ),
           ),
         ),
       ),
     );
   }
+
+  /// The round button riding in the notch, sliding with the indicator.
+  Widget _floatingButton(BuildContext context, NavPalette p) => AnimatedBuilder(
+    animation: _pos,
+    builder: (context, _) => LayoutBuilder(
+      builder: (context, box) {
+        final slot = box.maxWidth / widget.items.length;
+        final cx = slot * (_pos.value + 0.5);
+        final item = widget.items[widget.index];
+        return Stack(
+          children: [
+            Positioned(
+              left: cx - notchButton / 2,
+              top: 0,
+              width: notchButton,
+              height: notchButton,
+              child: IgnorePointer(
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    gradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: [p.accent, p.accent2],
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: p.accent.withValues(alpha: 0.4),
+                        blurRadius: 14,
+                        offset: const Offset(0, 6),
+                      ),
+                    ],
+                  ),
+                  child: Icon(item.selectedIcon, color: context.colors.surface),
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    ),
+  );
 }
 
 class _NavButton extends StatelessWidget {
   const _NavButton({
     required this.item,
     required this.selected,
-    required this.style,
+    required this.hideIcon,
     required this.onTap,
   });
 
   final NavItem item;
   final bool selected;
-  final NavStyle style;
-  final VoidCallback onTap;
 
-  static const Duration _anim = Duration(milliseconds: 260);
+  /// Notch style: the floating button shows the icon instead.
+  final bool hideIcon;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
     final c = context.colors;
-    final glow = style == NavStyle.glow;
-    final idle = glow ? c.surface.withValues(alpha: 0.6) : c.onSurfaceMuted;
-    final active = glow ? c.primary : c.primary;
-    final bubble = style == NavStyle.bubble && selected;
-    final duration = MediaQuery.disableAnimationsOf(context) ? Duration.zero : _anim;
+    final color = selected ? c.primary : c.onSurfaceMuted;
     return Semantics(
       button: true,
       selected: selected,
@@ -98,61 +185,26 @@ class _NavButton extends StatelessWidget {
       excludeSemantics: true,
       child: InkResponse(
         onTap: onTap,
-        radius: 32,
+        radius: 30,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
+          spacing: 2,
           children: [
-            AnimatedContainer(
-              duration: duration,
-              curve: Curves.easeOutBack,
-              width: bubble ? 50 : 40,
-              height: bubble ? 50 : 32,
-              transform: Matrix4.translationValues(0, bubble ? -20 : 0, 0),
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                gradient: bubble
-                    ? LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        colors: [c.primary, accentPartner(c.primary)],
-                      )
-                    : null,
-                boxShadow: bubble || (glow && selected)
-                    ? [
-                        BoxShadow(
-                          color: c.primary.withValues(alpha: 0.45),
-                          blurRadius: glow ? 18 : 14,
-                          offset: Offset(0, glow ? 0 : 6),
-                        ),
-                      ]
-                    : null,
-              ),
+            Opacity(
+              opacity: hideIcon ? 0 : 1,
               child: Icon(
                 selected ? item.selectedIcon : item.icon,
                 size: AppIconSize.md,
-                color: bubble ? c.surface : (selected ? active : idle),
+                color: color,
               ),
             ),
-            if (style == NavStyle.dot)
-              AnimatedOpacity(
-                duration: duration,
-                opacity: selected ? 1 : 0,
-                child: Container(
-                  width: 5,
-                  height: 5,
-                  margin: const EdgeInsets.only(top: 2),
-                  decoration: BoxDecoration(color: active, shape: BoxShape.circle),
-                ),
-              ),
-            AnimatedDefaultTextStyle(
-              duration: duration,
+            Text(
+              item.label,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
               style: context.text.caption.copyWith(
-                color: selected ? (bubble ? c.primary : active) : idle,
+                color: color,
                 fontWeight: selected ? FontWeight.w600 : FontWeight.w400,
-              ),
-              child: Transform.translate(
-                offset: Offset(0, bubble ? -12 : 0),
-                child: Text(item.label, maxLines: 1, overflow: TextOverflow.ellipsis),
               ),
             ),
           ],

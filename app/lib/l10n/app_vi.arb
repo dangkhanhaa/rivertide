@@ -1259,9 +1259,7 @@
   "knot_snell_steps": "Luồn dây qua lỗ lưỡi, đặt dây dọc thân lưỡi tạo một vòng.\nQuấn vòng dây quanh thân lưỡi và dây 7–8 vòng, từ lỗ xuống.\nGiữ các vòng, kéo thân dây siết chặt.\nThấm ướt, siết lại lần nữa, cắt đuôi.",
   "font_quicksand": "Quicksand",
   "set_navStyle": "Kiểu thanh tab",
-  "nav_styleBubble": "Bong bóng",
   "nav_styleDot": "Chấm",
-  "nav_styleGlow": "Phát sáng",
   "lang_zh": "中文",
   "lang_ko": "한국어",
   "lang_ja": "日本語",
@@ -1273,5 +1271,8 @@
   "release_alarmBody": "Xả lúc {when}. Đi sớm giữ chỗ đẹp!",
   "@release_alarmBody": {"placeholders": {"when": {"type": "String"}}},
   "release_alarmBodyKg": "Xả khoảng {kg} kg lúc {when}. Đi sớm giữ chỗ đẹp!",
-  "@release_alarmBodyKg": {"placeholders": {"when": {"type": "String"}, "kg": {"type": "int"}}}
+  "@release_alarmBodyKg": {"placeholders": {"when": {"type": "String"}, "kg": {"type": "int"}}},
+  "nav_styleArc": "Vòng cung",
+  "nav_styleNotch": "Khuyết tròn",
+  "nav_styleGlass": "Kính trong"
 }

@@ -1057,9 +1057,7 @@
   "knot_snell_steps": "ラインをアイに通し、針の軸に沿わせて輪を作ります。\n輪で軸とラインをアイから下へ7–8回巻きます。\n巻きを押さえて本線を引き締めます。\n湿らせてもう一度締め、端糸を切ります。",
   "font_quicksand": "Quicksand",
   "set_navStyle": "タブバーのスタイル",
-  "nav_styleBubble": "バブル",
   "nav_styleDot": "ドット",
-  "nav_styleGlow": "グロー",
   "lang_zh": "中文",
   "lang_ko": "한국어",
   "lang_ja": "日本語",
@@ -1068,5 +1066,8 @@
   "release_alarmPond": "フォロー中の釣り堀",
   "release_alarmTitle": "まもなく放流：{pond}",
   "release_alarmBody": "{when} に放流。早めに行って良い場所を！",
-  "release_alarmBodyKg": "{when} に約 {kg} kg 放流。早めに行って良い場所を！"
+  "release_alarmBodyKg": "{when} に約 {kg} kg 放流。早めに行って良い場所を！",
+  "nav_styleArc": "アーク",
+  "nav_styleNotch": "ノッチ",
+  "nav_styleGlass": "ガラス"
 }

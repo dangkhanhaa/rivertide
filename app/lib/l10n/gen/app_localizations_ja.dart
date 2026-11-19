@@ -3577,13 +3577,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get set_navStyle => 'タブバーのスタイル';
 
   @override
-  String get nav_styleBubble => 'バブル';
-
-  @override
   String get nav_styleDot => 'ドット';
-
-  @override
-  String get nav_styleGlow => 'グロー';
 
   @override
   String get lang_zh => '中文';
@@ -3617,4 +3611,13 @@ class AppLocalizationsJa extends AppLocalizations {
   String release_alarmBodyKg(String when, int kg) {
     return '$when に約 $kg kg 放流。早めに行って良い場所を！';
   }
+
+  @override
+  String get nav_styleArc => 'アーク';
+
+  @override
+  String get nav_styleNotch => 'ノッチ';
+
+  @override
+  String get nav_styleGlass => 'ガラス';
 }
