@@ -41,6 +41,7 @@ enum AppBackdrop {
 enum AppFont {
   beVietnam('BeVietnamPro'),
   nunito('Nunito'),
+  quicksand('Quicksand'),
   system(null);
 
   AppFont(this.family);
@@ -66,7 +67,10 @@ enum AppTextSize {
 enum AppLanguage {
   system(null),
   vi('vi'),
-  en('en');
+  en('en'),
+  zh('zh'),
+  ko('ko'),
+  ja('ja');
 
   AppLanguage(this.code);
 
@@ -75,6 +79,18 @@ enum AppLanguage {
 
 /// Tab opened at launch.
 enum StartTab { map, ponds, fishing }
+
+/// Look of the floating bottom bar (P2-41).
+enum NavStyle {
+  /// The current tab rises out of the bar in an accent bubble.
+  bubble,
+
+  /// Accent icon with a small dot above it.
+  dot,
+
+  /// Dark bar, the current tab glows in the accent colour.
+  glow,
+}
 
 @immutable
 class Appearance {
@@ -86,6 +102,7 @@ class Appearance {
     this.language = AppLanguage.vi,
     this.reduceMotion = false,
     this.startTab = StartTab.map,
+    this.navStyle = NavStyle.bubble,
   });
 
   /// Parses stored JSON; anything invalid becomes the default for that field.
@@ -109,6 +126,7 @@ class Appearance {
       language: pick(AppLanguage.values, 'language', AppLanguage.vi),
       reduceMotion: map['reduceMotion'] == true,
       startTab: pick(StartTab.values, 'startTab', StartTab.map),
+      navStyle: pick(NavStyle.values, 'navStyle', NavStyle.bubble),
     );
   }
 
@@ -119,6 +137,7 @@ class Appearance {
   final AppLanguage language;
   final bool reduceMotion;
   final StartTab startTab;
+  final NavStyle navStyle;
 
   String toJson() => jsonEncode({
     'accent': accent.name,
@@ -128,6 +147,7 @@ class Appearance {
     'language': language.name,
     'reduceMotion': reduceMotion,
     'startTab': startTab.name,
+    'navStyle': navStyle.name,
   });
 
   Appearance copyWith({
@@ -138,6 +158,7 @@ class Appearance {
     AppLanguage? language,
     bool? reduceMotion,
     StartTab? startTab,
+    NavStyle? navStyle,
   }) => Appearance(
     accent: accent ?? this.accent,
     backdrop: backdrop ?? this.backdrop,
@@ -146,6 +167,7 @@ class Appearance {
     language: language ?? this.language,
     reduceMotion: reduceMotion ?? this.reduceMotion,
     startTab: startTab ?? this.startTab,
+    navStyle: navStyle ?? this.navStyle,
   );
 
   @override
@@ -161,7 +183,7 @@ class Appearance {
   Color accent, {
   required bool dark,
 }) => switch ((backdrop, dark)) {
-  (AppBackdrop.mist, false) => (page: const Color(0xFFF2F6F9), card: const Color(0xFFFFFFFF)),
+  (AppBackdrop.mist, false) => (page: const Color(0xFFF0F2F8), card: const Color(0xFFFFFFFF)),
   (AppBackdrop.mist, true) => (page: const Color(0xFF0A1118), card: const Color(0xFF111A23)),
   (AppBackdrop.warm, false) => (page: const Color(0xFFF7F2E8), card: const Color(0xFFFFFDF8)),
   (AppBackdrop.warm, true) => (page: const Color(0xFF14110D), card: const Color(0xFF201B15)),

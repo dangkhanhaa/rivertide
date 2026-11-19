@@ -6,7 +6,10 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart' as intl;
 
 import 'app_localizations_en.dart';
+import 'app_localizations_ja.dart';
+import 'app_localizations_ko.dart';
 import 'app_localizations_vi.dart';
+import 'app_localizations_zh.dart';
 
 // ignore_for_file: type=lint
 
@@ -91,7 +94,13 @@ abstract class AppLocalizations {
       ];
 
   /// A list of this localizations delegate's supported locales.
-  static const List<Locale> supportedLocales = <Locale>[Locale('en'), Locale('vi')];
+  static const List<Locale> supportedLocales = <Locale>[
+    Locale('en'),
+    Locale('ja'),
+    Locale('ko'),
+    Locale('vi'),
+    Locale('zh'),
+  ];
 
   /// No description provided for @appTitle.
   ///
@@ -6422,6 +6431,54 @@ abstract class AppLocalizations {
   /// In vi, this message translates to:
   /// **'Luồn dây qua lỗ lưỡi, đặt dây dọc thân lưỡi tạo một vòng.\nQuấn vòng dây quanh thân lưỡi và dây 7–8 vòng, từ lỗ xuống.\nGiữ các vòng, kéo thân dây siết chặt.\nThấm ướt, siết lại lần nữa, cắt đuôi.'**
   String get knot_snell_steps;
+
+  /// No description provided for @font_quicksand.
+  ///
+  /// In vi, this message translates to:
+  /// **'Quicksand mềm'**
+  String get font_quicksand;
+
+  /// No description provided for @set_navStyle.
+  ///
+  /// In vi, this message translates to:
+  /// **'Kiểu thanh tab'**
+  String get set_navStyle;
+
+  /// No description provided for @nav_styleBubble.
+  ///
+  /// In vi, this message translates to:
+  /// **'Bong bóng'**
+  String get nav_styleBubble;
+
+  /// No description provided for @nav_styleDot.
+  ///
+  /// In vi, this message translates to:
+  /// **'Chấm'**
+  String get nav_styleDot;
+
+  /// No description provided for @nav_styleGlow.
+  ///
+  /// In vi, this message translates to:
+  /// **'Phát sáng'**
+  String get nav_styleGlow;
+
+  /// No description provided for @lang_zh.
+  ///
+  /// In vi, this message translates to:
+  /// **'中文'**
+  String get lang_zh;
+
+  /// No description provided for @lang_ko.
+  ///
+  /// In vi, this message translates to:
+  /// **'한국어'**
+  String get lang_ko;
+
+  /// No description provided for @lang_ja.
+  ///
+  /// In vi, this message translates to:
+  /// **'日本語'**
+  String get lang_ja;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
@@ -6433,7 +6490,8 @@ class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> 
   }
 
   @override
-  bool isSupported(Locale locale) => <String>['en', 'vi'].contains(locale.languageCode);
+  bool isSupported(Locale locale) =>
+      <String>['en', 'ja', 'ko', 'vi', 'zh'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;
@@ -6444,8 +6502,14 @@ AppLocalizations lookupAppLocalizations(Locale locale) {
   switch (locale.languageCode) {
     case 'en':
       return AppLocalizationsEn();
+    case 'ja':
+      return AppLocalizationsJa();
+    case 'ko':
+      return AppLocalizationsKo();
     case 'vi':
       return AppLocalizationsVi();
+    case 'zh':
+      return AppLocalizationsZh();
   }
 
   throw FlutterError(

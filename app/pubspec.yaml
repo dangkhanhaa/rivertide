@@ -53,6 +53,7 @@ flutter:
     - assets/data/
     - assets/fonts/OFL.txt
     - assets/fonts/OFL-Nunito.txt
+    - assets/fonts/OFL-Quicksand.txt
   # Be Vietnam Pro (SIL OFL 1.1, assets/fonts/OFL.txt): drawn for Vietnamese diacritics.
   fonts:
     - family: BeVietnamPro
@@ -74,4 +75,15 @@ flutter:
         - asset: assets/fonts/Nunito-SemiBold.ttf
           weight: 600
         - asset: assets/fonts/Nunito-Bold.ttf
+          weight: 700
+    # Quicksand (SIL OFL 1.1, assets/fonts/OFL-Quicksand.txt): soft rounded
+    # option in "Giao diện" settings (P2-41).
+    - family: Quicksand
+      fonts:
+        - asset: assets/fonts/Quicksand-Regular.ttf
+        - asset: assets/fonts/Quicksand-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Quicksand-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/Quicksand-Bold.ttf
           weight: 700

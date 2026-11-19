@@ -1054,5 +1054,13 @@
   "knot_perfectionLoop_steps": "Make a small loop at the end, tag behind.\nWrap the tag around to make a second loop in front.\nPass the tag between the two loops.\nPull the second loop through the first, tighten, trim.",
   "knot_snell": "Snell knot",
   "knot_snell_use": "Ties a hook so the line runs straight down the shank, hooking more fish.",
-  "knot_snell_steps": "Pass the line through the eye and lay it along the shank to make a loop.\nWrap the loop around the shank and line 7–8 times, from the eye down.\nHold the wraps and pull the main line tight.\nWet it, tighten again, trim."
+  "knot_snell_steps": "Pass the line through the eye and lay it along the shank to make a loop.\nWrap the loop around the shank and line 7–8 times, from the eye down.\nHold the wraps and pull the main line tight.\nWet it, tighten again, trim.",
+  "font_quicksand": "Quicksand soft",
+  "set_navStyle": "Tab bar style",
+  "nav_styleBubble": "Bubble",
+  "nav_styleDot": "Dot",
+  "nav_styleGlow": "Glow",
+  "lang_zh": "中文",
+  "lang_ko": "한국어",
+  "lang_ja": "日本語"
 }

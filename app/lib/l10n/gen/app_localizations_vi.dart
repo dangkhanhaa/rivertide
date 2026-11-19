@@ -3641,4 +3641,28 @@ class AppLocalizationsVi extends AppLocalizations {
   @override
   String get knot_snell_steps =>
       'Luồn dây qua lỗ lưỡi, đặt dây dọc thân lưỡi tạo một vòng.\nQuấn vòng dây quanh thân lưỡi và dây 7–8 vòng, từ lỗ xuống.\nGiữ các vòng, kéo thân dây siết chặt.\nThấm ướt, siết lại lần nữa, cắt đuôi.';
+
+  @override
+  String get font_quicksand => 'Quicksand mềm';
+
+  @override
+  String get set_navStyle => 'Kiểu thanh tab';
+
+  @override
+  String get nav_styleBubble => 'Bong bóng';
+
+  @override
+  String get nav_styleDot => 'Chấm';
+
+  @override
+  String get nav_styleGlow => 'Phát sáng';
+
+  @override
+  String get lang_zh => '中文';
+
+  @override
+  String get lang_ko => '한국어';
+
+  @override
+  String get lang_ja => '日本語';
 }

@@ -135,6 +135,23 @@ class _LookSection extends ConsumerWidget {
           dark: dark,
           onPick: (b) => set((l) => l.copyWith(backdrop: b)),
         ),
+        _Label(l10n.set_navStyle),
+        Wrap(
+          spacing: AppSpacing.sm,
+          children: [
+            for (final (st, icon) in [
+              (NavStyle.bubble, Icons.bubble_chart_rounded),
+              (NavStyle.dot, Icons.more_horiz_rounded),
+              (NavStyle.glow, Icons.flare_rounded),
+            ])
+              ChoiceChip(
+                avatar: Icon(icon, size: AppIconSize.sm),
+                label: Text(context.navStyleName(st)),
+                selected: look.navStyle == st,
+                onSelected: (_) => set((l) => l.copyWith(navStyle: st)),
+              ),
+          ],
+        ),
         _Label(l10n.set_font),
         FontPicker(
           value: look.font,
@@ -177,6 +194,9 @@ class _GeneralSection extends ConsumerWidget {
             (AppLanguage.system, l10n.lang_system),
             (AppLanguage.vi, l10n.lang_vi),
             (AppLanguage.en, l10n.lang_en),
+            (AppLanguage.zh, l10n.lang_zh),
+            (AppLanguage.ko, l10n.lang_ko),
+            (AppLanguage.ja, l10n.lang_ja),
           ],
           look.language,
           (v) => set((l) => l.copyWith(language: v)),

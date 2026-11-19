@@ -1256,5 +1256,13 @@
   "knot_perfectionLoop_steps": "Tạo một vòng nhỏ ở đầu dây, đầu dây nằm phía sau.\nQuấn đầu dây quanh vòng tạo vòng thứ hai phía trước.\nLuồn đầu dây vào giữa hai vòng.\nKéo vòng thứ hai qua vòng thứ nhất, siết chặt, cắt đuôi.",
   "knot_snell": "Nút buộc lưỡi Snell",
   "knot_snell_use": "Buộc lưỡi câu đài, câu đơn để dây đi thẳng theo thân lưỡi, tăng tỉ lệ dính.",
-  "knot_snell_steps": "Luồn dây qua lỗ lưỡi, đặt dây dọc thân lưỡi tạo một vòng.\nQuấn vòng dây quanh thân lưỡi và dây 7–8 vòng, từ lỗ xuống.\nGiữ các vòng, kéo thân dây siết chặt.\nThấm ướt, siết lại lần nữa, cắt đuôi."
+  "knot_snell_steps": "Luồn dây qua lỗ lưỡi, đặt dây dọc thân lưỡi tạo một vòng.\nQuấn vòng dây quanh thân lưỡi và dây 7–8 vòng, từ lỗ xuống.\nGiữ các vòng, kéo thân dây siết chặt.\nThấm ướt, siết lại lần nữa, cắt đuôi.",
+  "font_quicksand": "Quicksand mềm",
+  "set_navStyle": "Kiểu thanh tab",
+  "nav_styleBubble": "Bong bóng",
+  "nav_styleDot": "Chấm",
+  "nav_styleGlow": "Phát sáng",
+  "lang_zh": "中文",
+  "lang_ko": "한국어",
+  "lang_ja": "日本語"
 }

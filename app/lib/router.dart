@@ -1,14 +1,18 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:rivertide/core/l10n/l10n_ext.dart';
 import 'package:rivertide/core/navigation/fishing_spot.dart';
 import 'package:rivertide/core/navigation/map_focus.dart';
+import 'package:rivertide/core/theme/appearance.dart';
+import 'package:rivertide/core/widgets/floating_nav_bar.dart';
 import 'package:rivertide/core/widgets/state_views.dart';
 import 'package:rivertide/features/fishing/presentation/fishing_screen.dart';
 import 'package:rivertide/features/fishing/presentation/where_to_go_screen.dart';
 import 'package:rivertide/features/map/presentation/map_screen.dart';
+import 'package:rivertide/features/more/application/appearance_provider.dart';
 import 'package:rivertide/features/more/presentation/more_screen.dart';
 import 'package:rivertide/features/ponds/ponds.dart';
 import 'package:rivertide/features/stations/stations.dart';
@@ -64,16 +68,16 @@ StatefulShellBranch _branch(String path, Widget screen) => StatefulShellBranch(
 /// other than the map returns to the map instead of closing the app; on the
 /// map a second back within 2 s closes it. Pages pushed inside a tab are
 /// popped first by the router, so back still returns to the previous screen.
-class _Shell extends StatefulWidget {
+class _Shell extends ConsumerStatefulWidget {
   const _Shell({required this.shell});
 
   final StatefulNavigationShell shell;
 
   @override
-  State<_Shell> createState() => _ShellState();
+  ConsumerState<_Shell> createState() => _ShellState();
 }
 
-class _ShellState extends State<_Shell> {
+class _ShellState extends ConsumerState<_Shell> {
   static const Duration _exitWindow = Duration(seconds: 2);
   Timer? _armed;
 
@@ -109,30 +113,24 @@ class _ShellState extends State<_Shell> {
       onPopInvokedWithResult: _onBack,
       child: Scaffold(
         body: shell,
-        bottomNavigationBar: NavigationBar(
-          selectedIndex: shell.currentIndex,
-          onDestinationSelected: (i) => shell.goBranch(i, initialLocation: i == shell.currentIndex),
-          destinations: [
-            NavigationDestination(
-              icon: const Icon(Icons.map_outlined),
-              selectedIcon: const Icon(Icons.map_rounded),
-              label: l10n.nav_map,
-            ),
-            NavigationDestination(
-              icon: const Icon(Icons.waves_outlined),
-              selectedIcon: const Icon(Icons.waves_rounded),
-              label: l10n.nav_ponds,
-            ),
-            NavigationDestination(
-              icon: const Icon(Icons.star_outline_rounded),
-              selectedIcon: const Icon(Icons.star_rounded),
+        bottomNavigationBar: FloatingNavBar(
+          index: shell.currentIndex,
+          style: ref.watch(appearanceSettingsProvider).value?.navStyle ?? NavStyle.bubble,
+          onTap: (i) => shell.goBranch(i, initialLocation: i == shell.currentIndex),
+          items: [
+            (icon: Icons.map_outlined, selectedIcon: Icons.map_rounded, label: l10n.nav_map),
+            (icon: Icons.waves_outlined, selectedIcon: Icons.waves_rounded, label: l10n.nav_ponds),
+            (
+              icon: Icons.star_outline_rounded,
+              selectedIcon: Icons.star_rounded,
               label: l10n.nav_watch,
             ),
-            NavigationDestination(
-              icon: const Icon(Icons.phishing_rounded),
+            (
+              icon: Icons.phishing_outlined,
+              selectedIcon: Icons.phishing_rounded,
               label: l10n.nav_fishing,
             ),
-            NavigationDestination(icon: const Icon(Icons.menu_rounded), label: l10n.nav_more),
+            (icon: Icons.menu_rounded, selectedIcon: Icons.menu_open_rounded, label: l10n.nav_more),
           ],
         ),
       ),

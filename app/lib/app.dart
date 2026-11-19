@@ -87,10 +87,12 @@ class _RiverTideAppState extends ConsumerState<RiverTideApp> {
         final code? => Locale(code),
         null => null,
       },
-      // Following the phone: English phones get English, everything else
+      // Following the phone: a supported language is used, anything else gets
       // Vietnamese (the app's home language), never an arbitrary first match.
-      localeResolutionCallback: (device, _) =>
-          device?.languageCode == 'en' ? const Locale('en') : const Locale('vi'),
+      localeResolutionCallback: (device, _) => switch (device?.languageCode) {
+        final c? when const {'en', 'zh', 'ko', 'ja'}.contains(c) => Locale(c),
+        _ => const Locale('vi'),
+      },
       supportedLocales: AppLocalizations.supportedLocales,
       localizationsDelegates: const [
         AppLocalizations.delegate,

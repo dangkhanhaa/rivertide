@@ -3698,4 +3698,28 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get knot_snell_steps =>
       'Pass the line through the eye and lay it along the shank to make a loop.\nWrap the loop around the shank and line 7–8 times, from the eye down.\nHold the wraps and pull the main line tight.\nWet it, tighten again, trim.';
+
+  @override
+  String get font_quicksand => 'Quicksand soft';
+
+  @override
+  String get set_navStyle => 'Tab bar style';
+
+  @override
+  String get nav_styleBubble => 'Bubble';
+
+  @override
+  String get nav_styleDot => 'Dot';
+
+  @override
+  String get nav_styleGlow => 'Glow';
+
+  @override
+  String get lang_zh => '中文';
+
+  @override
+  String get lang_ko => '한국어';
+
+  @override
+  String get lang_ja => '日本語';
 }

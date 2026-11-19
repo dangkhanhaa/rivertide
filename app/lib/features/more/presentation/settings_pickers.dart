@@ -31,7 +31,14 @@ extension AppearanceNames on BuildContext {
   String fontName(AppFont f) => switch (f) {
     AppFont.beVietnam => l10n.font_beVietnam,
     AppFont.nunito => l10n.font_nunito,
+    AppFont.quicksand => l10n.font_quicksand,
     AppFont.system => l10n.font_system,
+  };
+
+  String navStyleName(NavStyle s) => switch (s) {
+    NavStyle.bubble => l10n.nav_styleBubble,
+    NavStyle.dot => l10n.nav_styleDot,
+    NavStyle.glow => l10n.nav_styleGlow,
   };
 
   String textSizeName(AppTextSize s) => switch (s) {

@@ -57,16 +57,18 @@ abstract final class AppTheme {
         labelMedium: text.label,
         labelSmall: text.caption,
       ),
+      // Soft UI (P2-41): flat cards with a hairline edge on a tinted page
+      // instead of grey drop shadows; outdoor mode keeps a solid outline.
       cardTheme: CardThemeData(
         color: c.surface,
-        // A soft lift so cards read on the pale background.
-        elevation: outlined ? 0 : 1,
-        shadowColor: c.onSurface.withValues(alpha: 0.12),
+        elevation: 0,
         surfaceTintColor: Colors.transparent,
         margin: EdgeInsets.zero,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(AppRadius.lg),
-          side: outlined ? BorderSide(color: c.onSurface, width: 1.5) : BorderSide.none,
+          side: outlined
+              ? BorderSide(color: c.onSurface, width: 1.5)
+              : BorderSide(color: c.onSurface.withValues(alpha: 0.06)),
         ),
       ),
       appBarTheme: AppBarTheme(
@@ -92,7 +94,10 @@ abstract final class AppTheme {
       ),
       chipTheme: ChipThemeData(
         shape: pill,
-        side: BorderSide(color: c.stale.withValues(alpha: 0.4)),
+        side: BorderSide(color: c.onSurface.withValues(alpha: 0.08)),
+        backgroundColor: c.surface,
+        selectedColor: c.primary.withValues(alpha: 0.14),
+        labelStyle: text.label,
       ),
       floatingActionButtonTheme: FloatingActionButtonThemeData(
         backgroundColor: c.surface,
@@ -136,12 +141,16 @@ abstract final class AppTheme {
         filled: true,
         fillColor: c.surface,
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(AppRadius.md),
-          borderSide: BorderSide(color: c.stale.withValues(alpha: 0.4)),
+          borderRadius: BorderRadius.circular(AppRadius.lg),
+          borderSide: BorderSide(color: c.onSurface.withValues(alpha: 0.08)),
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(AppRadius.md),
-          borderSide: BorderSide(color: c.stale.withValues(alpha: 0.4)),
+          borderRadius: BorderRadius.circular(AppRadius.lg),
+          borderSide: BorderSide(color: c.onSurface.withValues(alpha: 0.08)),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(AppRadius.lg),
+          borderSide: BorderSide(color: c.primary, width: 1.5),
         ),
       ),
       searchBarTheme: SearchBarThemeData(
