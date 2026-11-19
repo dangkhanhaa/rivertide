@@ -6092,6 +6092,336 @@ abstract class AppLocalizations {
   /// In vi, this message translates to:
   /// **'Gộp từ báo của người câu, chỉ lưu vùng khoảng 2 km, không lưu danh tính.'**
   String get bite_note;
+
+  /// No description provided for @gear_title.
+  ///
+  /// In vi, this message translates to:
+  /// **'Đồ nghề & nút buộc'**
+  String get gear_title;
+
+  /// No description provided for @gear_entry.
+  ///
+  /// In vi, this message translates to:
+  /// **'Đồ nghề & nút buộc'**
+  String get gear_entry;
+
+  /// No description provided for @gear_entryHint.
+  ///
+  /// In vi, this message translates to:
+  /// **'Danh sách đồ cần mang, cách buộc 6 nút hay dùng'**
+  String get gear_entryHint;
+
+  /// No description provided for @gear_tabPack.
+  ///
+  /// In vi, this message translates to:
+  /// **'Đồ cần mang'**
+  String get gear_tabPack;
+
+  /// No description provided for @gear_tabKnots.
+  ///
+  /// In vi, this message translates to:
+  /// **'Nút buộc'**
+  String get gear_tabKnots;
+
+  /// No description provided for @gear_progress.
+  ///
+  /// In vi, this message translates to:
+  /// **'{done}/{total} món'**
+  String gear_progress(int done, int total);
+
+  /// No description provided for @gear_clear.
+  ///
+  /// In vi, this message translates to:
+  /// **'Bỏ tích hết cho chuyến sau'**
+  String get gear_clear;
+
+  /// No description provided for @trip_night.
+  ///
+  /// In vi, this message translates to:
+  /// **'Câu đêm'**
+  String get trip_night;
+
+  /// No description provided for @trip_sea.
+  ///
+  /// In vi, this message translates to:
+  /// **'Biển, ghềnh'**
+  String get trip_sea;
+
+  /// No description provided for @trip_pond.
+  ///
+  /// In vi, this message translates to:
+  /// **'Hồ dịch vụ'**
+  String get trip_pond;
+
+  /// No description provided for @trip_river.
+  ///
+  /// In vi, this message translates to:
+  /// **'Sông, kênh'**
+  String get trip_river;
+
+  /// No description provided for @gear_rodReel.
+  ///
+  /// In vi, this message translates to:
+  /// **'Cần, máy câu (kiểm tra máy trơn, phanh)'**
+  String get gear_rodReel;
+
+  /// No description provided for @gear_spareLine.
+  ///
+  /// In vi, this message translates to:
+  /// **'Dây dự phòng'**
+  String get gear_spareLine;
+
+  /// No description provided for @gear_hooksWeights.
+  ///
+  /// In vi, this message translates to:
+  /// **'Lưỡi, chì, phao, khóa link dự phòng'**
+  String get gear_hooksWeights;
+
+  /// No description provided for @gear_baitChum.
+  ///
+  /// In vi, this message translates to:
+  /// **'Mồi và thính'**
+  String get gear_baitChum;
+
+  /// No description provided for @gear_netTowel.
+  ///
+  /// In vi, this message translates to:
+  /// **'Vợt và khăn lau tay'**
+  String get gear_netTowel;
+
+  /// No description provided for @gear_waterFood.
+  ///
+  /// In vi, this message translates to:
+  /// **'Nước uống, đồ ăn'**
+  String get gear_waterFood;
+
+  /// No description provided for @gear_sunHat.
+  ///
+  /// In vi, this message translates to:
+  /// **'Mũ, kem chống nắng, kính râm'**
+  String get gear_sunHat;
+
+  /// No description provided for @gear_raincoat.
+  ///
+  /// In vi, this message translates to:
+  /// **'Áo mưa'**
+  String get gear_raincoat;
+
+  /// No description provided for @gear_phonePower.
+  ///
+  /// In vi, this message translates to:
+  /// **'Điện thoại sạc đầy, sạc dự phòng'**
+  String get gear_phonePower;
+
+  /// No description provided for @gear_trashBag.
+  ///
+  /// In vi, this message translates to:
+  /// **'Túi đựng rác mang về'**
+  String get gear_trashBag;
+
+  /// No description provided for @gear_headlamp.
+  ///
+  /// In vi, this message translates to:
+  /// **'Đèn đội đầu, pin dự phòng'**
+  String get gear_headlamp;
+
+  /// No description provided for @gear_glowSticks.
+  ///
+  /// In vi, this message translates to:
+  /// **'Que phát sáng, đèn phao'**
+  String get gear_glowSticks;
+
+  /// No description provided for @gear_mosquito.
+  ///
+  /// In vi, this message translates to:
+  /// **'Thuốc chống muỗi'**
+  String get gear_mosquito;
+
+  /// No description provided for @gear_jacket.
+  ///
+  /// In vi, this message translates to:
+  /// **'Áo khoác (đêm gió lạnh)'**
+  String get gear_jacket;
+
+  /// No description provided for @gear_nonSlipShoes.
+  ///
+  /// In vi, this message translates to:
+  /// **'Giày chống trơn trượt'**
+  String get gear_nonSlipShoes;
+
+  /// No description provided for @gear_lifeJacket.
+  ///
+  /// In vi, this message translates to:
+  /// **'Áo phao'**
+  String get gear_lifeJacket;
+
+  /// No description provided for @gear_tideCheck.
+  ///
+  /// In vi, this message translates to:
+  /// **'Xem giờ triều và \"nước ngập lối về\" trong app'**
+  String get gear_tideCheck;
+
+  /// No description provided for @gear_leader.
+  ///
+  /// In vi, this message translates to:
+  /// **'Dây trục chống mài (leader)'**
+  String get gear_leader;
+
+  /// No description provided for @gear_pliers.
+  ///
+  /// In vi, this message translates to:
+  /// **'Kìm gỡ lưỡi'**
+  String get gear_pliers;
+
+  /// No description provided for @gear_pondCall.
+  ///
+  /// In vi, this message translates to:
+  /// **'Gọi hồ hỏi giá, giờ, lịch xả cá'**
+  String get gear_pondCall;
+
+  /// No description provided for @gear_chairUmbrella.
+  ///
+  /// In vi, this message translates to:
+  /// **'Ghế, ô che nắng'**
+  String get gear_chairUmbrella;
+
+  /// No description provided for @gear_keepNet.
+  ///
+  /// In vi, this message translates to:
+  /// **'Rọng, thùng giữ cá'**
+  String get gear_keepNet;
+
+  /// No description provided for @gear_boots.
+  ///
+  /// In vi, this message translates to:
+  /// **'Ủng hoặc giày lội nước'**
+  String get gear_boots;
+
+  /// No description provided for @gear_rodRest.
+  ///
+  /// In vi, this message translates to:
+  /// **'Chống cần, cọc gác cần'**
+  String get gear_rodRest;
+
+  /// No description provided for @knot_strength.
+  ///
+  /// In vi, this message translates to:
+  /// **'Giữ khoảng {pct}% độ bền dây'**
+  String knot_strength(int pct);
+
+  /// No description provided for @knot_note.
+  ///
+  /// In vi, this message translates to:
+  /// **'Mẹo chung: thấm nước bọt trước khi siết, siết từ từ cho nút không nóng, cắt đuôi chừa 2–3 mm. Hình vẽ là sơ đồ minh hoạ.'**
+  String get knot_note;
+
+  /// No description provided for @knot_improvedClinch.
+  ///
+  /// In vi, this message translates to:
+  /// **'Nút Clinch cải tiến'**
+  String get knot_improvedClinch;
+
+  /// No description provided for @knot_improvedClinch_use.
+  ///
+  /// In vi, this message translates to:
+  /// **'Buộc lưỡi, khóa link với dây cước. Dễ nhất, ai cũng nên biết.'**
+  String get knot_improvedClinch_use;
+
+  /// No description provided for @knot_improvedClinch_steps.
+  ///
+  /// In vi, this message translates to:
+  /// **'Luồn dây qua lỗ lưỡi, kéo dư khoảng 15 cm.\nQuấn đầu dây quanh thân dây 5–7 vòng.\nLuồn đầu dây qua vòng nhỏ sát lỗ lưỡi, rồi qua vòng lớn vừa tạo.\nThấm ướt, kéo thân dây siết chặt, cắt đuôi.'**
+  String get knot_improvedClinch_steps;
+
+  /// No description provided for @knot_palomar.
+  ///
+  /// In vi, this message translates to:
+  /// **'Nút Palomar'**
+  String get knot_palomar;
+
+  /// No description provided for @knot_palomar_use.
+  ///
+  /// In vi, this message translates to:
+  /// **'Buộc lưỡi, mồi giả với dây dù (PE). Rất chắc, nhanh.'**
+  String get knot_palomar_use;
+
+  /// No description provided for @knot_palomar_steps.
+  ///
+  /// In vi, this message translates to:
+  /// **'Gập đôi dây khoảng 15 cm, luồn phần gập qua lỗ lưỡi.\nThắt một nút đơn lỏng bằng dây đôi.\nLuồn cả lưỡi qua vòng dây gập.\nThấm ướt, kéo cả hai đầu siết, cắt đuôi.'**
+  String get knot_palomar_steps;
+
+  /// No description provided for @knot_uni.
+  ///
+  /// In vi, this message translates to:
+  /// **'Nút Uni'**
+  String get knot_uni;
+
+  /// No description provided for @knot_uni_use.
+  ///
+  /// In vi, this message translates to:
+  /// **'Buộc lưỡi, khóa, mồi giả; dùng được cho cả cước và dù.'**
+  String get knot_uni_use;
+
+  /// No description provided for @knot_uni_steps.
+  ///
+  /// In vi, this message translates to:
+  /// **'Luồn dây qua lỗ lưỡi, gập đầu dây song song thân dây tạo một vòng.\nQuấn đầu dây quanh hai sợi bên trong vòng 5–6 lần.\nKéo đầu dây cho các vòng xếp gọn.\nThấm ướt, kéo thân dây đẩy nút sát lỗ lưỡi, cắt đuôi.'**
+  String get knot_uni_steps;
+
+  /// No description provided for @knot_doubleUni.
+  ///
+  /// In vi, this message translates to:
+  /// **'Nút nối Double Uni'**
+  String get knot_doubleUni;
+
+  /// No description provided for @knot_doubleUni_use.
+  ///
+  /// In vi, this message translates to:
+  /// **'Nối hai dây (dù với cước làm dây trục, hoặc nối dây bị đứt).'**
+  String get knot_doubleUni_use;
+
+  /// No description provided for @knot_doubleUni_steps.
+  ///
+  /// In vi, this message translates to:
+  /// **'Đặt hai đầu dây chồng lên nhau khoảng 20 cm.\nDùng đầu dây thứ nhất thắt nút Uni quanh dây thứ hai (3–4 vòng; dây dù 6–8 vòng).\nLàm tương tự với đầu dây thứ hai.\nThấm ướt, kéo hai thân dây cho hai nút trượt vào nhau, cắt đuôi.'**
+  String get knot_doubleUni_steps;
+
+  /// No description provided for @knot_perfectionLoop.
+  ///
+  /// In vi, this message translates to:
+  /// **'Nút vòng Perfection'**
+  String get knot_perfectionLoop;
+
+  /// No description provided for @knot_perfectionLoop_use.
+  ///
+  /// In vi, this message translates to:
+  /// **'Tạo vòng ở đầu dây để móc thẻo, dây trục nhanh.'**
+  String get knot_perfectionLoop_use;
+
+  /// No description provided for @knot_perfectionLoop_steps.
+  ///
+  /// In vi, this message translates to:
+  /// **'Tạo một vòng nhỏ ở đầu dây, đầu dây nằm phía sau.\nQuấn đầu dây quanh vòng tạo vòng thứ hai phía trước.\nLuồn đầu dây vào giữa hai vòng.\nKéo vòng thứ hai qua vòng thứ nhất, siết chặt, cắt đuôi.'**
+  String get knot_perfectionLoop_steps;
+
+  /// No description provided for @knot_snell.
+  ///
+  /// In vi, this message translates to:
+  /// **'Nút buộc lưỡi Snell'**
+  String get knot_snell;
+
+  /// No description provided for @knot_snell_use.
+  ///
+  /// In vi, this message translates to:
+  /// **'Buộc lưỡi câu đài, câu đơn để dây đi thẳng theo thân lưỡi, tăng tỉ lệ dính.'**
+  String get knot_snell_use;
+
+  /// No description provided for @knot_snell_steps.
+  ///
+  /// In vi, this message translates to:
+  /// **'Luồn dây qua lỗ lưỡi, đặt dây dọc thân lưỡi tạo một vòng.\nQuấn vòng dây quanh thân lưỡi và dây 7–8 vòng, từ lỗ xuống.\nGiữ các vòng, kéo thân dây siết chặt.\nThấm ướt, siết lại lần nữa, cắt đuôi.'**
+  String get knot_snell_steps;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

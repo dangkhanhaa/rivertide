@@ -3463,4 +3463,182 @@ class AppLocalizationsVi extends AppLocalizations {
   @override
   String get bite_note =>
       'Gộp từ báo của người câu, chỉ lưu vùng khoảng 2 km, không lưu danh tính.';
+
+  @override
+  String get gear_title => 'Đồ nghề & nút buộc';
+
+  @override
+  String get gear_entry => 'Đồ nghề & nút buộc';
+
+  @override
+  String get gear_entryHint => 'Danh sách đồ cần mang, cách buộc 6 nút hay dùng';
+
+  @override
+  String get gear_tabPack => 'Đồ cần mang';
+
+  @override
+  String get gear_tabKnots => 'Nút buộc';
+
+  @override
+  String gear_progress(int done, int total) {
+    return '$done/$total món';
+  }
+
+  @override
+  String get gear_clear => 'Bỏ tích hết cho chuyến sau';
+
+  @override
+  String get trip_night => 'Câu đêm';
+
+  @override
+  String get trip_sea => 'Biển, ghềnh';
+
+  @override
+  String get trip_pond => 'Hồ dịch vụ';
+
+  @override
+  String get trip_river => 'Sông, kênh';
+
+  @override
+  String get gear_rodReel => 'Cần, máy câu (kiểm tra máy trơn, phanh)';
+
+  @override
+  String get gear_spareLine => 'Dây dự phòng';
+
+  @override
+  String get gear_hooksWeights => 'Lưỡi, chì, phao, khóa link dự phòng';
+
+  @override
+  String get gear_baitChum => 'Mồi và thính';
+
+  @override
+  String get gear_netTowel => 'Vợt và khăn lau tay';
+
+  @override
+  String get gear_waterFood => 'Nước uống, đồ ăn';
+
+  @override
+  String get gear_sunHat => 'Mũ, kem chống nắng, kính râm';
+
+  @override
+  String get gear_raincoat => 'Áo mưa';
+
+  @override
+  String get gear_phonePower => 'Điện thoại sạc đầy, sạc dự phòng';
+
+  @override
+  String get gear_trashBag => 'Túi đựng rác mang về';
+
+  @override
+  String get gear_headlamp => 'Đèn đội đầu, pin dự phòng';
+
+  @override
+  String get gear_glowSticks => 'Que phát sáng, đèn phao';
+
+  @override
+  String get gear_mosquito => 'Thuốc chống muỗi';
+
+  @override
+  String get gear_jacket => 'Áo khoác (đêm gió lạnh)';
+
+  @override
+  String get gear_nonSlipShoes => 'Giày chống trơn trượt';
+
+  @override
+  String get gear_lifeJacket => 'Áo phao';
+
+  @override
+  String get gear_tideCheck => 'Xem giờ triều và \"nước ngập lối về\" trong app';
+
+  @override
+  String get gear_leader => 'Dây trục chống mài (leader)';
+
+  @override
+  String get gear_pliers => 'Kìm gỡ lưỡi';
+
+  @override
+  String get gear_pondCall => 'Gọi hồ hỏi giá, giờ, lịch xả cá';
+
+  @override
+  String get gear_chairUmbrella => 'Ghế, ô che nắng';
+
+  @override
+  String get gear_keepNet => 'Rọng, thùng giữ cá';
+
+  @override
+  String get gear_boots => 'Ủng hoặc giày lội nước';
+
+  @override
+  String get gear_rodRest => 'Chống cần, cọc gác cần';
+
+  @override
+  String knot_strength(int pct) {
+    return 'Giữ khoảng $pct% độ bền dây';
+  }
+
+  @override
+  String get knot_note =>
+      'Mẹo chung: thấm nước bọt trước khi siết, siết từ từ cho nút không nóng, cắt đuôi chừa 2–3 mm. Hình vẽ là sơ đồ minh hoạ.';
+
+  @override
+  String get knot_improvedClinch => 'Nút Clinch cải tiến';
+
+  @override
+  String get knot_improvedClinch_use =>
+      'Buộc lưỡi, khóa link với dây cước. Dễ nhất, ai cũng nên biết.';
+
+  @override
+  String get knot_improvedClinch_steps =>
+      'Luồn dây qua lỗ lưỡi, kéo dư khoảng 15 cm.\nQuấn đầu dây quanh thân dây 5–7 vòng.\nLuồn đầu dây qua vòng nhỏ sát lỗ lưỡi, rồi qua vòng lớn vừa tạo.\nThấm ướt, kéo thân dây siết chặt, cắt đuôi.';
+
+  @override
+  String get knot_palomar => 'Nút Palomar';
+
+  @override
+  String get knot_palomar_use => 'Buộc lưỡi, mồi giả với dây dù (PE). Rất chắc, nhanh.';
+
+  @override
+  String get knot_palomar_steps =>
+      'Gập đôi dây khoảng 15 cm, luồn phần gập qua lỗ lưỡi.\nThắt một nút đơn lỏng bằng dây đôi.\nLuồn cả lưỡi qua vòng dây gập.\nThấm ướt, kéo cả hai đầu siết, cắt đuôi.';
+
+  @override
+  String get knot_uni => 'Nút Uni';
+
+  @override
+  String get knot_uni_use => 'Buộc lưỡi, khóa, mồi giả; dùng được cho cả cước và dù.';
+
+  @override
+  String get knot_uni_steps =>
+      'Luồn dây qua lỗ lưỡi, gập đầu dây song song thân dây tạo một vòng.\nQuấn đầu dây quanh hai sợi bên trong vòng 5–6 lần.\nKéo đầu dây cho các vòng xếp gọn.\nThấm ướt, kéo thân dây đẩy nút sát lỗ lưỡi, cắt đuôi.';
+
+  @override
+  String get knot_doubleUni => 'Nút nối Double Uni';
+
+  @override
+  String get knot_doubleUni_use => 'Nối hai dây (dù với cước làm dây trục, hoặc nối dây bị đứt).';
+
+  @override
+  String get knot_doubleUni_steps =>
+      'Đặt hai đầu dây chồng lên nhau khoảng 20 cm.\nDùng đầu dây thứ nhất thắt nút Uni quanh dây thứ hai (3–4 vòng; dây dù 6–8 vòng).\nLàm tương tự với đầu dây thứ hai.\nThấm ướt, kéo hai thân dây cho hai nút trượt vào nhau, cắt đuôi.';
+
+  @override
+  String get knot_perfectionLoop => 'Nút vòng Perfection';
+
+  @override
+  String get knot_perfectionLoop_use => 'Tạo vòng ở đầu dây để móc thẻo, dây trục nhanh.';
+
+  @override
+  String get knot_perfectionLoop_steps =>
+      'Tạo một vòng nhỏ ở đầu dây, đầu dây nằm phía sau.\nQuấn đầu dây quanh vòng tạo vòng thứ hai phía trước.\nLuồn đầu dây vào giữa hai vòng.\nKéo vòng thứ hai qua vòng thứ nhất, siết chặt, cắt đuôi.';
+
+  @override
+  String get knot_snell => 'Nút buộc lưỡi Snell';
+
+  @override
+  String get knot_snell_use =>
+      'Buộc lưỡi câu đài, câu đơn để dây đi thẳng theo thân lưỡi, tăng tỉ lệ dính.';
+
+  @override
+  String get knot_snell_steps =>
+      'Luồn dây qua lỗ lưỡi, đặt dây dọc thân lưỡi tạo một vòng.\nQuấn vòng dây quanh thân lưỡi và dây 7–8 vòng, từ lỗ xuống.\nGiữ các vòng, kéo thân dây siết chặt.\nThấm ướt, siết lại lần nữa, cắt đuôi.';
 }

@@ -3520,4 +3520,182 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get bite_note => 'From anglers\' answers; only a ~2 km area is stored, never who you are.';
+
+  @override
+  String get gear_title => 'Gear & knots';
+
+  @override
+  String get gear_entry => 'Gear & knots';
+
+  @override
+  String get gear_entryHint => 'What to pack, how to tie the six most used knots';
+
+  @override
+  String get gear_tabPack => 'What to pack';
+
+  @override
+  String get gear_tabKnots => 'Knots';
+
+  @override
+  String gear_progress(int done, int total) {
+    return '$done/$total items';
+  }
+
+  @override
+  String get gear_clear => 'Untick all for the next trip';
+
+  @override
+  String get trip_night => 'Night fishing';
+
+  @override
+  String get trip_sea => 'Sea, rocks';
+
+  @override
+  String get trip_pond => 'Paid pond';
+
+  @override
+  String get trip_river => 'River, canal';
+
+  @override
+  String get gear_rodReel => 'Rod and reel (check reel and drag)';
+
+  @override
+  String get gear_spareLine => 'Spare line';
+
+  @override
+  String get gear_hooksWeights => 'Spare hooks, sinkers, floats, snaps';
+
+  @override
+  String get gear_baitChum => 'Bait and groundbait';
+
+  @override
+  String get gear_netTowel => 'Landing net and towel';
+
+  @override
+  String get gear_waterFood => 'Water and food';
+
+  @override
+  String get gear_sunHat => 'Hat, sunscreen, sunglasses';
+
+  @override
+  String get gear_raincoat => 'Raincoat';
+
+  @override
+  String get gear_phonePower => 'Charged phone, power bank';
+
+  @override
+  String get gear_trashBag => 'Bag to take your rubbish home';
+
+  @override
+  String get gear_headlamp => 'Headlamp, spare batteries';
+
+  @override
+  String get gear_glowSticks => 'Glow sticks, float lights';
+
+  @override
+  String get gear_mosquito => 'Mosquito repellent';
+
+  @override
+  String get gear_jacket => 'Jacket (cold, windy nights)';
+
+  @override
+  String get gear_nonSlipShoes => 'Non-slip shoes';
+
+  @override
+  String get gear_lifeJacket => 'Life jacket';
+
+  @override
+  String get gear_tideCheck => 'Check tide times and \"water cuts me off\" in the app';
+
+  @override
+  String get gear_leader => 'Abrasion-resistant leader';
+
+  @override
+  String get gear_pliers => 'Pliers to unhook';
+
+  @override
+  String get gear_pondCall => 'Call the pond: price, hours, stocking';
+
+  @override
+  String get gear_chairUmbrella => 'Chair, sun umbrella';
+
+  @override
+  String get gear_keepNet => 'Keep net or fish box';
+
+  @override
+  String get gear_boots => 'Boots or wading shoes';
+
+  @override
+  String get gear_rodRest => 'Rod rests, bank sticks';
+
+  @override
+  String knot_strength(int pct) {
+    return 'Keeps about $pct% of line strength';
+  }
+
+  @override
+  String get knot_note =>
+      'General tips: wet the knot before tightening, pull slowly so it does not heat up, trim leaving 2–3 mm. Drawings are diagrams.';
+
+  @override
+  String get knot_improvedClinch => 'Improved clinch knot';
+
+  @override
+  String get knot_improvedClinch_use =>
+      'Hooks and snaps on mono. The easiest one; everyone should know it.';
+
+  @override
+  String get knot_improvedClinch_steps =>
+      'Pass the line through the hook eye, leaving about 15 cm.\nWrap the tag end around the main line 5–7 times.\nPass the tag through the small loop by the eye, then through the big loop you just made.\nWet it, pull the main line tight, trim.';
+
+  @override
+  String get knot_palomar => 'Palomar knot';
+
+  @override
+  String get knot_palomar_use => 'Hooks and lures on braid (PE). Very strong and quick.';
+
+  @override
+  String get knot_palomar_steps =>
+      'Double about 15 cm of line and push the fold through the hook eye.\nTie a loose overhand knot with the doubled line.\nPass the whole hook through the folded loop.\nWet it, pull both ends tight, trim.';
+
+  @override
+  String get knot_uni => 'Uni knot';
+
+  @override
+  String get knot_uni_use => 'Hooks, snaps and lures; works on mono and braid.';
+
+  @override
+  String get knot_uni_steps =>
+      'Pass the line through the eye and lay the tag alongside the main line to form a loop.\nWrap the tag around both lines inside the loop 5–6 times.\nPull the tag so the wraps sit neatly.\nWet it, pull the main line to slide the knot to the eye, trim.';
+
+  @override
+  String get knot_doubleUni => 'Double uni knot';
+
+  @override
+  String get knot_doubleUni_use => 'Joins two lines (braid to mono leader, or a broken line).';
+
+  @override
+  String get knot_doubleUni_steps =>
+      'Overlap the two line ends by about 20 cm.\nWith the first end tie a uni knot around the second line (3–4 wraps; 6–8 for braid).\nDo the same with the second end.\nWet them, pull the main lines so the knots slide together, trim.';
+
+  @override
+  String get knot_perfectionLoop => 'Perfection loop';
+
+  @override
+  String get knot_perfectionLoop_use => 'A loop at the line end to clip rigs and leaders on fast.';
+
+  @override
+  String get knot_perfectionLoop_steps =>
+      'Make a small loop at the end, tag behind.\nWrap the tag around to make a second loop in front.\nPass the tag between the two loops.\nPull the second loop through the first, tighten, trim.';
+
+  @override
+  String get knot_snell => 'Snell knot';
+
+  @override
+  String get knot_snell_use =>
+      'Ties a hook so the line runs straight down the shank, hooking more fish.';
+
+  @override
+  String get knot_snell_steps =>
+      'Pass the line through the eye and lay it along the shank to make a loop.\nWrap the loop around the shank and line 7–8 times, from the eye down.\nHold the wraps and pull the main line tight.\nWet it, tighten again, trim.';
 }

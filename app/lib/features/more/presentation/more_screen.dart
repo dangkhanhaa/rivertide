@@ -13,6 +13,7 @@ import 'package:rivertide/core/theme/app_colors.dart';
 import 'package:rivertide/core/theme/app_spacing.dart';
 import 'package:rivertide/core/theme/app_text.dart';
 import 'package:rivertide/core/widgets/ui_kit.dart';
+import 'package:rivertide/features/gear/gear.dart';
 import 'package:rivertide/features/journal/journal.dart';
 import 'package:rivertide/features/more/application/update_provider.dart';
 import 'package:rivertide/features/more/presentation/settings_screen.dart';
@@ -75,6 +76,15 @@ class MoreScreen extends ConsumerWidget {
                 onTap: () =>
                     Navigator.of(context)
                         .push(MaterialPageRoute<void>(builder: (_) => const JournalScreen())),
+              ),
+              ActionRow(
+                icon: Icons.backpack_rounded,
+                color: c.trip,
+                title: l10n.gear_entry,
+                subtitle: l10n.gear_entryHint,
+                onTap: () =>
+                    Navigator.of(context)
+                        .push(MaterialPageRoute<void>(builder: (_) => const GearScreen())),
               ),
               ActionRow(
                 icon: Icons.water_rounded,
