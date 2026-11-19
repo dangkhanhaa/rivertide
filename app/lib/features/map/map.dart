@@ -3,6 +3,8 @@ library;
 
 export 'application/map_providers.dart'
     show lastPositionProvider, locationPromptStoreProvider, locationServiceProvider;
+export 'application/overlay_visibility.dart' show hiddenOverlaysProvider;
 export 'domain/location_service.dart'
     show LocateResult, Located, LocationDenied, LocationFailed, LocationService, LocationServiceOff;
 export 'presentation/locate_action.dart' show runLocateFlow;
+export 'presentation/widgets/overlay_layers.dart' show MapOverlayId;

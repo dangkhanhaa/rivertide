@@ -3704,4 +3704,172 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get map_layerCheckins => 'Người đang câu';
+
+  @override
+  String get onb_skip => 'Bỏ qua';
+
+  @override
+  String get onb_back => 'Quay lại';
+
+  @override
+  String get onb_next => 'Tiếp tục';
+
+  @override
+  String get onb_start => 'Bắt đầu';
+
+  @override
+  String get onb_finish => 'Vào app';
+
+  @override
+  String onb_progress(int step, int total) {
+    return 'Bước $step/$total';
+  }
+
+  @override
+  String get onb_welcomeTitle => 'Chào mừng đến Con Nước';
+
+  @override
+  String get onb_welcomeBody =>
+      'Con nước, giờ vàng và chỗ câu quanh bạn — xem nhanh, vẫn dùng được khi mất sóng.';
+
+  @override
+  String get onb_welcomeTide => 'Con nước, thời tiết từng nơi';
+
+  @override
+  String get onb_welcomeGolden => 'Giờ vàng, chỉ số câu cá mỗi ngày';
+
+  @override
+  String get onb_welcomeCommunity => 'Hồ câu, điểm câu và kèo câu cộng đồng';
+
+  @override
+  String get onb_welcomeTime => 'Thiết lập chưa tới 1 phút · bỏ qua lúc nào cũng được';
+
+  @override
+  String get onb_langTitle => 'Chọn ngôn ngữ';
+
+  @override
+  String get onb_langBody => 'Đổi ngay khi chọn. Đổi lại được trong Cài đặt.';
+
+  @override
+  String get onb_nameTitle => 'Bạn tên gì?';
+
+  @override
+  String get onb_nameBody =>
+      'Tên hiện trên bình luận, kèo câu và đánh giá hồ. Không bắt buộc: để trống là ẩn danh.';
+
+  @override
+  String get onb_nameShownAs => 'Mọi người sẽ thấy';
+
+  @override
+  String get onb_nameErrShort => 'Tên cần ít nhất 2 ký tự.';
+
+  @override
+  String get onb_nameErrLong => 'Tên tối đa 30 ký tự.';
+
+  @override
+  String get onb_nameErrChars => 'Tên có ký tự ẩn không hợp lệ.';
+
+  @override
+  String get onb_nameErrLink => 'Tên không được chứa đường link.';
+
+  @override
+  String get onb_nameErrPhone => 'Tên không được chứa số điện thoại.';
+
+  @override
+  String get onb_nameErrReserved =>
+      'Tên này dễ nhầm với quản trị viên hoặc app. Chọn tên khác nhé.';
+
+  @override
+  String get onb_kindTitle => 'Bạn là ai?';
+
+  @override
+  String get onb_kindBody => 'Chọn một hoặc nhiều. App mở đúng tab và lớp bản đồ hợp với bạn.';
+
+  @override
+  String get onb_kindWeekend => 'Câu giải trí cuối tuần';
+
+  @override
+  String get onb_kindWeekendHint => 'Xem nhanh hôm nay đi câu có hợp không';
+
+  @override
+  String get onb_kindPro => 'Câu chuyên (sông, biển)';
+
+  @override
+  String get onb_kindProHint => 'Canh con nước, giờ vàng, gió và sóng';
+
+  @override
+  String get onb_kindPond => 'Câu hồ dịch vụ';
+
+  @override
+  String get onb_kindPondHint => 'Tìm hồ, xem lịch xả cá và đánh giá';
+
+  @override
+  String get onb_kindOwner => 'Chủ hồ câu';
+
+  @override
+  String get onb_kindOwnerHint => 'Đăng hồ, báo xả cá cho khách';
+
+  @override
+  String get onb_kindBoater => 'Người đi biển, thuyền';
+
+  @override
+  String get onb_kindBoaterHint => 'Con nước, sóng gió trước khi ra khơi';
+
+  @override
+  String get onb_kindTide => 'Chỉ xem con nước';
+
+  @override
+  String get onb_kindTideHint => 'Bản đồ gọn: chỉ trạm và mực nước';
+
+  @override
+  String get onb_prefsTitle => 'Thêm chút cho vừa ý';
+
+  @override
+  String get onb_prefsBody => 'Tất cả đều tùy chọn, đổi được sau.';
+
+  @override
+  String get onb_waterTitle => 'Bạn hay câu ở đâu?';
+
+  @override
+  String get onb_waterRiver => 'Sông, kênh rạch';
+
+  @override
+  String get onb_waterSea => 'Biển';
+
+  @override
+  String get onb_waterLake => 'Hồ';
+
+  @override
+  String get onb_notifyTitle => 'Thông báo';
+
+  @override
+  String get onb_notifyAlarms => 'Chuông giờ vàng & con nước';
+
+  @override
+  String get onb_notifyAlarmsHint => 'Bật riêng cho từng nơi ở tab Theo dõi';
+
+  @override
+  String get onb_notifyDenied =>
+      'Chưa được phép gửi thông báo. Có thể bật lại trong cài đặt của máy.';
+
+  @override
+  String get onb_locTitle => 'Vị trí của bạn';
+
+  @override
+  String get onb_locAllow => 'Cho phép vị trí';
+
+  @override
+  String get onb_locOn => 'Đã bật vị trí';
+
+  @override
+  String get onb_lookTitle => 'Chọn giao diện';
+
+  @override
+  String get onb_lookBody => 'Màu chủ đạo, sáng tối và kiểu thanh tab. Xem trước ngay bên dưới.';
+
+  @override
+  String get onb_rerun => 'Xem lại phần chào mừng';
+
+  @override
+  String get onb_rerunHint => 'Tên, ngôn ngữ, bạn là ai và giao diện, từng bước';
 }

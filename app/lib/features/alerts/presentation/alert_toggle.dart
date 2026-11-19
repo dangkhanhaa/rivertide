@@ -32,3 +32,34 @@ Future<void> toggleAlert(BuildContext context, WidgetRef ref, String id) async {
   await rescheduleAlerts(ref);
   if (on) messenger.showSnackBar(SnackBar(content: Text(l10n.alert_onSnack)));
 }
+
+/// Welcome flow (P2-53): the evening summary and the golden-hour / tide
+/// alarms as two switches.
+({bool evening, bool alarms}) watchAlertChoices(WidgetRef ref) {
+  final o = ref.watch(alertOptionsProvider).value ?? const AlertOptions();
+  return (evening: o.evening, alarms: o.golden || o.tides);
+}
+
+/// Saves the switches; turning one on asks for the notification permission
+/// first. False (nothing saved) when the permission was refused.
+Future<bool> setAlertChoices(
+  BuildContext context,
+  WidgetRef ref, {
+  bool? evening,
+  bool? alarms,
+}) async {
+  final l10n = context.l10n;
+  if ((evening ?? false) || (alarms ?? false)) {
+    final notifier = AlertNotifier(
+      channelName: l10n.alert_channel,
+      channelDescription: l10n.alert_channelHint,
+    );
+    if (!await notifier.requestPermission()) return false;
+  }
+  final now = await ref.read(alertOptionsProvider.future);
+  await ref
+      .read(alertOptionsProvider.notifier)
+      .save(now.copyWith(evening: evening, golden: alarms, tides: alarms));
+  await rescheduleAlerts(ref);
+  return true;
+}

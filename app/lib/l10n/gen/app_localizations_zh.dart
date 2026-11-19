@@ -3626,4 +3626,168 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get map_layerCheckins => '正在钓鱼的人';
+
+  @override
+  String get onb_skip => '跳过';
+
+  @override
+  String get onb_back => '返回';
+
+  @override
+  String get onb_next => '继续';
+
+  @override
+  String get onb_start => '开始';
+
+  @override
+  String get onb_finish => '进入应用';
+
+  @override
+  String onb_progress(int step, int total) {
+    return '第 $step/$total 步';
+  }
+
+  @override
+  String get onb_welcomeTitle => '欢迎使用 Con Nước';
+
+  @override
+  String get onb_welcomeBody => '潮汐、黄金时段和你身边的钓点——一眼看懂，离线也能用。';
+
+  @override
+  String get onb_welcomeTide => '各地潮汐与天气';
+
+  @override
+  String get onb_welcomeGolden => '每日黄金时段与钓鱼指数';
+
+  @override
+  String get onb_welcomeCommunity => '社区分享的鱼塘、钓点和约钓';
+
+  @override
+  String get onb_welcomeTime => '不到 1 分钟即可完成 · 随时可跳过';
+
+  @override
+  String get onb_langTitle => '选择语言';
+
+  @override
+  String get onb_langBody => '选择后立即生效，可在设置中更改。';
+
+  @override
+  String get onb_nameTitle => '怎么称呼你？';
+
+  @override
+  String get onb_nameBody => '显示在评论、约钓和鱼塘评价中。可不填：留空即匿名。';
+
+  @override
+  String get onb_nameShownAs => '其他人将看到';
+
+  @override
+  String get onb_nameErrShort => '名字至少 2 个字符。';
+
+  @override
+  String get onb_nameErrLong => '名字最多 30 个字符。';
+
+  @override
+  String get onb_nameErrChars => '名字含有无效的隐藏字符。';
+
+  @override
+  String get onb_nameErrLink => '名字不能包含链接。';
+
+  @override
+  String get onb_nameErrPhone => '名字不能包含电话号码。';
+
+  @override
+  String get onb_nameErrReserved => '这个名字容易被误认为管理员或应用官方，请换一个。';
+
+  @override
+  String get onb_kindTitle => '你是哪类用户？';
+
+  @override
+  String get onb_kindBody => '可多选。应用会打开适合你的标签页和地图图层。';
+
+  @override
+  String get onb_kindWeekend => '周末休闲钓鱼';
+
+  @override
+  String get onb_kindWeekendHint => '快速看看今天适不适合去钓鱼';
+
+  @override
+  String get onb_kindPro => '专业钓鱼（河、海）';
+
+  @override
+  String get onb_kindProHint => '关注潮汐、黄金时段、风和浪';
+
+  @override
+  String get onb_kindPond => '付费鱼塘钓鱼';
+
+  @override
+  String get onb_kindPondHint => '找鱼塘，看放鱼时间和评价';
+
+  @override
+  String get onb_kindOwner => '鱼塘老板';
+
+  @override
+  String get onb_kindOwnerHint => '发布鱼塘，通知顾客放鱼';
+
+  @override
+  String get onb_kindBoater => '出海、行船的人';
+
+  @override
+  String get onb_kindBoaterHint => '出海前看潮汐和风浪';
+
+  @override
+  String get onb_kindTide => '只看潮汐';
+
+  @override
+  String get onb_kindTideHint => '简洁地图：只显示测站和水位';
+
+  @override
+  String get onb_prefsTitle => '再设置一点';
+
+  @override
+  String get onb_prefsBody => '全部可选，以后可更改。';
+
+  @override
+  String get onb_waterTitle => '你常在哪里钓鱼？';
+
+  @override
+  String get onb_waterRiver => '河流、沟渠';
+
+  @override
+  String get onb_waterSea => '海';
+
+  @override
+  String get onb_waterLake => '湖、塘';
+
+  @override
+  String get onb_notifyTitle => '通知';
+
+  @override
+  String get onb_notifyAlarms => '黄金时段与潮汐提醒';
+
+  @override
+  String get onb_notifyAlarmsHint => '在「关注」标签页中按地点开启';
+
+  @override
+  String get onb_notifyDenied => '未获得通知权限。可在手机设置中重新开启。';
+
+  @override
+  String get onb_locTitle => '你的位置';
+
+  @override
+  String get onb_locAllow => '允许使用位置';
+
+  @override
+  String get onb_locOn => '位置已开启';
+
+  @override
+  String get onb_lookTitle => '选择外观';
+
+  @override
+  String get onb_lookBody => '主题色、浅色或深色以及标签栏样式，下方可预览。';
+
+  @override
+  String get onb_rerun => '重新查看欢迎引导';
+
+  @override
+  String get onb_rerunHint => '逐步设置名字、语言、用户类型和外观';
 }

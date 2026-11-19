@@ -10,6 +10,7 @@ import 'package:rivertide/features/alerts/alerts.dart';
 import 'package:rivertide/features/more/application/appearance_provider.dart';
 import 'package:rivertide/features/more/application/outdoor_mode_provider.dart';
 import 'package:rivertide/features/more/application/theme_mode_provider.dart';
+import 'package:rivertide/features/more/presentation/onboarding/onboarding_gate.dart';
 import 'package:rivertide/features/stations/stations.dart';
 import 'package:rivertide/features/watch/watch.dart';
 import 'package:rivertide/l10n/gen/app_localizations.dart';
@@ -26,6 +27,14 @@ class _RiverTideAppState extends ConsumerState<RiverTideApp> {
   late final GoRouter _router = buildRouter();
   static const Duration _warmDelay = Duration(seconds: 4);
   Timer? _warmTimer;
+
+  /// Opened from a shared link (not the plain home screen): the welcome
+  /// flow waits for the next plain launch (P2-53).
+  late final bool _openedByLink = !const {
+    '',
+    '/',
+    Routes.map,
+  }.contains(_router.routeInformationProvider.value.uri.path);
 
   @override
   void initState() {
@@ -82,7 +91,16 @@ class _RiverTideAppState extends ConsumerState<RiverTideApp> {
       theme: outdoor ? AppTheme.outdoor(look) : AppTheme.light(look),
       darkTheme: outdoor ? AppTheme.outdoor(look) : AppTheme.dark(look),
       themeMode: outdoor ? ThemeMode.light : mode,
-      builder: (context, child) => _personalMedia(context, child, look, outdoor: outdoor),
+      builder: (context, child) => _personalMedia(
+        context,
+        OnboardingGate(
+          app: child ?? const SizedBox.shrink(),
+          openedByLink: _openedByLink,
+          onFinished: () => unawaited(_openStartTab()),
+        ),
+        look,
+        outdoor: outdoor,
+      ),
       locale: switch (look.language.code) {
         final code? => Locale(code),
         null => null,

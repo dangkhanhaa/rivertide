@@ -6545,6 +6545,330 @@ abstract class AppLocalizations {
   /// In vi, this message translates to:
   /// **'Người đang câu'**
   String get map_layerCheckins;
+
+  /// No description provided for @onb_skip.
+  ///
+  /// In vi, this message translates to:
+  /// **'Bỏ qua'**
+  String get onb_skip;
+
+  /// No description provided for @onb_back.
+  ///
+  /// In vi, this message translates to:
+  /// **'Quay lại'**
+  String get onb_back;
+
+  /// No description provided for @onb_next.
+  ///
+  /// In vi, this message translates to:
+  /// **'Tiếp tục'**
+  String get onb_next;
+
+  /// No description provided for @onb_start.
+  ///
+  /// In vi, this message translates to:
+  /// **'Bắt đầu'**
+  String get onb_start;
+
+  /// No description provided for @onb_finish.
+  ///
+  /// In vi, this message translates to:
+  /// **'Vào app'**
+  String get onb_finish;
+
+  /// Welcome flow progress
+  ///
+  /// In vi, this message translates to:
+  /// **'Bước {step}/{total}'**
+  String onb_progress(int step, int total);
+
+  /// No description provided for @onb_welcomeTitle.
+  ///
+  /// In vi, this message translates to:
+  /// **'Chào mừng đến Con Nước'**
+  String get onb_welcomeTitle;
+
+  /// No description provided for @onb_welcomeBody.
+  ///
+  /// In vi, this message translates to:
+  /// **'Con nước, giờ vàng và chỗ câu quanh bạn — xem nhanh, vẫn dùng được khi mất sóng.'**
+  String get onb_welcomeBody;
+
+  /// No description provided for @onb_welcomeTide.
+  ///
+  /// In vi, this message translates to:
+  /// **'Con nước, thời tiết từng nơi'**
+  String get onb_welcomeTide;
+
+  /// No description provided for @onb_welcomeGolden.
+  ///
+  /// In vi, this message translates to:
+  /// **'Giờ vàng, chỉ số câu cá mỗi ngày'**
+  String get onb_welcomeGolden;
+
+  /// No description provided for @onb_welcomeCommunity.
+  ///
+  /// In vi, this message translates to:
+  /// **'Hồ câu, điểm câu và kèo câu cộng đồng'**
+  String get onb_welcomeCommunity;
+
+  /// No description provided for @onb_welcomeTime.
+  ///
+  /// In vi, this message translates to:
+  /// **'Thiết lập chưa tới 1 phút · bỏ qua lúc nào cũng được'**
+  String get onb_welcomeTime;
+
+  /// No description provided for @onb_langTitle.
+  ///
+  /// In vi, this message translates to:
+  /// **'Chọn ngôn ngữ'**
+  String get onb_langTitle;
+
+  /// No description provided for @onb_langBody.
+  ///
+  /// In vi, this message translates to:
+  /// **'Đổi ngay khi chọn. Đổi lại được trong Cài đặt.'**
+  String get onb_langBody;
+
+  /// No description provided for @onb_nameTitle.
+  ///
+  /// In vi, this message translates to:
+  /// **'Bạn tên gì?'**
+  String get onb_nameTitle;
+
+  /// No description provided for @onb_nameBody.
+  ///
+  /// In vi, this message translates to:
+  /// **'Tên hiện trên bình luận, kèo câu và đánh giá hồ. Không bắt buộc: để trống là ẩn danh.'**
+  String get onb_nameBody;
+
+  /// No description provided for @onb_nameShownAs.
+  ///
+  /// In vi, this message translates to:
+  /// **'Mọi người sẽ thấy'**
+  String get onb_nameShownAs;
+
+  /// No description provided for @onb_nameErrShort.
+  ///
+  /// In vi, this message translates to:
+  /// **'Tên cần ít nhất 2 ký tự.'**
+  String get onb_nameErrShort;
+
+  /// No description provided for @onb_nameErrLong.
+  ///
+  /// In vi, this message translates to:
+  /// **'Tên tối đa 30 ký tự.'**
+  String get onb_nameErrLong;
+
+  /// No description provided for @onb_nameErrChars.
+  ///
+  /// In vi, this message translates to:
+  /// **'Tên có ký tự ẩn không hợp lệ.'**
+  String get onb_nameErrChars;
+
+  /// No description provided for @onb_nameErrLink.
+  ///
+  /// In vi, this message translates to:
+  /// **'Tên không được chứa đường link.'**
+  String get onb_nameErrLink;
+
+  /// No description provided for @onb_nameErrPhone.
+  ///
+  /// In vi, this message translates to:
+  /// **'Tên không được chứa số điện thoại.'**
+  String get onb_nameErrPhone;
+
+  /// No description provided for @onb_nameErrReserved.
+  ///
+  /// In vi, this message translates to:
+  /// **'Tên này dễ nhầm với quản trị viên hoặc app. Chọn tên khác nhé.'**
+  String get onb_nameErrReserved;
+
+  /// No description provided for @onb_kindTitle.
+  ///
+  /// In vi, this message translates to:
+  /// **'Bạn là ai?'**
+  String get onb_kindTitle;
+
+  /// No description provided for @onb_kindBody.
+  ///
+  /// In vi, this message translates to:
+  /// **'Chọn một hoặc nhiều. App mở đúng tab và lớp bản đồ hợp với bạn.'**
+  String get onb_kindBody;
+
+  /// No description provided for @onb_kindWeekend.
+  ///
+  /// In vi, this message translates to:
+  /// **'Câu giải trí cuối tuần'**
+  String get onb_kindWeekend;
+
+  /// No description provided for @onb_kindWeekendHint.
+  ///
+  /// In vi, this message translates to:
+  /// **'Xem nhanh hôm nay đi câu có hợp không'**
+  String get onb_kindWeekendHint;
+
+  /// No description provided for @onb_kindPro.
+  ///
+  /// In vi, this message translates to:
+  /// **'Câu chuyên (sông, biển)'**
+  String get onb_kindPro;
+
+  /// No description provided for @onb_kindProHint.
+  ///
+  /// In vi, this message translates to:
+  /// **'Canh con nước, giờ vàng, gió và sóng'**
+  String get onb_kindProHint;
+
+  /// No description provided for @onb_kindPond.
+  ///
+  /// In vi, this message translates to:
+  /// **'Câu hồ dịch vụ'**
+  String get onb_kindPond;
+
+  /// No description provided for @onb_kindPondHint.
+  ///
+  /// In vi, this message translates to:
+  /// **'Tìm hồ, xem lịch xả cá và đánh giá'**
+  String get onb_kindPondHint;
+
+  /// No description provided for @onb_kindOwner.
+  ///
+  /// In vi, this message translates to:
+  /// **'Chủ hồ câu'**
+  String get onb_kindOwner;
+
+  /// No description provided for @onb_kindOwnerHint.
+  ///
+  /// In vi, this message translates to:
+  /// **'Đăng hồ, báo xả cá cho khách'**
+  String get onb_kindOwnerHint;
+
+  /// No description provided for @onb_kindBoater.
+  ///
+  /// In vi, this message translates to:
+  /// **'Người đi biển, thuyền'**
+  String get onb_kindBoater;
+
+  /// No description provided for @onb_kindBoaterHint.
+  ///
+  /// In vi, this message translates to:
+  /// **'Con nước, sóng gió trước khi ra khơi'**
+  String get onb_kindBoaterHint;
+
+  /// No description provided for @onb_kindTide.
+  ///
+  /// In vi, this message translates to:
+  /// **'Chỉ xem con nước'**
+  String get onb_kindTide;
+
+  /// No description provided for @onb_kindTideHint.
+  ///
+  /// In vi, this message translates to:
+  /// **'Bản đồ gọn: chỉ trạm và mực nước'**
+  String get onb_kindTideHint;
+
+  /// No description provided for @onb_prefsTitle.
+  ///
+  /// In vi, this message translates to:
+  /// **'Thêm chút cho vừa ý'**
+  String get onb_prefsTitle;
+
+  /// No description provided for @onb_prefsBody.
+  ///
+  /// In vi, this message translates to:
+  /// **'Tất cả đều tùy chọn, đổi được sau.'**
+  String get onb_prefsBody;
+
+  /// No description provided for @onb_waterTitle.
+  ///
+  /// In vi, this message translates to:
+  /// **'Bạn hay câu ở đâu?'**
+  String get onb_waterTitle;
+
+  /// No description provided for @onb_waterRiver.
+  ///
+  /// In vi, this message translates to:
+  /// **'Sông, kênh rạch'**
+  String get onb_waterRiver;
+
+  /// No description provided for @onb_waterSea.
+  ///
+  /// In vi, this message translates to:
+  /// **'Biển'**
+  String get onb_waterSea;
+
+  /// No description provided for @onb_waterLake.
+  ///
+  /// In vi, this message translates to:
+  /// **'Hồ'**
+  String get onb_waterLake;
+
+  /// No description provided for @onb_notifyTitle.
+  ///
+  /// In vi, this message translates to:
+  /// **'Thông báo'**
+  String get onb_notifyTitle;
+
+  /// No description provided for @onb_notifyAlarms.
+  ///
+  /// In vi, this message translates to:
+  /// **'Chuông giờ vàng & con nước'**
+  String get onb_notifyAlarms;
+
+  /// No description provided for @onb_notifyAlarmsHint.
+  ///
+  /// In vi, this message translates to:
+  /// **'Bật riêng cho từng nơi ở tab Theo dõi'**
+  String get onb_notifyAlarmsHint;
+
+  /// No description provided for @onb_notifyDenied.
+  ///
+  /// In vi, this message translates to:
+  /// **'Chưa được phép gửi thông báo. Có thể bật lại trong cài đặt của máy.'**
+  String get onb_notifyDenied;
+
+  /// No description provided for @onb_locTitle.
+  ///
+  /// In vi, this message translates to:
+  /// **'Vị trí của bạn'**
+  String get onb_locTitle;
+
+  /// No description provided for @onb_locAllow.
+  ///
+  /// In vi, this message translates to:
+  /// **'Cho phép vị trí'**
+  String get onb_locAllow;
+
+  /// No description provided for @onb_locOn.
+  ///
+  /// In vi, this message translates to:
+  /// **'Đã bật vị trí'**
+  String get onb_locOn;
+
+  /// No description provided for @onb_lookTitle.
+  ///
+  /// In vi, this message translates to:
+  /// **'Chọn giao diện'**
+  String get onb_lookTitle;
+
+  /// No description provided for @onb_lookBody.
+  ///
+  /// In vi, this message translates to:
+  /// **'Màu chủ đạo, sáng tối và kiểu thanh tab. Xem trước ngay bên dưới.'**
+  String get onb_lookBody;
+
+  /// No description provided for @onb_rerun.
+  ///
+  /// In vi, this message translates to:
+  /// **'Xem lại phần chào mừng'**
+  String get onb_rerun;
+
+  /// No description provided for @onb_rerunHint.
+  ///
+  /// In vi, this message translates to:
+  /// **'Tên, ngôn ngữ, bạn là ai và giao diện, từng bước'**
+  String get onb_rerunHint;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

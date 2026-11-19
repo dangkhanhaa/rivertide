@@ -16,6 +16,7 @@ import 'package:rivertide/core/widgets/ui_kit.dart';
 import 'package:rivertide/features/gear/gear.dart';
 import 'package:rivertide/features/journal/journal.dart';
 import 'package:rivertide/features/more/application/update_provider.dart';
+import 'package:rivertide/features/more/presentation/onboarding/onboarding_gate.dart';
 import 'package:rivertide/features/more/presentation/settings_screen.dart';
 import 'package:rivertide/features/stations/stations.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -98,6 +99,13 @@ class MoreScreen extends ConsumerWidget {
                 title: l10n.set_entry,
                 subtitle: l10n.set_entryHint,
                 onTap: () => pushPage<void>(context, const SettingsScreen()),
+              ),
+              ActionRow(
+                icon: Icons.auto_awesome_rounded,
+                color: c.trip,
+                title: l10n.onb_rerun,
+                subtitle: l10n.onb_rerunHint,
+                onTap: () => unawaited(replayOnboarding(context)),
               ),
             ],
           ),

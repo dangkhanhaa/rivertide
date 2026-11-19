@@ -3632,4 +3632,168 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get map_layerCheckins => '釣り中の人';
+
+  @override
+  String get onb_skip => 'スキップ';
+
+  @override
+  String get onb_back => '戻る';
+
+  @override
+  String get onb_next => '次へ';
+
+  @override
+  String get onb_start => 'はじめる';
+
+  @override
+  String get onb_finish => 'アプリを開く';
+
+  @override
+  String onb_progress(int step, int total) {
+    return 'ステップ $step/$total';
+  }
+
+  @override
+  String get onb_welcomeTitle => 'Con Nước へようこそ';
+
+  @override
+  String get onb_welcomeBody => '潮回り、ゴールデンタイム、近くの釣り場をすぐに確認。オフラインでも使えます。';
+
+  @override
+  String get onb_welcomeTide => '各地の潮と天気';
+
+  @override
+  String get onb_welcomeGolden => '毎日のゴールデンタイムと釣り指数';
+
+  @override
+  String get onb_welcomeCommunity => 'コミュニティの釣り堀・ポイント・釣行';
+
+  @override
+  String get onb_welcomeTime => '1分以内で完了 · いつでもスキップできます';
+
+  @override
+  String get onb_langTitle => '言語を選択';
+
+  @override
+  String get onb_langBody => '選ぶとすぐに切り替わります。設定でいつでも変更できます。';
+
+  @override
+  String get onb_nameTitle => 'お名前は？';
+
+  @override
+  String get onb_nameBody => 'コメント、釣行、釣り堀のレビューに表示されます。任意：空欄なら匿名です。';
+
+  @override
+  String get onb_nameShownAs => 'ほかの人に見える名前';
+
+  @override
+  String get onb_nameErrShort => '2文字以上にしてください。';
+
+  @override
+  String get onb_nameErrLong => '30文字以内にしてください。';
+
+  @override
+  String get onb_nameErrChars => '見えない不正な文字が含まれています。';
+
+  @override
+  String get onb_nameErrLink => '名前にリンクは使えません。';
+
+  @override
+  String get onb_nameErrPhone => '名前に電話番号は使えません。';
+
+  @override
+  String get onb_nameErrReserved => '運営やアプリと間違われやすい名前です。別の名前にしてください。';
+
+  @override
+  String get onb_kindTitle => 'あなたはどんな人？';
+
+  @override
+  String get onb_kindBody => '複数選択できます。合ったタブと地図レイヤーで開きます。';
+
+  @override
+  String get onb_kindWeekend => '週末のレジャー釣り';
+
+  @override
+  String get onb_kindWeekendHint => '今日が釣り日和かすぐ確認';
+
+  @override
+  String get onb_kindPro => '本格派 (川・海)';
+
+  @override
+  String get onb_kindProHint => '潮回り、ゴールデンタイム、風と波';
+
+  @override
+  String get onb_kindPond => '釣り堀に通う';
+
+  @override
+  String get onb_kindPondHint => '釣り堀探し、放流日とレビュー';
+
+  @override
+  String get onb_kindOwner => '釣り堀のオーナー';
+
+  @override
+  String get onb_kindOwnerHint => '釣り堀を登録し、放流をお知らせ';
+
+  @override
+  String get onb_kindBoater => '海・船に出る人';
+
+  @override
+  String get onb_kindBoaterHint => '出航前に潮と風波を確認';
+
+  @override
+  String get onb_kindTide => '潮だけ見たい';
+
+  @override
+  String get onb_kindTideHint => 'すっきりした地図：観測所と水位のみ';
+
+  @override
+  String get onb_prefsTitle => 'もう少しだけ';
+
+  @override
+  String get onb_prefsBody => 'すべて任意で、あとから変更できます。';
+
+  @override
+  String get onb_waterTitle => 'よく釣りをする場所は？';
+
+  @override
+  String get onb_waterRiver => '川・水路';
+
+  @override
+  String get onb_waterSea => '海';
+
+  @override
+  String get onb_waterLake => '湖・池';
+
+  @override
+  String get onb_notifyTitle => '通知';
+
+  @override
+  String get onb_notifyAlarms => 'ゴールデンタイムと潮のアラーム';
+
+  @override
+  String get onb_notifyAlarmsHint => 'ウォッチタブで場所ごとにオン';
+
+  @override
+  String get onb_notifyDenied => '通知が許可されていません。端末の設定でオンにできます。';
+
+  @override
+  String get onb_locTitle => '現在地';
+
+  @override
+  String get onb_locAllow => '位置情報を許可';
+
+  @override
+  String get onb_locOn => '位置情報はオンです';
+
+  @override
+  String get onb_lookTitle => '見た目を選ぶ';
+
+  @override
+  String get onb_lookBody => 'アクセントカラー、ライト/ダーク、タブバーのスタイル。下でプレビューできます。';
+
+  @override
+  String get onb_rerun => 'ようこそ画面をもう一度';
+
+  @override
+  String get onb_rerunHint => '名前、言語、利用タイプ、見た目を順番に';
 }

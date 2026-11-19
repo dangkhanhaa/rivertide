@@ -3761,4 +3761,173 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get map_layerCheckins => 'People fishing now';
+
+  @override
+  String get onb_skip => 'Skip';
+
+  @override
+  String get onb_back => 'Back';
+
+  @override
+  String get onb_next => 'Continue';
+
+  @override
+  String get onb_start => 'Get started';
+
+  @override
+  String get onb_finish => 'Open the app';
+
+  @override
+  String onb_progress(int step, int total) {
+    return 'Step $step/$total';
+  }
+
+  @override
+  String get onb_welcomeTitle => 'Welcome to Con Nước';
+
+  @override
+  String get onb_welcomeBody =>
+      'Tides, golden hours and fishing spots around you — quick to read, works offline too.';
+
+  @override
+  String get onb_welcomeTide => 'Tides and weather for any place';
+
+  @override
+  String get onb_welcomeGolden => 'Golden hours and a daily fishing score';
+
+  @override
+  String get onb_welcomeCommunity => 'Ponds, spots and fishing trips from the community';
+
+  @override
+  String get onb_welcomeTime => 'Takes under a minute · skip any time';
+
+  @override
+  String get onb_langTitle => 'Choose a language';
+
+  @override
+  String get onb_langBody => 'Changes right away. You can switch it in Settings.';
+
+  @override
+  String get onb_nameTitle => 'What should we call you?';
+
+  @override
+  String get onb_nameBody =>
+      'Shown on comments, trips and pond reviews. Optional: leave it empty to stay anonymous.';
+
+  @override
+  String get onb_nameShownAs => 'Others will see';
+
+  @override
+  String get onb_nameErrShort => 'Use at least 2 characters.';
+
+  @override
+  String get onb_nameErrLong => 'Use at most 30 characters.';
+
+  @override
+  String get onb_nameErrChars => 'The name has hidden characters.';
+
+  @override
+  String get onb_nameErrLink => 'Names can\'t contain links.';
+
+  @override
+  String get onb_nameErrPhone => 'Names can\'t contain phone numbers.';
+
+  @override
+  String get onb_nameErrReserved =>
+      'This could be mistaken for the team or the app. Please pick another name.';
+
+  @override
+  String get onb_kindTitle => 'Who are you?';
+
+  @override
+  String get onb_kindBody =>
+      'Pick one or more. The app opens the tab and map layers that suit you.';
+
+  @override
+  String get onb_kindWeekend => 'Weekend angler';
+
+  @override
+  String get onb_kindWeekendHint => 'See whether today is a good day to go';
+
+  @override
+  String get onb_kindPro => 'Serious angler (river, sea)';
+
+  @override
+  String get onb_kindProHint => 'Tides, golden hours, wind and waves';
+
+  @override
+  String get onb_kindPond => 'Fishing pond visitor';
+
+  @override
+  String get onb_kindPondHint => 'Find ponds, restocking days and reviews';
+
+  @override
+  String get onb_kindOwner => 'Pond owner';
+
+  @override
+  String get onb_kindOwnerHint => 'List your pond, announce restocking';
+
+  @override
+  String get onb_kindBoater => 'Boater, seafarer';
+
+  @override
+  String get onb_kindBoaterHint => 'Tides, wind and waves before heading out';
+
+  @override
+  String get onb_kindTide => 'Just checking tides';
+
+  @override
+  String get onb_kindTideHint => 'A clean map: stations and water levels only';
+
+  @override
+  String get onb_prefsTitle => 'A few more touches';
+
+  @override
+  String get onb_prefsBody => 'All optional, change them any time.';
+
+  @override
+  String get onb_waterTitle => 'Where do you usually fish?';
+
+  @override
+  String get onb_waterRiver => 'Rivers, canals';
+
+  @override
+  String get onb_waterSea => 'Sea';
+
+  @override
+  String get onb_waterLake => 'Lakes, ponds';
+
+  @override
+  String get onb_notifyTitle => 'Notifications';
+
+  @override
+  String get onb_notifyAlarms => 'Golden hour & tide alarms';
+
+  @override
+  String get onb_notifyAlarmsHint => 'Turn on per place in the Watch tab';
+
+  @override
+  String get onb_notifyDenied =>
+      'Notifications aren\'t allowed. You can turn them on in your phone settings.';
+
+  @override
+  String get onb_locTitle => 'Your location';
+
+  @override
+  String get onb_locAllow => 'Allow location';
+
+  @override
+  String get onb_locOn => 'Location is on';
+
+  @override
+  String get onb_lookTitle => 'Choose a look';
+
+  @override
+  String get onb_lookBody => 'Accent colour, light or dark, and tab bar style. Preview below.';
+
+  @override
+  String get onb_rerun => 'Replay the welcome';
+
+  @override
+  String get onb_rerunHint => 'Name, language, who you are and look, step by step';
 }

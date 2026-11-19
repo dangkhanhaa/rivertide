@@ -3636,4 +3636,168 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get map_layerCheckins => '지금 낚시 중';
+
+  @override
+  String get onb_skip => '건너뛰기';
+
+  @override
+  String get onb_back => '뒤로';
+
+  @override
+  String get onb_next => '계속';
+
+  @override
+  String get onb_start => '시작하기';
+
+  @override
+  String get onb_finish => '앱 열기';
+
+  @override
+  String onb_progress(int step, int total) {
+    return '$step/$total단계';
+  }
+
+  @override
+  String get onb_welcomeTitle => 'Con Nước에 오신 것을 환영합니다';
+
+  @override
+  String get onb_welcomeBody => '물때, 골든타임, 주변 낚시터를 한눈에 — 오프라인에서도 사용할 수 있어요.';
+
+  @override
+  String get onb_welcomeTide => '지역별 물때와 날씨';
+
+  @override
+  String get onb_welcomeGolden => '매일의 골든타임과 낚시 지수';
+
+  @override
+  String get onb_welcomeCommunity => '커뮤니티의 낚시터, 포인트, 출조 모임';
+
+  @override
+  String get onb_welcomeTime => '1분이면 끝나요 · 언제든 건너뛸 수 있어요';
+
+  @override
+  String get onb_langTitle => '언어 선택';
+
+  @override
+  String get onb_langBody => '선택하면 바로 바뀌며, 설정에서 다시 바꿀 수 있어요.';
+
+  @override
+  String get onb_nameTitle => '이름을 알려 주세요';
+
+  @override
+  String get onb_nameBody => '댓글, 출조 모임, 낚시터 리뷰에 표시돼요. 선택 사항: 비워 두면 익명이에요.';
+
+  @override
+  String get onb_nameShownAs => '다른 사람에게 보이는 이름';
+
+  @override
+  String get onb_nameErrShort => '2자 이상 입력하세요.';
+
+  @override
+  String get onb_nameErrLong => '최대 30자까지 입력할 수 있어요.';
+
+  @override
+  String get onb_nameErrChars => '숨겨진 문자가 포함되어 있어요.';
+
+  @override
+  String get onb_nameErrLink => '이름에 링크를 넣을 수 없어요.';
+
+  @override
+  String get onb_nameErrPhone => '이름에 전화번호를 넣을 수 없어요.';
+
+  @override
+  String get onb_nameErrReserved => '관리자나 앱으로 오해될 수 있는 이름이에요. 다른 이름을 골라 주세요.';
+
+  @override
+  String get onb_kindTitle => '어떤 분이신가요?';
+
+  @override
+  String get onb_kindBody => '하나 이상 고르세요. 맞는 탭과 지도 레이어로 열어 드려요.';
+
+  @override
+  String get onb_kindWeekend => '주말 취미 낚시';
+
+  @override
+  String get onb_kindWeekendHint => '오늘 낚시 가기 좋은지 빠르게 확인';
+
+  @override
+  String get onb_kindPro => '전문 낚시 (강, 바다)';
+
+  @override
+  String get onb_kindProHint => '물때, 골든타임, 바람과 파도';
+
+  @override
+  String get onb_kindPond => '유료 낚시터 이용';
+
+  @override
+  String get onb_kindPondHint => '낚시터 찾기, 방류 일정과 리뷰';
+
+  @override
+  String get onb_kindOwner => '낚시터 운영자';
+
+  @override
+  String get onb_kindOwnerHint => '낚시터 등록, 방류 소식 알리기';
+
+  @override
+  String get onb_kindBoater => '바다·배 이용자';
+
+  @override
+  String get onb_kindBoaterHint => '출항 전 물때와 풍랑 확인';
+
+  @override
+  String get onb_kindTide => '물때만 보기';
+
+  @override
+  String get onb_kindTideHint => '깔끔한 지도: 관측소와 수위만';
+
+  @override
+  String get onb_prefsTitle => '조금만 더 설정해요';
+
+  @override
+  String get onb_prefsBody => '모두 선택 사항이며 나중에 바꿀 수 있어요.';
+
+  @override
+  String get onb_waterTitle => '주로 어디서 낚시하나요?';
+
+  @override
+  String get onb_waterRiver => '강, 수로';
+
+  @override
+  String get onb_waterSea => '바다';
+
+  @override
+  String get onb_waterLake => '호수, 저수지';
+
+  @override
+  String get onb_notifyTitle => '알림';
+
+  @override
+  String get onb_notifyAlarms => '골든타임 & 물때 알람';
+
+  @override
+  String get onb_notifyAlarmsHint => '관심 탭에서 장소별로 켜세요';
+
+  @override
+  String get onb_notifyDenied => '알림 권한이 없어요. 휴대폰 설정에서 다시 켤 수 있어요.';
+
+  @override
+  String get onb_locTitle => '내 위치';
+
+  @override
+  String get onb_locAllow => '위치 허용';
+
+  @override
+  String get onb_locOn => '위치가 켜져 있어요';
+
+  @override
+  String get onb_lookTitle => '모양 선택';
+
+  @override
+  String get onb_lookBody => '강조 색상, 라이트/다크, 탭 바 스타일. 아래에서 미리 보세요.';
+
+  @override
+  String get onb_rerun => '환영 안내 다시 보기';
+
+  @override
+  String get onb_rerunHint => '이름, 언어, 사용자 유형, 모양을 차례로';
 }

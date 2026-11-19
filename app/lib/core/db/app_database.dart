@@ -159,6 +159,11 @@ class AppDatabase extends _$AppDatabase {
   Future<void> writeSetting(String key, String value) =>
       into(settings)
           .insertOnConflictUpdate(SettingsCompanion.insert(settingKey: key, settingValue: value));
+
+  /// True when this install already holds settings or favourites: someone
+  /// updating from a version without the welcome flow (P2-53), not a newcomer.
+  Future<bool> hasUserData() async =>
+      await settings.count().getSingle() > 0 || await favorites.count().getSingle() > 0;
 }
 
 @Riverpod(keepAlive: true)
