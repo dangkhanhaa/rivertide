@@ -33,7 +33,7 @@ class KnotPainter extends CustomPainter {
   }
 
   void _hookEye(Canvas canvas, Size size, double cy, Paint stroke) {
-    final eye = Offset(size.width * 0.2, cy - 8);
+    final eye = Offset(size.width * 0.2, cy);
     final metalPaint = Paint()
       ..color = metal
       ..style = PaintingStyle.stroke
