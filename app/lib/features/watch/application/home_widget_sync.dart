@@ -9,6 +9,7 @@ import 'package:rivertide/core/calc/fishing/golden_window.dart';
 import 'package:rivertide/core/calc/tide/tide_queries.dart';
 import 'package:rivertide/core/calc/tide/tide_series.dart';
 import 'package:rivertide/core/clock/clock_provider.dart';
+import 'package:rivertide/core/compute/heavy.dart';
 import 'package:rivertide/core/db/app_database.dart';
 import 'package:rivertide/core/errors/app_exception.dart';
 import 'package:rivertide/core/format/time_format.dart';
@@ -54,12 +55,10 @@ Future<void> syncHomeWidget(WidgetRef ref) async {
     final name = first?.label ?? (first == null ? null : station.name);
     await HomeWidget.saveWidgetData<String>('place', name ?? station.name);
     final weather = (await repo.getWeather(station)).data;
-    final scored = scoreStationHours(
-      tide: tide,
-      weather: weather,
-      fromDayUtc: TimeFormat.vnDayStartUtc(now),
-      days: 3,
-    ).where((h) => !h.hourUtc.isBefore(start)).take(widgetHours).toList();
+    final from = TimeFormat.vnDayStartUtc(now);
+    final scored = (await runHeavy(
+      () => scoreStationHours(tide: tide, weather: weather, fromDayUtc: from, days: 3),
+    )).where((h) => !h.hourUtc.isBefore(start)).take(widgetHours).toList();
     await _saveFish(scored);
     await HomeWidget.saveWidgetData<String>('levels', jsonEncode(levels));
     await HomeWidget.saveWidgetData<String>('extremes', jsonEncode(_extremes(p, now)));

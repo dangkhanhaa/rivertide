@@ -2,6 +2,7 @@ import 'package:collection/collection.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:rivertide/core/calc/fishing/fishing_score.dart';
 import 'package:rivertide/core/clock/clock_provider.dart';
+import 'package:rivertide/core/compute/heavy.dart';
 import 'package:rivertide/core/format/time_format.dart';
 import 'package:rivertide/features/stations/application/station_fishing.dart';
 import 'package:rivertide/features/stations/application/station_providers.dart';
@@ -22,8 +23,11 @@ Future<StationFishing> stationFishing(Ref ref, String id) async {
   final today = TimeFormat.vnDayStartUtc(ref.watch(clockProvider)());
   final tide = await ref.watch(stationTideProvider(id).future);
   final weather = await ref.watch(stationWeatherProvider(id).future);
+  final t = tide.data;
+  final w = weather.data;
+  final hours = await runHeavy(() => scoreStationHours(tide: t, weather: w, fromDayUtc: today));
   return (
-    hours: scoreStationHours(tide: tide.data, weather: weather.data, fromDayUtc: today),
+    hours: hours,
     weather: weather.data,
     fetchedAtUtc: weather.fetchedAtUtc,
     isStale: weather.isStale || tide.isStale,

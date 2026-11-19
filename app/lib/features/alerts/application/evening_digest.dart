@@ -4,6 +4,7 @@ import 'package:rivertide/core/calc/fishing/fish_activity.dart';
 import 'package:rivertide/core/calc/fishing/fishing_score.dart';
 import 'package:rivertide/core/calc/fishing/golden_window.dart';
 import 'package:rivertide/core/clock/clock_provider.dart';
+import 'package:rivertide/core/compute/heavy.dart';
 import 'package:rivertide/core/db/app_database.dart';
 import 'package:rivertide/core/format/level_format.dart';
 import 'package:rivertide/core/format/time_format.dart';
@@ -50,7 +51,9 @@ Future<void> scheduleEveningDigest(
   final weather = (await repo.getWeather(station)).data;
   // The day after the notification, from its local midnight.
   final dayStart = TimeFormat.vnDayStartUtc(at).add(const Duration(days: 1));
-  final hours = scoreStationHours(tide: tide, weather: weather, fromDayUtc: dayStart, days: 1);
+  final hours = await runHeavy(
+    () => scoreStationHours(tide: tide, weather: weather, fromDayUtc: dayStart, days: 1),
+  );
   final best = goldenWindows(hours)
       .where(
         (w) => !hours.any(

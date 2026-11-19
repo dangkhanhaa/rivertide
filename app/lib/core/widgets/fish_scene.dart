@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
@@ -89,11 +90,20 @@ class _FishSceneState extends State<FishScene> with SingleTickerProviderStateMix
         ..value = 0.3;
     } else if (!_t.isAnimating) {
       _t.repeat();
+      // A swim of ~20 s shows the idea; then rest on a still frame so slow
+      // phones are not repainting the card 60 times a second forever.
+      _stop ??= Timer(_swimFor, () {
+        if (mounted) _t.stop();
+      });
     }
   }
 
+  static const Duration _swimFor = Duration(seconds: 20);
+  Timer? _stop;
+
   @override
   void dispose() {
+    _stop?.cancel();
     _t.dispose();
     super.dispose();
   }

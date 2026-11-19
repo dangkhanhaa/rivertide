@@ -62,10 +62,16 @@ FishingHourScore _scoreHour(
   TideSeries? prediction,
   _Day day,
   Map<DateTime, WeatherHour> weather,
-) => scoreHour(hourUtc, [
-  for (final m in _sampleMinutes)
-    _input(hourUtc.add(Duration(minutes: m)), hourUtc, prediction, day, weather),
-]);
+) {
+  // The moon's phase barely moves within an hour: compute it once, not per
+  // 15-minute sample (it is the costliest part of a score on slow phones).
+  final mid = hourUtc.add(const Duration(minutes: 30));
+  final moon = (fraction: moonIllumination(mid).fraction, days: daysFromNewOrFullMoon(mid));
+  return scoreHour(hourUtc, [
+    for (final m in _sampleMinutes)
+      _input(hourUtc.add(Duration(minutes: m)), hourUtc, prediction, day, weather, moon),
+  ]);
+}
 
 /// Sun + solunar per (place, day). Pure functions of their key, so caching is
 /// safe; it matters because the map re-scores every station after each pan
@@ -107,6 +113,7 @@ FishingHourInput _input(
   TideSeries? prediction,
   _Day day,
   Map<DateTime, WeatherHour> weather,
+  ({double fraction, double days}) moon,
 ) {
   final w = weather[hourUtc];
   final yesterday = weather[hourUtc.subtract(const Duration(days: 1))];
@@ -124,8 +131,8 @@ FishingHourInput _input(
     springNeap: day.springNeap,
     solunar: solunarAt(t, day.solunar),
     solunarStrength: solunarStrengthAt(t, day.solunar),
-    daysFromNewOrFull: daysFromNewOrFullMoon(t),
-    moonFraction: moonIllumination(t).fraction,
+    daysFromNewOrFull: moon.days,
+    moonFraction: moon.fraction,
     sunriseUtc: day.sunriseUtc,
     sunsetUtc: day.sunsetUtc,
     pressureDelta24hHpa: p == null || p24 == null ? null : p - p24,

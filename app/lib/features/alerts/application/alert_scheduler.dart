@@ -6,6 +6,7 @@ import 'package:rivertide/core/calc/fishing/catch_patterns.dart';
 import 'package:rivertide/core/calc/fishing/fishing_score.dart';
 import 'package:rivertide/core/calc/fishing/golden_window.dart';
 import 'package:rivertide/core/clock/clock_provider.dart';
+import 'package:rivertide/core/compute/heavy.dart';
 import 'package:rivertide/core/db/app_database.dart';
 import 'package:rivertide/core/errors/app_exception.dart';
 import 'package:rivertide/core/format/level_format.dart';
@@ -73,10 +74,9 @@ Future<_Plan> _planFor(
   final tide = (await repo.getTide(station)).data;
   final weather = (await repo.getWeather(station)).data;
   // From the start of today (whole hours), so each hour meets its weather row.
-  final hours = scoreStationHours(
-    tide: tide,
-    weather: weather,
-    fromDayUtc: TimeFormat.vnDayStartUtc(now),
+  final from = TimeFormat.vnDayStartUtc(now);
+  final hours = await runHeavy(
+    () => scoreStationHours(tide: tide, weather: weather, fromDayUtc: from),
   );
   // Only windows with no weather warning inside them (P2-22).
   final windows = [

@@ -24,16 +24,24 @@ class RiverTideApp extends ConsumerStatefulWidget {
 
 class _RiverTideAppState extends ConsumerState<RiverTideApp> {
   late final GoRouter _router = buildRouter();
+  static const Duration _warmDelay = Duration(seconds: 4);
+  Timer? _warmTimer;
 
   @override
   void initState() {
     super.initState();
     // After the first frame so it never delays opening the app.
-    WidgetsBinding.instance.addPostFrameCallback((_) => unawaited(_warmUp()));
+    // Start tab right away; the rest a few seconds later so the first screens
+    // (map tiles, fishing tab) get the CPU on slow phones.
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      unawaited(_openStartTab());
+      _warmTimer = Timer(_warmDelay, () => unawaited(_warmUp()));
+    });
   }
 
   @override
   void dispose() {
+    _warmTimer?.cancel();
     _router.dispose();
     super.dispose();
   }
@@ -41,7 +49,7 @@ class _RiverTideAppState extends ConsumerState<RiverTideApp> {
   /// Start tab first (feels instant), then saved places cached for offline
   /// use, then alarms rescheduled from them.
   Future<void> _warmUp() async {
-    await _openStartTab();
+    if (!mounted) return;
     await prefetchSavedPlaces(ref);
     await syncHomeWidget(ref);
     await rescheduleAlerts(ref);
