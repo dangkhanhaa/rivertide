@@ -7,6 +7,10 @@ import 'package:rivertide/core/theme/appearance.dart';
 /// Size of the round notch button.
 const double notchButton = 52;
 
+/// Items sit this far inside the pill's round ends, so the arc and the
+/// sliding marks never run into the curved corners.
+const double navInset = 16;
+
 typedef NavPalette = ({Color bar, Color accent, Color accent2, Color shadow, Color edge});
 
 /// Bar shape and the sliding indicator for every [NavStyle]. [position] is
@@ -32,8 +36,8 @@ class NavBarPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final bar = Rect.fromLTWH(0, top, size.width, size.height - top);
     final r = Radius.circular(bar.height / 2);
-    final slot = size.width / count;
-    final cx = slot * (position.value + 0.5);
+    final slot = (size.width - 2 * navInset) / count;
+    final cx = navInset + slot * (position.value + 0.5);
     final shape = style == NavStyle.notch
         ? _notched(bar, r, cx)
         : (Path()..addRRect(RRect.fromRectAndRadius(bar, r)));
@@ -70,11 +74,10 @@ class NavBarPainter extends CustomPainter {
   void _arc(Canvas canvas, Rect bar, double cx, double slot) {
     final y = bar.bottom - 2;
     final peak = bar.top + 6;
-    // The line stays inside the pill; near the ends the arc narrows so it
-    // always lands back on the line instead of being cut off.
-    final left = bar.left + bar.height * 0.42;
-    final right = bar.right - bar.height * 0.42;
-    final hw = math.max(AppSpacing.lg, math.min(slot * 0.6, math.min(cx - left, right - cx)));
+    // Same width on every tab; the inset keeps the end tabs off the curve.
+    final hw = slot * 0.62;
+    final left = math.min(bar.left + navInset, cx - hw);
+    final right = math.max(bar.right - navInset, cx + hw);
     final from = cx - hw;
     final to = cx + hw;
     final path = Path()

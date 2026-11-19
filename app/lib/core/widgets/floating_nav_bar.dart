@@ -93,6 +93,8 @@ class _FloatingNavBarState extends State<FloatingNavBar> with SingleTickerProvid
                   if (widget.style == NavStyle.notch) _floatingButton(context, palette),
                   Positioned.fill(
                     top: FloatingNavBar.rise,
+                    left: navInset,
+                    right: navInset,
                     child: Row(
                       children: [
                         for (final (i, item) in widget.items.indexed)
@@ -121,8 +123,8 @@ class _FloatingNavBarState extends State<FloatingNavBar> with SingleTickerProvid
     animation: _pos,
     builder: (context, _) => LayoutBuilder(
       builder: (context, box) {
-        final slot = box.maxWidth / widget.items.length;
-        final cx = slot * (_pos.value + 0.5);
+        final slot = (box.maxWidth - 2 * navInset) / widget.items.length;
+        final cx = navInset + slot * (_pos.value + 0.5);
         final item = widget.items[widget.index];
         return Stack(
           children: [

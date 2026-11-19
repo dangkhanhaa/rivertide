@@ -1274,5 +1274,9 @@
   "@release_alarmBodyKg": {"placeholders": {"when": {"type": "String"}, "kg": {"type": "int"}}},
   "nav_styleArc": "Vòng cung",
   "nav_styleNotch": "Khuyết tròn",
-  "nav_styleGlass": "Kính trong"
+  "nav_styleGlass": "Kính trong",
+  "map_layerPonds": "Hồ câu",
+  "map_layerSpots": "Điểm cộng đồng",
+  "map_layerTrips": "Kèo câu",
+  "map_layerCheckins": "Người đang câu"
 }

@@ -3614,4 +3614,16 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get nav_styleGlass => '玻璃';
+
+  @override
+  String get map_layerPonds => '钓场';
+
+  @override
+  String get map_layerSpots => '社区钓点';
+
+  @override
+  String get map_layerTrips => '钓鱼约局';
+
+  @override
+  String get map_layerCheckins => '正在钓鱼的人';
 }

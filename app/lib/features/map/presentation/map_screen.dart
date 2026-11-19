@@ -18,6 +18,7 @@ import 'package:rivertide/core/widgets/state_views.dart';
 import 'package:rivertide/features/checkin/checkin.dart';
 import 'package:rivertide/features/community/community.dart';
 import 'package:rivertide/features/map/application/map_providers.dart';
+import 'package:rivertide/features/map/application/overlay_visibility.dart';
 import 'package:rivertide/features/map/application/river_flow_provider.dart';
 import 'package:rivertide/features/map/application/weather_layer.dart';
 import 'package:rivertide/features/map/domain/base_layer.dart';
@@ -239,6 +240,8 @@ class _MapScreenState extends ConsumerState<MapScreen> with MapDetailPresenter<M
     });
     // On wide screens the controls move left of the side panel.
     final rightInset = isWide && sidePanel != null ? sidePanelWidth : 0.0;
+    // Height of the floating tab bar drawn over the map (P2-42).
+    final navPad = MediaQuery.paddingOf(context).bottom;
     return Scaffold(
       body: Stack(
         children: [
@@ -254,7 +257,7 @@ class _MapScreenState extends ConsumerState<MapScreen> with MapDetailPresenter<M
           _buildTop(context, rightInset),
           Positioned(
             right: AppSpacing.md + rightInset,
-            bottom: AppSpacing.xxl,
+            bottom: AppSpacing.xl + navPad,
             child: MapControls(
               key: _controlsKey,
               onLocate: _locate,
@@ -265,7 +268,7 @@ class _MapScreenState extends ConsumerState<MapScreen> with MapDetailPresenter<M
           Positioned(
             left: AppSpacing.md,
             right: AppSpacing.md * 2 + AppSpacing.minTouch * 1.2 + rightInset,
-            bottom: AppSpacing.xxl,
+            bottom: AppSpacing.xl + navPad,
             child: Align(
               alignment: Alignment.bottomLeft,
               heightFactor: 1,
@@ -277,7 +280,7 @@ class _MapScreenState extends ConsumerState<MapScreen> with MapDetailPresenter<M
           ),
           Positioned(
             left: AppSpacing.sm,
-            bottom: AppSpacing.xs,
+            bottom: AppSpacing.xs + navPad,
             child: MapCredit(
               key: _creditKey,
               satellite: ref.watch(baseLayerChoiceProvider).value == BaseLayer.satellite,

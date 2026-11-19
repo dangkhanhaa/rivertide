@@ -3,14 +3,17 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rivertide/core/calc/fishing/fish_activity.dart';
+import 'package:rivertide/core/config/env.dart';
 import 'package:rivertide/core/l10n/l10n_ext.dart';
 import 'package:rivertide/core/theme/app_colors.dart';
 import 'package:rivertide/core/theme/app_spacing.dart';
 import 'package:rivertide/core/theme/app_text.dart';
 import 'package:rivertide/core/widgets/fish_activity_style.dart';
 import 'package:rivertide/features/map/application/map_providers.dart';
+import 'package:rivertide/features/map/application/overlay_visibility.dart';
 import 'package:rivertide/features/map/application/weather_layer.dart';
 import 'package:rivertide/features/map/domain/base_layer.dart';
+import 'package:rivertide/features/map/presentation/widgets/overlay_layers.dart';
 
 /// Legend, filter and "my location" buttons stacked on the map's right edge.
 class MapControls extends ConsumerWidget {
@@ -96,31 +99,48 @@ class _LayerSheet extends ConsumerWidget {
         Navigator.of(context).pop();
       },
     );
+    final hidden = ref.watch(hiddenOverlaysProvider).value ?? const <String>{};
+    Widget layer(MapOverlayId id, IconData icon, String title) => SwitchListTile(
+      secondary: Icon(icon),
+      title: Text(title),
+      value: !hidden.contains(id.name),
+      onChanged: (v) =>
+          unawaited(ref.read(hiddenOverlaysProvider.notifier).setVisible(id.name, visible: v)),
+    );
     return SafeArea(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          option(
-            BaseLayer.standard,
-            Icons.map_rounded,
-            l10n.map_layerStandard,
-            l10n.map_layerStandardHint,
-          ),
-          option(
-            BaseLayer.satellite,
-            Icons.satellite_alt_rounded,
-            l10n.map_layerSatellite,
-            l10n.map_layerSatelliteHint,
-          ),
-          const Divider(),
-          SwitchListTile(
-            secondary: const Icon(Icons.thunderstorm_outlined),
-            title: Text(l10n.map_layerWeather),
-            subtitle: Text(l10n.map_layerWeatherHint),
-            value: ref.watch(weatherLayerOnProvider),
-            onChanged: (v) => ref.read(weatherLayerOnProvider.notifier).on = v,
-          ),
-        ],
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            option(
+              BaseLayer.standard,
+              Icons.map_rounded,
+              l10n.map_layerStandard,
+              l10n.map_layerStandardHint,
+            ),
+            option(
+              BaseLayer.satellite,
+              Icons.satellite_alt_rounded,
+              l10n.map_layerSatellite,
+              l10n.map_layerSatelliteHint,
+            ),
+            const Divider(),
+            SwitchListTile(
+              secondary: const Icon(Icons.thunderstorm_outlined),
+              title: Text(l10n.map_layerWeather),
+              subtitle: Text(l10n.map_layerWeatherHint),
+              value: ref.watch(weatherLayerOnProvider),
+              onChanged: (v) => ref.read(weatherLayerOnProvider.notifier).on = v,
+            ),
+            if (Env.communityEnabled) ...[
+              const Divider(),
+              layer(MapOverlayId.ponds, Icons.waves_rounded, l10n.map_layerPonds),
+              layer(MapOverlayId.community, Icons.place_rounded, l10n.map_layerSpots),
+              layer(MapOverlayId.trips, Icons.groups_rounded, l10n.map_layerTrips),
+              layer(MapOverlayId.checkins, Icons.phishing_rounded, l10n.map_layerCheckins),
+            ],
+          ],
+        ),
       ),
     );
   }

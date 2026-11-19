@@ -3692,4 +3692,16 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get nav_styleGlass => 'Kính trong';
+
+  @override
+  String get map_layerPonds => 'Hồ câu';
+
+  @override
+  String get map_layerSpots => 'Điểm cộng đồng';
+
+  @override
+  String get map_layerTrips => 'Kèo câu';
+
+  @override
+  String get map_layerCheckins => 'Người đang câu';
 }

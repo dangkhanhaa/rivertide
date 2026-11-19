@@ -3624,4 +3624,16 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get nav_styleGlass => '글래스';
+
+  @override
+  String get map_layerPonds => '낚시터';
+
+  @override
+  String get map_layerSpots => '커뮤니티 포인트';
+
+  @override
+  String get map_layerTrips => '낚시 모임';
+
+  @override
+  String get map_layerCheckins => '지금 낚시 중';
 }

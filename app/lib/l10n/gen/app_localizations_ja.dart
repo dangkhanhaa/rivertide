@@ -3620,4 +3620,16 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get nav_styleGlass => 'ガラス';
+
+  @override
+  String get map_layerPonds => '釣り堀';
+
+  @override
+  String get map_layerSpots => 'みんなの釣り場';
+
+  @override
+  String get map_layerTrips => '釣り会';
+
+  @override
+  String get map_layerCheckins => '釣り中の人';
 }

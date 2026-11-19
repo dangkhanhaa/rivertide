@@ -3749,4 +3749,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get nav_styleGlass => 'Glass';
+
+  @override
+  String get map_layerPonds => 'Fishing ponds';
+
+  @override
+  String get map_layerSpots => 'Community spots';
+
+  @override
+  String get map_layerTrips => 'Fishing trips';
+
+  @override
+  String get map_layerCheckins => 'People fishing now';
 }

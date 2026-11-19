@@ -4,6 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:rivertide/core/calc/fishing/fish_activity.dart';
 import 'package:rivertide/core/calc/fishing/golden_window.dart';
+import 'package:rivertide/core/calc/tide/tide_series.dart';
+import 'package:rivertide/core/calc/tide/tide_state.dart';
 import 'package:rivertide/core/format/level_format.dart';
 import 'package:rivertide/core/format/time_format.dart';
 import 'package:rivertide/core/l10n/l10n_ext.dart';
@@ -73,6 +75,13 @@ class HereNowLine extends ConsumerWidget {
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
+                    if (_details(context, view, fishing, hour) case final d when d.isNotEmpty)
+                      Text(
+                        d,
+                        style: context.text.caption,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                   ],
                 ),
               ),
@@ -82,5 +91,32 @@ class HereNowLine extends ConsumerWidget {
         ),
       ),
     );
+  }
+
+  /// "Đang lên · Đỉnh triều 15:20 · 29°C · gió 12 km/h": water, next turn
+  /// and weather now, so the line answers "đi được không?" at a glance.
+  static String _details(
+    BuildContext context,
+    StationView view,
+    StationFishing fishing,
+    DateTime hour,
+  ) {
+    final l10n = context.l10n;
+    final w = fishing.weather.firstWhereOrNull((x) => x.timeUtc == hour);
+    final next = view.now.nextExtreme;
+    return [
+      switch (view.now.state) {
+        null => null,
+        TideState.rising => l10n.tide_rising,
+        TideState.risingFast => l10n.tide_risingFast,
+        TideState.slack => l10n.tide_slack,
+        TideState.falling => l10n.tide_falling,
+        TideState.fallingFast => l10n.tide_fallingFast,
+      },
+      if (next != null)
+        '${next.kind == TideExtremeKind.high ? l10n.tide_high : l10n.tide_low} ${TimeFormat.hm(next.timeUtc)}',
+      if (w?.temperatureC case final t?) '${t.round()}°C',
+      if (w?.windKmh case final k?) l10n.summary_wind(k.round()),
+    ].nonNulls.join(' · ');
   }
 }

@@ -1069,5 +1069,9 @@
   "release_alarmBodyKg": "About {kg} kg go in at {when}. Go early for a good spot!",
   "nav_styleArc": "Arc",
   "nav_styleNotch": "Notch",
-  "nav_styleGlass": "Glass"
+  "nav_styleGlass": "Glass",
+  "map_layerPonds": "Fishing ponds",
+  "map_layerSpots": "Community spots",
+  "map_layerTrips": "Fishing trips",
+  "map_layerCheckins": "People fishing now"
 }

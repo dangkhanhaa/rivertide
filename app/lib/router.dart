@@ -115,6 +115,9 @@ class _ShellState extends ConsumerState<_Shell> {
       canPop: shell.currentIndex == 0 && (_armed?.isActive ?? false),
       onPopInvokedWithResult: _onBack,
       child: Scaffold(
+        // The map runs under the floating bar (no grey band); the map screen
+        // lifts its own controls by the bar height it gets as padding.
+        extendBody: shell.currentIndex == 0,
         body: shell,
         bottomNavigationBar: FloatingNavBar(
           index: shell.currentIndex,

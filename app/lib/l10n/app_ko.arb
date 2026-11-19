@@ -1069,5 +1069,9 @@
   "release_alarmBodyKg": "{when} 약 {kg}kg 방류. 일찍 가서 좋은 자리 잡으세요!",
   "nav_styleArc": "아치",
   "nav_styleNotch": "노치",
-  "nav_styleGlass": "글래스"
+  "nav_styleGlass": "글래스",
+  "map_layerPonds": "낚시터",
+  "map_layerSpots": "커뮤니티 포인트",
+  "map_layerTrips": "낚시 모임",
+  "map_layerCheckins": "지금 낚시 중"
 }

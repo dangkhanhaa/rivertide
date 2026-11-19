@@ -1069,5 +1069,9 @@
   "release_alarmBodyKg": "{when} 放约 {kg} 公斤鱼。早点去占个好位置！",
   "nav_styleArc": "弧光",
   "nav_styleNotch": "凹槽",
-  "nav_styleGlass": "玻璃"
+  "nav_styleGlass": "玻璃",
+  "map_layerPonds": "钓场",
+  "map_layerSpots": "社区钓点",
+  "map_layerTrips": "钓鱼约局",
+  "map_layerCheckins": "正在钓鱼的人"
 }

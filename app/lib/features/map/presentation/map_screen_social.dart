@@ -27,10 +27,15 @@ extension _MapSocial on _MapScreenState {
 
   Map<MapOverlayId, MapOverlay> _overlays() {
     if (!Env.communityEnabled) return const {};
-    final spots = _watch(nearbySpotsProvider.call);
-    final trips = _watch(nearbyTripsProvider.call).where((t) => !t.cancelled).toList();
-    final cells = _watch(nearbyCheckinsProvider.call);
-    final ponds = _ponds(watch: true);
+    // Switched-off layers are not drawn and their data is not fetched (P2-43).
+    final hidden = ref.watch(hiddenOverlaysProvider).value ?? const <String>{};
+    bool on(MapOverlayId id) => !hidden.contains(id.name);
+    final spots = on(MapOverlayId.community) ? _watch(nearbySpotsProvider.call) : <PublicSpot>[];
+    final trips = on(MapOverlayId.trips)
+        ? _watch(nearbyTripsProvider.call).where((t) => !t.cancelled).toList()
+        : <Trip>[];
+    final cells = on(MapOverlayId.checkins) ? _watch(nearbyCheckinsProvider.call) : <CheckinCell>[];
+    final ponds = on(MapOverlayId.ponds) ? _ponds(watch: true) : <Pond>[];
     return {
       MapOverlayId.ponds: MapOverlay(
         geojson: _pondsMemo.of(ponds, (p, i) => _point(i, p.lat, p.lon, {'title': p.name})),

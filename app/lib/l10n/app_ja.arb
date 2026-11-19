@@ -1069,5 +1069,9 @@
   "release_alarmBodyKg": "{when} に約 {kg} kg 放流。早めに行って良い場所を！",
   "nav_styleArc": "アーク",
   "nav_styleNotch": "ノッチ",
-  "nav_styleGlass": "ガラス"
+  "nav_styleGlass": "ガラス",
+  "map_layerPonds": "釣り堀",
+  "map_layerSpots": "みんなの釣り場",
+  "map_layerTrips": "釣り会",
+  "map_layerCheckins": "釣り中の人"
 }

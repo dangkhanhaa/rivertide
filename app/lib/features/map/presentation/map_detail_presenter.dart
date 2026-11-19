@@ -131,7 +131,14 @@ mixin MapDetailPresenter<T extends ConsumerStatefulWidget> on ConsumerState<T> {
     _releaseTimer?.cancel();
     _setBusy(true);
     try {
-      await showModalBottomSheet<void>(context: context, showDragHandle: true, builder: builder);
+      // Root navigator: the sheet covers the floating tab bar instead of
+      // sliding under it (the map tab draws behind the bar, P2-42).
+      await showModalBottomSheet<void>(
+        context: context,
+        useRootNavigator: true,
+        showDragHandle: true,
+        builder: builder,
+      );
     } finally {
       _releaseTimer = Timer(_tapGrace, () => _setBusy(false));
     }
@@ -148,6 +155,7 @@ mixin MapDetailPresenter<T extends ConsumerStatefulWidget> on ConsumerState<T> {
     try {
       await showModalBottomSheet<void>(
         context: context,
+        useRootNavigator: true,
         isScrollControlled: true,
         showDragHandle: true,
         useSafeArea: true,

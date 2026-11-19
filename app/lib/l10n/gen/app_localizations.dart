@@ -6521,6 +6521,30 @@ abstract class AppLocalizations {
   /// In vi, this message translates to:
   /// **'Kính trong'**
   String get nav_styleGlass;
+
+  /// No description provided for @map_layerPonds.
+  ///
+  /// In vi, this message translates to:
+  /// **'Hồ câu'**
+  String get map_layerPonds;
+
+  /// No description provided for @map_layerSpots.
+  ///
+  /// In vi, this message translates to:
+  /// **'Điểm cộng đồng'**
+  String get map_layerSpots;
+
+  /// No description provided for @map_layerTrips.
+  ///
+  /// In vi, this message translates to:
+  /// **'Kèo câu'**
+  String get map_layerTrips;
+
+  /// No description provided for @map_layerCheckins.
+  ///
+  /// In vi, this message translates to:
+  /// **'Người đang câu'**
+  String get map_layerCheckins;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
