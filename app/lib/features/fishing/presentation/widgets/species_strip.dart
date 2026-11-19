@@ -4,6 +4,7 @@ import 'package:rivertide/core/calc/fishing/species_guide.dart';
 import 'package:rivertide/core/format/level_format.dart';
 import 'package:rivertide/core/l10n/l10n_ext.dart';
 import 'package:rivertide/core/navigation/fishing_spot.dart';
+import 'package:rivertide/core/navigation/push_page.dart';
 import 'package:rivertide/core/theme/app_colors.dart';
 import 'package:rivertide/core/theme/app_spacing.dart';
 import 'package:rivertide/core/theme/app_text.dart';
@@ -27,8 +28,7 @@ class SpeciesStrip extends ConsumerWidget {
     final c = ref.watch(spotConditionsProvider(spot.id)).value;
     if (c == null) return const SizedBox.shrink();
     final ranked = rankSpecies(c, localMonth(c.nowUtc));
-    void push(Widget screen) =>
-        Navigator.of(context).push(MaterialPageRoute<void>(builder: (_) => screen));
+    void push(Widget screen) => pushPage<void>(context, screen);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [

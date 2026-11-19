@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rivertide/core/calc/fishing/species_guide.dart';
 import 'package:rivertide/core/l10n/l10n_ext.dart';
+import 'package:rivertide/core/navigation/push_page.dart';
 import 'package:rivertide/core/theme/app_spacing.dart';
 import 'package:rivertide/core/theme/app_text.dart';
 import 'package:rivertide/core/widgets/state_views.dart';
@@ -99,11 +100,8 @@ class _Row extends StatelessWidget {
           ),
           isThreeLine: true,
           trailing: ScorePill(score: o.score),
-          onTap: () => Navigator.of(context).push(
-            MaterialPageRoute<void>(
-              builder: (_) => SpeciesDetailScreen(spotId: spotId, species: o.species),
-            ),
-          ),
+          onTap: () =>
+              pushPage<void>(context, SpeciesDetailScreen(spotId: spotId, species: o.species)),
         ),
       ),
     );

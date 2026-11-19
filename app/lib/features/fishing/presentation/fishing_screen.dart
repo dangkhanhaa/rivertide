@@ -8,6 +8,7 @@ import 'package:rivertide/core/calc/fishing/golden_window.dart';
 import 'package:rivertide/core/clock/clock_provider.dart';
 import 'package:rivertide/core/l10n/l10n_ext.dart';
 import 'package:rivertide/core/navigation/fishing_spot.dart';
+import 'package:rivertide/core/navigation/push_page.dart';
 import 'package:rivertide/core/theme/app_colors.dart';
 import 'package:rivertide/core/theme/app_spacing.dart';
 import 'package:rivertide/core/theme/app_text.dart';
@@ -47,8 +48,7 @@ class _FishingScreenState extends ConsumerState<FishingScreen> {
     WidgetsBinding.instance.addPostFrameCallback((_) => unawaitedLocate(ref));
   }
 
-  void _push(Widget screen) =>
-      Navigator.of(context).push(MaterialPageRoute<void>(builder: (_) => screen));
+  void _push(Widget screen) => pushPage<void>(context, screen);
 
   @override
   Widget build(BuildContext context) {

@@ -107,7 +107,7 @@ Future<void> _addClusterLayers(MapLibreMapController c, MarkerPalette p) async {
     SymbolLayerProperties(
       textField: ['get', 'point_count_abbreviated'],
       textFont: ['Noto Sans Bold'],
-      textSize: 14,
+      textSize: 11,
       textColor: hexColor(p.stroke),
       textAllowOverlap: true,
     ),
@@ -124,6 +124,8 @@ Future<void> _addStationLayers(MapLibreMapController c, MarkerPalette p) async {
     const SymbolLayerProperties(
       iconImage: ['get', 'icon'],
       iconAnchor: 'bottom',
+      // Smaller pins (P2-44): the map was crowded at 1.0.
+      iconSize: mapPinScale,
       iconAllowOverlap: true,
       iconIgnorePlacement: true,
       // Livelier spots on top where pins overlap.
@@ -159,7 +161,7 @@ Future<void> _addFixedLabels(
     SymbolLayerProperties(
       textField: ['get', 'text'],
       textFont: ['Noto Sans Italic'],
-      textSize: 12,
+      textSize: 11,
       textMaxWidth: 8,
       textColor: hexColor(p.label),
       textHaloColor: hexColor(p.labelHalo),
@@ -177,7 +179,7 @@ Future<void> _addNameLayer(MapLibreMapController c, MarkerPalette p) async {
     SymbolLayerProperties(
       textField: ['get', 'name'],
       textFont: ['Noto Sans Regular'],
-      textSize: 12,
+      textSize: 11,
       textOffset: [0, 0.4],
       textAnchor: 'top',
       textColor: hexColor(p.label),

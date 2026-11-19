@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:rivertide/core/l10n/l10n_ext.dart';
 import 'package:rivertide/core/navigation/fishing_spot.dart';
 import 'package:rivertide/core/navigation/map_focus.dart';
+import 'package:rivertide/core/navigation/push_page.dart';
 import 'package:rivertide/core/theme/appearance.dart';
 import 'package:rivertide/core/widgets/fade_branches.dart';
 import 'package:rivertide/core/widgets/floating_nav_bar.dart';
@@ -47,6 +48,8 @@ GoRouter buildRouter() => GoRouter(
       ],
     ),
     GoRoute(path: whereRoute, builder: (_, _) => const WhereToGoScreen()),
+    // Web pages opened with pushPage (P2-44): one browser-history entry each.
+    GoRoute(path: pageRoute, builder: (context, state) => pageFromExtra(context, state.extra)),
     GoRoute(
       path: Routes.station,
       builder: (context, state) {
@@ -121,7 +124,7 @@ class _ShellState extends ConsumerState<_Shell> {
         body: shell,
         bottomNavigationBar: FloatingNavBar(
           index: shell.currentIndex,
-          style: ref.watch(appearanceSettingsProvider).value?.navStyle ?? NavStyle.arc,
+          style: ref.watch(appearanceSettingsProvider).value?.navStyle ?? NavStyle.notch,
           onTap: (i) => shell.goBranch(i, initialLocation: i == shell.currentIndex),
           items: [
             (icon: Icons.map_outlined, selectedIcon: Icons.map_rounded, label: l10n.nav_map),

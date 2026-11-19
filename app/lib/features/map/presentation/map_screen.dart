@@ -11,6 +11,7 @@ import 'package:rivertide/core/config/env.dart';
 import 'package:rivertide/core/l10n/l10n_ext.dart';
 import 'package:rivertide/core/navigation/fishing_spot.dart';
 import 'package:rivertide/core/navigation/map_focus.dart';
+import 'package:rivertide/core/navigation/push_page.dart';
 import 'package:rivertide/core/theme/app_colors.dart';
 import 'package:rivertide/core/theme/app_spacing.dart';
 import 'package:rivertide/core/widgets/map_pill.dart';
@@ -182,11 +183,8 @@ class _MapScreenState extends ConsumerState<MapScreen> with MapDetailPresenter<M
           TripHereButton(lat: lat, lon: lon, name: title),
           if (Env.communityEnabled)
             OutlinedButton.icon(
-              onPressed: () => Navigator.of(context).push(
-                MaterialPageRoute<void>(
-                  builder: (_) => PondFormScreen(lat: lat, lon: lon, name: title),
-                ),
-              ),
+              onPressed: () =>
+                  pushPage<void>(context, PondFormScreen(lat: lat, lon: lon, name: title)),
               icon: const Icon(Icons.waves_rounded),
               label: Text(context.l10n.pond_addHere),
             ),
@@ -278,13 +276,18 @@ class _MapScreenState extends ConsumerState<MapScreen> with MapDetailPresenter<M
               ),
             ),
           ),
+          // Credit turned sideways on the right edge under the compass: the
+          // licence stays visible without a bar across the bottom (P2-44).
           Positioned(
-            left: AppSpacing.sm,
-            bottom: AppSpacing.xs + navPad,
-            child: MapCredit(
-              key: _creditKey,
-              satellite: ref.watch(baseLayerChoiceProvider).value == BaseLayer.satellite,
-              onTap: (b) => unawaited(showGuardedSheet(b)),
+            right: 0,
+            top: MediaQuery.paddingOf(context).top + AppSpacing.xxl * 3,
+            child: RotatedBox(
+              quarterTurns: 1,
+              child: MapCredit(
+                key: _creditKey,
+                satellite: ref.watch(baseLayerChoiceProvider).value == BaseLayer.satellite,
+                onTap: (b) => unawaited(showGuardedSheet(b)),
+              ),
             ),
           ),
           buildSidePanel(context),

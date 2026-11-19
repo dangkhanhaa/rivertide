@@ -190,17 +190,25 @@ class _GeneralSection extends ConsumerWidget {
       title: l10n.set_general,
       children: [
         _Label(l10n.set_language),
-        chips(
-          [
-            (AppLanguage.system, l10n.lang_system),
-            (AppLanguage.vi, l10n.lang_vi),
-            (AppLanguage.en, l10n.lang_en),
-            (AppLanguage.zh, l10n.lang_zh),
-            (AppLanguage.ko, l10n.lang_ko),
-            (AppLanguage.ja, l10n.lang_ja),
+        // A full list in one picker (P2-44), easier than a wall of chips.
+        DropdownButtonFormField<AppLanguage>(
+          initialValue: look.language,
+          isExpanded: true,
+          decoration: const InputDecoration(prefixIcon: Icon(Icons.translate_rounded)),
+          items: [
+            for (final (v, label) in [
+              (AppLanguage.system, l10n.lang_system),
+              (AppLanguage.vi, l10n.lang_vi),
+              (AppLanguage.en, l10n.lang_en),
+              (AppLanguage.zh, l10n.lang_zh),
+              (AppLanguage.ko, l10n.lang_ko),
+              (AppLanguage.ja, l10n.lang_ja),
+            ])
+              DropdownMenuItem(value: v, child: Text(label)),
           ],
-          look.language,
-          (v) => set((l) => l.copyWith(language: v)),
+          onChanged: (v) {
+            if (v != null) set((l) => l.copyWith(language: v));
+          },
         ),
         _Label(l10n.set_start),
         chips(

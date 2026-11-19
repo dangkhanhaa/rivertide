@@ -105,7 +105,7 @@ class Appearance {
     this.language = AppLanguage.vi,
     this.reduceMotion = false,
     this.startTab = StartTab.map,
-    this.navStyle = NavStyle.arc,
+    this.navStyle = NavStyle.notch,
   });
 
   /// Parses stored JSON; anything invalid becomes the default for that field.
@@ -129,7 +129,7 @@ class Appearance {
       language: pick(AppLanguage.values, 'language', AppLanguage.vi),
       reduceMotion: map['reduceMotion'] == true,
       startTab: pick(StartTab.values, 'startTab', StartTab.map),
-      navStyle: pick(NavStyle.values, 'navStyle', NavStyle.arc),
+      navStyle: pick(NavStyle.values, 'navStyle', NavStyle.notch),
     );
   }
 

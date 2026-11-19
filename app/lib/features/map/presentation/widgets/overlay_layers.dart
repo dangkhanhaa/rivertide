@@ -7,6 +7,9 @@ import 'package:rivertide/features/map/presentation/widgets/station_layers.dart'
 /// "đang câu" bubbles (P2-27), ponds (P2-28), community spots (P2-19), trips (P2-26).
 enum MapOverlayId { checkins, ponds, community, trips }
 
+/// Scale of every pin image on the map.
+const double mapPinScale = 0.78;
+
 /// Points of one overlay: feature `id` = index into the caller's list.
 /// Pins read `title`; bubbles read `people` and `biting`.
 class MapOverlay {
@@ -59,6 +62,8 @@ Future<void> _addPins(
     SymbolLayerProperties(
       iconImage: image,
       iconAnchor: 'bottom',
+      // Smaller pins (P2-44): the map was crowded at 1.0.
+      iconSize: mapPinScale,
       iconAllowOverlap: true,
       iconIgnorePlacement: true,
     ),
@@ -69,7 +74,7 @@ Future<void> _addPins(
     SymbolLayerProperties(
       textField: ['get', 'title'],
       textFont: ['Noto Sans Regular'],
-      textSize: 12,
+      textSize: 11,
       textOffset: [0, 0.4],
       textAnchor: 'top',
       textMaxWidth: 10,
@@ -124,7 +129,7 @@ Future<void> _addBubbles(MapLibreMapController c, MarkerPalette p, MapOverlayId 
         ['get', 'people'],
       ],
       textFont: ['Noto Sans Bold'],
-      textSize: 13,
+      textSize: 11.5,
       textColor: hexColor(p.stroke),
       textAllowOverlap: true,
       textIgnorePlacement: true,

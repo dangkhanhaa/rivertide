@@ -154,11 +154,7 @@ extension _MapSocial on _MapScreenState {
   Future<void> _createTrip() async {
     final at = _me ?? await _locateQuietly();
     if (at == null || !mounted) return;
-    await Navigator.of(context).push(
-      MaterialPageRoute<void>(
-        builder: (_) => TripFormScreen(lat: at.lat, lon: at.lon),
-      ),
-    );
+    await pushPage<void>(context, TripFormScreen(lat: at.lat, lon: at.lon));
   }
 
   /// Community shortcuts, the ones where something is happening first.

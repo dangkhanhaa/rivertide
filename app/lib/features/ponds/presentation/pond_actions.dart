@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rivertide/core/errors/app_exception.dart';
 import 'package:rivertide/core/l10n/l10n_ext.dart';
+import 'package:rivertide/core/navigation/push_page.dart';
 import 'package:rivertide/core/theme/app_spacing.dart';
 import 'package:rivertide/core/theme/app_text.dart';
 import 'package:rivertide/core/widgets/confirm_dialog.dart';
@@ -34,9 +35,7 @@ class PondFooterActions extends ConsumerWidget {
           ),
         if (canEdit)
           OutlinedButton.icon(
-            onPressed: () =>
-                Navigator.of(context)
-                    .push(MaterialPageRoute<void>(builder: (_) => PondFormScreen.edit(p))),
+            onPressed: () => pushPage<void>(context, PondFormScreen.edit(p)),
             icon: const Icon(Icons.edit_outlined),
             label: Text(l10n.pond_edit),
           ),

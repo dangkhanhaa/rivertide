@@ -29,10 +29,10 @@ class AppText extends ThemeExtension<AppText> {
         fontFeatures: tabular,
       ),
       // Sizes tuned down in P2-32 after feedback that text looked big and
-      // heavy: modern apps sit around 14–15 sp body, 600 weight for emphasis.
+      // heavy, then again in P2-44 ("chữ bé hơn nữa"): 13.5 sp body.
       headline: TextStyle(
         fontFamily: family,
-        fontSize: 22,
+        fontSize: 20,
         fontWeight: FontWeight.w700,
         height: 1.2,
         letterSpacing: -0.3,
@@ -40,7 +40,7 @@ class AppText extends ThemeExtension<AppText> {
       ),
       title: TextStyle(
         fontFamily: family,
-        fontSize: 16.5,
+        fontSize: 15.5,
         fontWeight: FontWeight.w600,
         height: 1.3,
         letterSpacing: -0.1,
@@ -48,14 +48,14 @@ class AppText extends ThemeExtension<AppText> {
       ),
       body: TextStyle(
         fontFamily: family,
-        fontSize: 14.5,
+        fontSize: 13.5,
         height: 1.4,
         color: onSurface,
         fontFeatures: tabular,
       ),
       bodyStrong: TextStyle(
         fontFamily: family,
-        fontSize: 14.5,
+        fontSize: 13.5,
         fontWeight: FontWeight.w600,
         height: 1.4,
         color: onSurface,
@@ -63,11 +63,11 @@ class AppText extends ThemeExtension<AppText> {
       ),
       label: TextStyle(
         fontFamily: family,
-        fontSize: 13,
+        fontSize: 12.5,
         fontWeight: FontWeight.w500,
         color: onSurface,
       ),
-      caption: TextStyle(fontFamily: family, fontSize: 12, height: 1.35, color: muted),
+      caption: TextStyle(fontFamily: family, fontSize: 11.5, height: 1.35, color: muted),
     );
   }
 

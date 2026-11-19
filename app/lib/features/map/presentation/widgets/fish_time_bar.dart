@@ -30,6 +30,42 @@ class _FishTimeBarState extends ConsumerState<FishTimeBar> {
     final ahead = ref.watch(fishTimeProvider);
     final now = ref.watch(minuteTickerProvider).value ?? ref.watch(clockProvider)();
     final label = context.fishTimeLabel(now, fishHourUtc(now, ahead));
+    // Collapsed: a small pill with just the time, so the map gets the room
+    // (P2-44). Open: details, hour slider and legend.
+    if (!_open) {
+      return Align(
+        alignment: Alignment.bottomLeft,
+        child: Material(
+          color: c.surface,
+          elevation: 3,
+          shadowColor: c.onSurface.withValues(alpha: 0.25),
+          shape: const StadiumBorder(),
+          child: InkWell(
+            customBorder: const StadiumBorder(),
+            onTap: () => setState(() => _open = true),
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(minHeight: AppSpacing.minTouch),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  spacing: AppSpacing.sm,
+                  children: [
+                    FishGlyph(color: c.fishGood, eye: c.surface, size: AppIconSize.sm),
+                    Text(label, style: context.text.label),
+                    Icon(
+                      Icons.expand_less_rounded,
+                      size: AppIconSize.sm,
+                      semanticLabel: l10n.fishTime_expand,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
+    }
     return Material(
       color: c.surface,
       elevation: 4,
@@ -43,7 +79,7 @@ class _FishTimeBarState extends ConsumerState<FishTimeBar> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            if (!_open && ahead == 0) const HereNowLine(),
+            if (ahead == 0) const HereNowLine(),
             _Head(
               label: label,
               open: _open,

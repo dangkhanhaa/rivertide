@@ -6,6 +6,7 @@ import 'package:rivertide/core/db/app_database.dart';
 import 'package:rivertide/core/format/level_format.dart';
 import 'package:rivertide/core/format/time_format.dart';
 import 'package:rivertide/core/l10n/l10n_ext.dart';
+import 'package:rivertide/core/navigation/push_page.dart';
 import 'package:rivertide/core/theme/app_spacing.dart';
 import 'package:rivertide/core/theme/app_text.dart';
 import 'package:rivertide/core/widgets/state_views.dart';
@@ -26,9 +27,7 @@ class JournalScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(title: Text(l10n.journal_title)),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () =>
-            Navigator.of(context)
-                .push(MaterialPageRoute<void>(builder: (_) => const CatchFormScreen())),
+        onPressed: () => pushPage<void>(context, const CatchFormScreen()),
         icon: const Icon(Icons.add_rounded),
         label: Text(l10n.journal_add),
       ),

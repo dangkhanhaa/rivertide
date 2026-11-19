@@ -7,6 +7,7 @@ import 'package:rivertide/core/config/env.dart';
 import 'package:rivertide/core/errors/app_exception.dart';
 import 'package:rivertide/core/format/level_format.dart';
 import 'package:rivertide/core/l10n/l10n_ext.dart';
+import 'package:rivertide/core/navigation/push_page.dart';
 import 'package:rivertide/core/social/display_name_dialog.dart';
 import 'package:rivertide/core/social/social_backend.dart';
 import 'package:rivertide/core/theme/app_colors.dart';
@@ -186,9 +187,7 @@ class _MainAction extends ConsumerWidget {
         children: [
           Expanded(
             child: FilledButton.tonalIcon(
-              onPressed: () =>
-                  Navigator.of(context)
-                      .push(MaterialPageRoute<void>(builder: (_) => TripFormScreen.edit(t))),
+              onPressed: () => pushPage<void>(context, TripFormScreen.edit(t)),
               icon: const Icon(Icons.edit_outlined),
               label: Text(l10n.trip_edit),
             ),

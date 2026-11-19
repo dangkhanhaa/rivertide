@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 import 'package:rivertide/core/config/env.dart';
 import 'package:rivertide/core/l10n/l10n_ext.dart';
 import 'package:rivertide/core/navigation/fishing_spot.dart';
+import 'package:rivertide/core/navigation/push_page.dart';
 import 'package:rivertide/core/social/display_name_dialog.dart';
 import 'package:rivertide/core/social/social_backend.dart';
 import 'package:rivertide/core/theme/app_colors.dart';
@@ -36,9 +37,7 @@ class MoreScreen extends ConsumerWidget {
           IconButton(
             tooltip: l10n.set_title,
             icon: const Icon(Icons.settings_rounded),
-            onPressed: () =>
-                Navigator.of(context)
-                    .push(MaterialPageRoute<void>(builder: (_) => const SettingsScreen())),
+            onPressed: () => pushPage<void>(context, const SettingsScreen()),
           ),
         ],
       ),
@@ -73,27 +72,21 @@ class MoreScreen extends ConsumerWidget {
                 color: c.spot,
                 title: l10n.journal_title,
                 subtitle: l10n.more_journalHint,
-                onTap: () =>
-                    Navigator.of(context)
-                        .push(MaterialPageRoute<void>(builder: (_) => const JournalScreen())),
+                onTap: () => pushPage<void>(context, const JournalScreen()),
               ),
               ActionRow(
                 icon: Icons.backpack_rounded,
                 color: c.trip,
                 title: l10n.gear_entry,
                 subtitle: l10n.gear_entryHint,
-                onTap: () =>
-                    Navigator.of(context)
-                        .push(MaterialPageRoute<void>(builder: (_) => const GearScreen())),
+                onTap: () => pushPage<void>(context, const GearScreen()),
               ),
               ActionRow(
                 icon: Icons.water_rounded,
                 color: c.water,
                 title: l10n.stations_menu,
                 subtitle: l10n.stations_menuHint,
-                onTap: () =>
-                    Navigator.of(context)
-                        .push(MaterialPageRoute<void>(builder: (_) => const StationsScreen())),
+                onTap: () => pushPage<void>(context, const StationsScreen()),
               ),
             ],
           ),
@@ -105,9 +98,7 @@ class MoreScreen extends ConsumerWidget {
                 color: c.primary,
                 title: l10n.set_entry,
                 subtitle: l10n.set_entryHint,
-                onTap: () =>
-                    Navigator.of(context)
-                        .push(MaterialPageRoute<void>(builder: (_) => const SettingsScreen())),
+                onTap: () => pushPage<void>(context, const SettingsScreen()),
               ),
             ],
           ),

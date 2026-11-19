@@ -6,6 +6,7 @@ import 'package:rivertide/core/errors/app_exception.dart';
 import 'package:rivertide/core/format/level_format.dart';
 import 'package:rivertide/core/format/time_format.dart';
 import 'package:rivertide/core/l10n/l10n_ext.dart';
+import 'package:rivertide/core/navigation/push_page.dart';
 import 'package:rivertide/core/theme/app_colors.dart';
 import 'package:rivertide/core/theme/app_spacing.dart';
 import 'package:rivertide/core/theme/app_text.dart';
@@ -103,8 +104,7 @@ class SpotSheet extends ConsumerWidget {
 
   /// The sheet shows a snapshot: close it after a saved edit (pins refresh).
   Future<void> _edit(BuildContext context) async {
-    final saved = await Navigator.of(context)
-        .push<bool>(MaterialPageRoute(builder: (_) => PublishSpotScreen.edit(spot)));
+    final saved = await pushPage<bool>(context, PublishSpotScreen.edit(spot));
     if (saved == true && context.mounted) DetailHost.closeOf(context);
   }
 

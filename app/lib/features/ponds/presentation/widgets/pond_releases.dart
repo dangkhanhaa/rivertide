@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rivertide/core/clock/clock_provider.dart';
 import 'package:rivertide/core/errors/app_exception.dart';
 import 'package:rivertide/core/l10n/l10n_ext.dart';
+import 'package:rivertide/core/navigation/push_page.dart';
 import 'package:rivertide/core/theme/app_colors.dart';
 import 'package:rivertide/core/theme/app_spacing.dart';
 import 'package:rivertide/core/theme/app_text.dart';
@@ -33,9 +34,7 @@ class PondReleases extends ConsumerWidget {
           children: [
             Expanded(child: Text(l10n.pond_releases, style: context.text.title)),
             FilledButton.tonalIcon(
-              onPressed: () =>
-                  Navigator.of(context)
-                      .push(MaterialPageRoute<void>(builder: (_) => ReleaseFormScreen(pond: pond))),
+              onPressed: () => pushPage<void>(context, ReleaseFormScreen(pond: pond)),
               icon: const Icon(Icons.campaign_rounded),
               label: Text(l10n.pond_postRelease),
             ),

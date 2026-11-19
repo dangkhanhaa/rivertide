@@ -6,6 +6,7 @@ import 'package:rivertide/core/clock/clock_provider.dart';
 import 'package:rivertide/core/config/env.dart';
 import 'package:rivertide/core/format/text_fold.dart';
 import 'package:rivertide/core/l10n/l10n_ext.dart';
+import 'package:rivertide/core/navigation/push_page.dart';
 import 'package:rivertide/core/theme/app_colors.dart';
 import 'package:rivertide/core/theme/app_spacing.dart';
 import 'package:rivertide/core/theme/app_text.dart';
@@ -70,11 +71,7 @@ class _PondsScreenState extends ConsumerState<PondsScreen> {
   Future<void> _add() async {
     final at = _origin;
     if (at == null) return unawaited(_ask());
-    await Navigator.of(context).push(
-      MaterialPageRoute<void>(
-        builder: (_) => PondFormScreen(lat: at.lat, lon: at.lon),
-      ),
-    );
+    await pushPage<void>(context, PondFormScreen(lat: at.lat, lon: at.lon));
   }
 
   @override
@@ -208,9 +205,7 @@ class _PondList extends ConsumerWidget {
                 for (final p in _sorted(value.where(keep).toList(), followed, now))
                   PondCard(
                     pond: p,
-                    onTap: () =>
-                        Navigator.of(context)
-                            .push(MaterialPageRoute<void>(builder: (_) => PondPage(pond: p))),
+                    onTap: () => pushPage<void>(context, PondPage(pond: p)),
                   ),
               ],
             ),
