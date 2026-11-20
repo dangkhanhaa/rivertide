@@ -3650,7 +3650,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get onb_start => '시작하기';
 
   @override
-  String get onb_finish => '앱 열기';
+  String get onb_finish => '완료';
 
   @override
   String onb_progress(int step, int total) {
@@ -3794,12 +3794,6 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get onb_lookBody => '강조 색상, 라이트/다크, 탭 바 스타일. 아래에서 미리 보세요.';
-
-  @override
-  String get onb_rerun => '환영 안내 다시 보기';
-
-  @override
-  String get onb_rerunHint => '이름, 언어, 사용자 유형, 모양을 차례로';
 
   @override
   String get social_tooFast => '조금 빨라요 — 잠시 후 다시 시도해 주세요';
@@ -4344,4 +4338,94 @@ class AppLocalizationsKo extends AppLocalizations {
   @override
   String get water_reason_coastalLake =>
       '해안 바로 옆 호수: 바다와 이어진 석호(조석 작음)일 수도, 민물 호수일 수도 있어요. 지도로는 구분할 수 없어요.';
+
+  @override
+  String get onb_termsTitle => '약관 및 개인정보';
+
+  @override
+  String get onb_termsBody => '시작 전에 간단히 읽어 주세요. 전문은 아래 링크에 있어요.';
+
+  @override
+  String get onb_termsDevice => '기기에 저장: 낚시 일지, 관심 장소, 설정, 대략적인 위치(~1km). 전송되지 않아요.';
+
+  @override
+  String get onb_termsServer =>
+      '서버에 저장: 공개로 올린 내용(포인트, 댓글, 출조, 리뷰, 위치 정보를 지운 사진)과 암호화된 기기 코드. IP는 스팸 방지를 위해 암호화된 형태로 7일만 보관해요.';
+
+  @override
+  String get onb_termsLocation => '위치는 기기에서만 사용해요. 날씨와 파도를 받기 위해 반올림한 좌표를 Open-Meteo에 보내요.';
+
+  @override
+  String get onb_termsCommunity =>
+      '커뮤니티: 광고, 도박, 사기, 괴롭힘, 불법 어로(전기, 폭발물, 독극물)는 금지예요. 위반 시 숨김 또는 차단돼요. 다른 사람을 신고하고 차단할 수 있어요.';
+
+  @override
+  String get onb_termsSafety => '모든 수치, 예보, 경고는 참고용이에요. 물가에서의 안전은 본인 책임이에요.';
+
+  @override
+  String get onb_termsAgree => '이용약관과 개인정보 처리방침을 읽었으며 동의합니다';
+
+  @override
+  String get onb_termsUpdatedBody => '앱을 계속 사용하려면 읽고 동의해 주세요.';
+
+  @override
+  String get onb_termsContinue => '동의하고 계속';
+
+  @override
+  String get legal_section => '법적 고지';
+
+  @override
+  String get legal_terms => '이용약관';
+
+  @override
+  String get legal_privacy => '개인정보 처리방침';
+
+  @override
+  String get legal_disclaimer => '면책 조항';
+
+  @override
+  String get legal_disclaimerText =>
+      '앱의 수위, 조석 예보, 낚시 지수, 안전 경고는 과학적 모델과 공공 데이터에 기반한 참고 정보일 뿐이며, 관계 당국의 공식 재난 경보나 수상 안전·구조 수칙을 대신하지 않습니다. 야외 활동에서의 결정과 안전은 본인이 책임집니다.';
+
+  @override
+  String get legal_disclaimerShort => '수치는 참고용이며 공식 경보를 대신하지 않아요. 안전은 본인 책임이에요.';
+
+  @override
+  String get legal_contact => '문의 / 위반 신고';
+
+  @override
+  String get legal_contactHint => 'GitHub Issues로 · 신고는 24시간 이내 처리';
+
+  @override
+  String get block_action => '이 사람 차단';
+
+  @override
+  String get block_title => '이 사람을 차단할까요?';
+
+  @override
+  String get block_body => '이 사람의 포인트, 댓글, 출조, 메시지, 리뷰가 더 이상 보이지 않아요. 상대방에게 알리지 않아요.';
+
+  @override
+  String get block_done => '차단했어요. 이 사람의 콘텐츠를 숨겼어요.';
+
+  @override
+  String get block_failed => '이 콘텐츠를 차단할 수 없어요.';
+
+  @override
+  String get block_unblockAll => '모두 차단 해제';
+
+  @override
+  String get block_unblockHint => '차단한 사람들의 콘텐츠를 다시 표시';
+
+  @override
+  String block_unblockDone(int count) {
+    return '$count명 차단 해제됨';
+  }
+
+  @override
+  String get onb_termsRequired =>
+      '이용약관과 개인정보 처리방침에 동의해야 앱을 사용할 수 있어요. 동의 전에는 데이터를 불러오거나 위치를 요청하거나 아무것도 보내지 않아요.';
+
+  @override
+  String get onb_exitApp => '앱 종료';
 }

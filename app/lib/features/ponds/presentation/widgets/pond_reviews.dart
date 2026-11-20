@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rivertide/core/errors/app_exception.dart';
 import 'package:rivertide/core/format/time_format.dart';
 import 'package:rivertide/core/l10n/l10n_ext.dart';
+import 'package:rivertide/core/social/block_author.dart';
 import 'package:rivertide/core/social/content_filter.dart';
 import 'package:rivertide/core/social/display_name_dialog.dart';
 import 'package:rivertide/core/social/social_backend.dart';
@@ -162,7 +163,20 @@ class _ReviewTile extends ConsumerWidget {
               onPressed: () => unawaited(deleteReview(ref, pondId)),
               icon: const Icon(Icons.delete_outline_rounded),
             )
-          : null,
+          : IconButton(
+              tooltip: l10n.block_action,
+              onPressed: () => unawaited(
+                askBlockAuthor(
+                  context,
+                  ref,
+                  kind: BlockKind.review,
+                  itemId: pondId,
+                  createdAtUtc: r.createdAt,
+                  onBlocked: () => ref.invalidate(pondReviewsProvider(pondId)),
+                ),
+              ),
+              icon: const Icon(Icons.block_rounded),
+            ),
     );
   }
 }

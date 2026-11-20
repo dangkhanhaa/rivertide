@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rivertide/core/errors/app_exception.dart';
 import 'package:rivertide/core/format/time_format.dart';
 import 'package:rivertide/core/l10n/l10n_ext.dart';
+import 'package:rivertide/core/social/block_author.dart';
 import 'package:rivertide/core/social/content_filter.dart';
 import 'package:rivertide/core/social/social_backend.dart';
 import 'package:rivertide/core/social/social_errors.dart';
@@ -121,7 +122,7 @@ class _TripMembersSectionState extends ConsumerState<TripMembersSection> {
           AsyncData(:final value) => Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             spacing: AppSpacing.xs,
-            children: [for (final m in value) _Bubble(message: m)],
+            children: [for (final m in value) _Bubble(tripId: widget.tripId, message: m)],
           ),
           AsyncError() => Text(l10n.trip_loadError, style: context.text.caption),
           _ => const Center(child: CircularProgressIndicator()),
@@ -184,36 +185,53 @@ class _Contact extends StatelessWidget {
   }
 }
 
-class _Bubble extends StatelessWidget {
-  const _Bubble({required this.message});
+/// Long-press someone else's message to block its author (P2-57).
+class _Bubble extends ConsumerWidget {
+  const _Bubble({required this.tripId, required this.message});
 
+  final String tripId;
   final TripMessage message;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final c = context.colors;
     final m = message;
     final name = m.authorName.isEmpty ? context.l10n.cmt_anon : m.authorName;
     return Align(
       alignment: m.mine ? Alignment.centerRight : Alignment.centerLeft,
-      child: ConstrainedBox(
-        constraints: const BoxConstraints(maxWidth: 320),
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md, vertical: AppSpacing.sm),
-          decoration: BoxDecoration(
-            color: m.mine ? c.primary.withValues(alpha: 0.15) : c.surface,
-            borderRadius: BorderRadius.circular(AppRadius.md),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              if (!m.mine) Text(name, style: context.text.label.copyWith(color: c.trip)),
-              Text(m.body, style: context.text.body),
-              Text(TimeFormat.hm(m.createdAt), style: context.text.caption),
-            ],
-          ),
-        ),
+      child: GestureDetector(
+        onLongPress: m.mine
+            ? null
+            : () => unawaited(
+                askBlockAuthor(
+                  context,
+                  ref,
+                  kind: BlockKind.tripMessage,
+                  itemId: m.id,
+                  onBlocked: () => ref.invalidate(tripMessagesProvider(tripId)),
+                ),
+              ),
+        child: _body(context, m, name, c),
       ),
     );
   }
+
+  Widget _body(BuildContext context, TripMessage m, String name, AppColors c) => ConstrainedBox(
+    constraints: const BoxConstraints(maxWidth: 320),
+    child: Container(
+      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md, vertical: AppSpacing.sm),
+      decoration: BoxDecoration(
+        color: m.mine ? c.primary.withValues(alpha: 0.15) : c.surface,
+        borderRadius: BorderRadius.circular(AppRadius.md),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          if (!m.mine) Text(name, style: context.text.label.copyWith(color: c.trip)),
+          Text(m.body, style: context.text.body),
+          Text(TimeFormat.hm(m.createdAt), style: context.text.caption),
+        ],
+      ),
+    ),
+  );
 }

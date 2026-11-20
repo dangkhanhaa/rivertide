@@ -8,6 +8,7 @@ import 'package:rivertide/core/errors/app_exception.dart';
 import 'package:rivertide/core/format/level_format.dart';
 import 'package:rivertide/core/l10n/l10n_ext.dart';
 import 'package:rivertide/core/navigation/push_page.dart';
+import 'package:rivertide/core/social/block_author.dart';
 import 'package:rivertide/core/social/display_name_dialog.dart';
 import 'package:rivertide/core/social/social_backend.dart';
 import 'package:rivertide/core/social/social_errors.dart';
@@ -87,13 +88,21 @@ class TripSheet extends ConsumerWidget {
           else
             Text(l10n.trip_membersOnly, style: context.text.caption),
           if (!t.mine)
-            Align(
-              alignment: Alignment.centerRight,
-              child: TextButton.icon(
-                onPressed: () => unawaited(_report(context, ref, t)),
-                icon: const Icon(Icons.flag_outlined),
-                label: Text(l10n.trip_report),
-              ),
+            Wrap(
+              alignment: WrapAlignment.end,
+              spacing: AppSpacing.xs,
+              children: [
+                TextButton.icon(
+                  onPressed: () => unawaited(_report(context, ref, t)),
+                  icon: const Icon(Icons.flag_outlined),
+                  label: Text(l10n.trip_report),
+                ),
+                TextButton.icon(
+                  onPressed: () => unawaited(_block(context, ref, t)),
+                  icon: const Icon(Icons.block_rounded),
+                  label: Text(l10n.block_action),
+                ),
+              ],
             ),
         ],
       ),
@@ -119,6 +128,17 @@ class TripSheet extends ConsumerWidget {
     );
     await SharePlus.instance.share(ShareParams(text: text));
   }
+
+  Future<void> _block(BuildContext context, WidgetRef ref, Trip t) => askBlockAuthor(
+    context,
+    ref,
+    kind: BlockKind.trip,
+    itemId: t.id,
+    onBlocked: () {
+      ref.invalidate(nearbyTripsProvider);
+      if (context.mounted) DetailHost.closeOf(context);
+    },
+  );
 
   Future<void> _report(BuildContext context, WidgetRef ref, Trip t) async {
     final l10n = context.l10n;

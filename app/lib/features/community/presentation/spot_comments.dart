@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rivertide/core/errors/app_exception.dart';
 import 'package:rivertide/core/format/time_format.dart';
 import 'package:rivertide/core/l10n/l10n_ext.dart';
+import 'package:rivertide/core/social/block_author.dart';
 import 'package:rivertide/core/social/content_filter.dart';
 import 'package:rivertide/core/social/display_name_dialog.dart';
 import 'package:rivertide/core/social/social_backend.dart';
@@ -153,7 +154,7 @@ class _Composer extends ConsumerWidget {
   }
 }
 
-enum _Action { edit, delete, report }
+enum _Action { edit, delete, report, block }
 
 class _CommentTile extends ConsumerWidget {
   const _CommentTile({required this.spotId, required this.comment});
@@ -210,8 +211,10 @@ class _CommentTile extends ConsumerWidget {
               if (cm.mine) ...[
                 PopupMenuItem(value: _Action.edit, child: Text(l10n.cmt_edit)),
                 PopupMenuItem(value: _Action.delete, child: Text(l10n.cmt_delete)),
-              ] else
+              ] else ...[
                 PopupMenuItem(value: _Action.report, child: Text(l10n.cmt_report)),
+                PopupMenuItem(value: _Action.block, child: Text(l10n.block_action)),
+              ],
             ],
           ),
         ],
@@ -238,6 +241,14 @@ class _CommentTile extends ConsumerWidget {
           if (await confirmDialog(context, title: l10n.cmt_deleteTitle, ok: l10n.cmt_delete)) {
             await deleteComment(ref, spotId, comment.id);
           }
+        case _Action.block:
+          await askBlockAuthor(
+            context,
+            ref,
+            kind: BlockKind.comment,
+            itemId: comment.id,
+            onBlocked: () => ref.invalidate(spotCommentsProvider(spotId)),
+          );
         case _Action.report:
           if (await confirmDialog(
             context,

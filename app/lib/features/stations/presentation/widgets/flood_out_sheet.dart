@@ -95,6 +95,7 @@ class _FloodOutSheetState extends ConsumerState<FloodOutSheet> {
             if (windy) _Warn(text: l10n.flood_windy),
             if (result != null) _alarmRow(context, result),
             Text(l10n.flood_note, style: context.text.caption),
+            Text(l10n.legal_disclaimerShort, style: context.text.caption),
           ],
         ),
       ),

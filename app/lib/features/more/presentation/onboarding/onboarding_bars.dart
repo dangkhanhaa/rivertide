@@ -35,7 +35,12 @@ class OnbTopBar extends StatelessWidget {
               child: OnbProgress(step: step, count: onboardingSteps),
             ),
           ),
-          TextButton(onPressed: onSkip, child: Text(l10n.onb_skip)),
+          // Skips this step only; hidden on the terms, which cannot be skipped.
+          AnimatedOpacity(
+            duration: onbMotion,
+            opacity: onSkip == null ? 0 : 1,
+            child: TextButton(onPressed: onSkip, child: Text(l10n.onb_skip)),
+          ),
         ],
       ),
     );
