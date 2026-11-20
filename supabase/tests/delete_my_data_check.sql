@@ -119,7 +119,8 @@ insert into public.pond_confirms (pond_id, device_hash) values
   (pg_temp.id('pond_owned'), pg_temp.hash('other')),
   (pg_temp.id('pond_other'), pg_temp.hash('other')), (pg_temp.id('pond_other'), pg_temp.hash('me'));
 insert into public.item_votes (kind, item_id, device_hash, weight)
-select 'pond_confirm', pond_id, device_hash, 1 from public.pond_confirms;
+select 'pond_confirm', pond_id, device_hash, 1 from public.pond_confirms
+on conflict do nothing;  -- real DBs already hold votes for existing confirms
 insert into public.pond_reviews (pond_id, author_hash, rating, body) values
   (pg_temp.id('pond_shared'), pg_temp.hash('other'), 5, 'good'),
   (pg_temp.id('pond_other'), pg_temp.hash('me'), 4, 'mine');
@@ -164,7 +165,7 @@ select pg_temp.ok((select (r->>'ponds_deleted')::int = 1 and (r->>'ponds_anonymi
 select pg_temp.ok((select (r->>'reports')::int = 4 from res), '4 reports removed');
 select pg_temp.ok(pg_temp.rows_of(pg_temp.hash('me')) = 0, 'no row carries my hash any more');
 
--- ── what stays for others ──
+-- ── what stays for others ── (counts scoped to this test's devices: real DBs hold other rows)
 select pg_temp.ok(not exists (select 1 from public.ponds where name = 'Pond solo'), 'solo pond deleted');
 select pg_temp.ok((select created_by_hash is null and confirmations = 1 from public.ponds
                     where name = 'Pond shared'), 'shared pond kept, anonymised, my confirmation gone');
@@ -175,11 +176,11 @@ select pg_temp.ok((select confirmations = 1 from public.ponds where name = 'Pond
 select pg_temp.ok((select editor_hash = public.erased_hash() from public.pond_edits
                     where pond_id = pg_temp.id('pond_other')), 'edit history kept, editor erased');
 select pg_temp.ok(exists (select 1 from public.public_spots where title = 'Spot other'), 'other spot kept');
-select pg_temp.ok((select count(*) from public.spot_comments) = 1, 'only other''s comment on own spot left');
+select pg_temp.ok((select count(*) from public.spot_comments where author_hash in (pg_temp.hash('me'), pg_temp.hash('other'))) = 1, 'only other''s comment on own spot left');
 select pg_temp.ok(exists (select 1 from public.trips where title = 'Trip other'), 'other trip kept');
-select pg_temp.ok((select count(*) from public.trip_messages) = 1, 'only other''s message in own trip left');
-select pg_temp.ok((select count(*) from public.checkins) = 1, 'other check-in kept');
-select pg_temp.ok((select count(*) from public.pond_reviews) = 1, 'other review kept');
+select pg_temp.ok((select count(*) from public.trip_messages where author_hash in (pg_temp.hash('me'), pg_temp.hash('other'))) = 1, 'only other''s message in own trip left');
+select pg_temp.ok((select count(*) from public.checkins where owner_hash in (pg_temp.hash('me'), pg_temp.hash('other'))) = 1, 'other check-in kept');
+select pg_temp.ok((select count(*) from public.pond_reviews where author_hash in (pg_temp.hash('me'), pg_temp.hash('other'))) = 1, 'other review kept');
 select pg_temp.ok(not exists (select 1 from public.item_votes where item_id = pg_temp.id('spot_me')),
                   'votes on my deleted spot removed');
 select pg_temp.ok(exists (select 1 from public.devices where device_hash = pg_temp.hash('other')),
@@ -194,8 +195,9 @@ update public.public_spots set photos = array['11111111-1111-1111-1111-111111111
 insert into storage.objects (bucket_id, name) values
   ('spot-photos', '11111111-1111-1111-1111-111111111111/a.jpg'),
   ('spot-photos', '22222222-2222-2222-2222-222222222222/b.jpg');
-select pg_temp.ok((select array_agg(name) from public.mod_orphan_photos())
-                    = array['22222222-2222-2222-2222-222222222222/b.jpg'],
+select pg_temp.ok((select '22222222-2222-2222-2222-222222222222/b.jpg' = any(array_agg(name))
+                           and not ('11111111-1111-1111-1111-111111111111/a.jpg' = any(array_agg(name)))
+                      from public.mod_orphan_photos()),
                   'orphan photo listed, used photo not');
 
 -- ── IP rate limit ──
