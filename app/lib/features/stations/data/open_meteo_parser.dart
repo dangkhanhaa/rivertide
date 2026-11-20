@@ -47,22 +47,38 @@ HourlyTable parseOpenMeteoHourly(String body, List<String> fields) {
   return (timesUtc: times, columns: columns);
 }
 
-const weatherFields = [
-  'temperature_2m',
-  'precipitation',
-  'precipitation_probability',
-  'weather_code',
-  'cloud_cover',
-  'pressure_msl',
-  'wind_speed_10m',
-  'wind_gusts_10m',
-  'wind_direction_10m',
-  'cape',
-];
+/// Hourly Open-Meteo variables asked for, with the physically possible range
+/// of each. The answer is untrusted: a value outside its range is dropped
+/// (shown as missing) rather than displayed or scored.
+const Map<String, (double, double)> weatherFieldRanges = {
+  'temperature_2m': (-60, 60),
+  'apparent_temperature': (-80, 80),
+  'relative_humidity_2m': (0, 100),
+  'precipitation': (0, 500),
+  'precipitation_probability': (0, 100),
+  'weather_code': (0, 99),
+  'cloud_cover': (0, 100),
+  'pressure_msl': (850, 1100),
+  'wind_speed_10m': (0, 400),
+  'wind_gusts_10m': (0, 500),
+  'wind_direction_10m': (0, 360),
+  'cape': (0, 10000),
+  'uv_index': (0, 25),
+  'visibility': (0, 500000),
+  'is_day': (0, 1),
+};
+
+final List<String> weatherFields = weatherFieldRanges.keys.toList(growable: false);
 
 List<WeatherHour> parseWeather(String body) {
   final table = parseOpenMeteoHourly(body, weatherFields);
-  double? col(String f, int i) => table.columns[f]?[i];
+  double? col(String f, int i) {
+    final v = table.columns[f]?[i];
+    final range = weatherFieldRanges[f];
+    if (v == null || range == null) return null;
+    return v < range.$1 || v > range.$2 ? null : v;
+  }
+
   return [
     for (var i = 0; i < table.timesUtc.length; i++)
       WeatherHour(
@@ -77,6 +93,14 @@ List<WeatherHour> parseWeather(String body) {
         gustKmh: col('wind_gusts_10m', i),
         windDirDeg: col('wind_direction_10m', i),
         capeJPerKg: col('cape', i),
+        apparentC: col('apparent_temperature', i),
+        humidityPct: col('relative_humidity_2m', i),
+        uvIndex: col('uv_index', i),
+        visibilityM: col('visibility', i),
+        isDay: switch (col('is_day', i)) {
+          final double d => d >= 0.5,
+          null => null,
+        },
       ),
   ];
 }

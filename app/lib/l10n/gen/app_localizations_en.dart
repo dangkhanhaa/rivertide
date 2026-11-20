@@ -2309,7 +2309,7 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get cond_title => 'Weather & sky';
+  String get cond_title => 'Sun & moon';
 
   @override
   String loc_river(String river) {
@@ -3761,4 +3761,346 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get map_layerCheckins => 'People fishing now';
+
+  @override
+  String get wx_title => 'Weather';
+
+  @override
+  String wx_source(String time) {
+    return 'Forecast · Open-Meteo · updated $time';
+  }
+
+  @override
+  String wx_staleSource(String time) {
+    return 'Offline · forecast saved at $time · Open-Meteo';
+  }
+
+  @override
+  String get wx_now => 'Now';
+
+  @override
+  String get wx_forecastTag => 'forecast';
+
+  @override
+  String wx_feels(String temp) {
+    return 'Feels like $temp°';
+  }
+
+  @override
+  String get wx_humidity => 'Humidity';
+
+  @override
+  String get wx_wind => 'Wind';
+
+  @override
+  String get wx_gust => 'Gusts';
+
+  @override
+  String get wx_uv => 'UV index';
+
+  @override
+  String get wx_pressure => 'Pressure';
+
+  @override
+  String get wx_rainSoon => 'Rain next 3 h';
+
+  @override
+  String get wx_visibility => 'Visibility';
+
+  @override
+  String wx_windValue(String dir, int kmh) {
+    return '$dir $kmh km/h';
+  }
+
+  @override
+  String wx_force(int force) {
+    return 'force $force';
+  }
+
+  @override
+  String wx_kmh(int kmh) {
+    return '$kmh km/h';
+  }
+
+  @override
+  String wx_percent(int pct) {
+    return '$pct%';
+  }
+
+  @override
+  String wx_hpa(int hpa) {
+    return '$hpa hPa';
+  }
+
+  @override
+  String wx_km(String km) {
+    return '$km km';
+  }
+
+  @override
+  String wx_mm(String mm) {
+    return '$mm mm';
+  }
+
+  @override
+  String get wx_uvLow => 'low';
+
+  @override
+  String get wx_uvModerate => 'moderate';
+
+  @override
+  String get wx_uvHigh => 'high';
+
+  @override
+  String get wx_uvVeryHigh => 'very high';
+
+  @override
+  String get wx_uvExtreme => 'extreme';
+
+  @override
+  String get wx_trendFallingFast => 'falling fast';
+
+  @override
+  String get wx_trendFalling => 'falling';
+
+  @override
+  String get wx_trendSteady => 'steady';
+
+  @override
+  String get wx_trendRising => 'rising';
+
+  @override
+  String get wx_trendRisingFast => 'rising fast';
+
+  @override
+  String wx_trend24h(String trend) {
+    return '$trend vs 24 h ago';
+  }
+
+  @override
+  String get wx_skyClear => 'Sunny';
+
+  @override
+  String get wx_skyClearNight => 'Clear';
+
+  @override
+  String get wx_skyMainlyClear => 'Mostly clear';
+
+  @override
+  String get wx_skyPartlyCloudy => 'Partly cloudy';
+
+  @override
+  String get wx_skyOvercast => 'Overcast';
+
+  @override
+  String get wx_skyFog => 'Fog';
+
+  @override
+  String get wx_skyDrizzle => 'Drizzle';
+
+  @override
+  String get wx_skyRainLight => 'Light rain';
+
+  @override
+  String get wx_skyRainModerate => 'Rain';
+
+  @override
+  String get wx_skyRainHeavy => 'Heavy rain';
+
+  @override
+  String get wx_skyShowersLight => 'Light showers';
+
+  @override
+  String get wx_skyShowers => 'Showers';
+
+  @override
+  String get wx_skyShowersHeavy => 'Heavy showers';
+
+  @override
+  String get wx_skySnow => 'Snow';
+
+  @override
+  String get wx_skyThunderstorm => 'Thunderstorm';
+
+  @override
+  String get wx_skyThunderstormHail => 'Thunderstorm, hail';
+
+  @override
+  String get wx_dirN => 'N';
+
+  @override
+  String get wx_dirNe => 'NE';
+
+  @override
+  String get wx_dirE => 'E';
+
+  @override
+  String get wx_dirSe => 'SE';
+
+  @override
+  String get wx_dirS => 'S';
+
+  @override
+  String get wx_dirSw => 'SW';
+
+  @override
+  String get wx_dirW => 'W';
+
+  @override
+  String get wx_dirNw => 'NW';
+
+  @override
+  String get wx_hourlyTitle => 'Hourly';
+
+  @override
+  String wx_dailyTitle(int days) {
+    return 'Next $days days';
+  }
+
+  @override
+  String get wx_wdMon => 'Mon';
+
+  @override
+  String get wx_wdTue => 'Tue';
+
+  @override
+  String get wx_wdWed => 'Wed';
+
+  @override
+  String get wx_wdThu => 'Thu';
+
+  @override
+  String get wx_wdFri => 'Fri';
+
+  @override
+  String get wx_wdSat => 'Sat';
+
+  @override
+  String get wx_wdSun => 'Sun';
+
+  @override
+  String get wx_partMorning => 'morning';
+
+  @override
+  String get wx_partNoon => 'noon';
+
+  @override
+  String get wx_partAfternoon => 'afternoon';
+
+  @override
+  String get wx_partEvening => 'evening';
+
+  @override
+  String get wx_partNight => 'night';
+
+  @override
+  String wx_when(String part, String day) {
+    return '$day $part';
+  }
+
+  @override
+  String get wx_dayToday => 'today';
+
+  @override
+  String get wx_dayTomorrow => 'tomorrow';
+
+  @override
+  String wx_dayWind(int kmh) {
+    return 'wind up to $kmh km/h';
+  }
+
+  @override
+  String wx_dayGust(int kmh) {
+    return 'gusts $kmh km/h';
+  }
+
+  @override
+  String get wx_farNote => 'From day 4 on the forecast is less certain.';
+
+  @override
+  String get wx_adviceTitle => 'Tips for your trip';
+
+  @override
+  String wx_adv_storm(String when) {
+    return 'Thunderstorm $when — stay off the water and out of open ground';
+  }
+
+  @override
+  String wx_adv_wind(String when, int force) {
+    return 'Strong wind from $when, up to force $force — do not take a boat out';
+  }
+
+  @override
+  String wx_adv_gust(String when, int force) {
+    return 'Gusts of force $force $when — take care on a boat';
+  }
+
+  @override
+  String wx_adv_heavyRain(String when, int mm) {
+    return 'Heavy rain $when, about $mm mm that day — muddy water, rivers may rise fast';
+  }
+
+  @override
+  String wx_adv_rainSoon(String time, int pct) {
+    return 'Rain likely from $time ($pct%) — bring a raincoat';
+  }
+
+  @override
+  String wx_adv_fog(String when) {
+    return 'Fog $when — go slow on the water, lights on';
+  }
+
+  @override
+  String wx_adv_cold(String when, int temp) {
+    return 'Cold, down to $temp° $when — dress warmly';
+  }
+
+  @override
+  String wx_adv_heat(String when, int temp) {
+    return 'Very hot, feels like $temp° $when — drink water, avoid the midday sun';
+  }
+
+  @override
+  String wx_adv_uv(String when, int uv) {
+    return 'Strong sun, UV $uv $when — hat, long sleeves, sunscreen';
+  }
+
+  @override
+  String get wx_adv_pressure => 'Calm, pressure easing — anglers say fish bite better';
+
+  @override
+  String get wx_adv_calm => 'Light wind and little rain for 6 h — good for fishing';
+
+  @override
+  String get wx_adviceNote => 'Based on the forecast, for reference only';
+
+  @override
+  String get wx_empty => 'No weather forecast for this place yet';
+
+  @override
+  String get wx_error => 'Could not load the weather forecast';
+
+  @override
+  String wx_hourSemantics(String time, String sky, String temp, String pct) {
+    return '$time: $sky, $temp degrees, rain chance $pct';
+  }
+
+  @override
+  String wx_daySemantics(String day, String sky, String min, String max, String pct) {
+    return '$day: $sky, low $min, high $max degrees, rain chance $pct';
+  }
+
+  @override
+  String wx_dayRain(String mm) {
+    return 'Rain $mm mm';
+  }
+
+  @override
+  String wx_dayWindDir(String dir, int kmh) {
+    return '$dir wind up to $kmh km/h';
+  }
+
+  @override
+  String get wx_hourlyLegend =>
+      'Blue: chance of rain (%) and amount (mm). Last line: wind km/h, arrow points where it blows.';
 }

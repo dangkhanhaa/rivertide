@@ -19,6 +19,7 @@ import 'package:rivertide/features/stations/presentation/widgets/directions_butt
 import 'package:rivertide/features/stations/presentation/widgets/fish_activity_card.dart';
 import 'package:rivertide/features/stations/presentation/widgets/flood_out_sheet.dart';
 import 'package:rivertide/features/stations/presentation/widgets/flow_card.dart';
+import 'package:rivertide/features/stations/presentation/widgets/forecast/forecast_section.dart';
 import 'package:rivertide/features/stations/presentation/widgets/hazard_banner.dart';
 import 'package:rivertide/features/stations/presentation/widgets/location_summary.dart';
 import 'package:rivertide/features/stations/presentation/widgets/point_sheet.dart';
@@ -108,8 +109,9 @@ class StationSheet extends ConsumerWidget {
 /// Everything known for one place, shared by station and point sheets:
 /// level, next turns, chart, today's range, flow, fishing, weather.
 /// The short version shown in map sheets (station and point): level and
-/// direction, fish activity, next turns, warnings. Chart, day statistics and
-/// weather are one tap away in "Xem chi tiết" (the full screen).
+/// direction, fish activity, next turns, warnings, weather now + 24 h
+/// (P2-55). Chart, day statistics and the 7-day weather are one tap away in
+/// "Xem chi tiết" (the full screen).
 class StationSummaryBody extends StatelessWidget {
   const StationSummaryBody({required this.view, this.place, super.key});
 
@@ -131,6 +133,7 @@ class StationSummaryBody extends StatelessWidget {
           HazardBanner(view: view),
           FishActivityCard(view: view),
           FlowCard(stationId: tide.station.id, nowUtc: view.nowUtc, primary: true),
+          ForecastSection(stationId: tide.station.id, compact: true),
         ],
       );
     }
@@ -143,6 +146,7 @@ class StationSummaryBody extends StatelessWidget {
           HazardBanner(view: view),
           DailyExtremesCard(extremes: daily),
           FishActivityCard(view: view),
+          ForecastSection(stationId: tide.station.id, compact: true),
         ],
       );
     }
@@ -164,6 +168,7 @@ class StationSummaryBody extends StatelessWidget {
           ),
         ],
         FishActivityCard(view: view),
+        ForecastSection(stationId: tide.station.id, compact: true),
       ],
     );
   }

@@ -3999,7 +3999,7 @@ abstract class AppLocalizations {
   /// No description provided for @cond_title.
   ///
   /// In vi, this message translates to:
-  /// **'Thời tiết & trời'**
+  /// **'Mặt trời & mặt trăng'**
   String get cond_title;
 
   /// No description provided for @loc_river.
@@ -6545,6 +6545,576 @@ abstract class AppLocalizations {
   /// In vi, this message translates to:
   /// **'Người đang câu'**
   String get map_layerCheckins;
+
+  /// No description provided for @wx_title.
+  ///
+  /// In vi, this message translates to:
+  /// **'Thời tiết'**
+  String get wx_title;
+
+  /// No description provided for @wx_source.
+  ///
+  /// In vi, this message translates to:
+  /// **'Dự báo · Open-Meteo · cập nhật {time}'**
+  String wx_source(String time);
+
+  /// No description provided for @wx_staleSource.
+  ///
+  /// In vi, this message translates to:
+  /// **'Ngoại tuyến · dự báo lưu lúc {time} · Open-Meteo'**
+  String wx_staleSource(String time);
+
+  /// No description provided for @wx_now.
+  ///
+  /// In vi, this message translates to:
+  /// **'Bây giờ'**
+  String get wx_now;
+
+  /// No description provided for @wx_forecastTag.
+  ///
+  /// In vi, this message translates to:
+  /// **'dự báo'**
+  String get wx_forecastTag;
+
+  /// No description provided for @wx_feels.
+  ///
+  /// In vi, this message translates to:
+  /// **'Cảm giác như {temp}°'**
+  String wx_feels(String temp);
+
+  /// No description provided for @wx_humidity.
+  ///
+  /// In vi, this message translates to:
+  /// **'Độ ẩm'**
+  String get wx_humidity;
+
+  /// No description provided for @wx_wind.
+  ///
+  /// In vi, this message translates to:
+  /// **'Gió'**
+  String get wx_wind;
+
+  /// No description provided for @wx_gust.
+  ///
+  /// In vi, this message translates to:
+  /// **'Gió giật'**
+  String get wx_gust;
+
+  /// No description provided for @wx_uv.
+  ///
+  /// In vi, this message translates to:
+  /// **'Chỉ số UV'**
+  String get wx_uv;
+
+  /// No description provided for @wx_pressure.
+  ///
+  /// In vi, this message translates to:
+  /// **'Áp suất'**
+  String get wx_pressure;
+
+  /// No description provided for @wx_rainSoon.
+  ///
+  /// In vi, this message translates to:
+  /// **'Mưa 3 giờ tới'**
+  String get wx_rainSoon;
+
+  /// No description provided for @wx_visibility.
+  ///
+  /// In vi, this message translates to:
+  /// **'Tầm nhìn'**
+  String get wx_visibility;
+
+  /// No description provided for @wx_windValue.
+  ///
+  /// In vi, this message translates to:
+  /// **'{dir} {kmh} km/h'**
+  String wx_windValue(String dir, int kmh);
+
+  /// No description provided for @wx_force.
+  ///
+  /// In vi, this message translates to:
+  /// **'cấp {force}'**
+  String wx_force(int force);
+
+  /// No description provided for @wx_kmh.
+  ///
+  /// In vi, this message translates to:
+  /// **'{kmh} km/h'**
+  String wx_kmh(int kmh);
+
+  /// No description provided for @wx_percent.
+  ///
+  /// In vi, this message translates to:
+  /// **'{pct}%'**
+  String wx_percent(int pct);
+
+  /// No description provided for @wx_hpa.
+  ///
+  /// In vi, this message translates to:
+  /// **'{hpa} hPa'**
+  String wx_hpa(int hpa);
+
+  /// No description provided for @wx_km.
+  ///
+  /// In vi, this message translates to:
+  /// **'{km} km'**
+  String wx_km(String km);
+
+  /// No description provided for @wx_mm.
+  ///
+  /// In vi, this message translates to:
+  /// **'{mm} mm'**
+  String wx_mm(String mm);
+
+  /// No description provided for @wx_uvLow.
+  ///
+  /// In vi, this message translates to:
+  /// **'thấp'**
+  String get wx_uvLow;
+
+  /// No description provided for @wx_uvModerate.
+  ///
+  /// In vi, this message translates to:
+  /// **'trung bình'**
+  String get wx_uvModerate;
+
+  /// No description provided for @wx_uvHigh.
+  ///
+  /// In vi, this message translates to:
+  /// **'cao'**
+  String get wx_uvHigh;
+
+  /// No description provided for @wx_uvVeryHigh.
+  ///
+  /// In vi, this message translates to:
+  /// **'rất cao'**
+  String get wx_uvVeryHigh;
+
+  /// No description provided for @wx_uvExtreme.
+  ///
+  /// In vi, this message translates to:
+  /// **'cực độ'**
+  String get wx_uvExtreme;
+
+  /// No description provided for @wx_trendFallingFast.
+  ///
+  /// In vi, this message translates to:
+  /// **'giảm nhanh'**
+  String get wx_trendFallingFast;
+
+  /// No description provided for @wx_trendFalling.
+  ///
+  /// In vi, this message translates to:
+  /// **'giảm nhẹ'**
+  String get wx_trendFalling;
+
+  /// No description provided for @wx_trendSteady.
+  ///
+  /// In vi, this message translates to:
+  /// **'ổn định'**
+  String get wx_trendSteady;
+
+  /// No description provided for @wx_trendRising.
+  ///
+  /// In vi, this message translates to:
+  /// **'tăng nhẹ'**
+  String get wx_trendRising;
+
+  /// No description provided for @wx_trendRisingFast.
+  ///
+  /// In vi, this message translates to:
+  /// **'tăng nhanh'**
+  String get wx_trendRisingFast;
+
+  /// No description provided for @wx_trend24h.
+  ///
+  /// In vi, this message translates to:
+  /// **'{trend} so với 24 giờ trước'**
+  String wx_trend24h(String trend);
+
+  /// No description provided for @wx_skyClear.
+  ///
+  /// In vi, this message translates to:
+  /// **'Nắng'**
+  String get wx_skyClear;
+
+  /// No description provided for @wx_skyClearNight.
+  ///
+  /// In vi, this message translates to:
+  /// **'Trời quang'**
+  String get wx_skyClearNight;
+
+  /// No description provided for @wx_skyMainlyClear.
+  ///
+  /// In vi, this message translates to:
+  /// **'Ít mây'**
+  String get wx_skyMainlyClear;
+
+  /// No description provided for @wx_skyPartlyCloudy.
+  ///
+  /// In vi, this message translates to:
+  /// **'Có mây'**
+  String get wx_skyPartlyCloudy;
+
+  /// No description provided for @wx_skyOvercast.
+  ///
+  /// In vi, this message translates to:
+  /// **'Nhiều mây'**
+  String get wx_skyOvercast;
+
+  /// No description provided for @wx_skyFog.
+  ///
+  /// In vi, this message translates to:
+  /// **'Sương mù'**
+  String get wx_skyFog;
+
+  /// No description provided for @wx_skyDrizzle.
+  ///
+  /// In vi, this message translates to:
+  /// **'Mưa phùn'**
+  String get wx_skyDrizzle;
+
+  /// No description provided for @wx_skyRainLight.
+  ///
+  /// In vi, this message translates to:
+  /// **'Mưa nhỏ'**
+  String get wx_skyRainLight;
+
+  /// No description provided for @wx_skyRainModerate.
+  ///
+  /// In vi, this message translates to:
+  /// **'Mưa vừa'**
+  String get wx_skyRainModerate;
+
+  /// No description provided for @wx_skyRainHeavy.
+  ///
+  /// In vi, this message translates to:
+  /// **'Mưa to'**
+  String get wx_skyRainHeavy;
+
+  /// No description provided for @wx_skyShowersLight.
+  ///
+  /// In vi, this message translates to:
+  /// **'Mưa rào nhẹ'**
+  String get wx_skyShowersLight;
+
+  /// No description provided for @wx_skyShowers.
+  ///
+  /// In vi, this message translates to:
+  /// **'Mưa rào'**
+  String get wx_skyShowers;
+
+  /// No description provided for @wx_skyShowersHeavy.
+  ///
+  /// In vi, this message translates to:
+  /// **'Mưa rào rất to'**
+  String get wx_skyShowersHeavy;
+
+  /// No description provided for @wx_skySnow.
+  ///
+  /// In vi, this message translates to:
+  /// **'Tuyết'**
+  String get wx_skySnow;
+
+  /// No description provided for @wx_skyThunderstorm.
+  ///
+  /// In vi, this message translates to:
+  /// **'Dông'**
+  String get wx_skyThunderstorm;
+
+  /// No description provided for @wx_skyThunderstormHail.
+  ///
+  /// In vi, this message translates to:
+  /// **'Dông, mưa đá'**
+  String get wx_skyThunderstormHail;
+
+  /// No description provided for @wx_dirN.
+  ///
+  /// In vi, this message translates to:
+  /// **'Bắc'**
+  String get wx_dirN;
+
+  /// No description provided for @wx_dirNe.
+  ///
+  /// In vi, this message translates to:
+  /// **'Đông Bắc'**
+  String get wx_dirNe;
+
+  /// No description provided for @wx_dirE.
+  ///
+  /// In vi, this message translates to:
+  /// **'Đông'**
+  String get wx_dirE;
+
+  /// No description provided for @wx_dirSe.
+  ///
+  /// In vi, this message translates to:
+  /// **'Đông Nam'**
+  String get wx_dirSe;
+
+  /// No description provided for @wx_dirS.
+  ///
+  /// In vi, this message translates to:
+  /// **'Nam'**
+  String get wx_dirS;
+
+  /// No description provided for @wx_dirSw.
+  ///
+  /// In vi, this message translates to:
+  /// **'Tây Nam'**
+  String get wx_dirSw;
+
+  /// No description provided for @wx_dirW.
+  ///
+  /// In vi, this message translates to:
+  /// **'Tây'**
+  String get wx_dirW;
+
+  /// No description provided for @wx_dirNw.
+  ///
+  /// In vi, this message translates to:
+  /// **'Tây Bắc'**
+  String get wx_dirNw;
+
+  /// No description provided for @wx_hourlyTitle.
+  ///
+  /// In vi, this message translates to:
+  /// **'Theo giờ'**
+  String get wx_hourlyTitle;
+
+  /// No description provided for @wx_dailyTitle.
+  ///
+  /// In vi, this message translates to:
+  /// **'{days} ngày tới'**
+  String wx_dailyTitle(int days);
+
+  /// No description provided for @wx_wdMon.
+  ///
+  /// In vi, this message translates to:
+  /// **'Th 2'**
+  String get wx_wdMon;
+
+  /// No description provided for @wx_wdTue.
+  ///
+  /// In vi, this message translates to:
+  /// **'Th 3'**
+  String get wx_wdTue;
+
+  /// No description provided for @wx_wdWed.
+  ///
+  /// In vi, this message translates to:
+  /// **'Th 4'**
+  String get wx_wdWed;
+
+  /// No description provided for @wx_wdThu.
+  ///
+  /// In vi, this message translates to:
+  /// **'Th 5'**
+  String get wx_wdThu;
+
+  /// No description provided for @wx_wdFri.
+  ///
+  /// In vi, this message translates to:
+  /// **'Th 6'**
+  String get wx_wdFri;
+
+  /// No description provided for @wx_wdSat.
+  ///
+  /// In vi, this message translates to:
+  /// **'Th 7'**
+  String get wx_wdSat;
+
+  /// No description provided for @wx_wdSun.
+  ///
+  /// In vi, this message translates to:
+  /// **'CN'**
+  String get wx_wdSun;
+
+  /// No description provided for @wx_partMorning.
+  ///
+  /// In vi, this message translates to:
+  /// **'sáng'**
+  String get wx_partMorning;
+
+  /// No description provided for @wx_partNoon.
+  ///
+  /// In vi, this message translates to:
+  /// **'trưa'**
+  String get wx_partNoon;
+
+  /// No description provided for @wx_partAfternoon.
+  ///
+  /// In vi, this message translates to:
+  /// **'chiều'**
+  String get wx_partAfternoon;
+
+  /// No description provided for @wx_partEvening.
+  ///
+  /// In vi, this message translates to:
+  /// **'tối'**
+  String get wx_partEvening;
+
+  /// No description provided for @wx_partNight.
+  ///
+  /// In vi, this message translates to:
+  /// **'đêm'**
+  String get wx_partNight;
+
+  /// No description provided for @wx_when.
+  ///
+  /// In vi, this message translates to:
+  /// **'{part} {day}'**
+  String wx_when(String part, String day);
+
+  /// No description provided for @wx_dayToday.
+  ///
+  /// In vi, this message translates to:
+  /// **'nay'**
+  String get wx_dayToday;
+
+  /// No description provided for @wx_dayTomorrow.
+  ///
+  /// In vi, this message translates to:
+  /// **'mai'**
+  String get wx_dayTomorrow;
+
+  /// No description provided for @wx_dayWind.
+  ///
+  /// In vi, this message translates to:
+  /// **'gió tới {kmh} km/h'**
+  String wx_dayWind(int kmh);
+
+  /// No description provided for @wx_dayGust.
+  ///
+  /// In vi, this message translates to:
+  /// **'giật {kmh} km/h'**
+  String wx_dayGust(int kmh);
+
+  /// No description provided for @wx_farNote.
+  ///
+  /// In vi, this message translates to:
+  /// **'Từ ngày thứ 4 là dự báo xa, kém chắc chắn hơn.'**
+  String get wx_farNote;
+
+  /// No description provided for @wx_adviceTitle.
+  ///
+  /// In vi, this message translates to:
+  /// **'Gợi ý cho buổi câu'**
+  String get wx_adviceTitle;
+
+  /// No description provided for @wx_adv_storm.
+  ///
+  /// In vi, this message translates to:
+  /// **'Có dông {when} — tránh ra sông, không đứng nơi trống trải'**
+  String wx_adv_storm(String when);
+
+  /// No description provided for @wx_adv_wind.
+  ///
+  /// In vi, this message translates to:
+  /// **'Gió mạnh từ {when}, có lúc cấp {force} — không nên ra thuyền'**
+  String wx_adv_wind(String when, int force);
+
+  /// No description provided for @wx_adv_gust.
+  ///
+  /// In vi, this message translates to:
+  /// **'Gió giật cấp {force} {when} — cẩn thận khi ra thuyền'**
+  String wx_adv_gust(String when, int force);
+
+  /// No description provided for @wx_adv_heavyRain.
+  ///
+  /// In vi, this message translates to:
+  /// **'Mưa to {when}, khoảng {mm} mm cả ngày — nước dễ đục, sông có thể lên nhanh'**
+  String wx_adv_heavyRain(String when, int mm);
+
+  /// No description provided for @wx_adv_rainSoon.
+  ///
+  /// In vi, this message translates to:
+  /// **'Có thể mưa từ {time} ({pct}%) — mang áo mưa'**
+  String wx_adv_rainSoon(String time, int pct);
+
+  /// No description provided for @wx_adv_fog.
+  ///
+  /// In vi, this message translates to:
+  /// **'Sương mù {when} — đi thuyền chậm, bật đèn'**
+  String wx_adv_fog(String when);
+
+  /// No description provided for @wx_adv_cold.
+  ///
+  /// In vi, this message translates to:
+  /// **'Trời rét, xuống {temp}° {when} — mặc ấm khi ngồi câu'**
+  String wx_adv_cold(String when, int temp);
+
+  /// No description provided for @wx_adv_heat.
+  ///
+  /// In vi, this message translates to:
+  /// **'Oi nóng, cảm giác như {temp}° {when} — uống đủ nước, tránh nắng gắt'**
+  String wx_adv_heat(String when, int temp);
+
+  /// No description provided for @wx_adv_uv.
+  ///
+  /// In vi, this message translates to:
+  /// **'Nắng gắt, UV {uv} {when} — mang mũ, áo dài tay, kem chống nắng'**
+  String wx_adv_uv(String when, int uv);
+
+  /// No description provided for @wx_adv_pressure.
+  ///
+  /// In vi, this message translates to:
+  /// **'Trời êm, áp suất giảm nhẹ — dân câu cho rằng cá dễ ăn hơn'**
+  String get wx_adv_pressure;
+
+  /// No description provided for @wx_adv_calm.
+  ///
+  /// In vi, this message translates to:
+  /// **'6 giờ tới ít gió, ít khả năng mưa — thuận lợi ra câu'**
+  String get wx_adv_calm;
+
+  /// No description provided for @wx_adviceNote.
+  ///
+  /// In vi, this message translates to:
+  /// **'Gợi ý từ dự báo, chỉ để tham khảo'**
+  String get wx_adviceNote;
+
+  /// No description provided for @wx_empty.
+  ///
+  /// In vi, this message translates to:
+  /// **'Chưa có dự báo thời tiết cho nơi này'**
+  String get wx_empty;
+
+  /// No description provided for @wx_error.
+  ///
+  /// In vi, this message translates to:
+  /// **'Không tải được dự báo thời tiết'**
+  String get wx_error;
+
+  /// No description provided for @wx_hourSemantics.
+  ///
+  /// In vi, this message translates to:
+  /// **'{time}: {sky}, {temp} độ, khả năng mưa {pct}'**
+  String wx_hourSemantics(String time, String sky, String temp, String pct);
+
+  /// No description provided for @wx_daySemantics.
+  ///
+  /// In vi, this message translates to:
+  /// **'{day}: {sky}, thấp nhất {min} độ, cao nhất {max} độ, khả năng mưa {pct}'**
+  String wx_daySemantics(String day, String sky, String min, String max, String pct);
+
+  /// No description provided for @wx_dayRain.
+  ///
+  /// In vi, this message translates to:
+  /// **'Mưa {mm} mm'**
+  String wx_dayRain(String mm);
+
+  /// No description provided for @wx_dayWindDir.
+  ///
+  /// In vi, this message translates to:
+  /// **'gió {dir} tới {kmh} km/h'**
+  String wx_dayWindDir(String dir, int kmh);
+
+  /// No description provided for @wx_hourlyLegend.
+  ///
+  /// In vi, this message translates to:
+  /// **'Số xanh: khả năng mưa (%) và lượng mưa (mm). Dòng cuối: gió km/h, mũi tên chỉ hướng gió thổi tới.'**
+  String get wx_hourlyLegend;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

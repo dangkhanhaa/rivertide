@@ -11,6 +11,7 @@ import 'package:rivertide/features/stations/presentation/widgets/countdown_card.
 import 'package:rivertide/features/stations/presentation/widgets/daily_extremes_card.dart';
 import 'package:rivertide/features/stations/presentation/widgets/fish_activity_card.dart';
 import 'package:rivertide/features/stations/presentation/widgets/flow_card.dart';
+import 'package:rivertide/features/stations/presentation/widgets/forecast/forecast_section.dart';
 import 'package:rivertide/features/stations/presentation/widgets/hazard_banner.dart';
 import 'package:rivertide/features/stations/presentation/widgets/location_extras.dart';
 import 'package:rivertide/features/stations/presentation/widgets/quick_summary.dart';
@@ -26,12 +27,8 @@ class OverviewTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = context.l10n;
     final now = view.now;
     final tide = view.tide.data;
-    final correction = now.correctionCm;
-    final springNeap = now.springNeap;
-    final range = now.dailyRangeCm;
     final daily = tide.dailyExtremes;
     if (levelUnknown(tide)) {
       return ListView(
@@ -43,6 +40,8 @@ class OverviewTab extends StatelessWidget {
           FlowCard(stationId: tide.station.id, nowUtc: view.nowUtc, primary: true),
           const SizedBox(height: AppSpacing.md),
           FishActivityCard(view: view),
+          const SizedBox(height: AppSpacing.md),
+          ForecastSection(stationId: tide.station.id),
           const SizedBox(height: AppSpacing.md),
           Conditions(view: view),
         ],
@@ -60,6 +59,8 @@ class OverviewTab extends StatelessWidget {
           FlowCard(stationId: tide.station.id, nowUtc: view.nowUtc),
           const SizedBox(height: AppSpacing.md),
           FishActivityCard(view: view),
+          const SizedBox(height: AppSpacing.md),
+          ForecastSection(stationId: tide.station.id),
           const SizedBox(height: AppSpacing.md),
           Conditions(view: view),
           const SizedBox(height: AppSpacing.md),
@@ -91,6 +92,36 @@ class OverviewTab extends StatelessWidget {
           latestObservation: tide.anchor,
         ),
         const SizedBox(height: AppSpacing.sm),
+        _DayFacts(view: view),
+        const SizedBox(height: AppSpacing.md),
+        SourceLine(view: view, showSource: false, showReference: false),
+        if (tide.station.kind == StationKind.river)
+          FlowCard(stationId: tide.station.id, nowUtc: view.nowUtc),
+        const SizedBox(height: AppSpacing.md),
+        ForecastSection(stationId: tide.station.id),
+      ],
+    );
+  }
+}
+
+DateTime _hourFloor(DateTime t) => DateTime.utc(t.year, t.month, t.day, t.hour);
+
+/// Lunar day, spring/neap, today's range and the live correction under the chart.
+class _DayFacts extends StatelessWidget {
+  const _DayFacts({required this.view});
+
+  final StationView view;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = context.l10n;
+    final now = view.now;
+    final correction = now.correctionCm;
+    final springNeap = now.springNeap;
+    final range = now.dailyRangeCm;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
         Wrap(
           spacing: AppSpacing.md,
           runSpacing: AppSpacing.xs,
@@ -105,23 +136,17 @@ class OverviewTab extends StatelessWidget {
               Text(l10n.station_dailyRange(LevelFormat.meters(range)), style: context.text.body),
           ],
         ),
-        if (correction != null && tide.prediction != null) ...[
+        if (correction != null && view.tide.data.prediction != null) ...[
           const SizedBox(height: AppSpacing.sm),
           Text(
             l10n.tide_correctedBy(LevelFormat.signedCm(correction)),
             style: context.text.caption,
           ),
         ],
-        const SizedBox(height: AppSpacing.md),
-        SourceLine(view: view, showSource: false, showReference: false),
-        if (tide.station.kind == StationKind.river)
-          FlowCard(stationId: tide.station.id, nowUtc: view.nowUtc),
       ],
     );
   }
 }
-
-DateTime _hourFloor(DateTime t) => DateTime.utc(t.year, t.month, t.day, t.hour);
 
 /// Hero number wrapped in a card.
 class LevelHeroBlock extends StatelessWidget {

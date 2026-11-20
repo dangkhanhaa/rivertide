@@ -17,5 +17,10 @@ abstract class WeatherHour with _$WeatherHour {
     double? gustKmh,
     double? windDirDeg,
     double? capeJPerKg,
+    double? apparentC,
+    double? humidityPct,
+    double? uvIndex,
+    double? visibilityM,
+    bool? isDay,
   }) = _WeatherHour;
 }
