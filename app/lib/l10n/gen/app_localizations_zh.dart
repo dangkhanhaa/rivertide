@@ -2224,7 +2224,7 @@ class AppLocalizationsZh extends AppLocalizations {
   }
 
   @override
-  String get cond_title => '天气与天象';
+  String get cond_title => '日月';
 
   @override
   String loc_river(String river) {
@@ -3837,4 +3837,345 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get blocked_other => '此内容暂不适合发布，请修改';
+
+  @override
+  String get wx_title => '天气';
+
+  @override
+  String wx_source(String time) {
+    return '预报 · Open-Meteo · 更新于 $time';
+  }
+
+  @override
+  String wx_staleSource(String time) {
+    return '离线 · 预报保存于 $time · Open-Meteo';
+  }
+
+  @override
+  String get wx_now => '现在';
+
+  @override
+  String get wx_forecastTag => '预报';
+
+  @override
+  String wx_feels(String temp) {
+    return '体感 $temp°';
+  }
+
+  @override
+  String get wx_humidity => '湿度';
+
+  @override
+  String get wx_wind => '风';
+
+  @override
+  String get wx_gust => '阵风';
+
+  @override
+  String get wx_uv => '紫外线指数';
+
+  @override
+  String get wx_pressure => '气压';
+
+  @override
+  String get wx_rainSoon => '未来3小时降雨';
+
+  @override
+  String get wx_visibility => '能见度';
+
+  @override
+  String wx_windValue(String dir, int kmh) {
+    return '$dir $kmh km/h';
+  }
+
+  @override
+  String wx_force(int force) {
+    return '$force级';
+  }
+
+  @override
+  String wx_kmh(int kmh) {
+    return '$kmh km/h';
+  }
+
+  @override
+  String wx_percent(int pct) {
+    return '$pct%';
+  }
+
+  @override
+  String wx_hpa(int hpa) {
+    return '$hpa hPa';
+  }
+
+  @override
+  String wx_km(String km) {
+    return '$km 公里';
+  }
+
+  @override
+  String wx_mm(String mm) {
+    return '$mm 毫米';
+  }
+
+  @override
+  String get wx_uvLow => '低';
+
+  @override
+  String get wx_uvModerate => '中等';
+
+  @override
+  String get wx_uvHigh => '高';
+
+  @override
+  String get wx_uvVeryHigh => '很高';
+
+  @override
+  String get wx_uvExtreme => '极高';
+
+  @override
+  String get wx_trendFallingFast => '快速下降';
+
+  @override
+  String get wx_trendFalling => '缓慢下降';
+
+  @override
+  String get wx_trendSteady => '稳定';
+
+  @override
+  String get wx_trendRising => '缓慢上升';
+
+  @override
+  String get wx_trendRisingFast => '快速上升';
+
+  @override
+  String wx_trend24h(String trend) {
+    return '较24小时前$trend';
+  }
+
+  @override
+  String get wx_skyClear => '晴';
+
+  @override
+  String get wx_skyClearNight => '晴朗';
+
+  @override
+  String get wx_skyMainlyClear => '少云';
+
+  @override
+  String get wx_skyPartlyCloudy => '多云';
+
+  @override
+  String get wx_skyOvercast => '阴';
+
+  @override
+  String get wx_skyFog => '雾';
+
+  @override
+  String get wx_skyDrizzle => '毛毛雨';
+
+  @override
+  String get wx_skyRainLight => '小雨';
+
+  @override
+  String get wx_skyRainModerate => '中雨';
+
+  @override
+  String get wx_skyRainHeavy => '大雨';
+
+  @override
+  String get wx_skyShowersLight => '小阵雨';
+
+  @override
+  String get wx_skyShowers => '阵雨';
+
+  @override
+  String get wx_skyShowersHeavy => '强阵雨';
+
+  @override
+  String get wx_skySnow => '雪';
+
+  @override
+  String get wx_skyThunderstorm => '雷雨';
+
+  @override
+  String get wx_skyThunderstormHail => '雷雨伴冰雹';
+
+  @override
+  String get wx_dirN => '北风';
+
+  @override
+  String get wx_dirNe => '东北风';
+
+  @override
+  String get wx_dirE => '东风';
+
+  @override
+  String get wx_dirSe => '东南风';
+
+  @override
+  String get wx_dirS => '南风';
+
+  @override
+  String get wx_dirSw => '西南风';
+
+  @override
+  String get wx_dirW => '西风';
+
+  @override
+  String get wx_dirNw => '西北风';
+
+  @override
+  String get wx_hourlyTitle => '逐小时';
+
+  @override
+  String wx_dailyTitle(int days) {
+    return '未来$days天';
+  }
+
+  @override
+  String get wx_wdMon => '周一';
+
+  @override
+  String get wx_wdTue => '周二';
+
+  @override
+  String get wx_wdWed => '周三';
+
+  @override
+  String get wx_wdThu => '周四';
+
+  @override
+  String get wx_wdFri => '周五';
+
+  @override
+  String get wx_wdSat => '周六';
+
+  @override
+  String get wx_wdSun => '周日';
+
+  @override
+  String get wx_partMorning => '上午';
+
+  @override
+  String get wx_partNoon => '中午';
+
+  @override
+  String get wx_partAfternoon => '下午';
+
+  @override
+  String get wx_partEvening => '傍晚';
+
+  @override
+  String get wx_partNight => '夜间';
+
+  @override
+  String wx_when(String part, String day) {
+    return '$day$part';
+  }
+
+  @override
+  String get wx_dayToday => '今天';
+
+  @override
+  String get wx_dayTomorrow => '明天';
+
+  @override
+  String wx_dayWind(int kmh) {
+    return '风速最高 $kmh km/h';
+  }
+
+  @override
+  String wx_dayGust(int kmh) {
+    return '阵风 $kmh km/h';
+  }
+
+  @override
+  String get wx_farNote => '第4天起为远期预报，准确度较低。';
+
+  @override
+  String get wx_adviceTitle => '出钓提示';
+
+  @override
+  String wx_adv_storm(String when) {
+    return '$when有雷雨 — 避免下河，不要待在空旷处';
+  }
+
+  @override
+  String wx_adv_wind(String when, int force) {
+    return '$when起大风，最高$force级 — 不宜乘船';
+  }
+
+  @override
+  String wx_adv_gust(String when, int force) {
+    return '$when阵风$force级 — 乘船注意安全';
+  }
+
+  @override
+  String wx_adv_heavyRain(String when, int mm) {
+    return '$when大雨，全天约$mm毫米 — 水易浑浊，河水可能快速上涨';
+  }
+
+  @override
+  String wx_adv_rainSoon(String time, int pct) {
+    return '$time起可能下雨（$pct%）— 带上雨衣';
+  }
+
+  @override
+  String wx_adv_fog(String when) {
+    return '$when有雾 — 行船慢行，打开灯';
+  }
+
+  @override
+  String wx_adv_cold(String when, int temp) {
+    return '天冷，$when降至$temp° — 注意保暖';
+  }
+
+  @override
+  String wx_adv_heat(String when, int temp) {
+    return '闷热，$when体感$temp° — 多喝水，避开烈日';
+  }
+
+  @override
+  String wx_adv_uv(String when, int uv) {
+    return '$when紫外线$uv，阳光强烈 — 戴帽子、穿长袖、涂防晒';
+  }
+
+  @override
+  String get wx_adv_pressure => '天气平稳，气压缓降 — 钓友认为鱼更易咬钩';
+
+  @override
+  String get wx_adv_calm => '未来6小时风小、少雨 — 适合出钓';
+
+  @override
+  String get wx_adviceNote => '根据预报，仅供参考';
+
+  @override
+  String get wx_empty => '此地暂无天气预报';
+
+  @override
+  String get wx_error => '无法加载天气预报';
+
+  @override
+  String wx_hourSemantics(String time, String sky, String temp, String pct) {
+    return '$time：$sky，$temp度，降雨概率$pct';
+  }
+
+  @override
+  String wx_daySemantics(String day, String sky, String min, String max, String pct) {
+    return '$day：$sky，最低$min度，最高$max度，降雨概率$pct';
+  }
+
+  @override
+  String wx_dayRain(String mm) {
+    return '降雨 $mm 毫米';
+  }
+
+  @override
+  String wx_dayWindDir(String dir, int kmh) {
+    return '$dir，最高 $kmh km/h';
+  }
+
+  @override
+  String get wx_hourlyLegend => '蓝色：降雨概率（%）和雨量（毫米）。最后一行：风速 km/h，箭头指向风吹去的方向。';
 }

@@ -2233,7 +2233,7 @@ class AppLocalizationsKo extends AppLocalizations {
   }
 
   @override
-  String get cond_title => '날씨와 하늘';
+  String get cond_title => '해와 달';
 
   @override
   String loc_river(String river) {
@@ -3847,4 +3847,345 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get blocked_other => '게시하기에 적합하지 않은 내용이에요. 수정해 주세요';
+
+  @override
+  String get wx_title => '날씨';
+
+  @override
+  String wx_source(String time) {
+    return '예보 · Open-Meteo · $time 업데이트';
+  }
+
+  @override
+  String wx_staleSource(String time) {
+    return '오프라인 · $time에 저장된 예보 · Open-Meteo';
+  }
+
+  @override
+  String get wx_now => '지금';
+
+  @override
+  String get wx_forecastTag => '예보';
+
+  @override
+  String wx_feels(String temp) {
+    return '체감 $temp°';
+  }
+
+  @override
+  String get wx_humidity => '습도';
+
+  @override
+  String get wx_wind => '바람';
+
+  @override
+  String get wx_gust => '돌풍';
+
+  @override
+  String get wx_uv => '자외선 지수';
+
+  @override
+  String get wx_pressure => '기압';
+
+  @override
+  String get wx_rainSoon => '3시간 내 비';
+
+  @override
+  String get wx_visibility => '가시거리';
+
+  @override
+  String wx_windValue(String dir, int kmh) {
+    return '$dir $kmh km/h';
+  }
+
+  @override
+  String wx_force(int force) {
+    return '$force등급';
+  }
+
+  @override
+  String wx_kmh(int kmh) {
+    return '$kmh km/h';
+  }
+
+  @override
+  String wx_percent(int pct) {
+    return '$pct%';
+  }
+
+  @override
+  String wx_hpa(int hpa) {
+    return '$hpa hPa';
+  }
+
+  @override
+  String wx_km(String km) {
+    return '$km km';
+  }
+
+  @override
+  String wx_mm(String mm) {
+    return '$mm mm';
+  }
+
+  @override
+  String get wx_uvLow => '낮음';
+
+  @override
+  String get wx_uvModerate => '보통';
+
+  @override
+  String get wx_uvHigh => '높음';
+
+  @override
+  String get wx_uvVeryHigh => '매우 높음';
+
+  @override
+  String get wx_uvExtreme => '위험';
+
+  @override
+  String get wx_trendFallingFast => '빠르게 하강';
+
+  @override
+  String get wx_trendFalling => '하강';
+
+  @override
+  String get wx_trendSteady => '안정';
+
+  @override
+  String get wx_trendRising => '상승';
+
+  @override
+  String get wx_trendRisingFast => '빠르게 상승';
+
+  @override
+  String wx_trend24h(String trend) {
+    return '24시간 전보다 $trend';
+  }
+
+  @override
+  String get wx_skyClear => '맑음';
+
+  @override
+  String get wx_skyClearNight => '맑음';
+
+  @override
+  String get wx_skyMainlyClear => '대체로 맑음';
+
+  @override
+  String get wx_skyPartlyCloudy => '구름 조금';
+
+  @override
+  String get wx_skyOvercast => '흐림';
+
+  @override
+  String get wx_skyFog => '안개';
+
+  @override
+  String get wx_skyDrizzle => '이슬비';
+
+  @override
+  String get wx_skyRainLight => '약한 비';
+
+  @override
+  String get wx_skyRainModerate => '비';
+
+  @override
+  String get wx_skyRainHeavy => '강한 비';
+
+  @override
+  String get wx_skyShowersLight => '약한 소나기';
+
+  @override
+  String get wx_skyShowers => '소나기';
+
+  @override
+  String get wx_skyShowersHeavy => '강한 소나기';
+
+  @override
+  String get wx_skySnow => '눈';
+
+  @override
+  String get wx_skyThunderstorm => '뇌우';
+
+  @override
+  String get wx_skyThunderstormHail => '뇌우, 우박';
+
+  @override
+  String get wx_dirN => '북풍';
+
+  @override
+  String get wx_dirNe => '북동풍';
+
+  @override
+  String get wx_dirE => '동풍';
+
+  @override
+  String get wx_dirSe => '남동풍';
+
+  @override
+  String get wx_dirS => '남풍';
+
+  @override
+  String get wx_dirSw => '남서풍';
+
+  @override
+  String get wx_dirW => '서풍';
+
+  @override
+  String get wx_dirNw => '북서풍';
+
+  @override
+  String get wx_hourlyTitle => '시간별';
+
+  @override
+  String wx_dailyTitle(int days) {
+    return '앞으로 $days일';
+  }
+
+  @override
+  String get wx_wdMon => '월';
+
+  @override
+  String get wx_wdTue => '화';
+
+  @override
+  String get wx_wdWed => '수';
+
+  @override
+  String get wx_wdThu => '목';
+
+  @override
+  String get wx_wdFri => '금';
+
+  @override
+  String get wx_wdSat => '토';
+
+  @override
+  String get wx_wdSun => '일';
+
+  @override
+  String get wx_partMorning => '아침';
+
+  @override
+  String get wx_partNoon => '낮';
+
+  @override
+  String get wx_partAfternoon => '오후';
+
+  @override
+  String get wx_partEvening => '저녁';
+
+  @override
+  String get wx_partNight => '밤';
+
+  @override
+  String wx_when(String part, String day) {
+    return '$day $part';
+  }
+
+  @override
+  String get wx_dayToday => '오늘';
+
+  @override
+  String get wx_dayTomorrow => '내일';
+
+  @override
+  String wx_dayWind(int kmh) {
+    return '최대 풍속 $kmh km/h';
+  }
+
+  @override
+  String wx_dayGust(int kmh) {
+    return '돌풍 $kmh km/h';
+  }
+
+  @override
+  String get wx_farNote => '4일째부터는 장기 예보라 정확도가 낮습니다.';
+
+  @override
+  String get wx_adviceTitle => '낚시 팁';
+
+  @override
+  String wx_adv_storm(String when) {
+    return '$when 뇌우 — 물가와 개활지를 피하세요';
+  }
+
+  @override
+  String wx_adv_wind(String when, int force) {
+    return '$when부터 강풍, 최대 $force등급 — 배를 띄우지 마세요';
+  }
+
+  @override
+  String wx_adv_gust(String when, int force) {
+    return '$when 돌풍 $force등급 — 배 위에서 조심하세요';
+  }
+
+  @override
+  String wx_adv_heavyRain(String when, int mm) {
+    return '$when 폭우, 하루 약 ${mm}mm — 물이 탁해지고 강물이 빠르게 불어날 수 있어요';
+  }
+
+  @override
+  String wx_adv_rainSoon(String time, int pct) {
+    return '$time부터 비 가능성 ($pct%) — 우비를 챙기세요';
+  }
+
+  @override
+  String wx_adv_fog(String when) {
+    return '$when 안개 — 천천히 운항하고 불을 켜세요';
+  }
+
+  @override
+  String wx_adv_cold(String when, int temp) {
+    return '추움, $when $temp°까지 — 따뜻하게 입으세요';
+  }
+
+  @override
+  String wx_adv_heat(String when, int temp) {
+    return '무더위, $when 체감 $temp° — 물을 충분히 마시고 땡볕을 피하세요';
+  }
+
+  @override
+  String wx_adv_uv(String when, int uv) {
+    return '$when 자외선 $uv — 모자, 긴소매, 선크림';
+  }
+
+  @override
+  String get wx_adv_pressure => '잔잔하고 기압이 조금씩 내려가요 — 입질이 좋다고들 해요';
+
+  @override
+  String get wx_adv_calm => '6시간 동안 바람 약하고 비 가능성 낮음 — 낚시하기 좋아요';
+
+  @override
+  String get wx_adviceNote => '예보 기반, 참고용';
+
+  @override
+  String get wx_empty => '이곳의 날씨 예보가 아직 없어요';
+
+  @override
+  String get wx_error => '날씨 예보를 불러오지 못했어요';
+
+  @override
+  String wx_hourSemantics(String time, String sky, String temp, String pct) {
+    return '$time: $sky, $temp도, 강수 확률 $pct';
+  }
+
+  @override
+  String wx_daySemantics(String day, String sky, String min, String max, String pct) {
+    return '$day: $sky, 최저 $min도, 최고 $max도, 강수 확률 $pct';
+  }
+
+  @override
+  String wx_dayRain(String mm) {
+    return '비 ${mm}mm';
+  }
+
+  @override
+  String wx_dayWindDir(String dir, int kmh) {
+    return '$dir 최대 $kmh km/h';
+  }
+
+  @override
+  String get wx_hourlyLegend => '파란색: 강수 확률(%)과 강수량(mm). 마지막 줄: 풍속 km/h, 화살표는 바람이 부는 방향.';
 }

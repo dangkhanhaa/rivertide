@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$WeatherHour {
 
- DateTime get timeUtc; double? get temperatureC; double? get precipitationMm; double? get precipProbPct; int? get weatherCode; double? get cloudPct; double? get pressureHpa; double? get windKmh; double? get gustKmh; double? get windDirDeg; double? get capeJPerKg;
+ DateTime get timeUtc; double? get temperatureC; double? get precipitationMm; double? get precipProbPct; int? get weatherCode; double? get cloudPct; double? get pressureHpa; double? get windKmh; double? get gustKmh; double? get windDirDeg; double? get capeJPerKg; double? get apparentC; double? get humidityPct; double? get uvIndex; double? get visibilityM; bool? get isDay;
 /// Create a copy of WeatherHour
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -27,20 +27,20 @@ $WeatherHourCopyWith<WeatherHour> get copyWith => _$WeatherHourCopyWithImpl<Weat
 @override
 bool operator ==(Object other) {
   final _this = this as WeatherHour;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is WeatherHour&&(identical(other.timeUtc, _this.timeUtc) || other.timeUtc == _this.timeUtc)&&(identical(other.temperatureC, _this.temperatureC) || other.temperatureC == _this.temperatureC)&&(identical(other.precipitationMm, _this.precipitationMm) || other.precipitationMm == _this.precipitationMm)&&(identical(other.precipProbPct, _this.precipProbPct) || other.precipProbPct == _this.precipProbPct)&&(identical(other.weatherCode, _this.weatherCode) || other.weatherCode == _this.weatherCode)&&(identical(other.cloudPct, _this.cloudPct) || other.cloudPct == _this.cloudPct)&&(identical(other.pressureHpa, _this.pressureHpa) || other.pressureHpa == _this.pressureHpa)&&(identical(other.windKmh, _this.windKmh) || other.windKmh == _this.windKmh)&&(identical(other.gustKmh, _this.gustKmh) || other.gustKmh == _this.gustKmh)&&(identical(other.windDirDeg, _this.windDirDeg) || other.windDirDeg == _this.windDirDeg)&&(identical(other.capeJPerKg, _this.capeJPerKg) || other.capeJPerKg == _this.capeJPerKg));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is WeatherHour&&(identical(other.timeUtc, _this.timeUtc) || other.timeUtc == _this.timeUtc)&&(identical(other.temperatureC, _this.temperatureC) || other.temperatureC == _this.temperatureC)&&(identical(other.precipitationMm, _this.precipitationMm) || other.precipitationMm == _this.precipitationMm)&&(identical(other.precipProbPct, _this.precipProbPct) || other.precipProbPct == _this.precipProbPct)&&(identical(other.weatherCode, _this.weatherCode) || other.weatherCode == _this.weatherCode)&&(identical(other.cloudPct, _this.cloudPct) || other.cloudPct == _this.cloudPct)&&(identical(other.pressureHpa, _this.pressureHpa) || other.pressureHpa == _this.pressureHpa)&&(identical(other.windKmh, _this.windKmh) || other.windKmh == _this.windKmh)&&(identical(other.gustKmh, _this.gustKmh) || other.gustKmh == _this.gustKmh)&&(identical(other.windDirDeg, _this.windDirDeg) || other.windDirDeg == _this.windDirDeg)&&(identical(other.capeJPerKg, _this.capeJPerKg) || other.capeJPerKg == _this.capeJPerKg)&&(identical(other.apparentC, _this.apparentC) || other.apparentC == _this.apparentC)&&(identical(other.humidityPct, _this.humidityPct) || other.humidityPct == _this.humidityPct)&&(identical(other.uvIndex, _this.uvIndex) || other.uvIndex == _this.uvIndex)&&(identical(other.visibilityM, _this.visibilityM) || other.visibilityM == _this.visibilityM)&&(identical(other.isDay, _this.isDay) || other.isDay == _this.isDay));
 }
 
 
 @override
 int get hashCode {
   final _this = this as WeatherHour;
-  return Object.hash(runtimeType,_this.timeUtc,_this.temperatureC,_this.precipitationMm,_this.precipProbPct,_this.weatherCode,_this.cloudPct,_this.pressureHpa,_this.windKmh,_this.gustKmh,_this.windDirDeg,_this.capeJPerKg);
+  return Object.hash(runtimeType,_this.timeUtc,_this.temperatureC,_this.precipitationMm,_this.precipProbPct,_this.weatherCode,_this.cloudPct,_this.pressureHpa,_this.windKmh,_this.gustKmh,_this.windDirDeg,_this.capeJPerKg,_this.apparentC,_this.humidityPct,_this.uvIndex,_this.visibilityM,_this.isDay);
 }
 
 @override
 String toString() {
   final _this = this as WeatherHour;
-  return 'WeatherHour(timeUtc: ${_this.timeUtc}, temperatureC: ${_this.temperatureC}, precipitationMm: ${_this.precipitationMm}, precipProbPct: ${_this.precipProbPct}, weatherCode: ${_this.weatherCode}, cloudPct: ${_this.cloudPct}, pressureHpa: ${_this.pressureHpa}, windKmh: ${_this.windKmh}, gustKmh: ${_this.gustKmh}, windDirDeg: ${_this.windDirDeg}, capeJPerKg: ${_this.capeJPerKg})';
+  return 'WeatherHour(timeUtc: ${_this.timeUtc}, temperatureC: ${_this.temperatureC}, precipitationMm: ${_this.precipitationMm}, precipProbPct: ${_this.precipProbPct}, weatherCode: ${_this.weatherCode}, cloudPct: ${_this.cloudPct}, pressureHpa: ${_this.pressureHpa}, windKmh: ${_this.windKmh}, gustKmh: ${_this.gustKmh}, windDirDeg: ${_this.windDirDeg}, capeJPerKg: ${_this.capeJPerKg}, apparentC: ${_this.apparentC}, humidityPct: ${_this.humidityPct}, uvIndex: ${_this.uvIndex}, visibilityM: ${_this.visibilityM}, isDay: ${_this.isDay})';
 }
 
 
@@ -51,7 +51,7 @@ abstract mixin class $WeatherHourCopyWith<$Res>  {
   factory $WeatherHourCopyWith(WeatherHour value, $Res Function(WeatherHour) _then) = _$WeatherHourCopyWithImpl;
 @useResult
 $Res call({
- DateTime timeUtc, double? temperatureC, double? precipitationMm, double? precipProbPct, int? weatherCode, double? cloudPct, double? pressureHpa, double? windKmh, double? gustKmh, double? windDirDeg, double? capeJPerKg
+ DateTime timeUtc, double? temperatureC, double? precipitationMm, double? precipProbPct, int? weatherCode, double? cloudPct, double? pressureHpa, double? windKmh, double? gustKmh, double? windDirDeg, double? capeJPerKg, double? apparentC, double? humidityPct, double? uvIndex, double? visibilityM, bool? isDay
 });
 
 
@@ -68,7 +68,7 @@ class _$WeatherHourCopyWithImpl<$Res>
 
 /// Create a copy of WeatherHour
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? timeUtc = null,Object? temperatureC = freezed,Object? precipitationMm = freezed,Object? precipProbPct = freezed,Object? weatherCode = freezed,Object? cloudPct = freezed,Object? pressureHpa = freezed,Object? windKmh = freezed,Object? gustKmh = freezed,Object? windDirDeg = freezed,Object? capeJPerKg = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? timeUtc = null,Object? temperatureC = freezed,Object? precipitationMm = freezed,Object? precipProbPct = freezed,Object? weatherCode = freezed,Object? cloudPct = freezed,Object? pressureHpa = freezed,Object? windKmh = freezed,Object? gustKmh = freezed,Object? windDirDeg = freezed,Object? capeJPerKg = freezed,Object? apparentC = freezed,Object? humidityPct = freezed,Object? uvIndex = freezed,Object? visibilityM = freezed,Object? isDay = freezed,}) {
   return _then(WeatherHour(
 timeUtc: null == timeUtc ? _self.timeUtc : timeUtc // ignore: cast_nullable_to_non_nullable
 as DateTime,temperatureC: freezed == temperatureC ? _self.temperatureC : temperatureC // ignore: cast_nullable_to_non_nullable
@@ -81,7 +81,12 @@ as double?,windKmh: freezed == windKmh ? _self.windKmh : windKmh // ignore: cast
 as double?,gustKmh: freezed == gustKmh ? _self.gustKmh : gustKmh // ignore: cast_nullable_to_non_nullable
 as double?,windDirDeg: freezed == windDirDeg ? _self.windDirDeg : windDirDeg // ignore: cast_nullable_to_non_nullable
 as double?,capeJPerKg: freezed == capeJPerKg ? _self.capeJPerKg : capeJPerKg // ignore: cast_nullable_to_non_nullable
-as double?,
+as double?,apparentC: freezed == apparentC ? _self.apparentC : apparentC // ignore: cast_nullable_to_non_nullable
+as double?,humidityPct: freezed == humidityPct ? _self.humidityPct : humidityPct // ignore: cast_nullable_to_non_nullable
+as double?,uvIndex: freezed == uvIndex ? _self.uvIndex : uvIndex // ignore: cast_nullable_to_non_nullable
+as double?,visibilityM: freezed == visibilityM ? _self.visibilityM : visibilityM // ignore: cast_nullable_to_non_nullable
+as double?,isDay: freezed == isDay ? _self.isDay : isDay // ignore: cast_nullable_to_non_nullable
+as bool?,
   ));
 }
 
@@ -166,10 +171,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( DateTime timeUtc,  double? temperatureC,  double? precipitationMm,  double? precipProbPct,  int? weatherCode,  double? cloudPct,  double? pressureHpa,  double? windKmh,  double? gustKmh,  double? windDirDeg,  double? capeJPerKg)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( DateTime timeUtc,  double? temperatureC,  double? precipitationMm,  double? precipProbPct,  int? weatherCode,  double? cloudPct,  double? pressureHpa,  double? windKmh,  double? gustKmh,  double? windDirDeg,  double? capeJPerKg,  double? apparentC,  double? humidityPct,  double? uvIndex,  double? visibilityM,  bool? isDay)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _WeatherHour() when $default != null:
-return $default(_that.timeUtc,_that.temperatureC,_that.precipitationMm,_that.precipProbPct,_that.weatherCode,_that.cloudPct,_that.pressureHpa,_that.windKmh,_that.gustKmh,_that.windDirDeg,_that.capeJPerKg);case _:
+return $default(_that.timeUtc,_that.temperatureC,_that.precipitationMm,_that.precipProbPct,_that.weatherCode,_that.cloudPct,_that.pressureHpa,_that.windKmh,_that.gustKmh,_that.windDirDeg,_that.capeJPerKg,_that.apparentC,_that.humidityPct,_that.uvIndex,_that.visibilityM,_that.isDay);case _:
   return orElse();
 
 }
@@ -187,10 +192,10 @@ return $default(_that.timeUtc,_that.temperatureC,_that.precipitationMm,_that.pre
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( DateTime timeUtc,  double? temperatureC,  double? precipitationMm,  double? precipProbPct,  int? weatherCode,  double? cloudPct,  double? pressureHpa,  double? windKmh,  double? gustKmh,  double? windDirDeg,  double? capeJPerKg)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( DateTime timeUtc,  double? temperatureC,  double? precipitationMm,  double? precipProbPct,  int? weatherCode,  double? cloudPct,  double? pressureHpa,  double? windKmh,  double? gustKmh,  double? windDirDeg,  double? capeJPerKg,  double? apparentC,  double? humidityPct,  double? uvIndex,  double? visibilityM,  bool? isDay)  $default,) {final _that = this;
 switch (_that) {
 case _WeatherHour():
-return $default(_that.timeUtc,_that.temperatureC,_that.precipitationMm,_that.precipProbPct,_that.weatherCode,_that.cloudPct,_that.pressureHpa,_that.windKmh,_that.gustKmh,_that.windDirDeg,_that.capeJPerKg);case _:
+return $default(_that.timeUtc,_that.temperatureC,_that.precipitationMm,_that.precipProbPct,_that.weatherCode,_that.cloudPct,_that.pressureHpa,_that.windKmh,_that.gustKmh,_that.windDirDeg,_that.capeJPerKg,_that.apparentC,_that.humidityPct,_that.uvIndex,_that.visibilityM,_that.isDay);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -207,10 +212,10 @@ return $default(_that.timeUtc,_that.temperatureC,_that.precipitationMm,_that.pre
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( DateTime timeUtc,  double? temperatureC,  double? precipitationMm,  double? precipProbPct,  int? weatherCode,  double? cloudPct,  double? pressureHpa,  double? windKmh,  double? gustKmh,  double? windDirDeg,  double? capeJPerKg)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( DateTime timeUtc,  double? temperatureC,  double? precipitationMm,  double? precipProbPct,  int? weatherCode,  double? cloudPct,  double? pressureHpa,  double? windKmh,  double? gustKmh,  double? windDirDeg,  double? capeJPerKg,  double? apparentC,  double? humidityPct,  double? uvIndex,  double? visibilityM,  bool? isDay)?  $default,) {final _that = this;
 switch (_that) {
 case _WeatherHour() when $default != null:
-return $default(_that.timeUtc,_that.temperatureC,_that.precipitationMm,_that.precipProbPct,_that.weatherCode,_that.cloudPct,_that.pressureHpa,_that.windKmh,_that.gustKmh,_that.windDirDeg,_that.capeJPerKg);case _:
+return $default(_that.timeUtc,_that.temperatureC,_that.precipitationMm,_that.precipProbPct,_that.weatherCode,_that.cloudPct,_that.pressureHpa,_that.windKmh,_that.gustKmh,_that.windDirDeg,_that.capeJPerKg,_that.apparentC,_that.humidityPct,_that.uvIndex,_that.visibilityM,_that.isDay);case _:
   return null;
 
 }
@@ -222,7 +227,7 @@ return $default(_that.timeUtc,_that.temperatureC,_that.precipitationMm,_that.pre
 
 
 class _WeatherHour implements WeatherHour {
-  const _WeatherHour({required this.timeUtc, this.temperatureC, this.precipitationMm, this.precipProbPct, this.weatherCode, this.cloudPct, this.pressureHpa, this.windKmh, this.gustKmh, this.windDirDeg, this.capeJPerKg});
+  const _WeatherHour({required this.timeUtc, this.temperatureC, this.precipitationMm, this.precipProbPct, this.weatherCode, this.cloudPct, this.pressureHpa, this.windKmh, this.gustKmh, this.windDirDeg, this.capeJPerKg, this.apparentC, this.humidityPct, this.uvIndex, this.visibilityM, this.isDay});
   
 
 @override final  DateTime timeUtc;
@@ -236,6 +241,11 @@ class _WeatherHour implements WeatherHour {
 @override final  double? gustKmh;
 @override final  double? windDirDeg;
 @override final  double? capeJPerKg;
+@override final  double? apparentC;
+@override final  double? humidityPct;
+@override final  double? uvIndex;
+@override final  double? visibilityM;
+@override final  bool? isDay;
 
 /// Create a copy of WeatherHour
 /// with the given fields replaced by the non-null parameter values.
@@ -247,18 +257,18 @@ _$WeatherHourCopyWith<_WeatherHour> get copyWith => __$WeatherHourCopyWithImpl<_
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _WeatherHour&&(identical(other.timeUtc, timeUtc) || other.timeUtc == timeUtc)&&(identical(other.temperatureC, temperatureC) || other.temperatureC == temperatureC)&&(identical(other.precipitationMm, precipitationMm) || other.precipitationMm == precipitationMm)&&(identical(other.precipProbPct, precipProbPct) || other.precipProbPct == precipProbPct)&&(identical(other.weatherCode, weatherCode) || other.weatherCode == weatherCode)&&(identical(other.cloudPct, cloudPct) || other.cloudPct == cloudPct)&&(identical(other.pressureHpa, pressureHpa) || other.pressureHpa == pressureHpa)&&(identical(other.windKmh, windKmh) || other.windKmh == windKmh)&&(identical(other.gustKmh, gustKmh) || other.gustKmh == gustKmh)&&(identical(other.windDirDeg, windDirDeg) || other.windDirDeg == windDirDeg)&&(identical(other.capeJPerKg, capeJPerKg) || other.capeJPerKg == capeJPerKg));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _WeatherHour&&(identical(other.timeUtc, timeUtc) || other.timeUtc == timeUtc)&&(identical(other.temperatureC, temperatureC) || other.temperatureC == temperatureC)&&(identical(other.precipitationMm, precipitationMm) || other.precipitationMm == precipitationMm)&&(identical(other.precipProbPct, precipProbPct) || other.precipProbPct == precipProbPct)&&(identical(other.weatherCode, weatherCode) || other.weatherCode == weatherCode)&&(identical(other.cloudPct, cloudPct) || other.cloudPct == cloudPct)&&(identical(other.pressureHpa, pressureHpa) || other.pressureHpa == pressureHpa)&&(identical(other.windKmh, windKmh) || other.windKmh == windKmh)&&(identical(other.gustKmh, gustKmh) || other.gustKmh == gustKmh)&&(identical(other.windDirDeg, windDirDeg) || other.windDirDeg == windDirDeg)&&(identical(other.capeJPerKg, capeJPerKg) || other.capeJPerKg == capeJPerKg)&&(identical(other.apparentC, apparentC) || other.apparentC == apparentC)&&(identical(other.humidityPct, humidityPct) || other.humidityPct == humidityPct)&&(identical(other.uvIndex, uvIndex) || other.uvIndex == uvIndex)&&(identical(other.visibilityM, visibilityM) || other.visibilityM == visibilityM)&&(identical(other.isDay, isDay) || other.isDay == isDay));
 }
 
 
 @override
 int get hashCode {
-    return Object.hash(runtimeType,timeUtc,temperatureC,precipitationMm,precipProbPct,weatherCode,cloudPct,pressureHpa,windKmh,gustKmh,windDirDeg,capeJPerKg);
+    return Object.hash(runtimeType,timeUtc,temperatureC,precipitationMm,precipProbPct,weatherCode,cloudPct,pressureHpa,windKmh,gustKmh,windDirDeg,capeJPerKg,apparentC,humidityPct,uvIndex,visibilityM,isDay);
 }
 
 @override
 String toString() {
-    return 'WeatherHour(timeUtc: $timeUtc, temperatureC: $temperatureC, precipitationMm: $precipitationMm, precipProbPct: $precipProbPct, weatherCode: $weatherCode, cloudPct: $cloudPct, pressureHpa: $pressureHpa, windKmh: $windKmh, gustKmh: $gustKmh, windDirDeg: $windDirDeg, capeJPerKg: $capeJPerKg)';
+    return 'WeatherHour(timeUtc: $timeUtc, temperatureC: $temperatureC, precipitationMm: $precipitationMm, precipProbPct: $precipProbPct, weatherCode: $weatherCode, cloudPct: $cloudPct, pressureHpa: $pressureHpa, windKmh: $windKmh, gustKmh: $gustKmh, windDirDeg: $windDirDeg, capeJPerKg: $capeJPerKg, apparentC: $apparentC, humidityPct: $humidityPct, uvIndex: $uvIndex, visibilityM: $visibilityM, isDay: $isDay)';
 }
 
 
@@ -269,7 +279,7 @@ abstract mixin class _$WeatherHourCopyWith<$Res> implements $WeatherHourCopyWith
   factory _$WeatherHourCopyWith(_WeatherHour value, $Res Function(_WeatherHour) _then) = __$WeatherHourCopyWithImpl;
 @override @useResult
 $Res call({
- DateTime timeUtc, double? temperatureC, double? precipitationMm, double? precipProbPct, int? weatherCode, double? cloudPct, double? pressureHpa, double? windKmh, double? gustKmh, double? windDirDeg, double? capeJPerKg
+ DateTime timeUtc, double? temperatureC, double? precipitationMm, double? precipProbPct, int? weatherCode, double? cloudPct, double? pressureHpa, double? windKmh, double? gustKmh, double? windDirDeg, double? capeJPerKg, double? apparentC, double? humidityPct, double? uvIndex, double? visibilityM, bool? isDay
 });
 
 
@@ -286,7 +296,7 @@ class __$WeatherHourCopyWithImpl<$Res>
 
 /// Create a copy of WeatherHour
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? timeUtc = null,Object? temperatureC = freezed,Object? precipitationMm = freezed,Object? precipProbPct = freezed,Object? weatherCode = freezed,Object? cloudPct = freezed,Object? pressureHpa = freezed,Object? windKmh = freezed,Object? gustKmh = freezed,Object? windDirDeg = freezed,Object? capeJPerKg = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? timeUtc = null,Object? temperatureC = freezed,Object? precipitationMm = freezed,Object? precipProbPct = freezed,Object? weatherCode = freezed,Object? cloudPct = freezed,Object? pressureHpa = freezed,Object? windKmh = freezed,Object? gustKmh = freezed,Object? windDirDeg = freezed,Object? capeJPerKg = freezed,Object? apparentC = freezed,Object? humidityPct = freezed,Object? uvIndex = freezed,Object? visibilityM = freezed,Object? isDay = freezed,}) {
   return _then(_WeatherHour(
 timeUtc: null == timeUtc ? _self.timeUtc : timeUtc // ignore: cast_nullable_to_non_nullable
 as DateTime,temperatureC: freezed == temperatureC ? _self.temperatureC : temperatureC // ignore: cast_nullable_to_non_nullable
@@ -299,7 +309,12 @@ as double?,windKmh: freezed == windKmh ? _self.windKmh : windKmh // ignore: cast
 as double?,gustKmh: freezed == gustKmh ? _self.gustKmh : gustKmh // ignore: cast_nullable_to_non_nullable
 as double?,windDirDeg: freezed == windDirDeg ? _self.windDirDeg : windDirDeg // ignore: cast_nullable_to_non_nullable
 as double?,capeJPerKg: freezed == capeJPerKg ? _self.capeJPerKg : capeJPerKg // ignore: cast_nullable_to_non_nullable
-as double?,
+as double?,apparentC: freezed == apparentC ? _self.apparentC : apparentC // ignore: cast_nullable_to_non_nullable
+as double?,humidityPct: freezed == humidityPct ? _self.humidityPct : humidityPct // ignore: cast_nullable_to_non_nullable
+as double?,uvIndex: freezed == uvIndex ? _self.uvIndex : uvIndex // ignore: cast_nullable_to_non_nullable
+as double?,visibilityM: freezed == visibilityM ? _self.visibilityM : visibilityM // ignore: cast_nullable_to_non_nullable
+as double?,isDay: freezed == isDay ? _self.isDay : isDay // ignore: cast_nullable_to_non_nullable
+as bool?,
   ));
 }
 

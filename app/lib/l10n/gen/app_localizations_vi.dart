@@ -2270,7 +2270,7 @@ class AppLocalizationsVi extends AppLocalizations {
   }
 
   @override
-  String get cond_title => 'Thời tiết & trời';
+  String get cond_title => 'Mặt trời & mặt trăng';
 
   @override
   String loc_river(String river) {
@@ -3921,4 +3921,346 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get blocked_other => 'Nội dung chưa phù hợp để đăng, bạn sửa lại giúp nhé';
+
+  @override
+  String get wx_title => 'Thời tiết';
+
+  @override
+  String wx_source(String time) {
+    return 'Dự báo · Open-Meteo · cập nhật $time';
+  }
+
+  @override
+  String wx_staleSource(String time) {
+    return 'Ngoại tuyến · dự báo lưu lúc $time · Open-Meteo';
+  }
+
+  @override
+  String get wx_now => 'Bây giờ';
+
+  @override
+  String get wx_forecastTag => 'dự báo';
+
+  @override
+  String wx_feels(String temp) {
+    return 'Cảm giác như $temp°';
+  }
+
+  @override
+  String get wx_humidity => 'Độ ẩm';
+
+  @override
+  String get wx_wind => 'Gió';
+
+  @override
+  String get wx_gust => 'Gió giật';
+
+  @override
+  String get wx_uv => 'Chỉ số UV';
+
+  @override
+  String get wx_pressure => 'Áp suất';
+
+  @override
+  String get wx_rainSoon => 'Mưa 3 giờ tới';
+
+  @override
+  String get wx_visibility => 'Tầm nhìn';
+
+  @override
+  String wx_windValue(String dir, int kmh) {
+    return '$dir $kmh km/h';
+  }
+
+  @override
+  String wx_force(int force) {
+    return 'cấp $force';
+  }
+
+  @override
+  String wx_kmh(int kmh) {
+    return '$kmh km/h';
+  }
+
+  @override
+  String wx_percent(int pct) {
+    return '$pct%';
+  }
+
+  @override
+  String wx_hpa(int hpa) {
+    return '$hpa hPa';
+  }
+
+  @override
+  String wx_km(String km) {
+    return '$km km';
+  }
+
+  @override
+  String wx_mm(String mm) {
+    return '$mm mm';
+  }
+
+  @override
+  String get wx_uvLow => 'thấp';
+
+  @override
+  String get wx_uvModerate => 'trung bình';
+
+  @override
+  String get wx_uvHigh => 'cao';
+
+  @override
+  String get wx_uvVeryHigh => 'rất cao';
+
+  @override
+  String get wx_uvExtreme => 'cực độ';
+
+  @override
+  String get wx_trendFallingFast => 'giảm nhanh';
+
+  @override
+  String get wx_trendFalling => 'giảm nhẹ';
+
+  @override
+  String get wx_trendSteady => 'ổn định';
+
+  @override
+  String get wx_trendRising => 'tăng nhẹ';
+
+  @override
+  String get wx_trendRisingFast => 'tăng nhanh';
+
+  @override
+  String wx_trend24h(String trend) {
+    return '$trend so với 24 giờ trước';
+  }
+
+  @override
+  String get wx_skyClear => 'Nắng';
+
+  @override
+  String get wx_skyClearNight => 'Trời quang';
+
+  @override
+  String get wx_skyMainlyClear => 'Ít mây';
+
+  @override
+  String get wx_skyPartlyCloudy => 'Có mây';
+
+  @override
+  String get wx_skyOvercast => 'Nhiều mây';
+
+  @override
+  String get wx_skyFog => 'Sương mù';
+
+  @override
+  String get wx_skyDrizzle => 'Mưa phùn';
+
+  @override
+  String get wx_skyRainLight => 'Mưa nhỏ';
+
+  @override
+  String get wx_skyRainModerate => 'Mưa vừa';
+
+  @override
+  String get wx_skyRainHeavy => 'Mưa to';
+
+  @override
+  String get wx_skyShowersLight => 'Mưa rào nhẹ';
+
+  @override
+  String get wx_skyShowers => 'Mưa rào';
+
+  @override
+  String get wx_skyShowersHeavy => 'Mưa rào rất to';
+
+  @override
+  String get wx_skySnow => 'Tuyết';
+
+  @override
+  String get wx_skyThunderstorm => 'Dông';
+
+  @override
+  String get wx_skyThunderstormHail => 'Dông, mưa đá';
+
+  @override
+  String get wx_dirN => 'Bắc';
+
+  @override
+  String get wx_dirNe => 'Đông Bắc';
+
+  @override
+  String get wx_dirE => 'Đông';
+
+  @override
+  String get wx_dirSe => 'Đông Nam';
+
+  @override
+  String get wx_dirS => 'Nam';
+
+  @override
+  String get wx_dirSw => 'Tây Nam';
+
+  @override
+  String get wx_dirW => 'Tây';
+
+  @override
+  String get wx_dirNw => 'Tây Bắc';
+
+  @override
+  String get wx_hourlyTitle => 'Theo giờ';
+
+  @override
+  String wx_dailyTitle(int days) {
+    return '$days ngày tới';
+  }
+
+  @override
+  String get wx_wdMon => 'Th 2';
+
+  @override
+  String get wx_wdTue => 'Th 3';
+
+  @override
+  String get wx_wdWed => 'Th 4';
+
+  @override
+  String get wx_wdThu => 'Th 5';
+
+  @override
+  String get wx_wdFri => 'Th 6';
+
+  @override
+  String get wx_wdSat => 'Th 7';
+
+  @override
+  String get wx_wdSun => 'CN';
+
+  @override
+  String get wx_partMorning => 'sáng';
+
+  @override
+  String get wx_partNoon => 'trưa';
+
+  @override
+  String get wx_partAfternoon => 'chiều';
+
+  @override
+  String get wx_partEvening => 'tối';
+
+  @override
+  String get wx_partNight => 'đêm';
+
+  @override
+  String wx_when(String part, String day) {
+    return '$part $day';
+  }
+
+  @override
+  String get wx_dayToday => 'nay';
+
+  @override
+  String get wx_dayTomorrow => 'mai';
+
+  @override
+  String wx_dayWind(int kmh) {
+    return 'gió tới $kmh km/h';
+  }
+
+  @override
+  String wx_dayGust(int kmh) {
+    return 'giật $kmh km/h';
+  }
+
+  @override
+  String get wx_farNote => 'Từ ngày thứ 4 là dự báo xa, kém chắc chắn hơn.';
+
+  @override
+  String get wx_adviceTitle => 'Gợi ý cho buổi câu';
+
+  @override
+  String wx_adv_storm(String when) {
+    return 'Có dông $when — tránh ra sông, không đứng nơi trống trải';
+  }
+
+  @override
+  String wx_adv_wind(String when, int force) {
+    return 'Gió mạnh từ $when, có lúc cấp $force — không nên ra thuyền';
+  }
+
+  @override
+  String wx_adv_gust(String when, int force) {
+    return 'Gió giật cấp $force $when — cẩn thận khi ra thuyền';
+  }
+
+  @override
+  String wx_adv_heavyRain(String when, int mm) {
+    return 'Mưa to $when, khoảng $mm mm cả ngày — nước dễ đục, sông có thể lên nhanh';
+  }
+
+  @override
+  String wx_adv_rainSoon(String time, int pct) {
+    return 'Có thể mưa từ $time ($pct%) — mang áo mưa';
+  }
+
+  @override
+  String wx_adv_fog(String when) {
+    return 'Sương mù $when — đi thuyền chậm, bật đèn';
+  }
+
+  @override
+  String wx_adv_cold(String when, int temp) {
+    return 'Trời rét, xuống $temp° $when — mặc ấm khi ngồi câu';
+  }
+
+  @override
+  String wx_adv_heat(String when, int temp) {
+    return 'Oi nóng, cảm giác như $temp° $when — uống đủ nước, tránh nắng gắt';
+  }
+
+  @override
+  String wx_adv_uv(String when, int uv) {
+    return 'Nắng gắt, UV $uv $when — mang mũ, áo dài tay, kem chống nắng';
+  }
+
+  @override
+  String get wx_adv_pressure => 'Trời êm, áp suất giảm nhẹ — dân câu cho rằng cá dễ ăn hơn';
+
+  @override
+  String get wx_adv_calm => '6 giờ tới ít gió, ít khả năng mưa — thuận lợi ra câu';
+
+  @override
+  String get wx_adviceNote => 'Gợi ý từ dự báo, chỉ để tham khảo';
+
+  @override
+  String get wx_empty => 'Chưa có dự báo thời tiết cho nơi này';
+
+  @override
+  String get wx_error => 'Không tải được dự báo thời tiết';
+
+  @override
+  String wx_hourSemantics(String time, String sky, String temp, String pct) {
+    return '$time: $sky, $temp độ, khả năng mưa $pct';
+  }
+
+  @override
+  String wx_daySemantics(String day, String sky, String min, String max, String pct) {
+    return '$day: $sky, thấp nhất $min độ, cao nhất $max độ, khả năng mưa $pct';
+  }
+
+  @override
+  String wx_dayRain(String mm) {
+    return 'Mưa $mm mm';
+  }
+
+  @override
+  String wx_dayWindDir(String dir, int kmh) {
+    return 'gió $dir tới $kmh km/h';
+  }
+
+  @override
+  String get wx_hourlyLegend =>
+      'Số xanh: khả năng mưa (%) và lượng mưa (mm). Dòng cuối: gió km/h, mũi tên chỉ hướng gió thổi tới.';
 }

@@ -67,3 +67,6 @@ tools/nchmf/output/
 
 # ===== GitHub Pages build output =====
 site/
+
+# Agent worktrees (temporary copies of the repo)
+.claude/worktrees/
