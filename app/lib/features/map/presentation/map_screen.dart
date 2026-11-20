@@ -63,6 +63,9 @@ class MapScreen extends ConsumerStatefulWidget {
 class _MapScreenState extends ConsumerState<MapScreen> with MapDetailPresenter<MapScreen> {
   BaseMapHandle? _map;
   ({double lat, double lon})? _me;
+
+  /// One locate at a time: repeated taps must not stack GPS sessions (P2-59).
+  bool _locating = false;
   ({double lat, double lon})? _pin;
   bool _started = false;
   String? _lastStyle;
@@ -139,10 +142,7 @@ class _MapScreenState extends ConsumerState<MapScreen> with MapDetailPresenter<M
   Future<void> _showMe(({double lat, double lon}) p, {double zoom = 12}) async {
     _setMe(p);
     unawaited(ref.read(locationPromptStoreProvider).saveLastPosition(p.lat, p.lon));
-    // Fish "around you" right away (map line + fishing tab), unless the user
-    // already picked another spot.
-    final spot = ref.read(fishingSpotProvider.notifier);
-    if (!spot.userChose) spot.choose(PointId.encode(p.lat, p.lon), mine: true, byUser: false);
+    _aroundMe(p.lat, p.lon);
     if (!isInVietnamBounds(p.lat, p.lon)) return;
     await _map?.flyTo(p.lat, p.lon, zoom: zoom, offset: visibleOffset(detailOpen: false));
   }

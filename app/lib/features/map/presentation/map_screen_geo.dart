@@ -69,8 +69,41 @@ final _pondsMemo = _GeoMemo<Pond>();
 extension _MapRefine on _MapScreenState {
   static const double _recentreKm = 0.15;
 
+  /// "Around you" is recomputed (tide, fish scores — heavy, on the UI
+  /// thread on the web) only when the position really changed: GPS jitter of
+  /// a few metres gives a new point id every time and froze the map (P2-59).
+  static const double _respotKm = 0.2;
+
+  /// Fish "around you" (map line + fishing tab), unless the user picked
+  /// another spot or the current one is already within [_respotKm].
+  void _aroundMe(double lat, double lon) {
+    final spot = ref.read(fishingSpotProvider.notifier);
+    if (spot.userChose) return;
+    final cur = ref.read(fishingSpotProvider);
+    final at = PointId.decode(cur.id);
+    if (cur.mine && at != null && haversineKm(at.lat, at.lon, lat, lon) < _respotKm) return;
+    spot.choose(PointId.encode(lat, lon), mine: true, byUser: false);
+  }
+
   /// [open]: "Đi câu ngay" — also open the place's details and summary.
+  /// While a locate runs, another tap only brings the map back to the dot.
   Future<void> _locate({bool open = false}) async {
+    if (_locating) {
+      final me = _me;
+      if (me != null && !open) {
+        unawaited(_map?.flyTo(me.lat, me.lon, offset: visibleOffset(detailOpen: false)));
+      }
+      return;
+    }
+    _locating = true;
+    try {
+      await _locateOnce(open: open);
+    } finally {
+      _locating = false;
+    }
+  }
+
+  Future<void> _locateOnce({required bool open}) async {
     final service = ref.read(locationServiceProvider);
     // Lock only while a permission dialog may show, never while awaiting GPS (P2-56).
     final p = await service.hasPermission() && mounted
@@ -92,8 +125,7 @@ extension _MapRefine on _MapScreenState {
     _setMe((lat: lat, lon: lon));
     unawaited(ref.read(locationPromptStoreProvider).saveLastPosition(lat, lon));
     if (!moved || !isInVietnamBounds(lat, lon)) return;
-    final spot = ref.read(fishingSpotProvider.notifier);
-    if (!spot.userChose) spot.choose(PointId.encode(lat, lon), mine: true, byUser: false);
+    _aroundMe(lat, lon);
     if (!sheetBusy) unawaited(_map?.flyTo(lat, lon, offset: visibleOffset(detailOpen: false)));
   }
 }

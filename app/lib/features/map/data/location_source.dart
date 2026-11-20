@@ -8,8 +8,15 @@ import 'package:rivertide/features/map/domain/location_service.dart';
 class GeolocatorLocationService implements LocationService {
   const GeolocatorLocationService();
 
+  /// Shared by overlapping callers (start-up locate + button taps), so the
+  /// device never runs two GPS sessions at once (P2-59).
+  static Future<LocateResult>? _inFlight;
+
   @override
-  Future<LocateResult> locate({void Function(double lat, double lon)? onRefined}) async {
+  Future<LocateResult> locate({void Function(double lat, double lon)? onRefined}) =>
+      _inFlight ??= _locate(onRefined).whenComplete(() => _inFlight = null);
+
+  Future<LocateResult> _locate(void Function(double lat, double lon)? onRefined) async {
     try {
       if (!await Geolocator.isLocationServiceEnabled()) return const LocationServiceOff();
       var permission = await Geolocator.checkPermission();
@@ -26,7 +33,7 @@ class GeolocatorLocationService implements LocationService {
             LocationPermission.unableToDetermine:
           break;
       }
-      final pos = await _RefiningFix(onRefined).first();
+      final pos = await _RefiningFix.start(onRefined).first();
       // Position itself is never logged (CLAUDE.md 3.1).
       return Located(pos.latitude, pos.longitude);
     } on Exception catch (e) {
@@ -67,6 +74,14 @@ class GeolocatorLocationService implements LocationService {
 /// [_goodEnoughM].
 class _RefiningFix {
   _RefiningFix(this._onRefined);
+
+  /// A new locate replaces the previous refinement, never runs beside it.
+  factory _RefiningFix.start(void Function(double lat, double lon)? onRefined) {
+    _active?._close();
+    return _active = _RefiningFix(onRefined);
+  }
+
+  static _RefiningFix? _active;
 
   final void Function(double lat, double lon)? _onRefined;
 
