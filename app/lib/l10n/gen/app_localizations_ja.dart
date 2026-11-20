@@ -3632,4 +3632,51 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get map_layerCheckins => '釣り中の人';
+
+  @override
+  String get social_tooFast => '送信が少し速すぎます — 少し待ってからもう一度どうぞ';
+
+  @override
+  String get social_daily => '今日の上限に達しました。明日もう一度お試しください。';
+
+  @override
+  String get social_newDevice => '新しい端末は最初は制限があります — 約10分後にもう一度どうぞ';
+
+  @override
+  String get social_banned => 'この端末の投稿は多くの通報を受けたため、投稿を一時停止しています';
+
+  @override
+  String social_bannedUntil(String time) {
+    return 'この端末の投稿は多くの通報を受けたため、$time まで投稿を停止しています';
+  }
+
+  @override
+  String get blocked_link => '公開内容にリンクは載せないでください';
+
+  @override
+  String get blocked_phone => '公開内容に電話番号を書かないでください（広告・詐欺防止）';
+
+  @override
+  String get blocked_contactAd => '公開内容で Zalo、Telegram、DM への誘導はしないでください';
+
+  @override
+  String get blocked_spam => '賭博や貸金の広告のような内容は投稿できません';
+
+  @override
+  String get blocked_offensive => '不適切な言葉が含まれています。修正してください';
+
+  @override
+  String get blocked_chars => '同じ文字を繰り返さないでください（例：\"goooood\"）';
+
+  @override
+  String get blocked_shouting => 'Caps Lock をオフにしてください';
+
+  @override
+  String get blocked_impersonation => '運営チームと紛らわしい名前です。別の名前にしてください';
+
+  @override
+  String get blocked_repeat => 'まったく同じ内容をさっき送りました';
+
+  @override
+  String get blocked_other => 'この内容は投稿できません。修正してください';
 }

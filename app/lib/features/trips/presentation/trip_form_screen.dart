@@ -6,13 +6,16 @@ import 'package:rivertide/core/clock/clock_provider.dart';
 import 'package:rivertide/core/errors/app_exception.dart';
 import 'package:rivertide/core/l10n/l10n_ext.dart';
 import 'package:rivertide/core/logging/log.dart';
+import 'package:rivertide/core/social/content_filter.dart';
 import 'package:rivertide/core/social/social_backend.dart';
+import 'package:rivertide/core/social/social_errors.dart';
 import 'package:rivertide/core/theme/app_spacing.dart';
 import 'package:rivertide/core/theme/app_text.dart';
 import 'package:rivertide/features/stations/stations.dart';
 import 'package:rivertide/features/trips/application/trips_providers.dart';
 import 'package:rivertide/features/trips/domain/trip.dart';
 import 'package:rivertide/features/trips/presentation/trip_time_picker.dart';
+import 'package:rivertide/l10n/gen/app_localizations.dart';
 
 /// Create a trip at a place, or edit one's own ([editing]) (P2-26).
 class TripFormScreen extends ConsumerStatefulWidget {
@@ -70,6 +73,15 @@ class _TripFormScreenState extends ConsumerState<TripFormScreen> {
     super.dispose();
   }
 
+  /// Instant check of the texts; the server checks again (P2-54).
+  String? _contentProblem(AppLocalizations l10n) => contentPrecheck(l10n, [
+    (_title.text, ContentKind.title),
+    (_place.text, ContentKind.title),
+    (_note.text, ContentKind.text),
+    (_contact.text, ContentKind.contact),
+    (ref.read(displayNameProvider).value ?? '', ContentKind.name),
+  ]);
+
   Future<void> _submit() async {
     final l10n = context.l10n;
     final messenger = ScaffoldMessenger.of(context);
@@ -79,7 +91,7 @@ class _TripFormScreenState extends ConsumerState<TripFormScreen> {
         ? l10n.trip_needName
         : (!_time.validAt(now)
               ? l10n.trip_badTime
-              : (_people < (_edit?.memberCount ?? 0) ? l10n.trip_tooFew : null));
+              : (_people < (_edit?.memberCount ?? 0) ? l10n.trip_tooFew : _contentProblem(l10n)));
     if (problem != null) {
       messenger.showSnackBar(SnackBar(content: Text(problem)));
       return;
@@ -107,7 +119,7 @@ class _TripFormScreenState extends ConsumerState<TripFormScreen> {
       );
       nav.pop(true);
     } on AppException catch (e) {
-      final text = e is RateLimitedException ? l10n.trip_tooMany : l10n.trip_error;
+      final text = socialErrorText(l10n, e, fallback: l10n.trip_error, limit: l10n.trip_tooMany);
       messenger.showSnackBar(SnackBar(content: Text(text)));
       if (mounted) setState(() => _sending = false);
     }

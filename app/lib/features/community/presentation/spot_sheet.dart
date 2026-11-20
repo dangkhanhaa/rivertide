@@ -7,6 +7,7 @@ import 'package:rivertide/core/format/level_format.dart';
 import 'package:rivertide/core/format/time_format.dart';
 import 'package:rivertide/core/l10n/l10n_ext.dart';
 import 'package:rivertide/core/navigation/push_page.dart';
+import 'package:rivertide/core/social/social_errors.dart';
 import 'package:rivertide/core/theme/app_colors.dart';
 import 'package:rivertide/core/theme/app_spacing.dart';
 import 'package:rivertide/core/theme/app_text.dart';
@@ -139,8 +140,10 @@ class SpotSheet extends ConsumerWidget {
       messenger.showSnackBar(
         SnackBar(content: Text(counted ? l10n.spot_reportDone : l10n.spot_reportTwice)),
       );
-    } on AppException {
-      messenger.showSnackBar(SnackBar(content: Text(l10n.spot_error)));
+    } on AppException catch (e) {
+      messenger.showSnackBar(
+        SnackBar(content: Text(socialErrorText(l10n, e, fallback: l10n.spot_error))),
+      );
     }
   }
 }

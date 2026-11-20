@@ -5,8 +5,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rivertide/core/errors/app_exception.dart';
 import 'package:rivertide/core/format/time_format.dart';
 import 'package:rivertide/core/l10n/l10n_ext.dart';
+import 'package:rivertide/core/social/content_filter.dart';
 import 'package:rivertide/core/social/display_name_dialog.dart';
 import 'package:rivertide/core/social/social_backend.dart';
+import 'package:rivertide/core/social/social_errors.dart';
 import 'package:rivertide/core/theme/app_colors.dart';
 import 'package:rivertide/core/theme/app_spacing.dart';
 import 'package:rivertide/core/theme/app_text.dart';
@@ -40,13 +42,25 @@ class _SpotCommentsState extends ConsumerState<SpotComments> {
     if (body.isEmpty || _sending) return;
     final messenger = ScaffoldMessenger.of(context);
     final l10n = context.l10n;
+    final blocked = contentPrecheck(l10n, [
+      (body, ContentKind.text),
+      (ref.read(displayNameProvider).value ?? '', ContentKind.name),
+    ]);
+    if (blocked != null) {
+      messenger.showSnackBar(SnackBar(content: Text(blocked)));
+      return;
+    }
     setState(() => _sending = true);
     try {
       await addComment(ref, widget.spotId, body);
       _input.clear();
     } on AppException catch (e) {
       messenger.showSnackBar(
-        SnackBar(content: Text(e is RateLimitedException ? l10n.cmt_tooFast : l10n.cmt_error)),
+        SnackBar(
+          content: Text(
+            socialErrorText(l10n, e, fallback: l10n.cmt_error, limit: l10n.cmt_tooFast),
+          ),
+        ),
       );
     } finally {
       if (mounted) setState(() => _sending = false);
@@ -213,6 +227,11 @@ class _CommentTile extends ConsumerWidget {
         case _Action.edit:
           final text = await _editText(context, comment.body);
           if (text != null && text.trim().isNotEmpty && text.trim() != comment.body) {
+            final blocked = contentPrecheck(l10n, [(text, ContentKind.text)]);
+            if (blocked != null) {
+              messenger.showSnackBar(SnackBar(content: Text(blocked)));
+              return;
+            }
             await editComment(ref, spotId, comment.id, text.trim());
           }
         case _Action.delete:
@@ -232,8 +251,10 @@ class _CommentTile extends ConsumerWidget {
             );
           }
       }
-    } on AppException {
-      messenger.showSnackBar(SnackBar(content: Text(l10n.cmt_error)));
+    } on AppException catch (e) {
+      messenger.showSnackBar(
+        SnackBar(content: Text(socialErrorText(l10n, e, fallback: l10n.cmt_error))),
+      );
     }
   }
 

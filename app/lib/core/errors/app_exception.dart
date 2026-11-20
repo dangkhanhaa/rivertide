@@ -22,8 +22,27 @@ final class ServerException extends AppException {
   final String? code;
 }
 
+/// Which limit was hit (server detail, P2-54); [other] = a feature's own rule
+/// such as "one pond report per 30 minutes", or an older server.
+enum RateLimitKind { burst, daily, newDevice, other }
+
 final class RateLimitedException extends AppException {
-  const RateLimitedException(super.debugMessage);
+  const RateLimitedException(super.debugMessage, {this.kind = RateLimitKind.other});
+  final RateLimitKind kind;
+}
+
+/// The server refused a text (link, phone, offensive words…, P2-54).
+/// [reason] is the server's code, e.g. 'link', 'phone', 'repeat'.
+final class ContentBlockedException extends AppException {
+  const ContentBlockedException(super.debugMessage, {required this.reason});
+  final String reason;
+}
+
+/// This device may not post until [until] (UTC), after content of it was hidden
+/// by many reports (P2-54). Null when the server sent no date.
+final class BannedException extends AppException {
+  const BannedException(super.debugMessage, {this.until});
+  final DateTime? until;
 }
 
 final class NotFoundException extends AppException {

@@ -6,6 +6,7 @@ import 'package:rivertide/core/clock/clock_provider.dart';
 import 'package:rivertide/core/errors/app_exception.dart';
 import 'package:rivertide/core/l10n/l10n_ext.dart';
 import 'package:rivertide/core/navigation/push_page.dart';
+import 'package:rivertide/core/social/social_errors.dart';
 import 'package:rivertide/core/theme/app_colors.dart';
 import 'package:rivertide/core/theme/app_spacing.dart';
 import 'package:rivertide/core/theme/app_text.dart';
@@ -149,8 +150,10 @@ class _ReleaseActions extends ConsumerWidget {
     final l10n = context.l10n;
     try {
       await action();
-    } on AppException {
-      messenger.showSnackBar(SnackBar(content: Text(l10n.pond_error)));
+    } on AppException catch (e) {
+      messenger.showSnackBar(
+        SnackBar(content: Text(socialErrorText(l10n, e, fallback: l10n.pond_error))),
+      );
     }
   }
 }

@@ -3704,4 +3704,53 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get map_layerCheckins => 'Người đang câu';
+
+  @override
+  String get social_tooFast => 'Bạn gửi hơi nhanh — đợi một chút rồi thử lại nhé';
+
+  @override
+  String get social_daily => 'Hôm nay bạn đã gửi đủ số lượt cho phép. Mai thử lại nhé.';
+
+  @override
+  String get social_newDevice =>
+      'Máy mới dùng nên tạm giới hạn số lượt gửi — khoảng 10 phút nữa gửi tiếp nhé';
+
+  @override
+  String get social_banned => 'Máy này đang tạm khóa đăng bài vì nội dung bị nhiều người báo cáo';
+
+  @override
+  String social_bannedUntil(String time) {
+    return 'Máy này tạm khóa đăng bài đến $time vì nội dung bị nhiều người báo cáo';
+  }
+
+  @override
+  String get blocked_link => 'Không đăng đường link trong nội dung công khai nhé';
+
+  @override
+  String get blocked_phone =>
+      'Không ghi số điện thoại trong nội dung công khai (tránh quảng cáo, lừa đảo)';
+
+  @override
+  String get blocked_contactAd => 'Không mời Zalo, Telegram, inbox trong nội dung công khai nhé';
+
+  @override
+  String get blocked_spam => 'Nội dung giống quảng cáo cờ bạc, vay tiền — không đăng được';
+
+  @override
+  String get blocked_offensive => 'Nội dung có từ ngữ thô tục, bạn sửa lại giúp nhé';
+
+  @override
+  String get blocked_chars => 'Bớt lặp chữ cái (vd \"ngonnnnn\") giúp nhé';
+
+  @override
+  String get blocked_shouting => 'Bạn tắt chữ in hoa (Caps Lock) giúp nhé';
+
+  @override
+  String get blocked_impersonation => 'Tên này dễ nhầm với ban quản trị, bạn chọn tên khác nhé';
+
+  @override
+  String get blocked_repeat => 'Bạn vừa gửi y hệt nội dung này rồi';
+
+  @override
+  String get blocked_other => 'Nội dung chưa phù hợp để đăng, bạn sửa lại giúp nhé';
 }

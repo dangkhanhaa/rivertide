@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rivertide/core/errors/app_exception.dart';
 import 'package:rivertide/core/l10n/l10n_ext.dart';
 import 'package:rivertide/core/navigation/push_page.dart';
+import 'package:rivertide/core/social/social_errors.dart';
 import 'package:rivertide/core/theme/app_spacing.dart';
 import 'package:rivertide/core/theme/app_text.dart';
 import 'package:rivertide/core/widgets/confirm_dialog.dart';
@@ -61,8 +62,10 @@ class PondFooterActions extends ConsumerWidget {
     try {
       await confirmPond(ref, pond.id);
       messenger.showSnackBar(SnackBar(content: Text(l10n.pond_confirmDone)));
-    } on AppException {
-      messenger.showSnackBar(SnackBar(content: Text(l10n.pond_error)));
+    } on AppException catch (e) {
+      messenger.showSnackBar(
+        SnackBar(content: Text(socialErrorText(l10n, e, fallback: l10n.pond_error))),
+      );
     }
   }
 
@@ -81,8 +84,10 @@ class PondFooterActions extends ConsumerWidget {
       messenger.showSnackBar(
         SnackBar(content: Text(counted ? l10n.spot_reportDone : l10n.spot_reportTwice)),
       );
-    } on AppException {
-      messenger.showSnackBar(SnackBar(content: Text(l10n.pond_error)));
+    } on AppException catch (e) {
+      messenger.showSnackBar(
+        SnackBar(content: Text(socialErrorText(l10n, e, fallback: l10n.pond_error))),
+      );
     }
   }
 
@@ -108,7 +113,11 @@ class PondFooterActions extends ConsumerWidget {
       );
     } on AppException catch (e) {
       messenger.showSnackBar(
-        SnackBar(content: Text(e is RateLimitedException ? l10n.pond_tooMany : l10n.pond_error)),
+        SnackBar(
+          content: Text(
+            socialErrorText(l10n, e, fallback: l10n.pond_error, limit: l10n.pond_tooMany),
+          ),
+        ),
       );
     }
   }

@@ -3626,4 +3626,51 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get map_layerCheckins => '正在钓鱼的人';
+
+  @override
+  String get social_tooFast => '发送太快了——请稍等再试';
+
+  @override
+  String get social_daily => '今天已达到发送上限，请明天再试。';
+
+  @override
+  String get social_newDevice => '新设备暂时有限制——大约10分钟后再试';
+
+  @override
+  String get social_banned => '此设备的内容被多人举报，暂停发布';
+
+  @override
+  String social_bannedUntil(String time) {
+    return '此设备的内容被多人举报，暂停发布至 $time';
+  }
+
+  @override
+  String get blocked_link => '公开内容中请不要发链接';
+
+  @override
+  String get blocked_phone => '公开内容中请不要写电话号码（防止广告和诈骗）';
+
+  @override
+  String get blocked_contactAd => '公开内容中请不要邀请加 Zalo、Telegram 或私信';
+
+  @override
+  String get blocked_spam => '内容像赌博或借贷广告，无法发布';
+
+  @override
+  String get blocked_offensive => '内容含有粗俗用语，请修改';
+
+  @override
+  String get blocked_chars => '请不要重复字母（如 \"好好好好好\"）';
+
+  @override
+  String get blocked_shouting => '请关闭大写锁定（Caps Lock）';
+
+  @override
+  String get blocked_impersonation => '此名称容易与管理团队混淆，请换一个';
+
+  @override
+  String get blocked_repeat => '您刚刚发送过完全相同的内容';
+
+  @override
+  String get blocked_other => '此内容暂不适合发布，请修改';
 }

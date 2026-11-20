@@ -1073,5 +1073,20 @@
   "map_layerPonds": "Fishing ponds",
   "map_layerSpots": "Community spots",
   "map_layerTrips": "Fishing trips",
-  "map_layerCheckins": "People fishing now"
+  "map_layerCheckins": "People fishing now",
+  "social_tooFast": "You're sending a bit fast — wait a moment and try again",
+  "social_daily": "You've reached today's limit. Please try again tomorrow.",
+  "social_newDevice": "New devices are limited at first — try again in about 10 minutes",
+  "social_banned": "Posting from this device is paused because its content got many reports",
+  "social_bannedUntil": "Posting from this device is paused until {time} because its content got many reports",
+  "blocked_link": "Please don't post links in public content",
+  "blocked_phone": "Please don't put phone numbers in public content (to stop ads and scams)",
+  "blocked_contactAd": "Please don't invite people to Zalo, Telegram or inbox in public content",
+  "blocked_spam": "This looks like gambling or loan ads — it can't be posted",
+  "blocked_offensive": "Please remove the offensive words",
+  "blocked_chars": "Please don't repeat letters (e.g. \"goooood\")",
+  "blocked_shouting": "Please turn off Caps Lock",
+  "blocked_impersonation": "This name looks like the app's team — please choose another",
+  "blocked_repeat": "You just sent exactly the same text",
+  "blocked_other": "This content can't be posted — please edit it"
 }
