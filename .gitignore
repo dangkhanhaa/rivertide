@@ -70,3 +70,6 @@ site/
 
 # Agent worktrees (temporary copies of the repo)
 .claude/worktrees/
+
+# Kotlin/Gradle build cache
+app/android/.kotlin/
