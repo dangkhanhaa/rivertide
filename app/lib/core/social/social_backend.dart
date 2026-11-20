@@ -54,12 +54,24 @@ final AsyncNotifierProvider<DisplayName, String> displayNameProvider = AsyncNoti
 );
 
 /// Supabase errors → AppException (docs/rules/01 §5); no user data in messages.
-/// The server's spam limits (hint `rate_limit`) become [RateLimitedException].
+/// The server's anti-spam answers (supabase/migrations/0005_anti_spam.sql):
+/// hint `rate_limit` → [RateLimitedException], `content_blocked` →
+/// [ContentBlockedException], `banned` → [BannedException].
 Future<T> guardSocial<T>(Future<T> Function() run) async {
   try {
     return await run();
   } on PostgrestException catch (e) {
-    if (e.hint == 'rate_limit') throw RateLimitedException('social ${e.message}');
+    final details = e.details;
+    final detail = details is String ? details : '';
+    if (e.hint == 'rate_limit') {
+      throw RateLimitedException('social ${e.message}', kind: _limitKind(detail));
+    }
+    if (e.hint == 'content_blocked') {
+      throw ContentBlockedException('social content_blocked', reason: rowText(detail, 30));
+    }
+    if (e.hint == 'banned') {
+      throw BannedException('social banned', until: rowTime(detail));
+    }
     if (e.hint == 'duplicate') {
       final id = e.details;
       throw DuplicateException('social duplicate', existingId: id is String ? id : null);
@@ -71,6 +83,13 @@ Future<T> guardSocial<T>(Future<T> Function() run) async {
     throw NetworkException('social: ${e.runtimeType}');
   }
 }
+
+RateLimitKind _limitKind(String detail) => switch (detail) {
+  'burst' => RateLimitKind.burst,
+  'daily' => RateLimitKind.daily,
+  'new_device' => RateLimitKind.newDevice,
+  _ => RateLimitKind.other,
+};
 
 /// Server rows are untrusted: a string field cut to [max] chars, '' otherwise.
 String rowText(Object? v, int max) => v is String ? (v.length > max ? v.substring(0, max) : v) : '';

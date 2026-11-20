@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rivertide/core/clock/clock_provider.dart';
 import 'package:rivertide/core/errors/app_exception.dart';
 import 'package:rivertide/core/l10n/l10n_ext.dart';
+import 'package:rivertide/core/social/social_errors.dart';
 import 'package:rivertide/core/theme/app_colors.dart';
 import 'package:rivertide/core/theme/app_spacing.dart';
 import 'package:rivertide/core/theme/app_text.dart';
@@ -62,10 +63,14 @@ class _BiteCardState extends ConsumerState<BiteCard> {
             appScore: widget.appScore,
           );
       messenger.showSnackBar(SnackBar(content: Text(l10n.bite_thanks)));
-    } on RateLimitedException {
-      messenger.showSnackBar(SnackBar(content: Text(l10n.bite_tooSoon)));
-    } on AppException {
-      messenger.showSnackBar(SnackBar(content: Text(l10n.bite_failed)));
+    } on AppException catch (e) {
+      messenger.showSnackBar(
+        SnackBar(
+          content: Text(
+            socialErrorText(l10n, e, fallback: l10n.bite_failed, limit: l10n.bite_tooSoon),
+          ),
+        ),
+      );
     } finally {
       if (mounted) setState(() => _sending = false);
     }

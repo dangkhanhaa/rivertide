@@ -6,6 +6,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:rivertide/core/errors/app_exception.dart';
 import 'package:rivertide/core/image/photo_clean.dart';
 import 'package:rivertide/core/l10n/l10n_ext.dart';
+import 'package:rivertide/core/social/content_filter.dart';
+import 'package:rivertide/core/social/social_errors.dart';
 import 'package:rivertide/core/theme/app_spacing.dart';
 import 'package:rivertide/core/theme/app_text.dart';
 import 'package:rivertide/features/community/application/community_providers.dart';
@@ -95,6 +97,14 @@ class _PublishSpotScreenState extends ConsumerState<PublishSpotScreen> {
       messenger.showSnackBar(SnackBar(content: Text(l10n.spot_needName)));
       return;
     }
+    final blocked = contentPrecheck(l10n, [
+      (title, ContentKind.title),
+      (_note.text, ContentKind.text),
+    ]);
+    if (blocked != null) {
+      messenger.showSnackBar(SnackBar(content: Text(blocked)));
+      return;
+    }
     setState(() => _sending = true);
     final spot = NewSpot(
       title: title,
@@ -122,7 +132,7 @@ class _PublishSpotScreenState extends ConsumerState<PublishSpotScreen> {
       );
       nav.pop(true);
     } on AppException catch (e) {
-      final text = e is RateLimitedException ? l10n.spot_tooMany : l10n.spot_error;
+      final text = socialErrorText(l10n, e, fallback: l10n.spot_error, limit: l10n.spot_tooMany);
       messenger.showSnackBar(SnackBar(content: Text(text)));
       if (mounted) setState(() => _sending = false);
     }

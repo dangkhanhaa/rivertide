@@ -3800,4 +3800,51 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get onb_rerunHint => '이름, 언어, 사용자 유형, 모양을 차례로';
+
+  @override
+  String get social_tooFast => '조금 빨라요 — 잠시 후 다시 시도해 주세요';
+
+  @override
+  String get social_daily => '오늘 보낼 수 있는 횟수를 다 썼어요. 내일 다시 시도해 주세요.';
+
+  @override
+  String get social_newDevice => '새 기기는 처음에 제한이 있어요 — 약 10분 후 다시 보내 주세요';
+
+  @override
+  String get social_banned => '이 기기의 내용이 여러 번 신고되어 게시가 일시 중지되었어요';
+
+  @override
+  String social_bannedUntil(String time) {
+    return '이 기기의 내용이 여러 번 신고되어 $time까지 게시가 중지되었어요';
+  }
+
+  @override
+  String get blocked_link => '공개 내용에는 링크를 올리지 말아 주세요';
+
+  @override
+  String get blocked_phone => '공개 내용에는 전화번호를 쓰지 말아 주세요 (광고·사기 방지)';
+
+  @override
+  String get blocked_contactAd => '공개 내용에서 Zalo, Telegram, DM 초대는 하지 말아 주세요';
+
+  @override
+  String get blocked_spam => '도박·대출 광고 같은 내용은 게시할 수 없어요';
+
+  @override
+  String get blocked_offensive => '비속어가 있어요. 수정해 주세요';
+
+  @override
+  String get blocked_chars => '글자를 반복하지 말아 주세요 (예: \"gooood\")';
+
+  @override
+  String get blocked_shouting => 'Caps Lock을 꺼 주세요';
+
+  @override
+  String get blocked_impersonation => '운영팀으로 오해할 수 있는 이름이에요. 다른 이름을 골라 주세요';
+
+  @override
+  String get blocked_repeat => '방금 똑같은 내용을 보냈어요';
+
+  @override
+  String get blocked_other => '게시하기에 적합하지 않은 내용이에요. 수정해 주세요';
 }

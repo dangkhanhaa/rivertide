@@ -8,6 +8,8 @@ import 'package:rivertide/core/clock/clock_provider.dart';
 import 'package:rivertide/core/errors/app_exception.dart';
 import 'package:rivertide/core/format/time_format.dart';
 import 'package:rivertide/core/l10n/l10n_ext.dart';
+import 'package:rivertide/core/social/content_filter.dart';
+import 'package:rivertide/core/social/social_errors.dart';
 import 'package:rivertide/core/theme/app_colors.dart';
 import 'package:rivertide/core/theme/app_spacing.dart';
 import 'package:rivertide/core/theme/app_text.dart';
@@ -101,13 +103,18 @@ class _ReleaseFormScreenState extends ConsumerState<ReleaseFormScreen> {
       _time.hour,
       _time.minute,
     ).subtract(_vn);
+    final blocked = contentPrecheck(l10n, [(_post.text, ContentKind.post)]);
+    if (blocked != null) {
+      messenger.showSnackBar(SnackBar(content: Text(blocked)));
+      return;
+    }
     setState(() => _sending = true);
     try {
       await postRelease(ref, widget.pond.id, start, fishOf(_fish), _post.text.trim());
       messenger.showSnackBar(SnackBar(content: Text(l10n.release_posted)));
       nav.pop();
     } on AppException catch (e) {
-      final text = e is RateLimitedException ? l10n.pond_tooMany : l10n.pond_error;
+      final text = socialErrorText(l10n, e, fallback: l10n.pond_error, limit: l10n.pond_tooMany);
       messenger.showSnackBar(SnackBar(content: Text(text)));
       if (mounted) setState(() => _sending = false);
     }

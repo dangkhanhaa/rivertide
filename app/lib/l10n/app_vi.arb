@@ -1333,5 +1333,21 @@
   "onb_lookTitle": "Chọn giao diện",
   "onb_lookBody": "Màu chủ đạo, sáng tối và kiểu thanh tab. Xem trước ngay bên dưới.",
   "onb_rerun": "Xem lại phần chào mừng",
-  "onb_rerunHint": "Tên, ngôn ngữ, bạn là ai và giao diện, từng bước"
+  "onb_rerunHint": "Tên, ngôn ngữ, bạn là ai và giao diện, từng bước",
+  "social_tooFast": "Bạn gửi hơi nhanh — đợi một chút rồi thử lại nhé",
+  "social_daily": "Hôm nay bạn đã gửi đủ số lượt cho phép. Mai thử lại nhé.",
+  "social_newDevice": "Máy mới dùng nên tạm giới hạn số lượt gửi — khoảng 10 phút nữa gửi tiếp nhé",
+  "social_banned": "Máy này đang tạm khóa đăng bài vì nội dung bị nhiều người báo cáo",
+  "social_bannedUntil": "Máy này tạm khóa đăng bài đến {time} vì nội dung bị nhiều người báo cáo",
+  "@social_bannedUntil": {"placeholders": {"time": {"type": "String"}}},
+  "blocked_link": "Không đăng đường link trong nội dung công khai nhé",
+  "blocked_phone": "Không ghi số điện thoại trong nội dung công khai (tránh quảng cáo, lừa đảo)",
+  "blocked_contactAd": "Không mời Zalo, Telegram, inbox trong nội dung công khai nhé",
+  "blocked_spam": "Nội dung giống quảng cáo cờ bạc, vay tiền — không đăng được",
+  "blocked_offensive": "Nội dung có từ ngữ thô tục, bạn sửa lại giúp nhé",
+  "blocked_chars": "Bớt lặp chữ cái (vd \"ngonnnnn\") giúp nhé",
+  "blocked_shouting": "Bạn tắt chữ in hoa (Caps Lock) giúp nhé",
+  "blocked_impersonation": "Tên này dễ nhầm với ban quản trị, bạn chọn tên khác nhé",
+  "blocked_repeat": "Bạn vừa gửi y hệt nội dung này rồi",
+  "blocked_other": "Nội dung chưa phù hợp để đăng, bạn sửa lại giúp nhé"
 }

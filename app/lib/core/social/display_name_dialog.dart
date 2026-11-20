@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rivertide/core/l10n/l10n_ext.dart';
+import 'package:rivertide/core/social/content_filter.dart';
 import 'package:rivertide/core/social/social_backend.dart';
+import 'package:rivertide/core/social/social_errors.dart';
 import 'package:rivertide/core/theme/app_text.dart';
 
 /// Asks for the name shown on comments, trips and chat; saves it on the device.
@@ -37,5 +39,11 @@ Future<void> editDisplayName(BuildContext context, WidgetRef ref) async {
     ),
   );
   controller.dispose();
-  if (name != null) await ref.read(displayNameProvider.notifier).save(name);
+  if (name == null || !context.mounted) return;
+  final blocked = contentPrecheck(context.l10n, [(name, ContentKind.name)]);
+  if (blocked != null) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(blocked)));
+    return;
+  }
+  await ref.read(displayNameProvider.notifier).save(name);
 }

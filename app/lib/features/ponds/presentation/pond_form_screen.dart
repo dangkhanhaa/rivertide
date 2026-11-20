@@ -7,12 +7,15 @@ import 'package:rivertide/core/calc/ponds/release_parse.dart';
 import 'package:rivertide/core/errors/app_exception.dart';
 import 'package:rivertide/core/image/photo_clean.dart';
 import 'package:rivertide/core/l10n/l10n_ext.dart';
+import 'package:rivertide/core/social/content_filter.dart';
+import 'package:rivertide/core/social/social_errors.dart';
 import 'package:rivertide/core/theme/app_spacing.dart';
 import 'package:rivertide/core/theme/app_text.dart';
 import 'package:rivertide/features/community/community.dart';
 import 'package:rivertide/features/ponds/application/ponds_providers.dart';
 import 'package:rivertide/features/ponds/domain/pond.dart';
 import 'package:rivertide/features/stations/stations.dart';
+import 'package:rivertide/l10n/gen/app_localizations.dart';
 
 /// Species offered as chips (display names from the release parser).
 final List<String> _species = {for (final (_, n) in releaseSpecies) n}.toList();
@@ -74,12 +77,23 @@ class _PondFormScreenState extends ConsumerState<PondFormScreen> {
     }
   }
 
+  /// Instant check of the texts; the server checks again (P2-54).
+  String? _contentProblem(AppLocalizations l10n) => contentPrecheck(l10n, [
+    (_name.text, ContentKind.title),
+    (_address.text, ContentKind.title),
+    (_price.text, ContentKind.title),
+    (_hours.text, ContentKind.title),
+    (_note.text, ContentKind.text),
+    (_phone.text, ContentKind.contact),
+  ]);
+
   Future<void> _submit() async {
     final l10n = context.l10n;
     final messenger = ScaffoldMessenger.of(context);
     final nav = Navigator.of(context);
-    if (_name.text.trim().length < 2) {
-      messenger.showSnackBar(SnackBar(content: Text(l10n.pond_needName)));
+    final problem = _name.text.trim().length < 2 ? l10n.pond_needName : _contentProblem(l10n);
+    if (problem != null) {
+      messenger.showSnackBar(SnackBar(content: Text(problem)));
       return;
     }
     final draft = PondDraft(
@@ -114,8 +128,7 @@ class _PondFormScreenState extends ConsumerState<PondFormScreen> {
     } on AppException catch (e) {
       final text = switch (e) {
         DuplicateException() => l10n.pond_duplicate,
-        RateLimitedException() => l10n.pond_tooMany,
-        _ => l10n.pond_error,
+        _ => socialErrorText(l10n, e, fallback: l10n.pond_error, limit: l10n.pond_tooMany),
       };
       messenger.showSnackBar(SnackBar(content: Text(text)));
       if (mounted) setState(() => _sending = false);

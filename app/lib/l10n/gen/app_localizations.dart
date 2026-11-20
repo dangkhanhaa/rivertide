@@ -6869,6 +6869,96 @@ abstract class AppLocalizations {
   /// In vi, this message translates to:
   /// **'Tên, ngôn ngữ, bạn là ai và giao diện, từng bước'**
   String get onb_rerunHint;
+
+  /// No description provided for @social_tooFast.
+  ///
+  /// In vi, this message translates to:
+  /// **'Bạn gửi hơi nhanh — đợi một chút rồi thử lại nhé'**
+  String get social_tooFast;
+
+  /// No description provided for @social_daily.
+  ///
+  /// In vi, this message translates to:
+  /// **'Hôm nay bạn đã gửi đủ số lượt cho phép. Mai thử lại nhé.'**
+  String get social_daily;
+
+  /// No description provided for @social_newDevice.
+  ///
+  /// In vi, this message translates to:
+  /// **'Máy mới dùng nên tạm giới hạn số lượt gửi — khoảng 10 phút nữa gửi tiếp nhé'**
+  String get social_newDevice;
+
+  /// No description provided for @social_banned.
+  ///
+  /// In vi, this message translates to:
+  /// **'Máy này đang tạm khóa đăng bài vì nội dung bị nhiều người báo cáo'**
+  String get social_banned;
+
+  /// No description provided for @social_bannedUntil.
+  ///
+  /// In vi, this message translates to:
+  /// **'Máy này tạm khóa đăng bài đến {time} vì nội dung bị nhiều người báo cáo'**
+  String social_bannedUntil(String time);
+
+  /// No description provided for @blocked_link.
+  ///
+  /// In vi, this message translates to:
+  /// **'Không đăng đường link trong nội dung công khai nhé'**
+  String get blocked_link;
+
+  /// No description provided for @blocked_phone.
+  ///
+  /// In vi, this message translates to:
+  /// **'Không ghi số điện thoại trong nội dung công khai (tránh quảng cáo, lừa đảo)'**
+  String get blocked_phone;
+
+  /// No description provided for @blocked_contactAd.
+  ///
+  /// In vi, this message translates to:
+  /// **'Không mời Zalo, Telegram, inbox trong nội dung công khai nhé'**
+  String get blocked_contactAd;
+
+  /// No description provided for @blocked_spam.
+  ///
+  /// In vi, this message translates to:
+  /// **'Nội dung giống quảng cáo cờ bạc, vay tiền — không đăng được'**
+  String get blocked_spam;
+
+  /// No description provided for @blocked_offensive.
+  ///
+  /// In vi, this message translates to:
+  /// **'Nội dung có từ ngữ thô tục, bạn sửa lại giúp nhé'**
+  String get blocked_offensive;
+
+  /// No description provided for @blocked_chars.
+  ///
+  /// In vi, this message translates to:
+  /// **'Bớt lặp chữ cái (vd \"ngonnnnn\") giúp nhé'**
+  String get blocked_chars;
+
+  /// No description provided for @blocked_shouting.
+  ///
+  /// In vi, this message translates to:
+  /// **'Bạn tắt chữ in hoa (Caps Lock) giúp nhé'**
+  String get blocked_shouting;
+
+  /// No description provided for @blocked_impersonation.
+  ///
+  /// In vi, this message translates to:
+  /// **'Tên này dễ nhầm với ban quản trị, bạn chọn tên khác nhé'**
+  String get blocked_impersonation;
+
+  /// No description provided for @blocked_repeat.
+  ///
+  /// In vi, this message translates to:
+  /// **'Bạn vừa gửi y hệt nội dung này rồi'**
+  String get blocked_repeat;
+
+  /// No description provided for @blocked_other.
+  ///
+  /// In vi, this message translates to:
+  /// **'Nội dung chưa phù hợp để đăng, bạn sửa lại giúp nhé'**
+  String get blocked_other;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

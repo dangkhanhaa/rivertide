@@ -3930,4 +3930,55 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get onb_rerunHint => 'Name, language, who you are and look, step by step';
+
+  @override
+  String get social_tooFast => 'You\'re sending a bit fast — wait a moment and try again';
+
+  @override
+  String get social_daily => 'You\'ve reached today\'s limit. Please try again tomorrow.';
+
+  @override
+  String get social_newDevice => 'New devices are limited at first — try again in about 10 minutes';
+
+  @override
+  String get social_banned =>
+      'Posting from this device is paused because its content got many reports';
+
+  @override
+  String social_bannedUntil(String time) {
+    return 'Posting from this device is paused until $time because its content got many reports';
+  }
+
+  @override
+  String get blocked_link => 'Please don\'t post links in public content';
+
+  @override
+  String get blocked_phone =>
+      'Please don\'t put phone numbers in public content (to stop ads and scams)';
+
+  @override
+  String get blocked_contactAd =>
+      'Please don\'t invite people to Zalo, Telegram or inbox in public content';
+
+  @override
+  String get blocked_spam => 'This looks like gambling or loan ads — it can\'t be posted';
+
+  @override
+  String get blocked_offensive => 'Please remove the offensive words';
+
+  @override
+  String get blocked_chars => 'Please don\'t repeat letters (e.g. \"goooood\")';
+
+  @override
+  String get blocked_shouting => 'Please turn off Caps Lock';
+
+  @override
+  String get blocked_impersonation =>
+      'This name looks like the app\'s team — please choose another';
+
+  @override
+  String get blocked_repeat => 'You just sent exactly the same text';
+
+  @override
+  String get blocked_other => 'This content can\'t be posted — please edit it';
 }

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rivertide/core/errors/app_exception.dart';
 import 'package:rivertide/core/l10n/l10n_ext.dart';
+import 'package:rivertide/core/social/social_errors.dart';
 import 'package:rivertide/core/theme/app_spacing.dart';
 import 'package:rivertide/core/theme/app_text.dart';
 import 'package:rivertide/features/ponds/application/ponds_providers.dart';
@@ -63,7 +64,11 @@ class PondPulseRow extends ConsumerWidget {
       messenger.showSnackBar(SnackBar(content: Text(l10n.pond_pulseSent)));
     } on AppException catch (e) {
       messenger.showSnackBar(
-        SnackBar(content: Text(e is RateLimitedException ? l10n.pond_pulseWait : l10n.pond_error)),
+        SnackBar(
+          content: Text(
+            socialErrorText(l10n, e, fallback: l10n.pond_error, limit: l10n.pond_pulseWait),
+          ),
+        ),
       );
     }
   }

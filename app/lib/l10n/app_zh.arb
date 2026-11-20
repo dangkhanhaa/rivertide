@@ -1127,5 +1127,20 @@
   "onb_lookTitle": "选择外观",
   "onb_lookBody": "主题色、浅色或深色以及标签栏样式，下方可预览。",
   "onb_rerun": "重新查看欢迎引导",
-  "onb_rerunHint": "逐步设置名字、语言、用户类型和外观"
+  "onb_rerunHint": "逐步设置名字、语言、用户类型和外观",
+  "social_tooFast": "发送太快了——请稍等再试",
+  "social_daily": "今天已达到发送上限，请明天再试。",
+  "social_newDevice": "新设备暂时有限制——大约10分钟后再试",
+  "social_banned": "此设备的内容被多人举报，暂停发布",
+  "social_bannedUntil": "此设备的内容被多人举报，暂停发布至 {time}",
+  "blocked_link": "公开内容中请不要发链接",
+  "blocked_phone": "公开内容中请不要写电话号码（防止广告和诈骗）",
+  "blocked_contactAd": "公开内容中请不要邀请加 Zalo、Telegram 或私信",
+  "blocked_spam": "内容像赌博或借贷广告，无法发布",
+  "blocked_offensive": "内容含有粗俗用语，请修改",
+  "blocked_chars": "请不要重复字母（如 \"好好好好好\"）",
+  "blocked_shouting": "请关闭大写锁定（Caps Lock）",
+  "blocked_impersonation": "此名称容易与管理团队混淆，请换一个",
+  "blocked_repeat": "您刚刚发送过完全相同的内容",
+  "blocked_other": "此内容暂不适合发布，请修改"
 }

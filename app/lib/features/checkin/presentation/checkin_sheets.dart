@@ -6,6 +6,7 @@ import 'package:rivertide/core/errors/app_exception.dart';
 import 'package:rivertide/core/format/level_format.dart';
 import 'package:rivertide/core/format/time_format.dart';
 import 'package:rivertide/core/l10n/l10n_ext.dart';
+import 'package:rivertide/core/social/social_errors.dart';
 import 'package:rivertide/core/theme/app_colors.dart';
 import 'package:rivertide/core/theme/app_spacing.dart';
 import 'package:rivertide/core/theme/app_text.dart';
@@ -49,8 +50,10 @@ class _CheckinSheetState extends ConsumerState<CheckinSheet> {
       }
       messenger.showSnackBar(SnackBar(content: Text(stop ? l10n.checkin_off : l10n.checkin_on)));
       nav.pop();
-    } on AppException {
-      messenger.showSnackBar(SnackBar(content: Text(l10n.checkin_error)));
+    } on AppException catch (e) {
+      messenger.showSnackBar(
+        SnackBar(content: Text(socialErrorText(l10n, e, fallback: l10n.checkin_error))),
+      );
       if (mounted) setState(() => _busy = false);
     }
   }
