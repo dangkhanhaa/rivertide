@@ -211,7 +211,7 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get map_locRationaleBody =>
-      '앱은 위치를 사용해 지도를 내 위치로 옮기고, 가까운 관측소와 낚시터를 찾고, 현재 위치의 물때와 날씨를 가져옵니다. 위치는 다음에 빨리 열리도록 기기에 대략(~1km) 저장되며, 날씨를 가져올 때는 반올림한 위치만 보내고 나와 연결되지 않으며 공개되지 않습니다.';
+      '앱은 위치를 사용해 지도를 내 위치로 옮기고, 가까운 관측소와 낚시터를 찾고, 현재 위치의 물때와 날씨를 가져와요. 위치는 신원과 연결되지 않고 공개되지 않아요.';
 
   @override
   String get map_locAllow => '허용';

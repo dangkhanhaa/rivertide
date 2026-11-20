@@ -211,7 +211,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get map_locRationaleBody =>
-      'App dùng vị trí để đưa bản đồ tới chỗ bạn, tìm trạm, hồ câu gần nhất và lấy con nước, thời tiết tại chỗ bạn. Vị trí được nhớ gần đúng (~1 km) trên máy để lần sau mở nhanh; khi lấy thời tiết chỉ gửi vị trí đã làm tròn, không gắn với bạn và không công khai.';
+      'App dùng vị trí để đưa bản đồ tới chỗ bạn, tìm trạm, hồ câu gần nhất và lấy con nước, thời tiết tại chỗ bạn. Vị trí không gắn với danh tính của bạn và không bị công khai.';
 
   @override
   String get map_locAllow => 'Cho phép';

@@ -211,7 +211,7 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get map_locRationaleBody =>
-      'アプリは位置情報を使って地図を現在地に移動し、最寄りの観測所や釣り堀を探し、現在地の潮と天気を取得します。次回すばやく開けるよう端末に大まかに（約 1 km）記憶します。天気の取得では丸めた位置だけを送り、あなたとは結び付けず、公開もしません。';
+      'アプリは位置情報を使って地図を現在地に移動し、近くの観測所や釣り堀を探し、現在地の潮と天気を取得します。位置情報は個人と結び付けられず、公開されません。';
 
   @override
   String get map_locAllow => '許可';

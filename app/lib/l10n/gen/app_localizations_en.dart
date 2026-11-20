@@ -211,7 +211,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get map_locRationaleBody =>
-      'The app uses your location to center the map, find the nearest stations and ponds, and get tides and weather where you are. It is remembered roughly (~1 km) on your device so the app opens faster; weather lookups send only a rounded position, not linked to you and never made public.';
+      'The app uses your location to centre the map on you, find the nearest stations and fishing ponds, and get tides and weather where you are. Your location is not linked to your identity and is never made public.';
 
   @override
   String get map_locAllow => 'Allow';

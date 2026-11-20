@@ -210,8 +210,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get map_locRationaleTitle => '使用您的位置？';
 
   @override
-  String get map_locRationaleBody =>
-      '应用使用你的位置将地图移到你所在处，查找最近的站点和钓场，并获取你所在地的潮汐和天气。位置会在本机大致记住（约 1 公里），以便下次更快打开；查询天气时只发送取整后的位置，不与你关联，也不会公开。';
+  String get map_locRationaleBody => '应用使用你的位置来将地图定位到你身边、查找最近的站点和钓场，并获取当地的潮汐与天气。位置不会与你的身份关联，也不会公开。';
 
   @override
   String get map_locAllow => '允许';

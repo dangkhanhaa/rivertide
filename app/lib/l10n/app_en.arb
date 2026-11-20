@@ -56,7 +56,7 @@
   "tide_moreFall": "Water will fall about {cm} cm more",
   "map_locate": "My location",
   "map_locRationaleTitle": "Use your location?",
-  "map_locRationaleBody": "The app uses your location to center the map, find the nearest stations and ponds, and get tides and weather where you are. It is remembered roughly (~1 km) on your device so the app opens faster; weather lookups send only a rounded position, not linked to you and never made public.",
+  "map_locRationaleBody": "The app uses your location to centre the map on you, find the nearest stations and fishing ponds, and get tides and weather where you are. Your location is not linked to your identity and is never made public.",
   "map_locAllow": "Allow",
   "map_later": "Later",
   "map_locServiceOff": "Location is off. Turn on location on your device and try again.",
