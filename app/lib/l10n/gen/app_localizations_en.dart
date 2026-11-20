@@ -1536,7 +1536,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get release_asUser =>
-      'Your report shows as \"Reported by user\" until the owner confirms. Only report when you\'ve seen the pond\'s real post.';
+      'Your report shows as \"Reported by user\" until the owner confirms. Only report when you\'ve seen the pond\'s real post. Posts are reviewed before they appear, usually within 24 hours.';
 
   @override
   String get release_post => 'Post stocking';
@@ -1794,7 +1794,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get trip_notice =>
-      'Trips are public to users nearby. Don\'t meet where fishing is banned; go in groups and stay safe when night fishing.';
+      'Trips are public to users nearby. Don\'t meet where fishing is banned; go in groups and stay safe when night fishing. Posts are reviewed before they appear, usually within 24 hours.';
 
   @override
   String get checkin_pill => 'I\'m fishing';
@@ -1952,7 +1952,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get spot_publicNotice =>
-      'This spot will be public to all Con Nước users. Don\'t post no-fishing areas, or photos showing other people without their consent.';
+      'This spot will be public to all Con Nước users. Don\'t post no-fishing areas, or photos showing other people without their consent. Posts are reviewed before they appear, usually within 24 hours.';
 
   @override
   String get spot_agree => 'I understand and agree to share';
@@ -4500,7 +4500,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get onb_termsCommunity =>
-      'Community: no ads, gambling, scams, harassment or illegal fishing (electric, explosive or poison fishing). Violations get hidden or blocked. You can report and block others.';
+      'Community: no ads, gambling, scams, harassment or illegal fishing (electric, explosive or poison fishing). Violations get hidden or blocked. You can report and block others. Public posts are reviewed before they appear.';
 
   @override
   String get onb_termsSafety =>
@@ -4636,4 +4636,26 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get pond_followHintPlain => 'New stocking at this pond will show at the top of the list.';
+
+  @override
+  String get mod_pending => 'Awaiting review';
+
+  @override
+  String get mod_rejected => 'Not approved';
+
+  @override
+  String get mod_editPending => 'Edit awaiting review';
+
+  @override
+  String get mod_editRejected => 'Edit not approved';
+
+  @override
+  String get mod_onlyYou => 'Only you can see this until it is approved';
+
+  @override
+  String get mod_sentForReview => 'Sent. It will appear once approved (usually within 24 hours)';
+
+  @override
+  String get mod_editSentForReview =>
+      'Edit sent. It will appear once approved (usually within 24 hours)';
 }

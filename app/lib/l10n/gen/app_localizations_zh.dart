@@ -1484,7 +1484,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get release_asOwner => '你是场主：此时间表将显示为「场主发布」。';
 
   @override
-  String get release_asUser => '你报告的时间表会显示为「用户报告」，直到场主确认。请只在看到钓场真实发布时再报告哦。';
+  String get release_asUser => '你报告的时间表会显示为「用户报告」，直到场主确认。请只在看到钓场真实发布时再报告哦。帖子会先经过审核再显示，通常在24小时内。';
 
   @override
   String get release_post => '发布放鱼时间';
@@ -1720,7 +1720,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get trip_loadError => '无法加载钓鱼约局';
 
   @override
-  String get trip_notice => '约局对附近用户公开。不要约在禁钓区；结伴出行，夜钓注意安全。';
+  String get trip_notice => '约局对附近用户公开。不要约在禁钓区；结伴出行，夜钓注意安全。帖子会先经过审核再显示，通常在24小时内。';
 
   @override
   String get checkin_pill => '我在钓鱼';
@@ -1874,7 +1874,8 @@ class AppLocalizationsZh extends AppLocalizations {
   String get spot_addPhoto => '添加照片';
 
   @override
-  String get spot_publicNotice => '此钓点将对所有 Con Nước 用户公开。请勿发布禁钓区，或未经同意拍到他人的照片。';
+  String get spot_publicNotice =>
+      '此钓点将对所有 Con Nước 用户公开。请勿发布禁钓区，或未经同意拍到他人的照片。帖子会先经过审核再显示，通常在24小时内。';
 
   @override
   String get spot_agree => '我已了解并同意分享';
@@ -4342,7 +4343,8 @@ class AppLocalizationsZh extends AppLocalizations {
   String get onb_termsLocation => '位置只用于显示你附近的潮汐、天气和钓点，不会公开。';
 
   @override
-  String get onb_termsCommunity => '社区：禁止广告、赌博、诈骗、骚扰以及非法捕捞（电鱼、炸鱼、毒鱼）。违规内容会被隐藏或封禁。你可以举报和屏蔽他人。';
+  String get onb_termsCommunity =>
+      '社区：禁止广告、赌博、诈骗、骚扰以及非法捕捞（电鱼、炸鱼、毒鱼）。违规内容会被隐藏或封禁。你可以举报和屏蔽他人。公开内容审核通过后才会显示。';
 
   @override
   String get onb_termsSafety => '所有数据、预报和警告仅供参考。你需自行负责自己在水上的安全。';
@@ -4470,4 +4472,25 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get pond_followHintPlain => '此钓场有新放鱼时会显示在列表顶部。';
+
+  @override
+  String get mod_pending => '等待审核';
+
+  @override
+  String get mod_rejected => '未通过审核';
+
+  @override
+  String get mod_editPending => '修改等待审核';
+
+  @override
+  String get mod_editRejected => '修改未通过审核';
+
+  @override
+  String get mod_onlyYou => '审核通过前仅你可见';
+
+  @override
+  String get mod_sentForReview => '已提交，审核通过后显示（通常在24小时内）';
+
+  @override
+  String get mod_editSentForReview => '修改已提交，审核通过后显示（通常在24小时内）';
 }

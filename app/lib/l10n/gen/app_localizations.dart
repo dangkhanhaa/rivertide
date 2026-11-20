@@ -2727,7 +2727,7 @@ abstract class AppLocalizations {
   /// No description provided for @release_asUser.
   ///
   /// In vi, this message translates to:
-  /// **'Lịch bạn báo hiện là \"Người dùng báo\" cho tới khi chủ hồ xác nhận. Chỉ báo khi thấy hồ đăng thật nhé.'**
+  /// **'Lịch bạn báo hiện là \"Người dùng báo\" cho tới khi chủ hồ xác nhận. Chỉ báo khi thấy hồ đăng thật nhé. Bài được duyệt trước khi hiện, thường trong 24 giờ.'**
   String get release_asUser;
 
   /// No description provided for @release_post.
@@ -3171,7 +3171,7 @@ abstract class AppLocalizations {
   /// No description provided for @trip_notice.
   ///
   /// In vi, this message translates to:
-  /// **'Kèo hiện công khai cho người dùng quanh đây. Không hẹn ở nơi cấm câu; đi theo nhóm, giữ an toàn khi câu đêm.'**
+  /// **'Kèo hiện công khai cho người dùng quanh đây. Không hẹn ở nơi cấm câu; đi theo nhóm, giữ an toàn khi câu đêm. Bài được duyệt trước khi hiện, thường trong 24 giờ.'**
   String get trip_notice;
 
   /// No description provided for @checkin_pill.
@@ -3447,7 +3447,7 @@ abstract class AppLocalizations {
   /// No description provided for @spot_publicNotice.
   ///
   /// In vi, this message translates to:
-  /// **'Điểm này sẽ hiện công khai cho mọi người dùng Con Nước. Không đăng điểm cấm câu, ảnh có mặt người khác khi chưa được đồng ý.'**
+  /// **'Điểm này sẽ hiện công khai cho mọi người dùng Con Nước. Không đăng điểm cấm câu, ảnh có mặt người khác khi chưa được đồng ý. Bài được duyệt trước khi hiện, thường trong 24 giờ.'**
   String get spot_publicNotice;
 
   /// No description provided for @spot_agree.
@@ -7839,7 +7839,7 @@ abstract class AppLocalizations {
   /// No description provided for @onb_termsCommunity.
   ///
   /// In vi, this message translates to:
-  /// **'Cộng đồng: cấm quảng cáo, cờ bạc, lừa đảo, quấy rối và khai thác thủy sản trái phép (kích điện, nổ mìn, chất độc). Vi phạm bị ẩn hoặc khoá. Bạn có thể báo cáo và chặn người khác.'**
+  /// **'Cộng đồng: cấm quảng cáo, cờ bạc, lừa đảo, quấy rối và khai thác thủy sản trái phép (kích điện, nổ mìn, chất độc). Vi phạm bị ẩn hoặc khoá. Bạn có thể báo cáo và chặn người khác. Bài đăng công khai được duyệt trước khi hiện.'**
   String get onb_termsCommunity;
 
   /// No description provided for @onb_termsSafety.
@@ -8081,6 +8081,48 @@ abstract class AppLocalizations {
   /// In vi, this message translates to:
   /// **'Có lịch xả mới ở hồ này sẽ hiện đầu danh sách.'**
   String get pond_followHintPlain;
+
+  /// No description provided for @mod_pending.
+  ///
+  /// In vi, this message translates to:
+  /// **'Đang chờ duyệt'**
+  String get mod_pending;
+
+  /// No description provided for @mod_rejected.
+  ///
+  /// In vi, this message translates to:
+  /// **'Không được duyệt'**
+  String get mod_rejected;
+
+  /// No description provided for @mod_editPending.
+  ///
+  /// In vi, this message translates to:
+  /// **'Bản sửa đang chờ duyệt'**
+  String get mod_editPending;
+
+  /// No description provided for @mod_editRejected.
+  ///
+  /// In vi, this message translates to:
+  /// **'Bản sửa không được duyệt'**
+  String get mod_editRejected;
+
+  /// No description provided for @mod_onlyYou.
+  ///
+  /// In vi, this message translates to:
+  /// **'Chỉ bạn thấy cho tới khi được duyệt'**
+  String get mod_onlyYou;
+
+  /// No description provided for @mod_sentForReview.
+  ///
+  /// In vi, this message translates to:
+  /// **'Đã gửi, bài sẽ hiện sau khi được duyệt (thường trong 24 giờ)'**
+  String get mod_sentForReview;
+
+  /// No description provided for @mod_editSentForReview.
+  ///
+  /// In vi, this message translates to:
+  /// **'Đã gửi bản sửa, sẽ hiện sau khi được duyệt (thường trong 24 giờ)'**
+  String get mod_editSentForReview;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

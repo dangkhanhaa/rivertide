@@ -8,6 +8,7 @@ import 'package:rivertide/core/l10n/l10n_ext.dart';
 import 'package:rivertide/core/social/block_author.dart';
 import 'package:rivertide/core/social/content_filter.dart';
 import 'package:rivertide/core/social/display_name_dialog.dart';
+import 'package:rivertide/core/social/mod_status.dart';
 import 'package:rivertide/core/social/social_backend.dart';
 import 'package:rivertide/core/social/social_errors.dart';
 import 'package:rivertide/core/theme/app_colors.dart';
@@ -57,6 +58,7 @@ class _PondReviewsState extends ConsumerState<PondReviews> {
       await reviewPond(ref, widget.pondId, _stars, _text.text.trim());
       _text.clear();
       setState(() => _stars = 0);
+      showSentForReview(messenger, ref, l10n.mod_sentForReview);
     } on AppException catch (e) {
       messenger.showSnackBar(
         SnackBar(content: Text(socialErrorText(l10n, e, fallback: l10n.pond_error))),
@@ -153,9 +155,15 @@ class _ReviewTile extends ConsumerWidget {
         '${'★' * r.rating}${'☆' * (5 - r.rating)}  ${r.authorName.isEmpty ? l10n.cmt_anon : r.authorName}',
         style: context.text.bodyStrong,
       ),
-      subtitle: Text(
-        [if (r.body.isNotEmpty) r.body, TimeFormat.dayShort(r.at)].join('\n'),
-        style: context.text.body,
+      subtitle: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          if (r.mine) ModBadge(kind: ModKind.review, id: pondId),
+          Text(
+            [if (r.body.isNotEmpty) r.body, TimeFormat.dayShort(r.at)].join('\n'),
+            style: context.text.body,
+          ),
+        ],
       ),
       trailing: r.mine
           ? IconButton(

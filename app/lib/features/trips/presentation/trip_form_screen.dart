@@ -7,6 +7,7 @@ import 'package:rivertide/core/errors/app_exception.dart';
 import 'package:rivertide/core/l10n/l10n_ext.dart';
 import 'package:rivertide/core/logging/log.dart';
 import 'package:rivertide/core/social/content_filter.dart';
+import 'package:rivertide/core/social/mod_status.dart';
 import 'package:rivertide/core/social/social_backend.dart';
 import 'package:rivertide/core/social/social_errors.dart';
 import 'package:rivertide/core/theme/app_spacing.dart';
@@ -114,8 +115,16 @@ class _TripFormScreenState extends ConsumerState<TripFormScreen> {
       } else {
         await createTrip(ref, draft);
       }
-      messenger.showSnackBar(
-        SnackBar(content: Text(_edit == null ? l10n.trip_created : l10n.trip_saved)),
+      // Only a new title or note waits for review (time, size, contact apply at once).
+      final e = _edit;
+      showSentForReview(
+        messenger,
+        ref,
+        e == null
+            ? l10n.mod_sentForReview
+            : (draft.title != e.title || draft.note != e.note
+                  ? l10n.mod_editSentForReview
+                  : l10n.trip_saved),
       );
       nav.pop(true);
     } on AppException catch (e) {

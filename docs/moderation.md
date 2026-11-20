@@ -1,8 +1,94 @@
-# Kiểm duyệt cộng đồng & chống spam (P2-54)
+# Kiểm duyệt cộng đồng & chống spam (P2-54, P2-61)
 
 > Dành cho chủ dự án. Mọi lệnh dưới đây chạy trong **Supabase → SQL Editor** (vai trò `postgres`)
 > hoặc bằng khóa `service_role` từ máy chủ. App (khóa `anon`) **không gọi được** các hàm `mod_*`.
-> Migration: `supabase/migrations/0005_anti_spam.sql`. Kiểm tra: `supabase/tests/anti_spam_check.sql`.
+> Migration: `supabase/migrations/0005_anti_spam.sql`, `0008_curated_mode.sql`. Kiểm tra:
+> `supabase/tests/anti_spam_check.sql`, `supabase/tests/curated_mode_check.sql`.
+
+## 0. Duyệt trước — việc hằng ngày (P2-61)
+
+App không xác thực số điện thoại, nên theo Nghị định 147/2024 nội dung công khai **phải được duyệt
+trước khi hiện**. Bài mới ở trạng thái **chờ duyệt**: chỉ người đăng thấy (kèm nhãn "Đang chờ
+duyệt"), người khác không thấy cho tới khi bạn duyệt.
+
+**Cam kết: duyệt hoặc từ chối mọi bài trong vòng 24 giờ.** App hứa với người dùng "thường trong
+24 giờ" — bỏ 1 ngày là người dùng thấy app "không chạy".
+
+| Loại (`kind`) | Chờ duyệt khi | Không cần duyệt |
+|---|---|---|
+| `spot` | đăng điểm câu, sửa tên/ghi chú/loài/ảnh | — |
+| `comment` | bình luận mới, sửa bình luận | — |
+| `trip` | tạo kèo, sửa tên/ghi chú kèo | đổi giờ, số người, liên hệ (chỉ thành viên thấy) |
+| `pond` | thêm hồ | — |
+| `pond_edit` | người khác (kể cả người tạo) sửa hồ đã duyệt | **chủ hồ đã xác minh** sửa hồ của mình |
+| `release` | người dùng báo lịch xả | **chủ hồ đã xác minh** đăng lịch xả (đã gọi điện xác minh khi duyệt nhận hồ) |
+| `review` | đánh giá mới, sửa đánh giá | — |
+
+Không duyệt: tin nhắn trong kèo (chỉ thành viên thấy), "Đang câu", "Có dính không", báo nhanh ở hồ,
+xác nhận hồ, báo cáo, chặn. Nội dung có từ trước P2-61 coi như đã duyệt.
+
+Bản sửa của bài đã duyệt: người khác vẫn thấy **bản cũ** cho tới khi bạn duyệt bản sửa; người
+đăng thấy bản sửa kèm nhãn "Bản sửa đang chờ duyệt".
+
+### Mỗi ngày (5 phút)
+
+```sql
+-- 1. Còn bao nhiêu bài chờ, bài cũ nhất chờ bao lâu (waiting phải < 24 giờ).
+select * from public.mod_pending_summary();
+
+-- 2. Danh sách chờ, cũ nhất trước. preview = nội dung; device_age = tuổi máy đăng;
+--    strikes = số gậy. Sửa (change = 'edit') có "| trước: …" là bản đang hiện.
+select kind, change, preview, device_age, strikes, approve_sql, reject_sql
+  from public.mod_pending(100);
+```
+
+3. Copy cột `approve_sql` của các bài ổn, dán vào SQL Editor, Run (chạy nhiều dòng một lần được):
+
+```sql
+select public.mod_approve('spot', '<item_id>', NULL);
+select public.mod_approve('review', '<pond_id>', '<author_hash>');   -- đánh giá cần mã tác giả
+select public.mod_approve('pond_edit', '<pond_id>', '<editor_hash>'); -- sửa hồ cần mã người sửa
+```
+
+4. Bài không ổn: copy `reject_sql`, thay `'lý do'` bằng lý do ngắn (người đăng **không** thấy lý
+do trong app, chỉ thấy "Không được duyệt"; lý do lưu để bạn tra lại). Spam/lừa đảo: thêm `true`
+để cho tác giả 1 gậy (3 gậy = khóa đăng):
+
+```sql
+select public.mod_reject('comment', '<item_id>', 'quảng cáo', NULL);
+select public.mod_reject('comment', '<item_id>', 'lừa đảo', NULL, true);   -- kèm 1 gậy
+```
+
+Bài bị từ chối: ẩn với mọi người, người đăng thấy "Không được duyệt" trong 30 ngày; nếu họ sửa
+lại, bài quay về chờ duyệt. Bản sửa bị từ chối: bản cũ vẫn hiện, người đăng thấy "Bản sửa không
+được duyệt" trong 7 ngày.
+
+### Mẹo cho nhanh
+
+```sql
+-- Người quen đăng nhiều, đã xem qua: duyệt hết bài đang chờ của 1 máy.
+select public.mod_approve_all_from('<author_hash>');
+
+-- Mọi thứ 1 máy đã đăng 7 ngày (để quyết định có tin máy này không).
+select * from public.mod_recent_content(24 * 7, '<author_hash>');
+```
+
+### Bật / tắt duyệt trước từng loại
+
+Chỉ tắt khi đã có cách xác thực khác (vd. OTP số điện thoại) hoặc được tư vấn pháp lý. Tắt xong,
+bài **mới** của loại đó hiện ngay; bài đang chờ vẫn phải duyệt tay. App vẫn báo "sẽ hiện sau khi
+được duyệt" cho tới khi cập nhật chữ trong app.
+
+```sql
+select * from public.curation;
+update public.curation set pre_moderate = false where kind = 'release';
+```
+
+### Áp dụng & kiểm tra
+
+1. SQL Editor → dán toàn bộ `supabase/migrations/0008_curated_mode.sql` → Run.
+2. SQL Editor → dán `supabase/tests/curated_mode_check.sql` → Run (trong `begin … rollback`,
+   không để lại dữ liệu). Đạt khi thông báo cuối là `ALL CURATED-MODE CHECKS PASSED`.
 
 ## 1. Hệ thống hoạt động thế nào
 

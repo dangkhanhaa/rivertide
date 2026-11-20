@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rivertide/core/config/env.dart';
 import 'package:rivertide/core/format/level_format.dart';
 import 'package:rivertide/core/l10n/l10n_ext.dart';
+import 'package:rivertide/core/social/mod_status.dart';
 import 'package:rivertide/core/theme/app_colors.dart';
 import 'package:rivertide/core/theme/app_spacing.dart';
 import 'package:rivertide/core/theme/app_text.dart';
@@ -44,6 +45,10 @@ class PondDetail extends ConsumerWidget {
             const Spacer(),
             PondBadge(pond: p),
           ],
+        ),
+        Align(
+          alignment: AlignmentDirectional.centerStart,
+          child: ModBadge(kind: ModKind.pond, id: p.id),
         ),
         Text(p.name, style: context.text.headline),
         Text(

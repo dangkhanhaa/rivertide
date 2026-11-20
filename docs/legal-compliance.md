@@ -106,6 +106,10 @@ Chọn 1 trong 2 hướng đi phù hợp với nguồn lực:
   * Dữ liệu điểm câu, hồ câu do đội ngũ phát triển tổng hợp và kiểm duyệt trước khi đưa lên.
   * Tạm ẩn/tắt tính năng bình luận tự do và tạo kèo tự do.
   * 👉 **Ưu điểm:** Không bị xem là mạng xã hội; không cần làm thủ tục xác thực số điện thoại di động; không lo người dùng đăng nội dung xấu.
+  * ✅ **Đã chọn (P2-61, 20/11/2026):** biến thể "duyệt trước" — người dùng vẫn gửi điểm câu, bình luận, kèo, hồ,
+    lịch xả, đánh giá, nhưng mọi nội dung công khai chỉ hiện sau khi chủ dự án duyệt (cam kết trong 24 giờ). Tin nhắn
+    trong kèo (chỉ thành viên) và các số đếm ẩn danh không cần duyệt. Quy trình: [moderation.md §0](moderation.md).
+    Việc này **chưa được tư vấn pháp lý xác nhận** là đủ để không bị coi là mạng xã hội theo NĐ 147.
 
 * **Phương án B (Nếu vẫn muốn giữ tính năng Mạng xã hội):**
   * Bổ sung cơ chế đăng nhập và **xác thực số điện thoại bằng OTP** (qua Firebase Phone Auth hoặc dịch vụ SMS trong nước) trước khi cho phép người dùng: đăng điểm câu, viết bình luận, tạo kèo câu.

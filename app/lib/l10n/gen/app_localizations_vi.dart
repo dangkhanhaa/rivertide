@@ -1515,7 +1515,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get release_asUser =>
-      'Lịch bạn báo hiện là \"Người dùng báo\" cho tới khi chủ hồ xác nhận. Chỉ báo khi thấy hồ đăng thật nhé.';
+      'Lịch bạn báo hiện là \"Người dùng báo\" cho tới khi chủ hồ xác nhận. Chỉ báo khi thấy hồ đăng thật nhé. Bài được duyệt trước khi hiện, thường trong 24 giờ.';
 
   @override
   String get release_post => 'Đăng lịch xả';
@@ -1755,7 +1755,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get trip_notice =>
-      'Kèo hiện công khai cho người dùng quanh đây. Không hẹn ở nơi cấm câu; đi theo nhóm, giữ an toàn khi câu đêm.';
+      'Kèo hiện công khai cho người dùng quanh đây. Không hẹn ở nơi cấm câu; đi theo nhóm, giữ an toàn khi câu đêm. Bài được duyệt trước khi hiện, thường trong 24 giờ.';
 
   @override
   String get checkin_pill => 'Tôi đang câu';
@@ -1913,7 +1913,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get spot_publicNotice =>
-      'Điểm này sẽ hiện công khai cho mọi người dùng Con Nước. Không đăng điểm cấm câu, ảnh có mặt người khác khi chưa được đồng ý.';
+      'Điểm này sẽ hiện công khai cho mọi người dùng Con Nước. Không đăng điểm cấm câu, ảnh có mặt người khác khi chưa được đồng ý. Bài được duyệt trước khi hiện, thường trong 24 giờ.';
 
   @override
   String get spot_agree => 'Tôi hiểu và đồng ý chia sẻ';
@@ -4441,7 +4441,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get onb_termsCommunity =>
-      'Cộng đồng: cấm quảng cáo, cờ bạc, lừa đảo, quấy rối và khai thác thủy sản trái phép (kích điện, nổ mìn, chất độc). Vi phạm bị ẩn hoặc khoá. Bạn có thể báo cáo và chặn người khác.';
+      'Cộng đồng: cấm quảng cáo, cờ bạc, lừa đảo, quấy rối và khai thác thủy sản trái phép (kích điện, nổ mìn, chất độc). Vi phạm bị ẩn hoặc khoá. Bạn có thể báo cáo và chặn người khác. Bài đăng công khai được duyệt trước khi hiện.';
 
   @override
   String get onb_termsSafety =>
@@ -4577,4 +4577,26 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get pond_followHintPlain => 'Có lịch xả mới ở hồ này sẽ hiện đầu danh sách.';
+
+  @override
+  String get mod_pending => 'Đang chờ duyệt';
+
+  @override
+  String get mod_rejected => 'Không được duyệt';
+
+  @override
+  String get mod_editPending => 'Bản sửa đang chờ duyệt';
+
+  @override
+  String get mod_editRejected => 'Bản sửa không được duyệt';
+
+  @override
+  String get mod_onlyYou => 'Chỉ bạn thấy cho tới khi được duyệt';
+
+  @override
+  String get mod_sentForReview => 'Đã gửi, bài sẽ hiện sau khi được duyệt (thường trong 24 giờ)';
+
+  @override
+  String get mod_editSentForReview =>
+      'Đã gửi bản sửa, sẽ hiện sau khi được duyệt (thường trong 24 giờ)';
 }

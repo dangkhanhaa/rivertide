@@ -10,6 +10,7 @@ import 'package:rivertide/core/l10n/l10n_ext.dart';
 import 'package:rivertide/core/navigation/push_page.dart';
 import 'package:rivertide/core/social/block_author.dart';
 import 'package:rivertide/core/social/display_name_dialog.dart';
+import 'package:rivertide/core/social/mod_status.dart';
 import 'package:rivertide/core/social/social_backend.dart';
 import 'package:rivertide/core/social/social_errors.dart';
 import 'package:rivertide/core/theme/app_colors.dart';
@@ -61,6 +62,11 @@ class TripSheet extends ConsumerWidget {
               TripStatusChip(trip: t, nowUtc: now),
             ],
           ),
+          if (t.mine)
+            Align(
+              alignment: AlignmentDirectional.centerStart,
+              child: ModBadge(kind: ModKind.trip, id: t.id),
+            ),
           Text(t.title, style: context.text.headline),
           TripLine(icon: Icons.schedule_rounded, text: tripWhen(t), strong: true),
           TripLine(

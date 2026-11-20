@@ -6,6 +6,7 @@ import 'package:rivertide/core/clock/clock_provider.dart';
 import 'package:rivertide/core/errors/app_exception.dart';
 import 'package:rivertide/core/l10n/l10n_ext.dart';
 import 'package:rivertide/core/navigation/push_page.dart';
+import 'package:rivertide/core/social/mod_status.dart';
 import 'package:rivertide/core/social/social_errors.dart';
 import 'package:rivertide/core/theme/app_colors.dart';
 import 'package:rivertide/core/theme/app_spacing.dart';
@@ -99,6 +100,7 @@ class _ReleaseTile extends ConsumerWidget {
             ].join(' · '),
             style: context.text.caption.copyWith(color: r.byOwner ? c.fishGood : null),
           ),
+          if (r.mine) ModBadge(kind: ModKind.release, id: r.id),
           _ReleaseActions(release: r),
         ],
       ),
