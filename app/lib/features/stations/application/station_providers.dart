@@ -6,8 +6,10 @@ import 'package:rivertide/core/calc/river/river_line.dart';
 import 'package:rivertide/core/clock/clock_provider.dart';
 import 'package:rivertide/core/db/app_database.dart';
 import 'package:rivertide/core/network/dio_client.dart';
+import 'package:rivertide/features/stations/application/water_providers.dart';
 import 'package:rivertide/features/stations/data/remote_sources.dart';
 import 'package:rivertide/features/stations/data/station_repository_impl.dart';
+import 'package:rivertide/features/stations/domain/point_id.dart';
 import 'package:rivertide/features/stations/domain/river_flow.dart';
 import 'package:rivertide/features/stations/domain/saved_place.dart';
 import 'package:rivertide/features/stations/domain/station.dart';
@@ -54,6 +56,8 @@ Future<Station> stationById(Ref ref, String id) => ref.watch(stationRepositoryPr
 @riverpod
 Future<Cached<StationTide>> stationTide(Ref ref, String id) async {
   final station = await ref.watch(stationByIdProvider(id).future);
+  // A map point's tide depends on its water kind: recompute when it changes.
+  if (id.startsWith(PointId.prefix)) await ref.watch(waterHintProvider(id).future);
   return await ref.watch(stationRepositoryProvider).getTide(station);
 }
 

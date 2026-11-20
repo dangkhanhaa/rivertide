@@ -72,9 +72,9 @@ extension _BuildMap on _MapScreenState {
                 search: MapSearchBar(
                   stations: stationList.value ?? const [],
                   onSelected: (s) => _openStation(s.id, zoom: 11),
-                  onCoordinates: (lat, lon) => _openPoint(lat, lon, PointSurface.unknown, zoom: 14),
+                  onCoordinates: (lat, lon) => _openPoint(lat, lon, TapWater.unknown, zoom: 14),
                   onPlace: (p) =>
-                      _openPoint(p.lat, p.lon, PointSurface.unknown, zoom: 13, title: p.name),
+                      _openPoint(p.lat, p.lon, TapWater.unknown, zoom: 13, title: p.name),
                 ),
                 actions: actions,
                 onMore: () => _openShortcuts(actions),

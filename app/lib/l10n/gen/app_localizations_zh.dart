@@ -3626,4 +3626,158 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get map_layerCheckins => '正在钓鱼的人';
+
+  @override
+  String get water_kind_sea => '海';
+
+  @override
+  String get water_kind_river => '河流';
+
+  @override
+  String get water_kind_canal => '运河';
+
+  @override
+  String get water_kind_creek => '潮沟';
+
+  @override
+  String get water_kind_stream => '溪流';
+
+  @override
+  String get water_kind_ditch => '沟渠';
+
+  @override
+  String get water_kind_lake => '湖泊';
+
+  @override
+  String get water_kind_pond => '池塘';
+
+  @override
+  String get water_kind_reservoir => '水库';
+
+  @override
+  String get water_kind_lagoon => '潟湖';
+
+  @override
+  String get water_kind_dock => '港池';
+
+  @override
+  String get water_kind_land => '陆地';
+
+  @override
+  String get water_kind_unknown => '水体类型未知';
+
+  @override
+  String get water_tide_tidal => '有潮汐';
+
+  @override
+  String get water_tide_weak => '潮汐较弱（估计）';
+
+  @override
+  String get water_tide_none => '无潮汐';
+
+  @override
+  String get water_tide_unknown => '是否有潮汐未知';
+
+  @override
+  String get water_reason_sea => '海水随潮汐涨落。';
+
+  @override
+  String get water_reason_lagoon => '潟湖经狭窄口门与海相通：潮差更小、更迟。';
+
+  @override
+  String get water_reason_still => '静水（湖、池塘）：不受潮汐影响。';
+
+  @override
+  String get water_reason_land => '此点位于陆地上。';
+
+  @override
+  String water_reason_highGround(int meters) {
+    return '地面高约 $meters 米：潮汐到不了。';
+  }
+
+  @override
+  String get water_reason_riverData => '该河段的水文站记录到潮汐波动。';
+
+  @override
+  String get water_reason_southNetwork => '南部三角洲河网：潮汐深入运河和潮沟。';
+
+  @override
+  String get water_reason_southSmall => '南部小水体或地势较高：常有闸坝阻隔，潮汐较弱。';
+
+  @override
+  String get water_reason_northRiver => '北部三角洲河流：有潮汐，离海越远越弱。';
+
+  @override
+  String get water_reason_gated => '灌溉渠道通常有水闸：水位不随潮汐变化。';
+
+  @override
+  String water_reason_nearSea(String distance) {
+    return '距海约 $distance：潮汐可能到达，但较弱。';
+  }
+
+  @override
+  String water_reason_farFromSea(String distance) {
+    return '距海约 $distance：潮汐到不了。';
+  }
+
+  @override
+  String get water_reason_unknownKind => '尚不清楚此处是河流、湖泊还是陆地。请在地图上直接点按水面以便识别；以下数据仅供参考。';
+
+  @override
+  String get water_reason_noSeaDistance => '无法计算到海的距离。';
+
+  @override
+  String get water_checking => '正在查询 OpenStreetMap…';
+
+  @override
+  String get water_source => '水体类型来自 © OpenStreetMap；是否有潮汐按区域、离海距离和高度估计。';
+
+  @override
+  String get water_noTideNote => '此处没有涨落潮时间；鱼情按月相时间和天气估计。';
+
+  @override
+  String water_structure(String what, String name, String distance) {
+    return '靠近$what$name（相距 $distance）：开闭时水流湍急、有漩涡——请保持距离。';
+  }
+
+  @override
+  String get water_structure_dam => '水坝';
+
+  @override
+  String get water_structure_weir => '堰';
+
+  @override
+  String get water_structure_lock => '船闸';
+
+  @override
+  String get water_structure_sluice => '水闸';
+
+  @override
+  String get water_structure_culvert => '涵洞';
+
+  @override
+  String get land_title => '陆地上的点';
+
+  @override
+  String get land_hint => '点按附近的河流或湖泊查看水情。';
+
+  @override
+  String get land_nearby => '附近水域';
+
+  @override
+  String land_nearbyItem(String name, String distance) {
+    return '$name · 相距 $distance';
+  }
+
+  @override
+  String get fishAct_sourceNoTide => '根据月相时间、昼夜和天气（Open-Meteo）估计——仅供参考，无法确定哪里有鱼。';
+
+  @override
+  String get fishAct_quickNoTide => '暂无天气：先按月相时间和昼夜估算。';
+
+  @override
+  String get fishing_factor_runoff => '24小时降雨';
+
+  @override
+  String get water_reason_coastalLake => '紧邻海岸的湖：可能是与海相通的潟湖（潮汐小），也可能是淡水湖——地图无法区分。';
 }

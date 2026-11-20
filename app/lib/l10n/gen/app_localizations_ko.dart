@@ -3636,4 +3636,160 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get map_layerCheckins => '지금 낚시 중';
+
+  @override
+  String get water_kind_sea => '바다';
+
+  @override
+  String get water_kind_river => '강';
+
+  @override
+  String get water_kind_canal => '운하';
+
+  @override
+  String get water_kind_creek => '갯골';
+
+  @override
+  String get water_kind_stream => '개울';
+
+  @override
+  String get water_kind_ditch => '수로';
+
+  @override
+  String get water_kind_lake => '호수';
+
+  @override
+  String get water_kind_pond => '연못';
+
+  @override
+  String get water_kind_reservoir => '저수지';
+
+  @override
+  String get water_kind_lagoon => '석호';
+
+  @override
+  String get water_kind_dock => '항만';
+
+  @override
+  String get water_kind_land => '육지';
+
+  @override
+  String get water_kind_unknown => '물의 종류를 알 수 없음';
+
+  @override
+  String get water_tide_tidal => '조석 있음';
+
+  @override
+  String get water_tide_weak => '약한 조석(추정)';
+
+  @override
+  String get water_tide_none => '조석 없음';
+
+  @override
+  String get water_tide_unknown => '조석 여부 알 수 없음';
+
+  @override
+  String get water_reason_sea => '바닷물은 조석에 따라 오르내려요.';
+
+  @override
+  String get water_reason_lagoon => '석호는 좁은 입구로 바다와 이어져 조석이 작고 늦어요.';
+
+  @override
+  String get water_reason_still => '고인 물(호수, 연못): 조석이 없어요.';
+
+  @override
+  String get water_reason_land => '이 지점은 육지예요.';
+
+  @override
+  String water_reason_highGround(int meters) {
+    return '지면 높이 약 ${meters}m: 조석이 닿지 않아요.';
+  }
+
+  @override
+  String get water_reason_riverData => '이 구간의 관측소에서 조석 변동이 기록돼요.';
+
+  @override
+  String get water_reason_southNetwork => '남부 삼각주 수로망: 조석이 운하와 갯골까지 들어와요.';
+
+  @override
+  String get water_reason_southSmall => '남부의 작은 물길이나 높은 지대: 수문에 막혀 조석이 약해요.';
+
+  @override
+  String get water_reason_northRiver => '북부 삼각주 강: 조석이 있고 바다에서 멀수록 약해요.';
+
+  @override
+  String get water_reason_gated => '관개 수로는 보통 수문이 있어 조석을 따르지 않아요.';
+
+  @override
+  String water_reason_nearSea(String distance) {
+    return '바다에서 약 $distance: 조석이 약하게 닿을 수 있어요.';
+  }
+
+  @override
+  String water_reason_farFromSea(String distance) {
+    return '바다에서 약 $distance: 조석이 닿지 않아요.';
+  }
+
+  @override
+  String get water_reason_unknownKind =>
+      '강, 호수, 육지 중 무엇인지 아직 몰라요. 지도에서 물 위를 정확히 눌러 주세요. 아래 수치는 참고용이에요.';
+
+  @override
+  String get water_reason_noSeaDistance => '바다까지의 거리를 계산하지 못했어요.';
+
+  @override
+  String get water_checking => 'OpenStreetMap 확인 중…';
+
+  @override
+  String get water_source => '물 종류는 © OpenStreetMap 기준이며, 조석 여부는 지역·바다까지 거리·고도로 추정해요.';
+
+  @override
+  String get water_noTideNote => '이곳은 물때가 없어요. 달 시간과 날씨로 입질을 봐요.';
+
+  @override
+  String water_structure(String what, String name, String distance) {
+    return '$what$name 근처(거리 $distance): 여닫을 때 물살이 세고 소용돌이가 생겨요. 거리를 두세요.';
+  }
+
+  @override
+  String get water_structure_dam => '댐';
+
+  @override
+  String get water_structure_weir => '보';
+
+  @override
+  String get water_structure_lock => '갑문';
+
+  @override
+  String get water_structure_sluice => '수문';
+
+  @override
+  String get water_structure_culvert => '암거';
+
+  @override
+  String get land_title => '육지 지점';
+
+  @override
+  String get land_hint => '가까운 강이나 호수를 눌러 물 정보를 보세요.';
+
+  @override
+  String get land_nearby => '가까운 물';
+
+  @override
+  String land_nearbyItem(String name, String distance) {
+    return '$name · 거리 $distance';
+  }
+
+  @override
+  String get fishAct_sourceNoTide => '달 시간, 낮/밤, 날씨(Open-Meteo)로 추정 — 참고용이며 물고기 위치는 알 수 없어요.';
+
+  @override
+  String get fishAct_quickNoTide => '날씨가 아직 없어요: 달 시간과 낮/밤으로 임시 계산해요.';
+
+  @override
+  String get fishing_factor_runoff => '24시간 강수';
+
+  @override
+  String get water_reason_coastalLake =>
+      '해안 바로 옆 호수: 바다와 이어진 석호(조석 작음)일 수도, 민물 호수일 수도 있어요. 지도로는 구분할 수 없어요.';
 }

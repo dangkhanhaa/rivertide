@@ -4,7 +4,7 @@ import 'package:rivertide/core/calc/fishing/fishing_components.dart';
 import 'package:rivertide/core/calc/fishing/fishing_input.dart';
 
 /// Bump on any weight/threshold change and log it in docs/fishing-score.md.
-const String fishingScoreVersion = 'fs-2';
+const String fishingScoreVersion = 'fs-3';
 
 enum SafetyLevel { none, yellow, red }
 
@@ -23,7 +23,19 @@ enum SafetyReason {
   possibleThunderstorm,
 }
 
-enum FishingFactor { tide, flow, solunar, pressure, daytime, temperature, weather, season }
+enum FishingFactor {
+  tide,
+  flow,
+  solunar,
+  pressure,
+  daytime,
+  temperature,
+  weather,
+  season,
+
+  /// Rain of the last 24 h on running water without tide (fs-3).
+  runoff,
+}
 
 /// fs-2 splits the factors in two (PROJECT.md 9.6):
 /// - timing decides WHICH hours fish feed (moving water, moon, light);
@@ -37,11 +49,17 @@ const Map<FishingFactor, double> timingWeights = {
   FishingFactor.solunar: 0.33,
   FishingFactor.daytime: 0.27,
 };
+
+/// fs-3: [FishingFactor.runoff] only exists for running water without tide;
+/// elsewhere it drops out and the other four keep their fs-2 balance.
+/// Still water (lake, pond, reservoir) has neither tide nor flow, so its
+/// timing is solunar + light alone.
 const Map<FishingFactor, double> conditionWeights = {
   FishingFactor.pressure: 0.35,
   FishingFactor.temperature: 0.30,
   FishingFactor.weather: 0.25,
   FishingFactor.season: 0.10,
+  FishingFactor.runoff: 0.20,
 };
 
 /// Combined view of both maps, used to rank reasons (heaviest first).
@@ -206,6 +224,8 @@ Map<FishingFactor, double> _components(FishingHourInput input) {
   }
   final season = input.isBestSeason;
   if (season != null) result[FishingFactor.season] = seasonScore(isBestSeason: season);
+  final rain24 = input.rain24hMm;
+  if (rain24 != null) result[FishingFactor.runoff] = runoffScore(rain24);
   return result;
 }
 

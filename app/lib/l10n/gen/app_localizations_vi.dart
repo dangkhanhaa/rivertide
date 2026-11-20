@@ -3704,4 +3704,167 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get map_layerCheckins => 'Người đang câu';
+
+  @override
+  String get water_kind_sea => 'Biển';
+
+  @override
+  String get water_kind_river => 'Sông';
+
+  @override
+  String get water_kind_canal => 'Kênh';
+
+  @override
+  String get water_kind_creek => 'Rạch';
+
+  @override
+  String get water_kind_stream => 'Suối';
+
+  @override
+  String get water_kind_ditch => 'Mương';
+
+  @override
+  String get water_kind_lake => 'Hồ';
+
+  @override
+  String get water_kind_pond => 'Ao';
+
+  @override
+  String get water_kind_reservoir => 'Hồ chứa';
+
+  @override
+  String get water_kind_lagoon => 'Đầm / phá';
+
+  @override
+  String get water_kind_dock => 'Bến cảng';
+
+  @override
+  String get water_kind_land => 'Đất liền';
+
+  @override
+  String get water_kind_unknown => 'Chưa rõ loại nước';
+
+  @override
+  String get water_tide_tidal => 'Có thủy triều';
+
+  @override
+  String get water_tide_weak => 'Triều yếu (ước tính)';
+
+  @override
+  String get water_tide_none => 'Không có thủy triều';
+
+  @override
+  String get water_tide_unknown => 'Chưa rõ có triều';
+
+  @override
+  String get water_reason_sea => 'Nước biển lên xuống theo triều.';
+
+  @override
+  String get water_reason_lagoon =>
+      'Đầm phá nối biển qua cửa hẹp: triều nhỏ và muộn hơn ngoài biển.';
+
+  @override
+  String get water_reason_still => 'Nước đứng (hồ, ao): không lên xuống theo triều.';
+
+  @override
+  String get water_reason_land => 'Điểm này nằm trên đất liền.';
+
+  @override
+  String water_reason_highGround(int meters) {
+    return 'Đất cao khoảng $meters m: triều không lên tới.';
+  }
+
+  @override
+  String get water_reason_riverData =>
+      'Trạm đo trên đoạn sông này ghi nhận nước dao động theo triều.';
+
+  @override
+  String get water_reason_southNetwork => 'Vùng sông rạch Nam Bộ: triều vào tận kênh rạch.';
+
+  @override
+  String get water_reason_southSmall =>
+      'Nước nhỏ hoặc đất cao ở Nam Bộ: thường có cống, đập chặn nên triều yếu.';
+
+  @override
+  String get water_reason_northRiver =>
+      'Sông vùng đồng bằng Bắc Bộ: có triều, yếu dần khi xa biển.';
+
+  @override
+  String get water_reason_gated => 'Kênh, mương thủy lợi thường có cống: nước không theo triều.';
+
+  @override
+  String water_reason_nearSea(String distance) {
+    return 'Cách biển khoảng $distance: triều có thể lên tới nhưng yếu.';
+  }
+
+  @override
+  String water_reason_farFromSea(String distance) {
+    return 'Cách biển khoảng $distance: triều không lên tới.';
+  }
+
+  @override
+  String get water_reason_unknownKind =>
+      'Chưa biết đây là sông, hồ hay đất liền. Chạm đúng vào mặt nước trên bản đồ để app nhận ra; số liệu dưới đây chỉ để tham khảo.';
+
+  @override
+  String get water_reason_noSeaDistance => 'Chưa tính được khoảng cách tới biển.';
+
+  @override
+  String get water_checking => 'Đang kiểm tra bản đồ OpenStreetMap…';
+
+  @override
+  String get water_source =>
+      'Loại nước theo bản đồ © OpenStreetMap; có triều hay không là ước tính theo vùng, khoảng cách tới biển và độ cao.';
+
+  @override
+  String get water_noTideNote =>
+      'Không có giờ nước lên xuống ở đây; xem cá ăn theo giờ trăng và thời tiết.';
+
+  @override
+  String water_structure(String what, String name, String distance) {
+    return 'Gần $what$name (cách $distance): dòng chảy mạnh, xoáy khi đóng mở — giữ khoảng cách.';
+  }
+
+  @override
+  String get water_structure_dam => 'đập';
+
+  @override
+  String get water_structure_weir => 'đập tràn';
+
+  @override
+  String get water_structure_lock => 'âu thuyền';
+
+  @override
+  String get water_structure_sluice => 'cống';
+
+  @override
+  String get water_structure_culvert => 'cống ngầm';
+
+  @override
+  String get land_title => 'Điểm trên đất liền';
+
+  @override
+  String get land_hint => 'Chạm vào sông, hồ gần đó để xem nước ở đó.';
+
+  @override
+  String get land_nearby => 'Nước gần đây';
+
+  @override
+  String land_nearbyItem(String name, String distance) {
+    return '$name · cách $distance';
+  }
+
+  @override
+  String get fishAct_sourceNoTide =>
+      'Ước tính từ giờ mặt trăng, ngày/đêm và thời tiết (Open-Meteo) — chỉ để tham khảo, không biết chắc chỗ nào có cá.';
+
+  @override
+  String get fishAct_quickNoTide => 'Chưa có thời tiết: tạm tính theo giờ mặt trăng và ngày/đêm.';
+
+  @override
+  String get fishing_factor_runoff => 'mưa 24 giờ';
+
+  @override
+  String get water_reason_coastalLake =>
+      'Hồ sát biển: có thể là đầm phá nối biển (có triều nhỏ) hoặc hồ nước ngọt — bản đồ chưa phân biệt được.';
 }

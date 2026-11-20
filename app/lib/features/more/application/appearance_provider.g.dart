@@ -39,7 +39,7 @@ final class AppearanceSettingsProvider
   AppearanceSettings create() => AppearanceSettings();
 }
 
-String _$appearanceSettingsHash() => r'91ebda8f8758869e8d084e92841c984c7c825371';
+String _$appearanceSettingsHash() => r'0b66d2af9e10cd4ad5c5284db822d0b4ca2ec201';
 
 /// "Giao diện của tôi" (P2-31): accent, backdrop, font, text size, language,
 /// motion, start tab. Persisted locally; applied app-wide by `app.dart`.

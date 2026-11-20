@@ -3632,4 +3632,158 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get map_layerCheckins => '釣り中の人';
+
+  @override
+  String get water_kind_sea => '海';
+
+  @override
+  String get water_kind_river => '川';
+
+  @override
+  String get water_kind_canal => '運河';
+
+  @override
+  String get water_kind_creek => '潮汐水路';
+
+  @override
+  String get water_kind_stream => '渓流';
+
+  @override
+  String get water_kind_ditch => '用水路';
+
+  @override
+  String get water_kind_lake => '湖';
+
+  @override
+  String get water_kind_pond => '池';
+
+  @override
+  String get water_kind_reservoir => '貯水池';
+
+  @override
+  String get water_kind_lagoon => '潟湖';
+
+  @override
+  String get water_kind_dock => '港の水域';
+
+  @override
+  String get water_kind_land => '陸地';
+
+  @override
+  String get water_kind_unknown => '水域の種類は不明';
+
+  @override
+  String get water_tide_tidal => '潮汐あり';
+
+  @override
+  String get water_tide_weak => '弱い潮汐（推定）';
+
+  @override
+  String get water_tide_none => '潮汐なし';
+
+  @override
+  String get water_tide_unknown => '潮汐の有無は不明';
+
+  @override
+  String get water_reason_sea => '海水は潮汐で上下します。';
+
+  @override
+  String get water_reason_lagoon => '潟湖は狭い口で海とつながり、潮汐は小さく遅れます。';
+
+  @override
+  String get water_reason_still => '止水（湖・池）：潮汐はありません。';
+
+  @override
+  String get water_reason_land => 'この地点は陸上です。';
+
+  @override
+  String water_reason_highGround(int meters) {
+    return '標高約 $meters m：潮汐は届きません。';
+  }
+
+  @override
+  String get water_reason_riverData => 'この区間の観測所で潮汐の変動が記録されています。';
+
+  @override
+  String get water_reason_southNetwork => '南部デルタの水路網：潮汐が運河や水路まで入ります。';
+
+  @override
+  String get water_reason_southSmall => '南部の小さな水路や高い土地：水門でせき止められ潮汐は弱めです。';
+
+  @override
+  String get water_reason_northRiver => '北部デルタの川：潮汐があり、海から離れるほど弱まります。';
+
+  @override
+  String get water_reason_gated => '用水路には通常水門があり、潮汐に従いません。';
+
+  @override
+  String water_reason_nearSea(String distance) {
+    return '海から約 $distance：潮汐が弱く届くことがあります。';
+  }
+
+  @override
+  String water_reason_farFromSea(String distance) {
+    return '海から約 $distance：潮汐は届きません。';
+  }
+
+  @override
+  String get water_reason_unknownKind => '川・湖・陸地のどれかまだ分かりません。地図の水面を直接タップすると判別できます。以下の数値は参考です。';
+
+  @override
+  String get water_reason_noSeaDistance => '海までの距離を計算できませんでした。';
+
+  @override
+  String get water_checking => 'OpenStreetMap を確認中…';
+
+  @override
+  String get water_source => '水域の種類は © OpenStreetMap、潮汐の有無は地域・海までの距離・標高から推定しています。';
+
+  @override
+  String get water_noTideNote => 'ここには潮時がありません。魚の活性は月の時刻と天気で見ます。';
+
+  @override
+  String water_structure(String what, String name, String distance) {
+    return '$what$nameの近く（$distance）：開閉時は流れが強く渦が出ます。近づかないでください。';
+  }
+
+  @override
+  String get water_structure_dam => 'ダム';
+
+  @override
+  String get water_structure_weir => '堰';
+
+  @override
+  String get water_structure_lock => '閘門';
+
+  @override
+  String get water_structure_sluice => '水門';
+
+  @override
+  String get water_structure_culvert => '暗渠';
+
+  @override
+  String get land_title => '陸上の地点';
+
+  @override
+  String get land_hint => '近くの川や湖をタップして水の情報を見てください。';
+
+  @override
+  String get land_nearby => '近くの水域';
+
+  @override
+  String land_nearbyItem(String name, String distance) {
+    return '$name・$distance';
+  }
+
+  @override
+  String get fishAct_sourceNoTide => '月の時刻・昼夜・天気（Open-Meteo）から推定 — 参考値で、魚の居場所は分かりません。';
+
+  @override
+  String get fishAct_quickNoTide => '天気はまだありません：月の時刻と昼夜で仮計算しています。';
+
+  @override
+  String get fishing_factor_runoff => '24時間の雨';
+
+  @override
+  String get water_reason_coastalLake => '海岸すぐそばの湖：海とつながる潟湖（潮汐は小さい）か淡水湖か、地図では区別できません。';
 }

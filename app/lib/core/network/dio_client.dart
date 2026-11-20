@@ -23,13 +23,35 @@ Dio dio(Ref ref) {
   return dio;
 }
 
+/// Request flag: skip the retry interceptor (a busy volunteer server must not
+/// be hit again right away).
+const String noRetryExtra = 'noRetry';
+
 /// GET text from an https URL and map every failure to [AppException].
-Future<String> getText(Dio dio, Uri uri) async {
+/// [timeout] replaces the default receive timeout; [retry] false sends the
+/// request once; [maxBytes] lowers the size limit for small answers.
+Future<String> getText(
+  Dio dio,
+  Uri uri, {
+  Duration? timeout,
+  bool retry = true,
+  int maxBytes = maxResponseBytes,
+  Map<String, String>? headers,
+}) async {
   if (uri.scheme != 'https') throw const NetworkException('only https allowed');
   try {
-    final resp = await dio.getUri<String>(uri);
+    final resp = await dio.getUri<String>(
+      uri,
+      options: timeout == null && retry && headers == null
+          ? null
+          : Options(
+              receiveTimeout: timeout,
+              headers: headers,
+              extra: {if (!retry) noRetryExtra: true},
+            ),
+    );
     final body = resp.data ?? '';
-    if (body.length > maxResponseBytes) throw const ParseException('response too large');
+    if (body.length > maxBytes) throw const ParseException('response too large');
     return body;
   } on DioException catch (e) {
     throw mapDioException(e);
@@ -63,6 +85,7 @@ class _RetryInterceptor extends Interceptor {
     final attempt = (err.requestOptions.extra['retry'] as int?) ?? 0;
     final status = err.response?.statusCode ?? 0;
     final retriable =
+        err.requestOptions.extra[noRetryExtra] != true &&
         err.requestOptions.method == 'GET' &&
         attempt < _delays.length &&
         (err.type != DioExceptionType.badResponse || status >= 500);

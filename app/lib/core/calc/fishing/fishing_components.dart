@@ -144,3 +144,10 @@ double weatherScore({required double windKmh, double? rainMmPerH}) {
 }
 
 double seasonScore({required bool isBestSeason}) => isBestSeason ? 1 : 0.4;
+
+/// Rain runoff on running water without tide (fs-3), from the last 24 h of
+/// rain (mm). A few mm to ~20 mm washes food in and tints the water (fish
+/// feed more boldly); dry days are ordinary; 40 mm and more brings fast,
+/// muddy flood water that puts fish off and makes banks unsafe.
+double runoffScore(double rain24hMm) =>
+    knots(rain24hMm, const [(0, 0.85), (3, 1), (20, 1), (40, 0.6), (80, 0.3)]);

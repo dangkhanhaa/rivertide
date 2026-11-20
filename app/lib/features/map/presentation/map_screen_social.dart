@@ -1,7 +1,7 @@
 part of 'map_screen.dart';
 
 /// Community layers on the map: spots (P2-19/25), trips (P2-26) and
-/// "đang câu" bubbles (P2-27), with their shortcuts under the search button.
+/// "Ä‘ang cÃ¢u" bubbles (P2-27), with their shortcuts under the search button.
 extension _MapSocial on _MapScreenState {
   /// Area the layers are fetched for: the map centre once zoomed in on a
   /// region, else the user's position; null before either is known.
@@ -127,7 +127,7 @@ extension _MapSocial on _MapScreenState {
   /// From a spot, trip or bubble to the water level / fishing sheet there.
   void _viewWater(double lat, double lon, String? title) => unawaited(() async {
     await dismissDetail();
-    await _openPoint(lat, lon, PointSurface.unknown, zoom: 14, title: title);
+    await _openPoint(lat, lon, TapWater.unknown, zoom: 14, title: title);
   }());
 
   /// Opens a list sheet; the chosen item opens after the list has closed (the
@@ -150,7 +150,7 @@ extension _MapSocial on _MapScreenState {
   }
 
   /// A trip from the shortcut starts where the user is; other places are
-  /// chosen by tapping them on the map ("Rủ đi câu ở đây").
+  /// chosen by tapping them on the map ("Rá»§ Ä‘i cÃ¢u á»Ÿ Ä‘Ã¢y").
   Future<void> _createTrip() async {
     final at = _me ?? await _locateQuietly();
     if (at == null || !mounted) return;
@@ -260,7 +260,7 @@ extension _MapSocial on _MapScreenState {
     );
   }
 
-  /// "⋯": every shortcut with a line of explanation.
+  /// "â‹¯": every shortcut with a line of explanation.
   void _openShortcuts(List<MapAction> actions) => unawaited(
     _pickFromSheet<MapAction>(
       (choose) =>

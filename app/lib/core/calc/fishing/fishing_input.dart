@@ -32,7 +32,13 @@ class FishingHourInput {
     this.capeJPerKg,
     this.precipProbPct,
     this.isBestSeason,
+    this.rain24hMm,
   });
+
+  /// Rain over the 24 hours before this hour (mm). Set only for running water
+  /// without tide (streams, rivers far from the sea), where rain runoff drives
+  /// the water (fs-3); null elsewhere.
+  final double? rain24hMm;
 
   final DateTime timeUtc;
 

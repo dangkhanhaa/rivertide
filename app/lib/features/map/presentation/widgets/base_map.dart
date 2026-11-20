@@ -85,8 +85,8 @@ class BaseMapConfig {
   final ({double lat, double lon})? userPosition;
 
   /// Tap or long-press on the map outside a marker (F-MAP-03).
-  /// `surface` says whether the base map draws water at that spot.
-  final void Function(double lat, double lon, PointSurface surface) onMapTap;
+  /// `water` is what the base map draws at that spot (P2-47).
+  final void Function(double lat, double lon, TapWater water) onMapTap;
 
   /// True when a click at this global position belongs to Flutter UI drawn over
   /// the map. On web the platform map also receives clicks on buttons and

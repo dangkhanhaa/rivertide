@@ -2,6 +2,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:rivertide/core/calc/tide/hourly_timeline.dart';
 import 'package:rivertide/core/calc/tide/observation.dart';
 import 'package:rivertide/core/calc/tide/tide_series.dart';
+import 'package:rivertide/features/stations/domain/point_water.dart';
 import 'package:rivertide/features/stations/domain/station.dart';
 
 part 'station_tide.freezed.dart';
@@ -80,6 +81,9 @@ abstract class StationTide with _$StationTide {
 
     /// For a map point: the station whose data stands in for it.
     ReferenceStation? reference,
+
+    /// For a map point: what water it is on and whether the tide reaches it.
+    PointWater? water,
   }) = _StationTide;
 
   const StationTide._();

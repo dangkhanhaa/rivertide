@@ -7,6 +7,7 @@ import 'package:flutter_riverpod/misc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:rivertide/core/calc/geo/haversine.dart';
 import 'package:rivertide/core/calc/geo/vietnam_bounds.dart';
+import 'package:rivertide/core/calc/geo/water_kind.dart';
 import 'package:rivertide/core/clock/clock_provider.dart';
 import 'package:rivertide/core/config/env.dart';
 import 'package:rivertide/core/l10n/l10n_ext.dart';
@@ -48,10 +49,10 @@ part 'map_screen_build_map.dart';
 part 'map_screen_geo.dart';
 part 'map_screen_social.dart';
 
-/// Widest the "Cá ăn lúc" bar gets on tablets and desktop.
+/// Widest the "CÃ¡ Äƒn lÃºc" bar gets on tablets and desktop.
 const double _fishBarMaxWidth = 380;
 
-/// S02 — station map on free OpenFreeMap tiles (FEATURES.md F-MAP-01 → 04).
+/// S02 â€” station map on free OpenFreeMap tiles (FEATURES.md F-MAP-01 â†’ 04).
 class MapScreen extends ConsumerStatefulWidget {
   const MapScreen({super.key});
 
@@ -151,7 +152,7 @@ class _MapScreenState extends ConsumerState<MapScreen> with MapDetailPresenter<M
     if (!mounted) return;
     // A saved map point (from the watch list): fly there and reopen it.
     if (PointId.decode(id) case final p?) {
-      await _openPoint(p.lat, p.lon, PointSurface.unknown, zoom: 12);
+      await _openPoint(p.lat, p.lon, TapWater.unknown, zoom: 12);
       return;
     }
     final stations = await ref.read(stationListProvider.future);
@@ -162,7 +163,7 @@ class _MapScreenState extends ConsumerState<MapScreen> with MapDetailPresenter<M
   Future<void> _openPoint(
     double lat,
     double lon,
-    PointSurface surface, {
+    TapWater water, {
     double? zoom,
     String? title,
   }) async {
@@ -173,6 +174,8 @@ class _MapScreenState extends ConsumerState<MapScreen> with MapDetailPresenter<M
         ..showSnackBar(SnackBar(content: Text(context.l10n.map_outsideVn)));
       return;
     }
+    await _rememberWater(lat, lon, water);
+    if (!mounted) return;
     setState(() => _pin = (lat: lat, lon: lon));
     // Bring the point to the middle of what stays visible beside the details.
     await showDetailAt(
@@ -192,11 +195,8 @@ class _MapScreenState extends ConsumerState<MapScreen> with MapDetailPresenter<M
               label: Text(context.l10n.pond_addHere),
             ),
         ],
-        onWater: switch (surface) {
-          PointSurface.water => true,
-          PointSurface.land => false,
-          PointSurface.unknown => null,
-        },
+        nearby: water.nearby,
+        onPickWater: _openNearby,
       ),
       (offset) async => await _map?.flyTo(lat, lon, zoom: zoom, offset: offset),
     );
@@ -220,14 +220,14 @@ class _MapScreenState extends ConsumerState<MapScreen> with MapDetailPresenter<M
     return p;
   }
 
-  /// [open]: "Đi câu ngay" — also open the place's details and summary.
+  /// [open]: "Äi cÃ¢u ngay" â€” also open the place's details and summary.
   Future<void> _locate({bool open = false}) async {
     final p = await whileMapLocked(() => runLocateFlow(context, ref.read(locationServiceProvider)));
     if (p == null || !mounted) return;
     if (open) {
       setState(() => _me = p);
       releaseMapLock();
-      return await _openPoint(p.lat, p.lon, PointSurface.unknown, zoom: 13);
+      return await _openPoint(p.lat, p.lon, TapWater.unknown, zoom: 13);
     }
     await _showMe(p);
   }

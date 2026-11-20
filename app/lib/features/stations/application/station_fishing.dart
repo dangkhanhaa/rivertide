@@ -28,7 +28,7 @@ class _Day {
 /// Each hour is scored from these instants (fs-2).
 const List<int> _sampleMinutes = [0, 15, 30, 45];
 
-/// Hourly fishing scores (fs-2, PROJECT.md 9.6) for [days] Vietnam days from [fromDayUtc].
+/// Hourly fishing scores (fs-3, PROJECT.md 9.6) for [days] Vietnam days from [fromDayUtc].
 List<FishingHourScore> scoreStationHours({
   required StationTide tide,
   required List<WeatherHour> weather,
@@ -37,15 +37,44 @@ List<FishingHourScore> scoreStationHours({
 }) {
   final byHour = {for (final w in weather) w.timeUtc: w};
   final station = tide.station;
+  final runoff = runsWithoutTide(tide);
   final scores = <FishingHourScore>[];
   for (var d = 0; d < days; d++) {
     final dayStart = fromDayUtc.add(Duration(days: d));
     final day = _dayFor(dayStart, station.lat, station.lon, tide.prediction);
     for (var h = 0; h < 24; h++) {
-      scores.add(_scoreHour(dayStart.add(Duration(hours: h)), tide.prediction, day, byHour));
+      final hour = dayStart.add(Duration(hours: h));
+      scores.add(
+        _scoreHour(
+          hour,
+          tide.prediction,
+          day,
+          byHour,
+          rain24: runoff ? _rain24(byHour, hour) : null,
+        ),
+      );
     }
   }
   return scores;
+}
+
+/// A map point on running water (stream, river) without any tide curve:
+/// rain runoff, not the tide, moves its water (fs-3).
+bool runsWithoutTide(StationTide tide) =>
+    tide.prediction == null && (tide.water?.kind.isFlowing ?? false);
+
+/// Rain over the 24 hours before [hourUtc]; null when fewer than 18 of those
+/// hours are known (the forecast starts one day back).
+double? _rain24(Map<DateTime, WeatherHour> byHour, DateTime hourUtc) {
+  var sum = 0.0;
+  var known = 0;
+  for (var k = 1; k <= 24; k++) {
+    final mm = byHour[hourUtc.subtract(Duration(hours: k))]?.precipitationMm;
+    if (mm == null) continue;
+    sum += mm;
+    known++;
+  }
+  return known >= 18 ? sum : null;
 }
 
 /// One hour's score from tide and astronomy only (no weather): the quick
@@ -61,15 +90,16 @@ FishingHourScore _scoreHour(
   DateTime hourUtc,
   TideSeries? prediction,
   _Day day,
-  Map<DateTime, WeatherHour> weather,
-) {
+  Map<DateTime, WeatherHour> weather, {
+  double? rain24,
+}) {
   // The moon's phase barely moves within an hour: compute it once, not per
   // 15-minute sample (it is the costliest part of a score on slow phones).
   final mid = hourUtc.add(const Duration(minutes: 30));
   final moon = (fraction: moonIllumination(mid).fraction, days: daysFromNewOrFullMoon(mid));
   return scoreHour(hourUtc, [
     for (final m in _sampleMinutes)
-      _input(hourUtc.add(Duration(minutes: m)), hourUtc, prediction, day, weather, moon),
+      _input(hourUtc.add(Duration(minutes: m)), hourUtc, prediction, day, weather, moon, rain24),
   ]);
 }
 
@@ -114,6 +144,7 @@ FishingHourInput _input(
   _Day day,
   Map<DateTime, WeatherHour> weather,
   ({double fraction, double days}) moon,
+  double? rain24,
 ) {
   final w = weather[hourUtc];
   final yesterday = weather[hourUtc.subtract(const Duration(days: 1))];
@@ -145,6 +176,7 @@ FishingHourInput _input(
     weatherCode: w?.weatherCode,
     capeJPerKg: w?.capeJPerKg,
     precipProbPct: w?.precipProbPct,
+    rain24hMm: rain24,
   );
 }
 

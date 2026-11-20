@@ -21,5 +21,6 @@ extension ScoreStyle on BuildContext {
     FishingFactor.temperature => l10n.fishing_factor_temperature,
     FishingFactor.weather => l10n.fishing_factor_weather,
     FishingFactor.season => l10n.fishing_factor_season,
+    FishingFactor.runoff => l10n.fishing_factor_runoff,
   };
 }

@@ -14,6 +14,7 @@ import 'package:rivertide/features/map/presentation/widgets/overlay_layers.dart'
 import 'package:rivertide/features/map/presentation/widgets/pin_images.dart';
 import 'package:rivertide/features/map/presentation/widgets/river_flow_layer.dart';
 import 'package:rivertide/features/map/presentation/widgets/station_layers.dart';
+import 'package:rivertide/features/map/presentation/widgets/water_probe.dart';
 import 'package:rivertide/features/map/presentation/widgets/weather_map_layer.dart';
 
 /// Whole Vietnam incl. Hoàng Sa and Trường Sa on a phone screen.
@@ -77,24 +78,29 @@ class _MapLibreStationMapState extends State<MapLibreStationMap> implements Base
 
   Future<void> _tapped(Point<double> p, LatLng at) async {
     if (_blocked(p)) return;
-    var surface = PointSurface.unknown;
-    final c = _controller;
-    if (c != null && _water.isNotEmpty) {
-      try {
-        final hits = await c.queryRenderedFeaturesInRect(
-          Rect.fromCenter(center: Offset(p.x, p.y), width: 8, height: 8),
-          _water,
-          null,
-        );
-        surface = hits.isEmpty ? PointSurface.land : PointSurface.water;
-      } on Exception catch (e) {
-        log.warn('water query failed', {'type': e.runtimeType.toString()});
-      }
-    }
+    final water = await _waterAt(p, at);
     // The same click may have opened a page meanwhile (web passes clicks on
     // Flutter UI to the map too): check again after the await.
     if (!mounted || _blocked(p)) return;
-    widget.config.onMapTap(at.latitude, at.longitude, surface);
+    widget.config.onMapTap(at.latitude, at.longitude, water);
+  }
+
+  /// Water the base map draws at the tap; for land, the water around it.
+  Future<TapWater> _waterAt(Point<double> p, LatLng at) async {
+    final c = _controller;
+    if (c == null || _water.isEmpty) return TapWater.unknown;
+    try {
+      return await probeWater(
+        c,
+        waterIds: _water,
+        nameIds: waterNameLayerIds(widget.config.styleString),
+        at: Offset(p.x, p.y),
+        position: at,
+      );
+    } on Exception catch (e) {
+      log.warn('water query failed', {'type': e.runtimeType.toString()});
+      return TapWater.unknown;
+    }
   }
 
   @override
