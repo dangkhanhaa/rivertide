@@ -33,6 +33,13 @@ Future<String> deviceSecret(Ref ref) async {
   return fresh;
 }
 
+/// The secret if this device already has one (it has then possibly written
+/// to the server); never creates one.
+Future<String?> storedDeviceSecret(AppDatabase db) async {
+  final stored = await db.readSetting(_secretKey);
+  return stored != null && _secretShape.hasMatch(stored) ? stored : null;
+}
+
 /// Longest display name the server keeps.
 const int displayNameMax = 30;
 

@@ -8,9 +8,10 @@ import 'package:rivertide/core/social/block_author.dart';
 import 'package:rivertide/core/social/social_backend.dart';
 import 'package:rivertide/core/theme/app_colors.dart';
 import 'package:rivertide/core/widgets/ui_kit.dart';
+import 'package:rivertide/features/more/presentation/erase_data_dialogs.dart';
 
 /// Thêm → Pháp lý (P2-57): full terms and privacy policy, the disclaimer,
-/// where to report abuse, and undoing blocks.
+/// where to report abuse, undoing blocks and erasing all of one's data (P2-60).
 class LegalSection extends ConsumerWidget {
   const LegalSection({super.key});
 
@@ -61,6 +62,13 @@ class LegalSection extends ConsumerWidget {
                 subtitle: l10n.block_unblockHint,
                 onTap: () => unawaited(unblockEveryone(context, ref)),
               ),
+            ActionRow(
+              icon: Icons.delete_forever_rounded,
+              color: c.alarm3,
+              title: l10n.erase_action,
+              subtitle: l10n.erase_hint,
+              onTap: () => unawaited(askEraseMyData(context, ref)),
+            ),
           ],
         ),
       ],

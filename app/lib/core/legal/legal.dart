@@ -4,7 +4,10 @@ import 'package:url_launcher/url_launcher.dart';
 /// Terms of use / privacy policy (P2-57). Bump [termsVersion] when the
 /// texts change in a way users must agree to again: everyone then sees the
 /// acceptance screen once more (before any screen, links included).
-const int termsVersion = 1;
+// v2 (P2-60): privacy policy now names the contact phone/Zalo users may
+// type, the display name sent with posts, no cloud backup, and the
+// in-app "Xoá dữ liệu của tôi".
+const int termsVersion = 2;
 
 /// Full texts, served with the web app on GitHub Pages (app/web/*.html).
 const String termsUrl = '${Env.webAppUrl}terms.html';

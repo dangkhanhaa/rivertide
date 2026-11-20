@@ -1,7 +1,37 @@
+import java.util.Properties
+
 plugins {
     id("com.android.application")
     // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
     id("dev.flutter.flutter-gradle-plugin")
+}
+
+// Release signing (P2-60). The upload key lives OUTSIDE the repo; its path and
+// passwords come from app/android/key.properties (git-ignored), written by
+// tools/release/make_upload_key.ps1. Without that file, release builds fall
+// back to the debug key so local `flutter build apk --release` still works —
+// such a build can NOT be uploaded to Google Play.
+val keyPropertiesFile = rootProject.file("key.properties")
+val keyProperties = Properties()
+val hasUploadKey = keyPropertiesFile.exists()
+if (hasUploadKey) {
+    keyPropertiesFile.inputStream().use { keyProperties.load(it) }
+    for (name in listOf("storeFile", "storePassword", "keyAlias", "keyPassword")) {
+        if (keyProperties.getProperty(name).isNullOrBlank()) {
+            throw GradleException("key.properties: '$name' is missing (see docs/release/google-play.md)")
+        }
+    }
+    if (!file(keyProperties.getProperty("storeFile")).exists()) {
+        throw GradleException(
+            "key.properties: keystore not found at ${keyProperties.getProperty("storeFile")}",
+        )
+    }
+} else {
+    logger.warn(
+        "WARNING: app/android/key.properties not found - release build is signed with the " +
+            "DEBUG key. Fine for local testing, NOT accepted by Google Play. " +
+            "Run tools/release/make_upload_key.ps1 once (docs/release/google-play.md).",
+    )
 }
 
 android {
@@ -17,25 +47,37 @@ android {
     }
 
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
+        // Store identity: never change after the first upload to Google Play.
         applicationId = "vn.rivertide.rivertide"
-        // You can update the following values to match your application needs.
-        // For more information, see: https://flutter.dev/to/review-gradle-config.
         minSdk = flutter.minSdkVersion
+        // Flutter 3.47 defaults: compileSdk 36, targetSdk 36 (Android 16),
+        // minSdk 24. Google Play's target API rule rises every August; 36 is
+        // the newest stable level (docs/release/google-play.md, check before upload).
         targetSdk = flutter.targetSdkVersion
-        // Uses the version code from pubspec.yaml. When using split APKs, 1000 * ABI_VERSION
-        // is added automatically by Flutter. (https://developer.android.com/studio/build/configure-apk-splits#configure-APK-versions)
-        // You can force using the value of versionCode by specifying the `-P force-version-code-ignoring-abi=true`
-        // flag during build.
+        // From pubspec.yaml `version: name+code`; bump the +code for every upload.
         versionCode = flutter.versionCode
         versionName = flutter.versionName
     }
 
+    signingConfigs {
+        if (hasUploadKey) {
+            create("release") {
+                storeFile = file(keyProperties.getProperty("storeFile"))
+                storePassword = keyProperties.getProperty("storePassword")
+                keyAlias = keyProperties.getProperty("keyAlias")
+                keyPassword = keyProperties.getProperty("keyPassword")
+            }
+        }
+    }
+
     buildTypes {
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig = signingConfigs.getByName("debug")
+            signingConfig =
+                if (hasUploadKey) {
+                    signingConfigs.getByName("release")
+                } else {
+                    signingConfigs.getByName("debug")
+                }
         }
     }
 }

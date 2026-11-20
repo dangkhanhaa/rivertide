@@ -3,17 +3,33 @@
 <plist version="1.0">
 <dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Dùng vị trí để đưa bản đồ tới chỗ bạn đang đứng. Vị trí chỉ dùng trên máy, không lưu và không gửi đi.</string>
+	<string>Con Nước dùng vị trí của bạn để đưa bản đồ tới chỗ bạn đứng, tìm trạm và hồ câu gần nhất, và tính con nước, thời tiết tại chỗ bạn. Vị trí không bị công khai, trừ khi bạn tự đăng điểm câu, hồ câu hoặc kèo câu.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Con Nước dùng máy ảnh khi bạn chụp ảnh con cá cho nhật ký câu. Ảnh nhật ký chỉ lưu trên máy bạn.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Con Nước mở thư viện ảnh khi bạn chọn ảnh cho nhật ký câu, điểm câu hoặc hồ câu. Chỉ ảnh bạn chọn được dùng; ảnh đăng công khai được xoá thông tin vị trí.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Con Nước lưu ảnh vào thư viện khi bạn chọn "Lưu ảnh" lúc chia sẻ ảnh khoe cá hoặc thẻ con nước.</string>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>Rivertide</string>
+	<string>Con Nước</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<key>CFBundleLocalizations</key>
+	<array>
+		<string>vi</string>
+		<string>en</string>
+		<string>zh</string>
+		<string>ko</string>
+		<string>ja</string>
+	</array>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>

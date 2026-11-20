@@ -441,7 +441,7 @@ abstract class AppLocalizations {
   /// No description provided for @map_locRationaleBody.
   ///
   /// In vi, this message translates to:
-  /// **'App dùng vị trí để đưa bản đồ tới chỗ bạn đang đứng. Vị trí chỉ ở trên máy (nhớ gần đúng ~1 km để lần sau mở nhanh), không gửi đi đâu.'**
+  /// **'App dùng vị trí để đưa bản đồ tới chỗ bạn, tìm trạm, hồ câu gần nhất và lấy con nước, thời tiết tại chỗ bạn. Vị trí được nhớ gần đúng (~1 km) trên máy để lần sau mở nhanh; khi lấy thời tiết chỉ gửi vị trí đã làm tròn, không gắn với bạn và không công khai.'**
   String get map_locRationaleBody;
 
   /// No description provided for @map_locAllow.
@@ -7973,6 +7973,114 @@ abstract class AppLocalizations {
   /// In vi, this message translates to:
   /// **'Thoát ứng dụng'**
   String get onb_exitApp;
+
+  /// No description provided for @erase_action.
+  ///
+  /// In vi, this message translates to:
+  /// **'Xoá dữ liệu của tôi'**
+  String get erase_action;
+
+  /// No description provided for @erase_hint.
+  ///
+  /// In vi, this message translates to:
+  /// **'Xoá mọi thứ bạn đã đăng và mọi dữ liệu app lưu trên máy này'**
+  String get erase_hint;
+
+  /// No description provided for @erase_title.
+  ///
+  /// In vi, this message translates to:
+  /// **'Xoá dữ liệu của bạn?'**
+  String get erase_title;
+
+  /// No description provided for @erase_body.
+  ///
+  /// In vi, this message translates to:
+  /// **'Sẽ xoá vĩnh viễn:\n• Trên máy chủ: điểm câu, bình luận, kèo câu, tin nhắn, lượt \"đang câu\", báo dính cá, đánh giá, báo cáo và lượt chặn bạn đã gửi. Hồ câu đã có người khác xác nhận vẫn được giữ cho cộng đồng nhưng không còn gắn với bạn.\n• Trên máy này: chỗ đã lưu, nhật ký câu, báo thức, cài đặt, tên hiển thị và mã máy.\n\nSau khi xoá, app quay về màn chào như lúc mới cài. Không hoàn tác được.'**
+  String get erase_body;
+
+  /// No description provided for @erase_bodyLocal.
+  ///
+  /// In vi, this message translates to:
+  /// **'Sẽ xoá vĩnh viễn mọi dữ liệu app lưu trên máy này: chỗ đã lưu, nhật ký câu, báo thức, cài đặt và tên hiển thị.\n\nSau khi xoá, app quay về màn chào như lúc mới cài. Không hoàn tác được.'**
+  String get erase_bodyLocal;
+
+  /// No description provided for @erase_continue.
+  ///
+  /// In vi, this message translates to:
+  /// **'Tiếp tục'**
+  String get erase_continue;
+
+  /// No description provided for @erase_title2.
+  ///
+  /// In vi, this message translates to:
+  /// **'Chắc chắn xoá hết?'**
+  String get erase_title2;
+
+  /// No description provided for @erase_word.
+  ///
+  /// In vi, this message translates to:
+  /// **'XOÁ'**
+  String get erase_word;
+
+  /// No description provided for @erase_typeHint.
+  ///
+  /// In vi, this message translates to:
+  /// **'Gõ {word} vào ô dưới đây để xác nhận.'**
+  String erase_typeHint(String word);
+
+  /// No description provided for @erase_confirm.
+  ///
+  /// In vi, this message translates to:
+  /// **'Xoá vĩnh viễn'**
+  String get erase_confirm;
+
+  /// No description provided for @erase_working.
+  ///
+  /// In vi, this message translates to:
+  /// **'Đang xoá dữ liệu…'**
+  String get erase_working;
+
+  /// No description provided for @erase_doneTitle.
+  ///
+  /// In vi, this message translates to:
+  /// **'Đã xoá xong'**
+  String get erase_doneTitle;
+
+  /// No description provided for @erase_doneBody.
+  ///
+  /// In vi, this message translates to:
+  /// **'Dữ liệu của bạn trên máy chủ và trên máy này đã được xoá. App sẽ bắt đầu lại từ màn chào.'**
+  String get erase_doneBody;
+
+  /// No description provided for @erase_failedTitle.
+  ///
+  /// In vi, this message translates to:
+  /// **'Chưa xoá được'**
+  String get erase_failedTitle;
+
+  /// No description provided for @erase_failedServer.
+  ///
+  /// In vi, this message translates to:
+  /// **'Không kết nối được máy chủ nên chưa xoá gì cả, kể cả trên máy này. Kiểm tra mạng rồi thử lại.'**
+  String get erase_failedServer;
+
+  /// No description provided for @erase_failedDevice.
+  ///
+  /// In vi, this message translates to:
+  /// **'Dữ liệu trên máy chủ đã xoá, nhưng một phần dữ liệu trên máy này chưa xoá được. Hãy thử lại; nếu vẫn lỗi, gỡ app sẽ xoá hết.'**
+  String get erase_failedDevice;
+
+  /// No description provided for @alert_unsupported.
+  ///
+  /// In vi, this message translates to:
+  /// **'Báo thức con nước chưa có trên thiết bị này.'**
+  String get alert_unsupported;
+
+  /// No description provided for @pond_followHintPlain.
+  ///
+  /// In vi, this message translates to:
+  /// **'Có lịch xả mới ở hồ này sẽ hiện đầu danh sách.'**
+  String get pond_followHintPlain;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

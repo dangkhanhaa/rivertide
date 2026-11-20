@@ -211,7 +211,7 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get map_locRationaleBody =>
-      'アプリは現在地を使って地図をあなたのいる場所に移動します。位置情報は端末内にのみ保存され（次回すばやく開けるよう約 1 km 単位でおおまかに記憶）、どこにも送信されません。';
+      'アプリは位置情報を使って地図を現在地に移動し、最寄りの観測所や釣り堀を探し、現在地の潮と天気を取得します。次回すばやく開けるよう端末に大まかに（約 1 km）記憶します。天気の取得では丸めた位置だけを送り、あなたとは結び付けず、公開もしません。';
 
   @override
   String get map_locAllow => '許可';
@@ -4421,4 +4421,63 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get onb_exitApp => 'アプリを終了';
+
+  @override
+  String get erase_action => 'データを削除';
+
+  @override
+  String get erase_hint => '投稿したすべての内容と、この端末にアプリが保存したデータをすべて削除します';
+
+  @override
+  String get erase_title => 'データを削除しますか？';
+
+  @override
+  String get erase_body =>
+      '次の内容が完全に削除されます：\n• サーバー：投稿した釣り場、コメント、釣行の誘い、メッセージ、「釣り中」チェックイン、釣果報告、レビュー、通報、ブロック。ほかの人が確認した釣り堀はコミュニティのために残りますが、あなたとの関連はなくなります。\n• この端末：保存した場所、釣り日誌、アラーム、設定、表示名、端末コード。\n\n削除後、アプリはインストール直後と同じようにようこそ画面に戻ります。元に戻すことはできません。';
+
+  @override
+  String get erase_bodyLocal =>
+      'この端末にアプリが保存したデータがすべて完全に削除されます：保存した場所、釣り日誌、アラーム、設定、表示名。\n\n削除後、アプリはインストール直後と同じようにようこそ画面に戻ります。元に戻すことはできません。';
+
+  @override
+  String get erase_continue => '続ける';
+
+  @override
+  String get erase_title2 => '本当にすべて削除しますか？';
+
+  @override
+  String get erase_word => '削除';
+
+  @override
+  String erase_typeHint(String word) {
+    return '確認のため、下に「$word」と入力してください。';
+  }
+
+  @override
+  String get erase_confirm => '完全に削除';
+
+  @override
+  String get erase_working => 'データを削除しています…';
+
+  @override
+  String get erase_doneTitle => '削除しました';
+
+  @override
+  String get erase_doneBody => 'サーバーとこの端末のデータを削除しました。アプリはようこそ画面から再び始まります。';
+
+  @override
+  String get erase_failedTitle => 'まだ削除されていません';
+
+  @override
+  String get erase_failedServer => 'サーバーに接続できなかったため、この端末を含め何も削除していません。接続を確認してもう一度お試しください。';
+
+  @override
+  String get erase_failedDevice =>
+      'サーバーのデータは削除しましたが、この端末の一部のデータを削除できませんでした。もう一度お試しください。それでも失敗する場合は、アプリをアンインストールすると残りも消えます。';
+
+  @override
+  String get alert_unsupported => 'この端末では潮のアラームはまだ使えません。';
+
+  @override
+  String get pond_followHintPlain => 'この釣り堀に新しい放流があると一覧の先頭に表示されます。';
 }

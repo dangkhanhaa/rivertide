@@ -4,6 +4,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rivertide/core/calc/tide/flood_out.dart';
+import 'package:rivertide/core/config/env.dart';
 import 'package:rivertide/core/db/app_database.dart';
 import 'package:rivertide/core/format/level_format.dart';
 import 'package:rivertide/core/format/time_format.dart';
@@ -119,7 +120,11 @@ class _FloodOutSheetState extends ConsumerState<FloodOutSheet> {
     }
     final at = flood?.subtract(floodLeaveBefore);
     if (flood == null || at == null || !at.isAfter(now)) return const SizedBox.shrink();
-    if (!FloodAlarm.supported) return Text(l10n.flood_alarmApk, style: context.text.caption);
+    if (!FloodAlarm.supported) {
+      return Env.showsApkLinks
+          ? Text(l10n.flood_alarmApk, style: context.text.caption)
+          : const SizedBox.shrink();
+    }
     return FilledButton.icon(
       onPressed: () async {
         final ok = await FloodAlarm.set(

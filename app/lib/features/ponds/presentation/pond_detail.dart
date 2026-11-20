@@ -2,11 +2,13 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:rivertide/core/config/env.dart';
 import 'package:rivertide/core/format/level_format.dart';
 import 'package:rivertide/core/l10n/l10n_ext.dart';
 import 'package:rivertide/core/theme/app_colors.dart';
 import 'package:rivertide/core/theme/app_spacing.dart';
 import 'package:rivertide/core/theme/app_text.dart';
+import 'package:rivertide/features/alerts/alerts.dart';
 import 'package:rivertide/features/ponds/application/ponds_providers.dart';
 import 'package:rivertide/features/ponds/domain/pond.dart';
 import 'package:rivertide/features/ponds/presentation/pond_actions.dart';
@@ -102,7 +104,9 @@ class _MainActions extends ConsumerWidget {
             label: Text(l10n.pond_zalo),
           ),
         Tooltip(
-          message: l10n.pond_followHint,
+          message: Env.showsApkLinks || alertsSupported
+              ? l10n.pond_followHint
+              : l10n.pond_followHintPlain,
           child: followed
               ? FilledButton.icon(
                   onPressed: () => unawaited(

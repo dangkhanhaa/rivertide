@@ -211,7 +211,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get map_locRationaleBody =>
-      'App dùng vị trí để đưa bản đồ tới chỗ bạn đang đứng. Vị trí chỉ ở trên máy (nhớ gần đúng ~1 km để lần sau mở nhanh), không gửi đi đâu.';
+      'App dùng vị trí để đưa bản đồ tới chỗ bạn, tìm trạm, hồ câu gần nhất và lấy con nước, thời tiết tại chỗ bạn. Vị trí được nhớ gần đúng (~1 km) trên máy để lần sau mở nhanh; khi lấy thời tiết chỉ gửi vị trí đã làm tròn, không gắn với bạn và không công khai.';
 
   @override
   String get map_locAllow => 'Cho phép';
@@ -4516,4 +4516,65 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get onb_exitApp => 'Thoát ứng dụng';
+
+  @override
+  String get erase_action => 'Xoá dữ liệu của tôi';
+
+  @override
+  String get erase_hint => 'Xoá mọi thứ bạn đã đăng và mọi dữ liệu app lưu trên máy này';
+
+  @override
+  String get erase_title => 'Xoá dữ liệu của bạn?';
+
+  @override
+  String get erase_body =>
+      'Sẽ xoá vĩnh viễn:\n• Trên máy chủ: điểm câu, bình luận, kèo câu, tin nhắn, lượt \"đang câu\", báo dính cá, đánh giá, báo cáo và lượt chặn bạn đã gửi. Hồ câu đã có người khác xác nhận vẫn được giữ cho cộng đồng nhưng không còn gắn với bạn.\n• Trên máy này: chỗ đã lưu, nhật ký câu, báo thức, cài đặt, tên hiển thị và mã máy.\n\nSau khi xoá, app quay về màn chào như lúc mới cài. Không hoàn tác được.';
+
+  @override
+  String get erase_bodyLocal =>
+      'Sẽ xoá vĩnh viễn mọi dữ liệu app lưu trên máy này: chỗ đã lưu, nhật ký câu, báo thức, cài đặt và tên hiển thị.\n\nSau khi xoá, app quay về màn chào như lúc mới cài. Không hoàn tác được.';
+
+  @override
+  String get erase_continue => 'Tiếp tục';
+
+  @override
+  String get erase_title2 => 'Chắc chắn xoá hết?';
+
+  @override
+  String get erase_word => 'XOÁ';
+
+  @override
+  String erase_typeHint(String word) {
+    return 'Gõ $word vào ô dưới đây để xác nhận.';
+  }
+
+  @override
+  String get erase_confirm => 'Xoá vĩnh viễn';
+
+  @override
+  String get erase_working => 'Đang xoá dữ liệu…';
+
+  @override
+  String get erase_doneTitle => 'Đã xoá xong';
+
+  @override
+  String get erase_doneBody =>
+      'Dữ liệu của bạn trên máy chủ và trên máy này đã được xoá. App sẽ bắt đầu lại từ màn chào.';
+
+  @override
+  String get erase_failedTitle => 'Chưa xoá được';
+
+  @override
+  String get erase_failedServer =>
+      'Không kết nối được máy chủ nên chưa xoá gì cả, kể cả trên máy này. Kiểm tra mạng rồi thử lại.';
+
+  @override
+  String get erase_failedDevice =>
+      'Dữ liệu trên máy chủ đã xoá, nhưng một phần dữ liệu trên máy này chưa xoá được. Hãy thử lại; nếu vẫn lỗi, gỡ app sẽ xoá hết.';
+
+  @override
+  String get alert_unsupported => 'Báo thức con nước chưa có trên thiết bị này.';
+
+  @override
+  String get pond_followHintPlain => 'Có lịch xả mới ở hồ này sẽ hiện đầu danh sách.';
 }
