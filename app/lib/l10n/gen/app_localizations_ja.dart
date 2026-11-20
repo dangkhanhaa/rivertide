@@ -3669,7 +3669,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get onb_welcomeCommunity => 'コミュニティの釣り堀・ポイント・釣行';
 
   @override
-  String get onb_welcomeTime => '1分以内で完了 · いつでもスキップできます';
+  String get onb_welcomeTime => '1分以内で完了 · 規約以外の各ステップはスキップできます';
 
   @override
   String get onb_langTitle => '言語を選択';

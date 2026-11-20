@@ -6615,7 +6615,7 @@ abstract class AppLocalizations {
   /// No description provided for @onb_welcomeTime.
   ///
   /// In vi, this message translates to:
-  /// **'Thiết lập chưa tới 1 phút · bỏ qua lúc nào cũng được'**
+  /// **'Thiết lập chưa tới 1 phút · bước nào cũng bỏ qua được, trừ điều khoản'**
   String get onb_welcomeTime;
 
   /// No description provided for @onb_langTitle.

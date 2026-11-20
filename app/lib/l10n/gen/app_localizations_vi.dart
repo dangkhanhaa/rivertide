@@ -3742,7 +3742,8 @@ class AppLocalizationsVi extends AppLocalizations {
   String get onb_welcomeCommunity => 'Hồ câu, điểm câu và kèo câu cộng đồng';
 
   @override
-  String get onb_welcomeTime => 'Thiết lập chưa tới 1 phút · bỏ qua lúc nào cũng được';
+  String get onb_welcomeTime =>
+      'Thiết lập chưa tới 1 phút · bước nào cũng bỏ qua được, trừ điều khoản';
 
   @override
   String get onb_langTitle => 'Chọn ngôn ngữ';

@@ -3663,7 +3663,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get onb_welcomeCommunity => '社区分享的鱼塘、钓点和约钓';
 
   @override
-  String get onb_welcomeTime => '不到 1 分钟即可完成 · 随时可跳过';
+  String get onb_welcomeTime => '不到 1 分钟即可完成 · 除条款外每步都可跳过';
 
   @override
   String get onb_langTitle => '选择语言';

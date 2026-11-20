@@ -3673,7 +3673,7 @@ class AppLocalizationsKo extends AppLocalizations {
   String get onb_welcomeCommunity => '커뮤니티의 낚시터, 포인트, 출조 모임';
 
   @override
-  String get onb_welcomeTime => '1분이면 끝나요 · 언제든 건너뛸 수 있어요';
+  String get onb_welcomeTime => '1분이면 끝나요 · 약관 외 모든 단계는 건너뛸 수 있어요';
 
   @override
   String get onb_langTitle => '언어 선택';

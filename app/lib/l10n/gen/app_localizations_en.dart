@@ -3799,7 +3799,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get onb_welcomeCommunity => 'Ponds, spots and fishing trips from the community';
 
   @override
-  String get onb_welcomeTime => 'Takes under a minute · skip any time';
+  String get onb_welcomeTime => 'Takes under a minute · every step but the terms can be skipped';
 
   @override
   String get onb_langTitle => 'Choose a language';
