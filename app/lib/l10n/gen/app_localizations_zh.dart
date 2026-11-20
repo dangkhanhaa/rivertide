@@ -211,7 +211,7 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get map_locRationaleBody =>
-      '应用使用位置将地图移到您所在的地方。位置只保存在本机（大致记住约 1 km 范围，以便下次更快打开），不会发送到任何地方。';
+      '应用使用你的位置将地图移到你所在处，查找最近的站点和钓场，并获取你所在地的潮汐和天气。位置会在本机大致记住（约 1 公里），以便下次更快打开；查询天气时只发送取整后的位置，不与你关联，也不会公开。';
 
   @override
   String get map_locAllow => '允许';
@@ -4413,4 +4413,62 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get onb_exitApp => '退出应用';
+
+  @override
+  String get erase_action => '删除我的数据';
+
+  @override
+  String get erase_hint => '删除你发布的所有内容以及应用在本机保存的所有数据';
+
+  @override
+  String get erase_title => '删除你的数据？';
+
+  @override
+  String get erase_body =>
+      '将永久删除：\n• 服务器上：你发布的钓点、评论、约钓、消息、“正在钓鱼”签到、咬钩报告、评价、举报和屏蔽记录。已有他人确认的鱼塘会为社区保留，但不再与你关联。\n• 本机上：收藏的地点、钓鱼日志、提醒、设置、显示名称和设备代码。\n\n删除后，应用将回到欢迎页面，如同刚安装。此操作无法撤销。';
+
+  @override
+  String get erase_bodyLocal =>
+      '将永久删除应用在本机保存的所有数据：收藏的地点、钓鱼日志、提醒、设置和显示名称。\n\n删除后，应用将回到欢迎页面，如同刚安装。此操作无法撤销。';
+
+  @override
+  String get erase_continue => '继续';
+
+  @override
+  String get erase_title2 => '确定全部删除？';
+
+  @override
+  String get erase_word => '删除';
+
+  @override
+  String erase_typeHint(String word) {
+    return '在下方输入“$word”以确认。';
+  }
+
+  @override
+  String get erase_confirm => '永久删除';
+
+  @override
+  String get erase_working => '正在删除数据…';
+
+  @override
+  String get erase_doneTitle => '已删除';
+
+  @override
+  String get erase_doneBody => '你在服务器和本机上的数据已删除。应用将从欢迎页面重新开始。';
+
+  @override
+  String get erase_failedTitle => '尚未删除';
+
+  @override
+  String get erase_failedServer => '无法连接服务器，因此没有删除任何数据（包括本机）。请检查网络后重试。';
+
+  @override
+  String get erase_failedDevice => '服务器上的数据已删除，但本机上的部分数据未能删除。请重试；如仍失败，卸载应用即可清除其余数据。';
+
+  @override
+  String get alert_unsupported => '此设备暂不支持潮汐提醒。';
+
+  @override
+  String get pond_followHintPlain => '此钓场有新放鱼时会显示在列表顶部。';
 }

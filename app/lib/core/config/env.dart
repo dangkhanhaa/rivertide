@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart' show kIsWeb;
+
 /// Build-time configuration from `--dart-define=ENV=<env>`.
 ///
 /// V0 has no server and no secrets: the base map (OpenFreeMap) needs no key.
@@ -16,6 +18,12 @@ abstract final class Env {
 
   /// Android app file published next to the web app (sideload, no store).
   static const String apkUrl = '${webAppUrl}con-nuoc.apk';
+
+  /// The APK download and "Android app has alarms" hints are for the web
+  /// build only: a store build must not send people to another platform or
+  /// to an install outside the store (App Store 2.3.10; Google Play device
+  /// and network abuse policy) (P2-60).
+  static bool get showsApkLinks => kIsWeb;
 
   /// Supabase project for community spots (P2-19). The anon key is public by
   /// design (access is limited by RLS); the service_role key never ships.

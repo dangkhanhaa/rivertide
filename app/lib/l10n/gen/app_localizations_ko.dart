@@ -211,7 +211,7 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get map_locRationaleBody =>
-      '앱은 위치를 사용해 지도를 지금 계신 곳으로 옮겨요. 위치는 기기에만 저장되며(다음에 빨리 열리도록 약 1 km 단위로 대략 기억), 어디에도 전송되지 않아요.';
+      '앱은 위치를 사용해 지도를 내 위치로 옮기고, 가까운 관측소와 낚시터를 찾고, 현재 위치의 물때와 날씨를 가져옵니다. 위치는 다음에 빨리 열리도록 기기에 대략(~1km) 저장되며, 날씨를 가져올 때는 반올림한 위치만 보내고 나와 연결되지 않으며 공개되지 않습니다.';
 
   @override
   String get map_locAllow => '허용';
@@ -4427,4 +4427,63 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get onb_exitApp => '앱 종료';
+
+  @override
+  String get erase_action => '내 데이터 삭제';
+
+  @override
+  String get erase_hint => '올린 모든 내용과 이 기기에 저장된 앱 데이터를 모두 삭제합니다';
+
+  @override
+  String get erase_title => '데이터를 삭제할까요?';
+
+  @override
+  String get erase_body =>
+      '다음 항목이 영구 삭제됩니다:\n• 서버: 내가 올린 낚시 포인트, 댓글, 출조 모임, 메시지, \"낚시 중\" 체크인, 입질 보고, 리뷰, 신고 및 차단 기록. 다른 사람이 확인한 낚시터는 커뮤니티를 위해 남지만 더 이상 나와 연결되지 않습니다.\n• 이 기기: 저장한 장소, 조행 일지, 알림, 설정, 표시 이름, 기기 코드.\n\n삭제 후 앱은 새로 설치한 것처럼 시작 화면으로 돌아갑니다. 되돌릴 수 없습니다.';
+
+  @override
+  String get erase_bodyLocal =>
+      '이 기기에 저장된 앱 데이터가 모두 영구 삭제됩니다: 저장한 장소, 조행 일지, 알림, 설정, 표시 이름.\n\n삭제 후 앱은 새로 설치한 것처럼 시작 화면으로 돌아갑니다. 되돌릴 수 없습니다.';
+
+  @override
+  String get erase_continue => '계속';
+
+  @override
+  String get erase_title2 => '정말 모두 삭제할까요?';
+
+  @override
+  String get erase_word => '삭제';
+
+  @override
+  String erase_typeHint(String word) {
+    return '확인하려면 아래에 $word를 입력하세요.';
+  }
+
+  @override
+  String get erase_confirm => '영구 삭제';
+
+  @override
+  String get erase_working => '데이터 삭제 중…';
+
+  @override
+  String get erase_doneTitle => '삭제 완료';
+
+  @override
+  String get erase_doneBody => '서버와 이 기기의 데이터가 삭제되었습니다. 앱이 시작 화면부터 다시 시작됩니다.';
+
+  @override
+  String get erase_failedTitle => '아직 삭제되지 않음';
+
+  @override
+  String get erase_failedServer => '서버에 연결할 수 없어 이 기기를 포함해 아무것도 삭제하지 않았습니다. 네트워크를 확인한 뒤 다시 시도하세요.';
+
+  @override
+  String get erase_failedDevice =>
+      '서버의 데이터는 삭제되었지만 이 기기의 일부 데이터를 삭제하지 못했습니다. 다시 시도하세요. 계속 실패하면 앱을 삭제하면 나머지도 지워집니다.';
+
+  @override
+  String get alert_unsupported => '이 기기에서는 아직 물때 알람을 사용할 수 없어요.';
+
+  @override
+  String get pond_followHintPlain => '이 낚시터에 새 방류 일정이 생기면 목록 맨 위에 표시돼요.';
 }

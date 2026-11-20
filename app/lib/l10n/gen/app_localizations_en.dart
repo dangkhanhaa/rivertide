@@ -211,7 +211,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get map_locRationaleBody =>
-      'The app uses your location to center the map on where you are. It stays on your device (remembered roughly to ~1 km so it opens faster next time) and is never sent anywhere.';
+      'The app uses your location to center the map, find the nearest stations and ponds, and get tides and weather where you are. It is remembered roughly (~1 km) on your device so the app opens faster; weather lookups send only a rounded position, not linked to you and never made public.';
 
   @override
   String get map_locAllow => 'Allow';
@@ -4574,4 +4574,66 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get onb_exitApp => 'Exit the app';
+
+  @override
+  String get erase_action => 'Delete my data';
+
+  @override
+  String get erase_hint =>
+      'Delete everything you posted and everything the app keeps on this device';
+
+  @override
+  String get erase_title => 'Delete your data?';
+
+  @override
+  String get erase_body =>
+      'This permanently deletes:\n• On the server: your spots, comments, trips, messages, \"fishing here\" check-ins, bite reports, reviews, reports and blocks. Ponds that others have confirmed stay for the community but are no longer linked to you.\n• On this device: saved places, fishing log, alarms, settings, display name and device code.\n\nAfterwards the app returns to the welcome screen, as on a fresh install. This cannot be undone.';
+
+  @override
+  String get erase_bodyLocal =>
+      'This permanently deletes everything the app keeps on this device: saved places, fishing log, alarms, settings and display name.\n\nAfterwards the app returns to the welcome screen, as on a fresh install. This cannot be undone.';
+
+  @override
+  String get erase_continue => 'Continue';
+
+  @override
+  String get erase_title2 => 'Delete everything?';
+
+  @override
+  String get erase_word => 'DELETE';
+
+  @override
+  String erase_typeHint(String word) {
+    return 'Type $word below to confirm.';
+  }
+
+  @override
+  String get erase_confirm => 'Delete forever';
+
+  @override
+  String get erase_working => 'Deleting your data…';
+
+  @override
+  String get erase_doneTitle => 'Deleted';
+
+  @override
+  String get erase_doneBody =>
+      'Your data on the server and on this device has been deleted. The app will start again from the welcome screen.';
+
+  @override
+  String get erase_failedTitle => 'Not deleted yet';
+
+  @override
+  String get erase_failedServer =>
+      'The server could not be reached, so nothing was deleted, not even on this device. Check your connection and try again.';
+
+  @override
+  String get erase_failedDevice =>
+      'Your data on the server is deleted, but some data on this device could not be. Try again; if it still fails, uninstalling the app removes the rest.';
+
+  @override
+  String get alert_unsupported => 'Tide alarms are not available on this device yet.';
+
+  @override
+  String get pond_followHintPlain => 'New stocking at this pond will show at the top of the list.';
 }

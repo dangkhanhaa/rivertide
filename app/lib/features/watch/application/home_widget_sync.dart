@@ -70,6 +70,17 @@ Future<void> syncHomeWidget(WidgetRef ref) async {
   }
 }
 
+/// Empties the home-screen widget ("Xoá dữ liệu của tôi", P2-60). No-op
+/// outside Android.
+Future<void> clearHomeWidget() async {
+  if (kIsWeb || defaultTargetPlatform != TargetPlatform.android) return;
+  try {
+    await _clear();
+  } on PlatformException catch (e) {
+    log.info('home widget unavailable', {'error': '$e'});
+  }
+}
+
 Future<void> _clear() async {
   for (final k in ['place', 'levels', 'extremes', 'fish', 'golden']) {
     await HomeWidget.saveWidgetData<String>(k, null);

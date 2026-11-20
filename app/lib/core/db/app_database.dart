@@ -160,6 +160,14 @@ class AppDatabase extends _$AppDatabase {
       into(settings)
           .insertOnConflictUpdate(SettingsCompanion.insert(settingKey: key, settingValue: value));
 
+  /// "Xoá dữ liệu của tôi" (P2-60): every row of every table, including the
+  /// device secret and the terms acceptance (both are settings).
+  Future<void> wipeAll() => transaction(() async {
+    for (final table in allTables) {
+      await delete(table).go();
+    }
+  });
+
   /// True when this install already holds settings or favourites: someone
   /// updating from a version without the welcome flow (P2-53), not a newcomer.
   Future<bool> hasUserData() async =>

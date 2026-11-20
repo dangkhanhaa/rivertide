@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:rivertide/core/config/env.dart';
 import 'package:rivertide/core/l10n/l10n_ext.dart';
 import 'package:rivertide/core/theme/app_colors.dart';
 import 'package:rivertide/core/theme/app_spacing.dart';
@@ -80,7 +81,12 @@ class _NotifyCardState extends ConsumerState<_NotifyCard> {
       return OnbCard(
         icon: Icons.notifications_active_rounded,
         title: l10n.onb_notifyTitle,
-        children: [Text(l10n.alert_webOnly, style: context.text.body)],
+        children: [
+          Text(
+            Env.showsApkLinks ? l10n.alert_webOnly : l10n.alert_unsupported,
+            style: context.text.body,
+          ),
+        ],
       );
     }
     final on = watchAlertChoices(ref);

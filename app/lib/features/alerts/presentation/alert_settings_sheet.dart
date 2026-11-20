@@ -51,7 +51,9 @@ class _AlertSettingsSheet extends ConsumerWidget {
           spacing: AppSpacing.sm,
           children: [
             Text(l10n.alert_settings, style: context.text.title),
-            if (!AlertNotifier.supported) ...[
+            if (!AlertNotifier.supported && !Env.showsApkLinks)
+              Text(l10n.alert_unsupported, style: context.text.body)
+            else if (!AlertNotifier.supported) ...[
               Text(l10n.alert_webOnly, style: context.text.body),
               FilledButton.icon(
                 icon: const Icon(Icons.android_rounded),

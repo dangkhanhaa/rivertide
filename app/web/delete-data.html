@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>Xoá dữ liệu – Con Nước</title>
+  <style>
+    :root { --bg: #f4f6fa; --card: #fff; --text: #14212b; --muted: #52606d; --accent: #0a7cc1; --line: #dfe5ec; }
+    @media (prefers-color-scheme: dark) {
+      :root { --bg: #0a1118; --card: #111a23; --text: #e6edf2; --muted: #a9b6c2; --accent: #5cc4ff; --line: #233140; }
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+    main { max-width: 760px; margin: 0 auto; padding: 24px 16px 64px; }
+    h1 { font-size: 1.6rem; line-height: 1.25; margin: 0 0 4px; }
+    h2 { font-size: 1.15rem; margin: 32px 0 8px; }
+    p, li { margin: 8px 0; }
+    ul, ol { padding-left: 22px; }
+    a { color: var(--accent); }
+    .meta { color: var(--muted); font-size: .9rem; }
+    .card { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 16px; margin: 16px 0; }
+    nav a { margin-right: 16px; }
+  </style>
+</head>
+<body>
+<main>
+  <nav class="meta"><a href="./">Mở app Con Nước</a><a href="privacy.html">Chính sách quyền riêng tư</a><a href="terms.html">Điều khoản sử dụng</a></nav>
+  <h1>Xoá dữ liệu của bạn</h1>
+  <p class="meta">Ứng dụng Con Nước (RiverTide) · Cập nhật ngày 20/11/2026</p>
+
+  <div class="card">
+    <strong>Tóm tắt.</strong> Con Nước không có tài khoản. Bạn tự xoá được mọi dữ liệu ngay trong app, không cần hỏi ai.
+    Nếu đã gỡ app hoặc mất máy, hãy gửi yêu cầu cho chúng tôi theo hướng dẫn bên dưới.
+  </div>
+
+  <h2>1. Xoá ngay trong app</h2>
+  <ol>
+    <li>Mở app Con Nước, vào tab <strong>Thêm</strong>.</li>
+    <li>Trong mục <strong>Pháp lý</strong>, bấm <strong>Xoá dữ liệu của tôi</strong>.</li>
+    <li>Đọc danh sách những gì sẽ bị xoá, bấm <strong>Tiếp tục</strong>.</li>
+    <li>Gõ chữ <strong>XOÁ</strong> rồi bấm <strong>Xoá vĩnh viễn</strong>.</li>
+  </ol>
+  <p>Việc xoá diễn ra ngay lập tức. Sau đó app quay về màn chào như lúc mới cài.</p>
+
+  <h2>2. Những gì bị xoá</h2>
+  <ul>
+    <li><strong>Trên máy chủ:</strong> điểm câu, ảnh, bình luận, kèo câu, tin nhắn trong kèo, lượt "Đang câu", báo dính cá,
+      lịch xả cá, đánh giá hồ, yêu cầu nhận chủ hồ (kèm số điện thoại), báo cáo, lượt chặn và dữ liệu chống spam gắn với
+      máy của bạn.</li>
+    <li><strong>Trên máy bạn:</strong> nhật ký câu, nơi theo dõi, báo thức, widget, cài đặt, tên hiển thị và mã máy.</li>
+  </ul>
+
+  <h2>3. Những gì được giữ lại</h2>
+  <ul>
+    <li><strong>Hồ câu bạn thêm mà người khác đã xác nhận hoặc đánh giá:</strong> thông tin về hồ (tên, địa chỉ, giá…) được
+      giữ cho cộng đồng nhưng không còn gắn với bạn. Hồ chỉ mình bạn đóng góp thì bị xoá hẳn.</li>
+    <li><strong>Lịch sử sửa hồ câu:</strong> giữ lại nhưng xoá liên kết tới máy bạn.</li>
+    <li><strong>Kết quả xử lý vi phạm đã có</strong> (nội dung đã bị ẩn vì nhiều người báo cáo) vẫn giữ nguyên.</li>
+    <li><strong>Tệp ảnh trên máy chủ</strong> không còn được liên kết từ đâu và được dọn định kỳ.</li>
+    <li><strong>Dữ liệu chống spam theo địa chỉ IP</strong> (chỉ lưu dạng mã hoá một chiều) tự xoá sau tối đa 7 ngày.</li>
+  </ul>
+
+  <h2>4. Đã gỡ app hoặc mất máy?</h2>
+  <p>Vì không có tài khoản, chỉ chiếc máy đã đăng mới chứng minh được nội dung là của bạn. Khi máy đó không còn, hãy gửi
+    yêu cầu tại <a href="https://github.com/dangkhanhaa/rivertide/issues">github.com/dangkhanhaa/rivertide/issues</a>,
+    ghi rõ nội dung cần xoá (tên điểm câu, hồ câu, kèo câu, nơi và thời gian đăng). Chúng tôi xem xét và xoá trong thời hạn
+    pháp luật quy định.</p>
+  <p>Nội dung trên GitHub là công khai: <strong>đừng</strong> ghi số điện thoại, địa chỉ nhà hay thông tin cá nhân nhạy cảm
+    vào yêu cầu.</p>
+  <p>Dữ liệu chỉ nằm trên máy (nhật ký câu, cài đặt) đã mất cùng app khi bạn gỡ app hoặc xoá dữ liệu trang web; chúng tôi
+    không có bản sao nào của chúng.</p>
+
+  <h2>5. Liên hệ</h2>
+  <p><a href="https://github.com/dangkhanhaa/rivertide/issues">github.com/dangkhanhaa/rivertide/issues</a></p>
+</main>
+</body>
+</html>
