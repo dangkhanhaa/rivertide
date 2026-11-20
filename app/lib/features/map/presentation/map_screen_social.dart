@@ -127,7 +127,7 @@ extension _MapSocial on _MapScreenState {
   /// From a spot, trip or bubble to the water level / fishing sheet there.
   void _viewWater(double lat, double lon, String? title) => unawaited(() async {
     await dismissDetail();
-    await _openPoint(lat, lon, PointSurface.unknown, zoom: 14, title: title);
+    await _openPoint(lat, lon, TapWater.unknown, zoom: 14, title: title);
   }());
 
   /// Opens a list sheet; the chosen item opens after the list has closed (the
@@ -260,7 +260,7 @@ extension _MapSocial on _MapScreenState {
     );
   }
 
-  /// "⋯": every shortcut with a line of explanation.
+  /// "â‹¯": every shortcut with a line of explanation.
   void _openShortcuts(List<MapAction> actions) => unawaited(
     _pickFromSheet<MapAction>(
       (choose) =>

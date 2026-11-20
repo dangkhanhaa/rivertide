@@ -15,11 +15,15 @@ import 'package:rivertide/features/stations/data/marine_series.dart';
 import 'package:rivertide/features/stations/data/observation_store.dart';
 import 'package:rivertide/features/stations/data/open_meteo_parser.dart';
 import 'package:rivertide/features/stations/data/point_tide_source.dart';
+import 'package:rivertide/features/stations/data/point_water_assessor.dart';
+import 'package:rivertide/features/stations/data/point_water_data.dart';
 import 'package:rivertide/features/stations/data/remote_sources.dart';
 import 'package:rivertide/features/stations/data/river_tide_source.dart';
 import 'package:rivertide/features/stations/data/rivers_parser.dart';
 import 'package:rivertide/features/stations/data/tide_asset_parser.dart';
+import 'package:rivertide/features/stations/data/water_hint_store.dart';
 import 'package:rivertide/features/stations/domain/point_id.dart';
+import 'package:rivertide/features/stations/domain/point_water.dart';
 import 'package:rivertide/features/stations/domain/river_flow.dart';
 import 'package:rivertide/features/stations/domain/station.dart';
 import 'package:rivertide/features/stations/domain/station_repository.dart';
@@ -42,12 +46,23 @@ class StationRepositoryImpl implements StationRepository {
       loadAsset: _loadAsset,
       clock: clock,
     );
+    _water = PointWaterData(
+      remote: remote,
+      fetcher: _fetcher,
+      hints: WaterHintStore(db),
+      loadAsset: _loadAsset,
+    );
     _points = PointTideSource(
       catalog: getAll,
       sea: _pointSea,
       river: _river.tide,
       rivers: getRivers,
       reach: _river.reachTide,
+      water: PointWaterAssessor(
+        hint: _water.hint,
+        seaKm: _water.seaKm,
+        elevation: _water.elevationM,
+      ),
       clock: clock,
     );
   }
@@ -58,8 +73,18 @@ class StationRepositoryImpl implements StationRepository {
   final ObservationStore _observations;
   final CachedFetcher _fetcher;
   late final RiverTideSource _river;
+  late final PointWaterData _water;
   late final PointTideSource _points;
   List<Station>? _catalog;
+
+  @override
+  Future<WaterHint?> waterHint(String pointId) => _water.hint(pointId);
+
+  @override
+  Future<void> saveWaterHint(String pointId, WaterHint hint) => _water.saveHint(pointId, hint);
+
+  @override
+  Future<PointSurroundings?> surroundings(Station point) => _water.surroundings(point);
 
   @override
   Future<List<Station>> getAll() async => _catalog ??= await _readCatalog();

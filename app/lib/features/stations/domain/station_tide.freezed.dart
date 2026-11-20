@@ -874,7 +874,8 @@ mixin _$StationTide {
  Station get station; List<WaterObservation> get observations; LevelDataKind get predictionKind; TideSeries? get prediction; TideModelInfo? get model;/// False when nudging the forecast toward the last observation makes it worse
 /// (river backtest: 11,3 cm with vs 8,9 cm without).
  bool get correctWithObservations; DailyExtremes? get dailyExtremes;/// For a map point: the station whose data stands in for it.
- ReferenceStation? get reference;
+ ReferenceStation? get reference;/// For a map point: what water it is on and whether the tide reaches it.
+ PointWater? get water;
 /// Create a copy of StationTide
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -886,20 +887,20 @@ $StationTideCopyWith<StationTide> get copyWith => _$StationTideCopyWithImpl<Stat
 @override
 bool operator ==(Object other) {
   final _this = this as StationTide;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is StationTide&&(identical(other.station, _this.station) || other.station == _this.station)&&const DeepCollectionEquality().equals(other.observations, _this.observations)&&(identical(other.predictionKind, _this.predictionKind) || other.predictionKind == _this.predictionKind)&&(identical(other.prediction, _this.prediction) || other.prediction == _this.prediction)&&(identical(other.model, _this.model) || other.model == _this.model)&&(identical(other.correctWithObservations, _this.correctWithObservations) || other.correctWithObservations == _this.correctWithObservations)&&(identical(other.dailyExtremes, _this.dailyExtremes) || other.dailyExtremes == _this.dailyExtremes)&&(identical(other.reference, _this.reference) || other.reference == _this.reference));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is StationTide&&(identical(other.station, _this.station) || other.station == _this.station)&&const DeepCollectionEquality().equals(other.observations, _this.observations)&&(identical(other.predictionKind, _this.predictionKind) || other.predictionKind == _this.predictionKind)&&(identical(other.prediction, _this.prediction) || other.prediction == _this.prediction)&&(identical(other.model, _this.model) || other.model == _this.model)&&(identical(other.correctWithObservations, _this.correctWithObservations) || other.correctWithObservations == _this.correctWithObservations)&&(identical(other.dailyExtremes, _this.dailyExtremes) || other.dailyExtremes == _this.dailyExtremes)&&(identical(other.reference, _this.reference) || other.reference == _this.reference)&&(identical(other.water, _this.water) || other.water == _this.water));
 }
 
 
 @override
 int get hashCode {
   final _this = this as StationTide;
-  return Object.hash(runtimeType,_this.station,const DeepCollectionEquality().hash(_this.observations),_this.predictionKind,_this.prediction,_this.model,_this.correctWithObservations,_this.dailyExtremes,_this.reference);
+  return Object.hash(runtimeType,_this.station,const DeepCollectionEquality().hash(_this.observations),_this.predictionKind,_this.prediction,_this.model,_this.correctWithObservations,_this.dailyExtremes,_this.reference,_this.water);
 }
 
 @override
 String toString() {
   final _this = this as StationTide;
-  return 'StationTide(station: ${_this.station}, observations: ${_this.observations}, predictionKind: ${_this.predictionKind}, prediction: ${_this.prediction}, model: ${_this.model}, correctWithObservations: ${_this.correctWithObservations}, dailyExtremes: ${_this.dailyExtremes}, reference: ${_this.reference})';
+  return 'StationTide(station: ${_this.station}, observations: ${_this.observations}, predictionKind: ${_this.predictionKind}, prediction: ${_this.prediction}, model: ${_this.model}, correctWithObservations: ${_this.correctWithObservations}, dailyExtremes: ${_this.dailyExtremes}, reference: ${_this.reference}, water: ${_this.water})';
 }
 
 
@@ -910,7 +911,7 @@ abstract mixin class $StationTideCopyWith<$Res>  {
   factory $StationTideCopyWith(StationTide value, $Res Function(StationTide) _then) = _$StationTideCopyWithImpl;
 @useResult
 $Res call({
- Station station, List<WaterObservation> observations, LevelDataKind predictionKind, TideSeries? prediction, TideModelInfo? model, bool correctWithObservations, DailyExtremes? dailyExtremes, ReferenceStation? reference
+ Station station, List<WaterObservation> observations, LevelDataKind predictionKind, TideSeries? prediction, TideModelInfo? model, bool correctWithObservations, DailyExtremes? dailyExtremes, ReferenceStation? reference, PointWater? water
 });
 
 
@@ -927,7 +928,7 @@ class _$StationTideCopyWithImpl<$Res>
 
 /// Create a copy of StationTide
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? station = null,Object? observations = null,Object? predictionKind = null,Object? prediction = freezed,Object? model = freezed,Object? correctWithObservations = null,Object? dailyExtremes = freezed,Object? reference = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? station = null,Object? observations = null,Object? predictionKind = null,Object? prediction = freezed,Object? model = freezed,Object? correctWithObservations = null,Object? dailyExtremes = freezed,Object? reference = freezed,Object? water = freezed,}) {
   return _then(StationTide(
 station: null == station ? _self.station : station // ignore: cast_nullable_to_non_nullable
 as Station,observations: null == observations ? _self.observations : observations // ignore: cast_nullable_to_non_nullable
@@ -937,7 +938,8 @@ as TideSeries?,model: freezed == model ? _self.model : model // ignore: cast_nul
 as TideModelInfo?,correctWithObservations: null == correctWithObservations ? _self.correctWithObservations : correctWithObservations // ignore: cast_nullable_to_non_nullable
 as bool,dailyExtremes: freezed == dailyExtremes ? _self.dailyExtremes : dailyExtremes // ignore: cast_nullable_to_non_nullable
 as DailyExtremes?,reference: freezed == reference ? _self.reference : reference // ignore: cast_nullable_to_non_nullable
-as ReferenceStation?,
+as ReferenceStation?,water: freezed == water ? _self.water : water // ignore: cast_nullable_to_non_nullable
+as PointWater?,
   ));
 }
 /// Create a copy of StationTide
@@ -1067,10 +1069,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( Station station,  List<WaterObservation> observations,  LevelDataKind predictionKind,  TideSeries? prediction,  TideModelInfo? model,  bool correctWithObservations,  DailyExtremes? dailyExtremes,  ReferenceStation? reference)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( Station station,  List<WaterObservation> observations,  LevelDataKind predictionKind,  TideSeries? prediction,  TideModelInfo? model,  bool correctWithObservations,  DailyExtremes? dailyExtremes,  ReferenceStation? reference,  PointWater? water)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _StationTide() when $default != null:
-return $default(_that.station,_that.observations,_that.predictionKind,_that.prediction,_that.model,_that.correctWithObservations,_that.dailyExtremes,_that.reference);case _:
+return $default(_that.station,_that.observations,_that.predictionKind,_that.prediction,_that.model,_that.correctWithObservations,_that.dailyExtremes,_that.reference,_that.water);case _:
   return orElse();
 
 }
@@ -1088,10 +1090,10 @@ return $default(_that.station,_that.observations,_that.predictionKind,_that.pred
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( Station station,  List<WaterObservation> observations,  LevelDataKind predictionKind,  TideSeries? prediction,  TideModelInfo? model,  bool correctWithObservations,  DailyExtremes? dailyExtremes,  ReferenceStation? reference)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( Station station,  List<WaterObservation> observations,  LevelDataKind predictionKind,  TideSeries? prediction,  TideModelInfo? model,  bool correctWithObservations,  DailyExtremes? dailyExtremes,  ReferenceStation? reference,  PointWater? water)  $default,) {final _that = this;
 switch (_that) {
 case _StationTide():
-return $default(_that.station,_that.observations,_that.predictionKind,_that.prediction,_that.model,_that.correctWithObservations,_that.dailyExtremes,_that.reference);case _:
+return $default(_that.station,_that.observations,_that.predictionKind,_that.prediction,_that.model,_that.correctWithObservations,_that.dailyExtremes,_that.reference,_that.water);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -1108,10 +1110,10 @@ return $default(_that.station,_that.observations,_that.predictionKind,_that.pred
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( Station station,  List<WaterObservation> observations,  LevelDataKind predictionKind,  TideSeries? prediction,  TideModelInfo? model,  bool correctWithObservations,  DailyExtremes? dailyExtremes,  ReferenceStation? reference)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( Station station,  List<WaterObservation> observations,  LevelDataKind predictionKind,  TideSeries? prediction,  TideModelInfo? model,  bool correctWithObservations,  DailyExtremes? dailyExtremes,  ReferenceStation? reference,  PointWater? water)?  $default,) {final _that = this;
 switch (_that) {
 case _StationTide() when $default != null:
-return $default(_that.station,_that.observations,_that.predictionKind,_that.prediction,_that.model,_that.correctWithObservations,_that.dailyExtremes,_that.reference);case _:
+return $default(_that.station,_that.observations,_that.predictionKind,_that.prediction,_that.model,_that.correctWithObservations,_that.dailyExtremes,_that.reference,_that.water);case _:
   return null;
 
 }
@@ -1123,7 +1125,7 @@ return $default(_that.station,_that.observations,_that.predictionKind,_that.pred
 
 
 class _StationTide extends StationTide {
-  const _StationTide({required this.station, required  List<WaterObservation> observations, required this.predictionKind, this.prediction, this.model, this.correctWithObservations = true, this.dailyExtremes, this.reference}): _observations = observations,super._();
+  const _StationTide({required this.station, required  List<WaterObservation> observations, required this.predictionKind, this.prediction, this.model, this.correctWithObservations = true, this.dailyExtremes, this.reference, this.water}): _observations = observations,super._();
   
 
 @override final  Station station;
@@ -1143,6 +1145,8 @@ class _StationTide extends StationTide {
 @override final  DailyExtremes? dailyExtremes;
 /// For a map point: the station whose data stands in for it.
 @override final  ReferenceStation? reference;
+/// For a map point: what water it is on and whether the tide reaches it.
+@override final  PointWater? water;
 
 /// Create a copy of StationTide
 /// with the given fields replaced by the non-null parameter values.
@@ -1154,18 +1158,18 @@ _$StationTideCopyWith<_StationTide> get copyWith => __$StationTideCopyWithImpl<_
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _StationTide&&(identical(other.station, station) || other.station == station)&&const DeepCollectionEquality().equals(other.observations, _observations)&&(identical(other.predictionKind, predictionKind) || other.predictionKind == predictionKind)&&(identical(other.prediction, prediction) || other.prediction == prediction)&&(identical(other.model, model) || other.model == model)&&(identical(other.correctWithObservations, correctWithObservations) || other.correctWithObservations == correctWithObservations)&&(identical(other.dailyExtremes, dailyExtremes) || other.dailyExtremes == dailyExtremes)&&(identical(other.reference, reference) || other.reference == reference));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _StationTide&&(identical(other.station, station) || other.station == station)&&const DeepCollectionEquality().equals(other.observations, _observations)&&(identical(other.predictionKind, predictionKind) || other.predictionKind == predictionKind)&&(identical(other.prediction, prediction) || other.prediction == prediction)&&(identical(other.model, model) || other.model == model)&&(identical(other.correctWithObservations, correctWithObservations) || other.correctWithObservations == correctWithObservations)&&(identical(other.dailyExtremes, dailyExtremes) || other.dailyExtremes == dailyExtremes)&&(identical(other.reference, reference) || other.reference == reference)&&(identical(other.water, water) || other.water == water));
 }
 
 
 @override
 int get hashCode {
-    return Object.hash(runtimeType,station,const DeepCollectionEquality().hash(_observations),predictionKind,prediction,model,correctWithObservations,dailyExtremes,reference);
+    return Object.hash(runtimeType,station,const DeepCollectionEquality().hash(_observations),predictionKind,prediction,model,correctWithObservations,dailyExtremes,reference,water);
 }
 
 @override
 String toString() {
-    return 'StationTide(station: $station, observations: $observations, predictionKind: $predictionKind, prediction: $prediction, model: $model, correctWithObservations: $correctWithObservations, dailyExtremes: $dailyExtremes, reference: $reference)';
+    return 'StationTide(station: $station, observations: $observations, predictionKind: $predictionKind, prediction: $prediction, model: $model, correctWithObservations: $correctWithObservations, dailyExtremes: $dailyExtremes, reference: $reference, water: $water)';
 }
 
 
@@ -1176,7 +1180,7 @@ abstract mixin class _$StationTideCopyWith<$Res> implements $StationTideCopyWith
   factory _$StationTideCopyWith(_StationTide value, $Res Function(_StationTide) _then) = __$StationTideCopyWithImpl;
 @override @useResult
 $Res call({
- Station station, List<WaterObservation> observations, LevelDataKind predictionKind, TideSeries? prediction, TideModelInfo? model, bool correctWithObservations, DailyExtremes? dailyExtremes, ReferenceStation? reference
+ Station station, List<WaterObservation> observations, LevelDataKind predictionKind, TideSeries? prediction, TideModelInfo? model, bool correctWithObservations, DailyExtremes? dailyExtremes, ReferenceStation? reference, PointWater? water
 });
 
 
@@ -1193,7 +1197,7 @@ class __$StationTideCopyWithImpl<$Res>
 
 /// Create a copy of StationTide
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? station = null,Object? observations = null,Object? predictionKind = null,Object? prediction = freezed,Object? model = freezed,Object? correctWithObservations = null,Object? dailyExtremes = freezed,Object? reference = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? station = null,Object? observations = null,Object? predictionKind = null,Object? prediction = freezed,Object? model = freezed,Object? correctWithObservations = null,Object? dailyExtremes = freezed,Object? reference = freezed,Object? water = freezed,}) {
   return _then(_StationTide(
 station: null == station ? _self.station : station // ignore: cast_nullable_to_non_nullable
 as Station,observations: null == observations ? _self._observations : observations // ignore: cast_nullable_to_non_nullable
@@ -1203,7 +1207,8 @@ as TideSeries?,model: freezed == model ? _self.model : model // ignore: cast_nul
 as TideModelInfo?,correctWithObservations: null == correctWithObservations ? _self.correctWithObservations : correctWithObservations // ignore: cast_nullable_to_non_nullable
 as bool,dailyExtremes: freezed == dailyExtremes ? _self.dailyExtremes : dailyExtremes // ignore: cast_nullable_to_non_nullable
 as DailyExtremes?,reference: freezed == reference ? _self.reference : reference // ignore: cast_nullable_to_non_nullable
-as ReferenceStation?,
+as ReferenceStation?,water: freezed == water ? _self.water : water // ignore: cast_nullable_to_non_nullable
+as PointWater?,
   ));
 }
 

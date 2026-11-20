@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:rivertide/core/calc/geo/water_kind.dart';
 import 'package:rivertide/core/l10n/l10n_ext.dart';
 import 'package:rivertide/core/navigation/fishing_spot.dart';
 import 'package:rivertide/core/navigation/push_page.dart';
@@ -132,7 +133,8 @@ class StationSummaryBody extends StatelessWidget {
           if (place case final p?) Text(p, style: context.text.label),
           HazardBanner(view: view),
           FishActivityCard(view: view),
-          FlowCard(stationId: tide.station.id, nowUtc: view.nowUtc, primary: true),
+          if (hasRiverFlow(tide))
+            FlowCard(stationId: tide.station.id, nowUtc: view.nowUtc, primary: true),
           ForecastSection(stationId: tide.station.id, compact: true),
         ],
       );
@@ -178,3 +180,10 @@ class StationSummaryBody extends StatelessWidget {
 /// shown by flow, fishing and weather instead of a level.
 bool levelUnknown(StationTide t) =>
     t.prediction == null && t.observations.isEmpty && t.dailyExtremes == null;
+
+/// River discharge means something here: running water, or a point whose
+/// water kind is not known (lakes, ponds, sea and land have none).
+bool hasRiverFlow(StationTide t) {
+  final kind = t.water?.kind;
+  return kind == null || kind == WaterKind.unknown || kind.isFlowing;
+}

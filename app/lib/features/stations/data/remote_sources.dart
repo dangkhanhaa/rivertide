@@ -1,4 +1,6 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
+import 'package:rivertide/core/errors/app_exception.dart';
 import 'package:rivertide/core/network/dio_client.dart';
 
 /// URL builders + fetchers for the free, key-less sources used in V0 (PROJECT.md 3.0).
@@ -78,4 +80,39 @@ class RemoteSources {
 
   Future<String> fetchWeather(double lat, double lon, List<String> fields) =>
       getText(_dio, weatherUri(lat, lon, fields));
+
+  /// Ground height (Copernicus 90 m surface model via Open-Meteo, no key).
+  static Uri elevationUri(double lat, double lon) =>
+      Uri.https('api.open-meteo.com', '/v1/elevation', {
+        // ~110 m: the model is 90 m anyway; avoids sending precise positions.
+        'latitude': lat.toStringAsFixed(3),
+        'longitude': lon.toStringAsFixed(3),
+      });
+
+  Future<String> fetchElevation(double lat, double lon) =>
+      getText(_dio, elevationUri(lat, lon), maxBytes: 4096);
+
+  /// Main public Overpass instance. It asks for human-triggered use only: the
+  /// app calls it once per opened point (cached 30 days), never in the
+  /// background, never retried. Mirrors were tried on 2026-11-19
+  /// (overpass.private.coffee, overpass.kumi.systems, maps.mail.ru,
+  /// overpass.openstreetmap.ru): none answered, so none is used.
+  static const String overpassUserAgent =
+      'ConNuoc-RiverTide/1.0 (fishing tide app; +https://dangkhanhaa.github.io/rivertide/)';
+
+  static Uri overpassUri(String query) =>
+      Uri.https('overpass-api.de', '/api/interpreter', {'data': query});
+
+  /// [timeout] bounds the whole call (connect included): a busy server must
+  /// not keep the point sheet waiting.
+  Future<String> fetchOverpass(String query, {required Duration timeout}) => getText(
+    _dio,
+    overpassUri(query),
+    timeout: timeout,
+    retry: false,
+    maxBytes: 512 * 1024,
+    // Browsers send their own and forbid setting it; the app identifies
+    // itself as Overpass asks (no e-mail or other personal data).
+    headers: kIsWeb ? null : const {'User-Agent': overpassUserAgent},
+  ).timeout(timeout, onTimeout: () => throw const TimeoutAppException('overpass'));
 }

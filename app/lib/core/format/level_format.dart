@@ -37,6 +37,10 @@ abstract final class LevelFormat {
   /// "5,8 km" below 10 km, "37 km" above.
   static String km(double km) => km < 10 ? '${_decimal(km, 1)} km' : '${km.round()} km';
 
+  /// Short distances: "120 m" below 1 km, then like [km].
+  static String distanceM(double meters) =>
+      meters < 1000 ? '${meters.round()} m' : km(meters / 1000);
+
   static String _decimal(double value, int digits) {
     final s = value.toStringAsFixed(digits).replaceAll('.', ',');
     return s.startsWith('-') ? '−${s.substring(1)}' : s;

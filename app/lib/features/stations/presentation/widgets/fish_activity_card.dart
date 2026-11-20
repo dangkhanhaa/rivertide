@@ -60,6 +60,7 @@ class FishActivityCard extends ConsumerWidget {
             hourUtc: hour,
             hours: fishing?.hours,
             quick: full == null,
+            noTide: tide.prediction == null,
           ),
         ],
       ),
@@ -157,6 +158,7 @@ class _Footer extends StatelessWidget {
     required this.hourUtc,
     required this.hours,
     required this.quick,
+    required this.noTide,
   });
 
   final FishingHourScore score;
@@ -164,6 +166,9 @@ class _Footer extends StatelessWidget {
   final DateTime hourUtc;
   final List<FishingHourScore>? hours;
   final bool quick;
+
+  /// No tide curve: the texts must not credit the tide ("con nước").
+  final bool noTide;
 
   @override
   Widget build(BuildContext context) {
@@ -180,8 +185,15 @@ class _Footer extends StatelessWidget {
             Text(l10n.fish_unsafe, style: context.text.bodyStrong.copyWith(color: c.alarm3)),
           if (hours case final h?) Text(_windowText(context, h), style: context.text.bodyStrong),
           if (reasons.isNotEmpty) Text(l10n.fishAct_because(reasons), style: context.text.body),
-          if (quick) Text(l10n.fishAct_quick, style: context.text.caption),
-          Text(l10n.fishAct_source, style: context.text.caption),
+          if (quick)
+            Text(
+              noTide ? l10n.fishAct_quickNoTide : l10n.fishAct_quick,
+              style: context.text.caption,
+            ),
+          Text(
+            noTide ? l10n.fishAct_sourceNoTide : l10n.fishAct_source,
+            style: context.text.caption,
+          ),
         ],
       ),
     );
@@ -210,5 +222,6 @@ class _Footer extends StatelessWidget {
     FishingFactor.temperature => context.l10n.fishing_factor_temperature,
     FishingFactor.weather => context.l10n.fishing_factor_weather,
     FishingFactor.season => context.l10n.fishing_factor_season,
+    FishingFactor.runoff => context.l10n.fishing_factor_runoff,
   };
 }

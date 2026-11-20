@@ -4323,4 +4323,166 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get wx_hourlyLegend =>
       'Blue: chance of rain (%) and amount (mm). Last line: wind km/h, arrow points where it blows.';
+
+  @override
+  String get water_kind_sea => 'Sea';
+
+  @override
+  String get water_kind_river => 'River';
+
+  @override
+  String get water_kind_canal => 'Canal';
+
+  @override
+  String get water_kind_creek => 'Tidal creek';
+
+  @override
+  String get water_kind_stream => 'Stream';
+
+  @override
+  String get water_kind_ditch => 'Ditch';
+
+  @override
+  String get water_kind_lake => 'Lake';
+
+  @override
+  String get water_kind_pond => 'Pond';
+
+  @override
+  String get water_kind_reservoir => 'Reservoir';
+
+  @override
+  String get water_kind_lagoon => 'Lagoon';
+
+  @override
+  String get water_kind_dock => 'Harbour basin';
+
+  @override
+  String get water_kind_land => 'Land';
+
+  @override
+  String get water_kind_unknown => 'Water type not known';
+
+  @override
+  String get water_tide_tidal => 'Tidal';
+
+  @override
+  String get water_tide_weak => 'Weak tide (estimate)';
+
+  @override
+  String get water_tide_none => 'No tide';
+
+  @override
+  String get water_tide_unknown => 'Tide not known';
+
+  @override
+  String get water_reason_sea => 'Sea water rises and falls with the tide.';
+
+  @override
+  String get water_reason_lagoon =>
+      'A lagoon joins the sea through a narrow inlet: smaller, later tide than at sea.';
+
+  @override
+  String get water_reason_still => 'Standing water (lake, pond): no tide.';
+
+  @override
+  String get water_reason_land => 'This point is on land.';
+
+  @override
+  String water_reason_highGround(int meters) {
+    return 'Ground about $meters m high: the tide does not reach it.';
+  }
+
+  @override
+  String get water_reason_riverData => 'A gauge on this river reach records tidal swings.';
+
+  @override
+  String get water_reason_southNetwork =>
+      'Southern delta network: the tide reaches into canals and creeks.';
+
+  @override
+  String get water_reason_southSmall =>
+      'Small or higher water in the south: often behind sluices, so the tide is weak.';
+
+  @override
+  String get water_reason_northRiver => 'Northern delta river: tidal, weaker farther from the sea.';
+
+  @override
+  String get water_reason_gated =>
+      'Irrigation canals and ditches usually have sluices: the water does not follow the tide.';
+
+  @override
+  String water_reason_nearSea(String distance) {
+    return 'About $distance from the sea: the tide may reach here, weakly.';
+  }
+
+  @override
+  String water_reason_farFromSea(String distance) {
+    return 'About $distance from the sea: the tide does not reach here.';
+  }
+
+  @override
+  String get water_reason_unknownKind =>
+      'Not known whether this is a river, a lake or land. Tap right on the water on the map so the app can tell; figures below are only a guide.';
+
+  @override
+  String get water_reason_noSeaDistance => 'Distance to the sea not available.';
+
+  @override
+  String get water_checking => 'Checking OpenStreetMap…';
+
+  @override
+  String get water_source =>
+      'Water type from © OpenStreetMap; whether there is tide is estimated from the region, distance to the sea and ground height.';
+
+  @override
+  String get water_noTideNote => 'No tide times here; fish activity uses moon times and weather.';
+
+  @override
+  String water_structure(String what, String name, String distance) {
+    return 'Near a $what$name ($distance away): strong currents and eddies when it opens or closes — keep clear.';
+  }
+
+  @override
+  String get water_structure_dam => 'dam';
+
+  @override
+  String get water_structure_weir => 'weir';
+
+  @override
+  String get water_structure_lock => 'lock';
+
+  @override
+  String get water_structure_sluice => 'sluice gate';
+
+  @override
+  String get water_structure_culvert => 'culvert';
+
+  @override
+  String get land_title => 'Point on land';
+
+  @override
+  String get land_hint => 'Tap a nearby river or lake to see its water.';
+
+  @override
+  String get land_nearby => 'Water nearby';
+
+  @override
+  String land_nearbyItem(String name, String distance) {
+    return '$name · $distance away';
+  }
+
+  @override
+  String get fishAct_sourceNoTide =>
+      'Estimated from moon times, day/night and weather (Open-Meteo) — only a guide; it cannot know where the fish are.';
+
+  @override
+  String get fishAct_quickNoTide => 'No weather yet: rough estimate from moon times and day/night.';
+
+  @override
+  String get fishing_factor_runoff => 'rain in last 24 h';
+
+  @override
+  String get water_reason_coastalLake =>
+      'A lake right by the coast: it may be a lagoon open to the sea (small tide) or a freshwater lake — the map cannot tell.';
 }

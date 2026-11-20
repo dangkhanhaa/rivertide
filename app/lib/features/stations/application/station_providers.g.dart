@@ -235,7 +235,7 @@ final class StationTideProvider
   }
 }
 
-String _$stationTideHash() => r'3cc4a291cf555638127739ceaa1627a666f096f6';
+String _$stationTideHash() => r'8303a9020e0c8aa87e823ae583bfbbaf62ff1ef7';
 
 final class StationTideFamily extends $Family
     with $FunctionalFamilyOverride<FutureOr<Cached<StationTide>>, String> {

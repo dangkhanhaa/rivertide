@@ -1,5 +1,6 @@
 import 'package:rivertide/core/cache/cached.dart';
 import 'package:rivertide/core/calc/river/river_line.dart';
+import 'package:rivertide/features/stations/domain/point_water.dart';
 import 'package:rivertide/features/stations/domain/river_flow.dart';
 import 'package:rivertide/features/stations/domain/station.dart';
 import 'package:rivertide/features/stations/domain/station_tide.dart';
@@ -21,6 +22,15 @@ abstract interface class StationRepository {
   /// Main-stem discharge near the station (GloFAS); data null where no river
   /// channel is found nearby.
   Future<Cached<RiverFlow?>> getFlow(Station station, {bool forceRefresh = false});
+
+  /// Remembered water kind of a map point (P2-47).
+  Future<WaterHint?> waterHint(String pointId);
+
+  Future<void> saveWaterHint(String pointId, WaterHint hint);
+
+  /// OpenStreetMap water and structures around a map point; null when the
+  /// service cannot be reached (P2-52).
+  Future<PointSurroundings?> surroundings(Station point);
 
   /// Level change (cm/h) now at points [pointKms] (km from the mouth) of the
   /// river through [station]; empty when the station has no tide model.

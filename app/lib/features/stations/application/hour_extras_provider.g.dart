@@ -63,7 +63,7 @@ final class StationFishingProvider
   }
 }
 
-String _$stationFishingHash() => r'b64fba344566c4533852713a6e82d63b0cd2da7a';
+String _$stationFishingHash() => r'22e3f7ddd1041c0550c66557f51b6d219ca56c75';
 
 /// 7 days of hourly fishing scores from today (Vietnam day) for one station.
 

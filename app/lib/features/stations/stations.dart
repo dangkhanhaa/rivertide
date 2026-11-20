@@ -19,7 +19,9 @@ export 'application/station_providers.dart'
         stationTideProvider,
         updateFavoriteMeta;
 export 'application/station_view_providers.dart' show StationView, stationViewProvider;
+export 'application/water_providers.dart' show recordWaterHint;
 export 'domain/point_id.dart' show PointId;
+export 'domain/point_water.dart' show PointWater, WaterHint, WaterHintSource;
 export 'domain/river_flow.dart' show FlowTrend, RiverFlow, flowTrend;
 export 'domain/saved_place.dart' show SavedPlace;
 export 'domain/station.dart' show Station, StationKind;

@@ -7529,6 +7529,294 @@ abstract class AppLocalizations {
   /// In vi, this message translates to:
   /// **'Số xanh: khả năng mưa (%) và lượng mưa (mm). Dòng cuối: gió km/h, mũi tên chỉ hướng gió thổi tới.'**
   String get wx_hourlyLegend;
+
+  /// No description provided for @water_kind_sea.
+  ///
+  /// In vi, this message translates to:
+  /// **'Biển'**
+  String get water_kind_sea;
+
+  /// No description provided for @water_kind_river.
+  ///
+  /// In vi, this message translates to:
+  /// **'Sông'**
+  String get water_kind_river;
+
+  /// No description provided for @water_kind_canal.
+  ///
+  /// In vi, this message translates to:
+  /// **'Kênh'**
+  String get water_kind_canal;
+
+  /// No description provided for @water_kind_creek.
+  ///
+  /// In vi, this message translates to:
+  /// **'Rạch'**
+  String get water_kind_creek;
+
+  /// No description provided for @water_kind_stream.
+  ///
+  /// In vi, this message translates to:
+  /// **'Suối'**
+  String get water_kind_stream;
+
+  /// No description provided for @water_kind_ditch.
+  ///
+  /// In vi, this message translates to:
+  /// **'Mương'**
+  String get water_kind_ditch;
+
+  /// No description provided for @water_kind_lake.
+  ///
+  /// In vi, this message translates to:
+  /// **'Hồ'**
+  String get water_kind_lake;
+
+  /// No description provided for @water_kind_pond.
+  ///
+  /// In vi, this message translates to:
+  /// **'Ao'**
+  String get water_kind_pond;
+
+  /// No description provided for @water_kind_reservoir.
+  ///
+  /// In vi, this message translates to:
+  /// **'Hồ chứa'**
+  String get water_kind_reservoir;
+
+  /// No description provided for @water_kind_lagoon.
+  ///
+  /// In vi, this message translates to:
+  /// **'Đầm / phá'**
+  String get water_kind_lagoon;
+
+  /// No description provided for @water_kind_dock.
+  ///
+  /// In vi, this message translates to:
+  /// **'Bến cảng'**
+  String get water_kind_dock;
+
+  /// No description provided for @water_kind_land.
+  ///
+  /// In vi, this message translates to:
+  /// **'Đất liền'**
+  String get water_kind_land;
+
+  /// No description provided for @water_kind_unknown.
+  ///
+  /// In vi, this message translates to:
+  /// **'Chưa rõ loại nước'**
+  String get water_kind_unknown;
+
+  /// No description provided for @water_tide_tidal.
+  ///
+  /// In vi, this message translates to:
+  /// **'Có thủy triều'**
+  String get water_tide_tidal;
+
+  /// Water kind chip: some tide, shown only as an estimate
+  ///
+  /// In vi, this message translates to:
+  /// **'Triều yếu (ước tính)'**
+  String get water_tide_weak;
+
+  /// No description provided for @water_tide_none.
+  ///
+  /// In vi, this message translates to:
+  /// **'Không có thủy triều'**
+  String get water_tide_none;
+
+  /// No description provided for @water_tide_unknown.
+  ///
+  /// In vi, this message translates to:
+  /// **'Chưa rõ có triều'**
+  String get water_tide_unknown;
+
+  /// No description provided for @water_reason_sea.
+  ///
+  /// In vi, this message translates to:
+  /// **'Nước biển lên xuống theo triều.'**
+  String get water_reason_sea;
+
+  /// No description provided for @water_reason_lagoon.
+  ///
+  /// In vi, this message translates to:
+  /// **'Đầm phá nối biển qua cửa hẹp: triều nhỏ và muộn hơn ngoài biển.'**
+  String get water_reason_lagoon;
+
+  /// No description provided for @water_reason_still.
+  ///
+  /// In vi, this message translates to:
+  /// **'Nước đứng (hồ, ao): không lên xuống theo triều.'**
+  String get water_reason_still;
+
+  /// No description provided for @water_reason_land.
+  ///
+  /// In vi, this message translates to:
+  /// **'Điểm này nằm trên đất liền.'**
+  String get water_reason_land;
+
+  /// No description provided for @water_reason_highGround.
+  ///
+  /// In vi, this message translates to:
+  /// **'Đất cao khoảng {meters} m: triều không lên tới.'**
+  String water_reason_highGround(int meters);
+
+  /// No description provided for @water_reason_riverData.
+  ///
+  /// In vi, this message translates to:
+  /// **'Trạm đo trên đoạn sông này ghi nhận nước dao động theo triều.'**
+  String get water_reason_riverData;
+
+  /// No description provided for @water_reason_southNetwork.
+  ///
+  /// In vi, this message translates to:
+  /// **'Vùng sông rạch Nam Bộ: triều vào tận kênh rạch.'**
+  String get water_reason_southNetwork;
+
+  /// No description provided for @water_reason_southSmall.
+  ///
+  /// In vi, this message translates to:
+  /// **'Nước nhỏ hoặc đất cao ở Nam Bộ: thường có cống, đập chặn nên triều yếu.'**
+  String get water_reason_southSmall;
+
+  /// No description provided for @water_reason_northRiver.
+  ///
+  /// In vi, this message translates to:
+  /// **'Sông vùng đồng bằng Bắc Bộ: có triều, yếu dần khi xa biển.'**
+  String get water_reason_northRiver;
+
+  /// No description provided for @water_reason_gated.
+  ///
+  /// In vi, this message translates to:
+  /// **'Kênh, mương thủy lợi thường có cống: nước không theo triều.'**
+  String get water_reason_gated;
+
+  /// No description provided for @water_reason_nearSea.
+  ///
+  /// In vi, this message translates to:
+  /// **'Cách biển khoảng {distance}: triều có thể lên tới nhưng yếu.'**
+  String water_reason_nearSea(String distance);
+
+  /// No description provided for @water_reason_farFromSea.
+  ///
+  /// In vi, this message translates to:
+  /// **'Cách biển khoảng {distance}: triều không lên tới.'**
+  String water_reason_farFromSea(String distance);
+
+  /// No description provided for @water_reason_unknownKind.
+  ///
+  /// In vi, this message translates to:
+  /// **'Chưa biết đây là sông, hồ hay đất liền. Chạm đúng vào mặt nước trên bản đồ để app nhận ra; số liệu dưới đây chỉ để tham khảo.'**
+  String get water_reason_unknownKind;
+
+  /// No description provided for @water_reason_noSeaDistance.
+  ///
+  /// In vi, this message translates to:
+  /// **'Chưa tính được khoảng cách tới biển.'**
+  String get water_reason_noSeaDistance;
+
+  /// No description provided for @water_checking.
+  ///
+  /// In vi, this message translates to:
+  /// **'Đang kiểm tra bản đồ OpenStreetMap…'**
+  String get water_checking;
+
+  /// No description provided for @water_source.
+  ///
+  /// In vi, this message translates to:
+  /// **'Loại nước theo bản đồ © OpenStreetMap; có triều hay không là ước tính theo vùng, khoảng cách tới biển và độ cao.'**
+  String get water_source;
+
+  /// No description provided for @water_noTideNote.
+  ///
+  /// In vi, this message translates to:
+  /// **'Không có giờ nước lên xuống ở đây; xem cá ăn theo giờ trăng và thời tiết.'**
+  String get water_noTideNote;
+
+  /// Safety note near a dam/weir/lock/sluice/culvert; name starts with a space or is empty
+  ///
+  /// In vi, this message translates to:
+  /// **'Gần {what}{name} (cách {distance}): dòng chảy mạnh, xoáy khi đóng mở — giữ khoảng cách.'**
+  String water_structure(String what, String name, String distance);
+
+  /// No description provided for @water_structure_dam.
+  ///
+  /// In vi, this message translates to:
+  /// **'đập'**
+  String get water_structure_dam;
+
+  /// No description provided for @water_structure_weir.
+  ///
+  /// In vi, this message translates to:
+  /// **'đập tràn'**
+  String get water_structure_weir;
+
+  /// No description provided for @water_structure_lock.
+  ///
+  /// In vi, this message translates to:
+  /// **'âu thuyền'**
+  String get water_structure_lock;
+
+  /// No description provided for @water_structure_sluice.
+  ///
+  /// In vi, this message translates to:
+  /// **'cống'**
+  String get water_structure_sluice;
+
+  /// No description provided for @water_structure_culvert.
+  ///
+  /// In vi, this message translates to:
+  /// **'cống ngầm'**
+  String get water_structure_culvert;
+
+  /// No description provided for @land_title.
+  ///
+  /// In vi, this message translates to:
+  /// **'Điểm trên đất liền'**
+  String get land_title;
+
+  /// No description provided for @land_hint.
+  ///
+  /// In vi, this message translates to:
+  /// **'Chạm vào sông, hồ gần đó để xem nước ở đó.'**
+  String get land_hint;
+
+  /// No description provided for @land_nearby.
+  ///
+  /// In vi, this message translates to:
+  /// **'Nước gần đây'**
+  String get land_nearby;
+
+  /// No description provided for @land_nearbyItem.
+  ///
+  /// In vi, this message translates to:
+  /// **'{name} · cách {distance}'**
+  String land_nearbyItem(String name, String distance);
+
+  /// No description provided for @fishAct_sourceNoTide.
+  ///
+  /// In vi, this message translates to:
+  /// **'Ước tính từ giờ mặt trăng, ngày/đêm và thời tiết (Open-Meteo) — chỉ để tham khảo, không biết chắc chỗ nào có cá.'**
+  String get fishAct_sourceNoTide;
+
+  /// No description provided for @fishAct_quickNoTide.
+  ///
+  /// In vi, this message translates to:
+  /// **'Chưa có thời tiết: tạm tính theo giờ mặt trăng và ngày/đêm.'**
+  String get fishAct_quickNoTide;
+
+  /// No description provided for @fishing_factor_runoff.
+  ///
+  /// In vi, this message translates to:
+  /// **'mưa 24 giờ'**
+  String get fishing_factor_runoff;
+
+  /// No description provided for @water_reason_coastalLake.
+  ///
+  /// In vi, this message translates to:
+  /// **'Hồ sát biển: có thể là đầm phá nối biển (có triều nhỏ) hoặc hồ nước ngọt — bản đồ chưa phân biệt được.'**
+  String get water_reason_coastalLake;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -9,4 +9,10 @@ abstract final class CacheTtl {
 
   /// GloFAS discharge is daily.
   static const Duration flood = Duration(hours: 6);
+
+  /// Ground height of a point never changes.
+  static const Duration elevation = Duration(days: 365);
+
+  /// OpenStreetMap water around a point: a volunteer server, asked rarely.
+  static const Duration osmWater = Duration(days: 30);
 }

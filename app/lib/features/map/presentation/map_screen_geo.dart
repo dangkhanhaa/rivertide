@@ -1,5 +1,35 @@
 part of 'map_screen.dart';
 
+/// How long the map ignores clicks after a nearby water is picked.
+const Duration _nearbyGrace = Duration(milliseconds: 400);
+
+extension _WaterTaps on _MapScreenState {
+  /// Remembered per point id, so every screen that opens it agrees (P2-47).
+  Future<void> _rememberWater(double lat, double lon, TapWater water) async {
+    if (water.kind == WaterKind.unknown) return;
+    await recordWaterHint(
+      ref,
+      PointId.encode(lat, lon),
+      WaterHint(
+        kind: water.kind,
+        name: water.name,
+        source: WaterHintSource.map,
+        fromArea: water.inArea,
+      ),
+    );
+  }
+
+  /// A water suggested under a land tap: open that spot as if tapped there.
+  void _openNearby(NearbyWater w) => unawaited(() async {
+    await dismissDetail();
+    // On web this press on the sheet also reaches the map underneath: keep
+    // the map locked a moment so it does not open a second point there.
+    await whileMapLocked(() => Future<void>.delayed(_nearbyGrace));
+    releaseMapLock();
+    await _openPoint(w.lat, w.lon, TapWater(kind: w.kind, name: w.name));
+  }());
+}
+
 /// Rebuilds a layer's GeoJSON only when its list changes (the map re-sends a
 /// source whenever the object differs).
 class _GeoMemo<T> {
@@ -39,6 +69,7 @@ final _pondsMemo = _GeoMemo<Pond>();
 extension _MapRefine on _MapScreenState {
   static const double _recentreKm = 0.15;
 
+  /// [open]: "Đi câu ngay" — also open the place's details and summary.
   Future<void> _locate({bool open = false}) async {
     final service = ref.read(locationServiceProvider);
     // Lock only while a permission dialog may show, never while awaiting GPS (P2-56).
@@ -49,7 +80,7 @@ extension _MapRefine on _MapScreenState {
     if (open) {
       _setMe(p);
       releaseMapLock();
-      return await _openPoint(p.lat, p.lon, PointSurface.unknown, zoom: 13);
+      return await _openPoint(p.lat, p.lon, TapWater.unknown, zoom: 13);
     }
     await _showMe(p);
   }
