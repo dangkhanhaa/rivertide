@@ -8,6 +8,7 @@ import 'package:rivertide/core/l10n/l10n_ext.dart';
 import 'package:rivertide/core/social/block_author.dart';
 import 'package:rivertide/core/social/content_filter.dart';
 import 'package:rivertide/core/social/display_name_dialog.dart';
+import 'package:rivertide/core/social/mod_status.dart';
 import 'package:rivertide/core/social/social_backend.dart';
 import 'package:rivertide/core/social/social_errors.dart';
 import 'package:rivertide/core/theme/app_colors.dart';
@@ -55,6 +56,7 @@ class _SpotCommentsState extends ConsumerState<SpotComments> {
     try {
       await addComment(ref, widget.spotId, body);
       _input.clear();
+      showSentForReview(messenger, ref, l10n.mod_sentForReview);
     } on AppException catch (e) {
       messenger.showSnackBar(
         SnackBar(
@@ -196,6 +198,7 @@ class _CommentTile extends ConsumerWidget {
                     ],
                   ),
                 ),
+                if (cm.mine) ModBadge(kind: ModKind.comment, id: cm.id),
                 Text(cm.body, style: context.text.body),
                 Text(
                   cm.updatedAt == null ? when : '$when · ${l10n.cmt_edited}',
@@ -236,6 +239,7 @@ class _CommentTile extends ConsumerWidget {
               return;
             }
             await editComment(ref, spotId, comment.id, text.trim());
+            showSentForReview(messenger, ref, l10n.mod_editSentForReview);
           }
         case _Action.delete:
           if (await confirmDialog(context, title: l10n.cmt_deleteTitle, ok: l10n.cmt_delete)) {

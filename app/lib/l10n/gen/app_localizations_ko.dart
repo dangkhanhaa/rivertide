@@ -1490,7 +1490,8 @@ class AppLocalizationsKo extends AppLocalizations {
   String get release_asOwner => '주인이시군요: 이 일정은 \"주인 등록\"으로 표시돼요.';
 
   @override
-  String get release_asUser => '제보한 일정은 주인이 확인할 때까지 \"사용자 제보\"로 표시돼요. 낚시터의 실제 게시물을 봤을 때만 제보해 주세요.';
+  String get release_asUser =>
+      '제보한 일정은 주인이 확인할 때까지 \"사용자 제보\"로 표시돼요. 낚시터의 실제 게시물을 봤을 때만 제보해 주세요. 게시물은 검토 후 표시되며, 보통 24시간 이내예요.';
 
   @override
   String get release_post => '방류 일정 등록';
@@ -1726,7 +1727,8 @@ class AppLocalizationsKo extends AppLocalizations {
   String get trip_loadError => '낚시 모임을 불러오지 못했어요';
 
   @override
-  String get trip_notice => '모임은 주변 사용자에게 공개돼요. 낚시 금지 구역에서 만나지 말고, 여럿이 함께 가며 밤낚시 때는 안전에 유의하세요.';
+  String get trip_notice =>
+      '모임은 주변 사용자에게 공개돼요. 낚시 금지 구역에서 만나지 말고, 여럿이 함께 가며 밤낚시 때는 안전에 유의하세요. 게시물은 검토 후 표시되며, 보통 24시간 이내예요.';
 
   @override
   String get checkin_pill => '낚시 중이에요';
@@ -1883,7 +1885,7 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get spot_publicNotice =>
-      '이 포인트는 모든 Con Nước 사용자에게 공개돼요. 낚시 금지 구역이나 동의 없이 다른 사람이 나온 사진은 올리지 마세요.';
+      '이 포인트는 모든 Con Nước 사용자에게 공개돼요. 낚시 금지 구역이나 동의 없이 다른 사람이 나온 사진은 올리지 마세요. 게시물은 검토 후 표시되며, 보통 24시간 이내예요.';
 
   @override
   String get spot_agree => '이해했으며 공유에 동의해요';
@@ -4356,7 +4358,7 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get onb_termsCommunity =>
-      '커뮤니티: 광고, 도박, 사기, 괴롭힘, 불법 어로(전기, 폭발물, 독극물)는 금지예요. 위반 시 숨김 또는 차단돼요. 다른 사람을 신고하고 차단할 수 있어요.';
+      '커뮤니티: 광고, 도박, 사기, 괴롭힘, 불법 어로(전기, 폭발물, 독극물)는 금지예요. 위반 시 숨김 또는 차단돼요. 다른 사람을 신고하고 차단할 수 있어요. 공개 게시물은 검토 후 표시돼요.';
 
   @override
   String get onb_termsSafety => '모든 수치, 예보, 경고는 참고용이에요. 물가에서의 안전은 본인 책임이에요.';
@@ -4427,4 +4429,25 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get onb_exitApp => '앱 종료';
+
+  @override
+  String get mod_pending => '검토 대기 중';
+
+  @override
+  String get mod_rejected => '승인되지 않음';
+
+  @override
+  String get mod_editPending => '수정 내용 검토 대기 중';
+
+  @override
+  String get mod_editRejected => '수정 내용 승인되지 않음';
+
+  @override
+  String get mod_onlyYou => '승인될 때까지 나만 볼 수 있어요';
+
+  @override
+  String get mod_sentForReview => '전송했어요. 승인 후 표시돼요(보통 24시간 이내)';
+
+  @override
+  String get mod_editSentForReview => '수정 내용을 전송했어요. 승인 후 표시돼요(보통 24시간 이내)';
 }

@@ -8,6 +8,7 @@ import 'package:rivertide/core/format/time_format.dart';
 import 'package:rivertide/core/l10n/l10n_ext.dart';
 import 'package:rivertide/core/navigation/push_page.dart';
 import 'package:rivertide/core/social/block_author.dart';
+import 'package:rivertide/core/social/mod_status.dart';
 import 'package:rivertide/core/social/social_errors.dart';
 import 'package:rivertide/core/theme/app_colors.dart';
 import 'package:rivertide/core/theme/app_spacing.dart';
@@ -53,6 +54,11 @@ class SpotSheet extends ConsumerWidget {
               ),
             ],
           ),
+          if (mine)
+            Align(
+              alignment: AlignmentDirectional.centerStart,
+              child: ModBadge(kind: ModKind.spot, id: spot.id),
+            ),
           Text(spot.title, style: context.text.headline),
           if (spot.photoUrls.isNotEmpty) SpotPhotos(urls: spot.photoUrls),
           if (spot.species.isNotEmpty)

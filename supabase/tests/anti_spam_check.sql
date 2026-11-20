@@ -7,6 +7,16 @@
 
 begin;
 
+-- From 0008 (P2-61) new posts wait for approval; this script checks the spam
+-- limits, so it runs with pre-moderation off (undone by the rollback).
+-- curated_mode_check.sql covers the approval flow.
+do $$
+begin
+  if to_regclass('public.curation') is not null then
+    execute 'update public.curation set pre_moderate = false';
+  end if;
+end $$;
+
 -- ── helpers (temporary, gone after the transaction) ──
 create function pg_temp.ok(p_cond boolean, p_label text) returns void
 language plpgsql as $$

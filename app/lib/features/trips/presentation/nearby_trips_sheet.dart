@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rivertide/core/clock/clock_provider.dart';
 import 'package:rivertide/core/format/level_format.dart';
 import 'package:rivertide/core/l10n/l10n_ext.dart';
+import 'package:rivertide/core/social/mod_status.dart';
 import 'package:rivertide/core/theme/app_colors.dart';
 import 'package:rivertide/core/theme/app_spacing.dart';
 import 'package:rivertide/core/theme/app_text.dart';
@@ -93,6 +94,7 @@ class _TripCard extends ConsumerWidget {
                   spacing: 2,
                   children: [
                     Text(t.title, style: context.text.bodyStrong, maxLines: 2),
+                    if (t.mine) ModBadge(kind: ModKind.trip, id: t.id),
                     Text(tripWhen(t), style: context.text.body),
                     Text(
                       [

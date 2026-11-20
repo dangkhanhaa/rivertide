@@ -1489,7 +1489,8 @@ class AppLocalizationsJa extends AppLocalizations {
   String get release_asOwner => 'あなたはオーナーです：この予定は「オーナー投稿」として表示されます。';
 
   @override
-  String get release_asUser => '報告した予定はオーナーが確認するまで「ユーザー報告」と表示されます。釣り堀の実際の投稿を見たときだけ報告してください。';
+  String get release_asUser =>
+      '報告した予定はオーナーが確認するまで「ユーザー報告」と表示されます。釣り堀の実際の投稿を見たときだけ報告してください。投稿は確認後に表示されます（通常24時間以内）。';
 
   @override
   String get release_post => '放流予定を投稿';
@@ -1725,7 +1726,8 @@ class AppLocalizationsJa extends AppLocalizations {
   String get trip_loadError => '釣り会を読み込めませんでした';
 
   @override
-  String get trip_notice => '釣り会は近くのユーザーに公開されます。釣り禁止の場所で集まらないでください。複数人で行動し、夜釣りでは安全に注意しましょう。';
+  String get trip_notice =>
+      '釣り会は近くのユーザーに公開されます。釣り禁止の場所で集まらないでください。複数人で行動し、夜釣りでは安全に注意しましょう。投稿は確認後に表示されます（通常24時間以内）。';
 
   @override
   String get checkin_pill => '釣り中';
@@ -1880,7 +1882,8 @@ class AppLocalizationsJa extends AppLocalizations {
   String get spot_addPhoto => '写真を追加';
 
   @override
-  String get spot_publicNotice => 'この釣り場は Con Nước の全ユーザーに公開されます。釣り禁止の場所や、同意なく他人が写った写真は投稿しないでください。';
+  String get spot_publicNotice =>
+      'この釣り場は Con Nước の全ユーザーに公開されます。釣り禁止の場所や、同意なく他人が写った写真は投稿しないでください。投稿は確認後に表示されます（通常24時間以内）。';
 
   @override
   String get spot_agree => '理解し、共有に同意します';
@@ -4350,7 +4353,7 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get onb_termsCommunity =>
-      'コミュニティ：広告、賭博、詐欺、嫌がらせ、違法漁法（電気、爆発物、毒物）は禁止です。違反は非表示またはブロックされます。通報やブロックができます。';
+      'コミュニティ：広告、賭博、詐欺、嫌がらせ、違法漁法（電気、爆発物、毒物）は禁止です。違反は非表示またはブロックされます。通報やブロックができます。公開投稿は確認後に表示されます。';
 
   @override
   String get onb_termsSafety => 'すべての数値・予報・警告は参考情報です。水辺での安全はご自身の責任です。';
@@ -4421,4 +4424,25 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get onb_exitApp => 'アプリを終了';
+
+  @override
+  String get mod_pending => '確認待ち';
+
+  @override
+  String get mod_rejected => '承認されませんでした';
+
+  @override
+  String get mod_editPending => '編集は確認待ち';
+
+  @override
+  String get mod_editRejected => '編集は承認されませんでした';
+
+  @override
+  String get mod_onlyYou => '承認されるまであなただけに表示されます';
+
+  @override
+  String get mod_sentForReview => '送信しました。承認後に表示されます（通常24時間以内）';
+
+  @override
+  String get mod_editSentForReview => '編集を送信しました。承認後に表示されます（通常24時間以内）';
 }

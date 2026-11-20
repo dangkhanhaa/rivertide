@@ -7,6 +7,7 @@ import 'package:rivertide/core/errors/app_exception.dart';
 import 'package:rivertide/core/image/photo_clean.dart';
 import 'package:rivertide/core/l10n/l10n_ext.dart';
 import 'package:rivertide/core/social/content_filter.dart';
+import 'package:rivertide/core/social/mod_status.dart';
 import 'package:rivertide/core/social/social_errors.dart';
 import 'package:rivertide/core/theme/app_spacing.dart';
 import 'package:rivertide/core/theme/app_text.dart';
@@ -127,8 +128,10 @@ class _PublishSpotScreenState extends ConsumerState<PublishSpotScreen> {
       } else {
         await publishSpot(ref, spot, added);
       }
-      messenger.showSnackBar(
-        SnackBar(content: Text(_edit == null ? l10n.spot_published : l10n.spot_editSaved)),
+      showSentForReview(
+        messenger,
+        ref,
+        _edit == null ? l10n.mod_sentForReview : l10n.mod_editSentForReview,
       );
       nav.pop(true);
     } on AppException catch (e) {
