@@ -30,7 +30,7 @@ class AlertNotifier {
     if (_ready) return true;
     await _plugin.initialize(
       settings: const InitializationSettings(
-        android: AndroidInitializationSettings('@mipmap/ic_launcher'),
+        android: AndroidInitializationSettings('@drawable/ic_stat_con_nuoc'),
       ),
     );
     _ready = true;
