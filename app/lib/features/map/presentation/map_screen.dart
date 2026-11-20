@@ -127,13 +127,16 @@ class _MapScreenState extends ConsumerState<MapScreen> with MapDetailPresenter<M
       }
       if (await service.isBlocked()) return;
     }
-    if (await service.locate() case Located(:final lat, :final lon) when mounted) {
+    if (await service.locate(onRefined: _refineMe) case Located(:final lat, :final lon)
+        when mounted) {
       await _showMe((lat: lat, lon: lon));
     }
   }
 
+  void _setMe(({double lat, double lon}) p) => setState(() => _me = p);
+
   Future<void> _showMe(({double lat, double lon}) p, {double zoom = 12}) async {
-    setState(() => _me = p);
+    _setMe(p);
     unawaited(ref.read(locationPromptStoreProvider).saveLastPosition(p.lat, p.lon));
     // Fish "around you" right away (map line + fishing tab), unless the user
     // already picked another spot.
@@ -216,22 +219,11 @@ class _MapScreenState extends ConsumerState<MapScreen> with MapDetailPresenter<M
   /// Position for trips / check-ins: the usual permission flow, map unmoved.
   Future<({double lat, double lon})?> _locateQuietly() async {
     final p = await runLocateFlow(context, ref.read(locationServiceProvider));
-    if (p != null && mounted) setState(() => _me = p);
+    if (p != null && mounted) _setMe(p);
     return p;
   }
 
   /// [open]: "Đi câu ngay" — also open the place's details and summary.
-  Future<void> _locate({bool open = false}) async {
-    final p = await whileMapLocked(() => runLocateFlow(context, ref.read(locationServiceProvider)));
-    if (p == null || !mounted) return;
-    if (open) {
-      setState(() => _me = p);
-      releaseMapLock();
-      return await _openPoint(p.lat, p.lon, PointSurface.unknown, zoom: 13);
-    }
-    await _showMe(p);
-  }
-
   @override
   Widget build(BuildContext context) {
     final markers = ref.watch(mapMarkersProvider);

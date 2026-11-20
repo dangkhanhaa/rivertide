@@ -9,8 +9,9 @@ import 'package:rivertide/features/map/domain/location_service.dart';
 /// message, and a permanent refusal points to the system settings (AC-MAP04-3).
 Future<({double lat, double lon})?> runLocateFlow(
   BuildContext context,
-  LocationService source,
-) async {
+  LocationService source, {
+  void Function(double lat, double lon)? onRefined,
+}) async {
   if (!await source.hasPermission()) {
     if (!context.mounted) return null;
     final ok = await showDialog<bool>(
@@ -32,7 +33,7 @@ Future<({double lat, double lon})?> runLocateFlow(
     );
     if (ok != true) return null;
   }
-  final result = await source.locate();
+  final result = await source.locate(onRefined: onRefined);
   if (!context.mounted) return null;
   final l10n = context.l10n;
   void snack(String text) =>

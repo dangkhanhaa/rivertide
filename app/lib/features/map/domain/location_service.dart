@@ -27,7 +27,10 @@ final class LocationFailed extends LocateResult {
 
 /// Device position access; the map is tested with a fake.
 abstract interface class LocationService {
-  Future<LocateResult> locate();
+  /// Answers with the FIRST fix, so the map never waits for GPS to settle
+  /// (P2-56). When that fix is coarse, readings keep coming for a few
+  /// seconds and every clearly better one is passed to [onRefined].
+  Future<LocateResult> locate({void Function(double lat, double lon)? onRefined});
 
   /// True when permission is already granted (no explanation dialog needed).
   Future<bool> hasPermission();
