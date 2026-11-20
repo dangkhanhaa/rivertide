@@ -3640,7 +3640,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get onb_start => '开始';
 
   @override
-  String get onb_finish => '进入应用';
+  String get onb_finish => '完成';
 
   @override
   String onb_progress(int step, int total) {
@@ -3784,12 +3784,6 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get onb_lookBody => '主题色、浅色或深色以及标签栏样式，下方可预览。';
-
-  @override
-  String get onb_rerun => '重新查看欢迎引导';
-
-  @override
-  String get onb_rerunHint => '逐步设置名字、语言、用户类型和外观';
 
   @override
   String get social_tooFast => '发送太快了——请稍等再试';
@@ -4332,4 +4326,92 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get water_reason_coastalLake => '紧邻海岸的湖：可能是与海相通的潟湖（潮汐小），也可能是淡水湖——地图无法区分。';
+
+  @override
+  String get onb_termsTitle => '条款与隐私';
+
+  @override
+  String get onb_termsBody => '使用前请快速阅读。完整内容见下方两个链接。';
+
+  @override
+  String get onb_termsDevice => '保存在你的设备上：钓鱼日志、关注地点、设置以及大致位置（约 1 公里）。不会上传。';
+
+  @override
+  String get onb_termsServer =>
+      '保存在服务器上：你公开发布的内容（钓点、评论、约钓、评价、已去除位置信息的照片）以及加密后的设备码。IP 仅以加密形式保存 7 天，用于防垃圾信息。';
+
+  @override
+  String get onb_termsLocation => '位置只在设备上使用。获取天气和海浪时，应用会把取整后的坐标发送给 Open-Meteo。';
+
+  @override
+  String get onb_termsCommunity => '社区：禁止广告、赌博、诈骗、骚扰以及非法捕捞（电鱼、炸鱼、毒鱼）。违规内容会被隐藏或封禁。你可以举报和屏蔽他人。';
+
+  @override
+  String get onb_termsSafety => '所有数据、预报和警告仅供参考。你需自行负责自己在水上的安全。';
+
+  @override
+  String get onb_termsAgree => '我已阅读并同意《使用条款》和《隐私政策》';
+
+  @override
+  String get onb_termsUpdatedBody => '请阅读并同意后继续使用应用。';
+
+  @override
+  String get onb_termsContinue => '同意并继续';
+
+  @override
+  String get legal_section => '法律信息';
+
+  @override
+  String get legal_terms => '使用条款';
+
+  @override
+  String get legal_privacy => '隐私政策';
+
+  @override
+  String get legal_disclaimer => '免责声明';
+
+  @override
+  String get legal_disclaimerText =>
+      '应用中的水位、潮汐预报、钓鱼指数和安全警告仅供参考，基于科学模型和公开数据，不能替代主管部门发布的正式灾害预警或水上安全救援规则。你需自行对户外活动中的决定和安全负责。';
+
+  @override
+  String get legal_disclaimerShort => '数据仅供参考，不能替代正式预警。你需自行负责自身安全。';
+
+  @override
+  String get legal_contact => '联系 / 举报违规';
+
+  @override
+  String get legal_contactHint => '通过 GitHub Issues · 举报在 24 小时内处理';
+
+  @override
+  String get block_action => '屏蔽此人';
+
+  @override
+  String get block_title => '屏蔽此人？';
+
+  @override
+  String get block_body => '你将不再看到此人的钓点、评论、约钓、消息和评价。对方不会收到通知。';
+
+  @override
+  String get block_done => '已屏蔽，此人的内容已隐藏。';
+
+  @override
+  String get block_failed => '无法屏蔽此内容。';
+
+  @override
+  String get block_unblockAll => '取消全部屏蔽';
+
+  @override
+  String get block_unblockHint => '重新显示你屏蔽的人的内容';
+
+  @override
+  String block_unblockDone(int count) {
+    return '已取消屏蔽 $count 人';
+  }
+
+  @override
+  String get onb_termsRequired => '只有同意《使用条款》和《隐私政策》后才能使用本应用。在此之前，应用不会加载数据、不会请求位置，也不会发送任何内容。';
+
+  @override
+  String get onb_exitApp => '退出应用';
 }

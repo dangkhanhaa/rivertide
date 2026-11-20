@@ -9,6 +9,7 @@ import 'package:rivertide/core/theme/appearance.dart';
 import 'package:rivertide/features/alerts/alerts.dart';
 import 'package:rivertide/features/more/application/appearance_provider.dart';
 import 'package:rivertide/features/more/application/outdoor_mode_provider.dart';
+import 'package:rivertide/features/more/application/terms_provider.dart';
 import 'package:rivertide/features/more/application/theme_mode_provider.dart';
 import 'package:rivertide/features/more/presentation/onboarding/onboarding_gate.dart';
 import 'package:rivertide/features/stations/stations.dart';
@@ -44,8 +45,17 @@ class _RiverTideAppState extends ConsumerState<RiverTideApp> {
     // (map tiles, fishing tab) get the CPU on slow phones.
     WidgetsBinding.instance.addPostFrameCallback((_) {
       unawaited(_openStartTab());
-      _warmTimer = Timer(_warmDelay, () => unawaited(_warmUp()));
+      // Nothing touches the network, alarms or the home widget before the
+      // current terms are accepted (P2-57 hard gate).
+      ref.listenManual(termsAcceptanceProvider, (_, next) {
+        if (next.value == true) _scheduleWarmUp();
+      }, fireImmediately: true);
     });
+  }
+
+  void _scheduleWarmUp() {
+    if (_warmTimer != null || !mounted) return;
+    _warmTimer = Timer(_warmDelay, () => unawaited(_warmUp()));
   }
 
   @override

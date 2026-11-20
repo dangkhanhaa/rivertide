@@ -39,8 +39,13 @@ String localizeStyle(String raw, {({String fill, String line})? water}) {
       decoded['sources'] is! Map<String, Object?>) {
     throw const ParseException('not a v8 style');
   }
-  for (final layer in decoded['layers']! as List<Object?>) {
+  // Sovereignty (P2-57, Luật Đo đạc và Bản đồ 2018): no sea boundary and no
+  // disputed boundary is ever drawn, whatever the tiles contain.
+  final layers = (decoded['layers']! as List<Object?>)
+    ..removeWhere((l) => l is Map<String, Object?> && _isDisputedLayer(l));
+  for (final layer in layers) {
     if (layer is! Map<String, Object?>) continue;
+    _landBoundariesOnly(layer);
     if (water != null) _tintWater(layer, water);
     final layout = layer['layout'];
     if (layout is! Map<String, Object?>) continue;
@@ -77,6 +82,31 @@ void _tintWater(Map<String, Object?> layer, ({String fill, String line}) water) 
   layer['paint'] = paint;
 }
 
+/// A layer that only draws disputed boundaries.
+bool _isDisputedLayer(Map<String, Object?> layer) =>
+    layer['source-layer'] == 'boundary' &&
+    jsonEncode(layer['filter']).contains('[==,[get,disputed],1]');
+
+/// Every other boundary layer: keep only lines that are neither maritime
+/// nor disputed (OpenMapTiles oundary fields).
+void _landBoundariesOnly(Map<String, Object?> layer) {
+  if (layer['source-layer'] != 'boundary') return;
+  layer['filter'] = [
+    'all',
+    [
+      '!=',
+      ['get', 'maritime'],
+      1,
+    ],
+    [
+      '!=',
+      ['get', 'disputed'],
+      1,
+    ],
+    ?layer['filter'],
+  ];
+}
+
 /// Name-based label expressions (not road refs or house numbers).
 bool _usesName(List<Object?> expr) => jsonEncode(expr).contains('"name');
 
@@ -90,8 +120,8 @@ class MapStyleSource {
   final DateTime Function() _clock;
 
   Future<String> load(String url, {({String fill, String line})? water}) async {
-    // v3: labels no longer fall back to English; older cached copies are not reused.
-    final key = 'map_style:v3:$url';
+    // v4: no sea / disputed boundaries (P2-57); older cached copies are not reused.
+    final key = 'map_style:v4:$url';
     final cached = await _db.readCache(key);
     final now = _clock();
     if (cached != null && now.difference(cached.fetchedAtUtc) < mapStyleTtl) {

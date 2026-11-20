@@ -196,6 +196,7 @@ class PondReview {
     required this.rating,
     required this.body,
     required this.at,
+    required this.createdAt,
     required this.mine,
   });
 
@@ -203,17 +204,22 @@ class PondReview {
   final int rating;
   final String body;
   final DateTime at;
+
+  /// Identifies the review on the server with the pond id (it has no id).
+  final DateTime createdAt;
   final bool mine;
 
   static PondReview? fromRow(Map<String, Object?> r) {
-    final at = rowTime(r['updated_at']) ?? rowTime(r['created_at']);
+    final created = rowTime(r['created_at']);
+    final at = rowTime(r['updated_at']) ?? created;
     final rating = _int(r['rating']);
-    if (at == null || rating == null || rating < 1 || rating > 5) return null;
+    if (at == null || created == null || rating == null || rating < 1 || rating > 5) return null;
     return PondReview(
       authorName: rowText(r['author_name'], displayNameMax),
       rating: rating,
       body: rowText(r['body'], 300),
       at: at,
+      createdAt: created,
       mine: r['mine'] == true,
     );
   }

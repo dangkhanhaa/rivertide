@@ -7,6 +7,7 @@ import 'package:rivertide/core/format/level_format.dart';
 import 'package:rivertide/core/format/time_format.dart';
 import 'package:rivertide/core/l10n/l10n_ext.dart';
 import 'package:rivertide/core/navigation/push_page.dart';
+import 'package:rivertide/core/social/block_author.dart';
 import 'package:rivertide/core/social/social_errors.dart';
 import 'package:rivertide/core/theme/app_colors.dart';
 import 'package:rivertide/core/theme/app_spacing.dart';
@@ -95,6 +96,18 @@ class SpotSheet extends ConsumerWidget {
             onEdit: () => unawaited(_edit(context)),
             onDelete: () => unawaited(_delete(context, ref)),
             onReport: () => unawaited(_report(context, ref)),
+            onBlock: () => unawaited(
+              askBlockAuthor(
+                context,
+                ref,
+                kind: BlockKind.spot,
+                itemId: spot.id,
+                onBlocked: () {
+                  ref.invalidate(nearbySpotsProvider);
+                  if (context.mounted) DetailHost.closeOf(context);
+                },
+              ),
+            ),
           ),
           const Divider(),
           SpotComments(spotId: spot.id),
@@ -148,19 +161,21 @@ class SpotSheet extends ConsumerWidget {
   }
 }
 
-/// Edit / delete for the owner; report for everyone else.
+/// Edit / delete for the owner; report and block for everyone else.
 class _OwnerActions extends StatelessWidget {
   const _OwnerActions({
     required this.mine,
     required this.onEdit,
     required this.onDelete,
     required this.onReport,
+    required this.onBlock,
   });
 
   final bool mine;
   final VoidCallback onEdit;
   final VoidCallback onDelete;
   final VoidCallback onReport;
+  final VoidCallback onBlock;
 
   @override
   Widget build(BuildContext context) {
@@ -181,12 +196,18 @@ class _OwnerActions extends StatelessWidget {
             icon: const Icon(Icons.delete_outline_rounded),
             label: Text(l10n.spot_delete),
           ),
-        ] else
+        ] else ...[
           TextButton.icon(
             onPressed: onReport,
             icon: const Icon(Icons.flag_outlined),
             label: Text(l10n.spot_report),
           ),
+          TextButton.icon(
+            onPressed: onBlock,
+            icon: const Icon(Icons.block_rounded),
+            label: Text(l10n.block_action),
+          ),
+        ],
       ],
     );
   }

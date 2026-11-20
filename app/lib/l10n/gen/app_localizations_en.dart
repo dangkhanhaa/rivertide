@@ -3775,7 +3775,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get onb_start => 'Get started';
 
   @override
-  String get onb_finish => 'Open the app';
+  String get onb_finish => 'Finish';
 
   @override
   String onb_progress(int step, int total) {
@@ -3924,12 +3924,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get onb_lookBody => 'Accent colour, light or dark, and tab bar style. Preview below.';
-
-  @override
-  String get onb_rerun => 'Replay the welcome';
-
-  @override
-  String get onb_rerunHint => 'Name, language, who you are and look, step by step';
 
   @override
   String get social_tooFast => 'You\'re sending a bit fast — wait a moment and try again';
@@ -4485,4 +4479,99 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get water_reason_coastalLake =>
       'A lake right by the coast: it may be a lagoon open to the sea (small tide) or a freshwater lake — the map cannot tell.';
+
+  @override
+  String get onb_termsTitle => 'Terms & privacy';
+
+  @override
+  String get onb_termsBody => 'A quick read before you start. The full texts are linked below.';
+
+  @override
+  String get onb_termsDevice =>
+      'On your device: fishing journal, watched places, settings and your rough location (~1 km). Never sent.';
+
+  @override
+  String get onb_termsServer =>
+      'On our server: what you post publicly (spots, comments, trips, reviews, photos with location data removed) and a hashed device code. IP addresses are kept only hashed, for 7 days, against spam.';
+
+  @override
+  String get onb_termsLocation =>
+      'Location is used on your device. For weather and waves the app sends rounded coordinates to Open-Meteo.';
+
+  @override
+  String get onb_termsCommunity =>
+      'Community: no ads, gambling, scams, harassment or illegal fishing (electric, explosive or poison fishing). Violations get hidden or blocked. You can report and block others.';
+
+  @override
+  String get onb_termsSafety =>
+      'All figures, forecasts and warnings are for reference only. You are responsible for your own safety on the water.';
+
+  @override
+  String get onb_termsAgree => 'I have read and agree to the Terms of Use and the Privacy Policy';
+
+  @override
+  String get onb_termsUpdatedBody => 'Please read and agree to keep using the app.';
+
+  @override
+  String get onb_termsContinue => 'Agree and continue';
+
+  @override
+  String get legal_section => 'Legal';
+
+  @override
+  String get legal_terms => 'Terms of Use';
+
+  @override
+  String get legal_privacy => 'Privacy Policy';
+
+  @override
+  String get legal_disclaimer => 'Disclaimer';
+
+  @override
+  String get legal_disclaimerText =>
+      'All water levels, tide forecasts, fishing scores and safety warnings in this app are for reference only, based on scientific models and public data. They do not replace official disaster warnings from the competent authorities or water safety and rescue rules. You are responsible for your own decisions and safety outdoors.';
+
+  @override
+  String get legal_disclaimerShort =>
+      'Figures are for reference only and do not replace official warnings. You are responsible for your own safety.';
+
+  @override
+  String get legal_contact => 'Contact / report abuse';
+
+  @override
+  String get legal_contactHint => 'Via GitHub Issues · reports handled within 24 hours';
+
+  @override
+  String get block_action => 'Block this person';
+
+  @override
+  String get block_title => 'Block this person?';
+
+  @override
+  String get block_body =>
+      'You won\'t see this person\'s spots, comments, trips, messages or reviews any more. They are not told.';
+
+  @override
+  String get block_done => 'Blocked. This person\'s content is now hidden.';
+
+  @override
+  String get block_failed => 'Couldn\'t block this content.';
+
+  @override
+  String get block_unblockAll => 'Unblock everyone';
+
+  @override
+  String get block_unblockHint => 'Show content from people you blocked again';
+
+  @override
+  String block_unblockDone(int count) {
+    return 'Unblocked $count people';
+  }
+
+  @override
+  String get onb_termsRequired =>
+      'The app can only be used once you agree to the Terms of Use and the Privacy Policy. Until then it loads no data, asks for no location and sends nothing.';
+
+  @override
+  String get onb_exitApp => 'Exit the app';
 }

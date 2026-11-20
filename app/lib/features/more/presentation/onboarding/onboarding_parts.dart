@@ -228,3 +228,42 @@ class OnbCard extends StatelessWidget {
     ),
   );
 }
+
+/// Soft accent wash at the top, safe-area aware; shared with the
+/// terms-only screen.
+class OnbScaffold extends StatelessWidget {
+  const OnbScaffold({required this.body, required this.bottom, this.top, super.key});
+
+  final Widget? top;
+  final Widget body;
+  final Widget bottom;
+
+  @override
+  Widget build(BuildContext context) {
+    final c = context.colors;
+    return Scaffold(
+      backgroundColor: c.surfaceAlt,
+      body: DecoratedBox(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.center,
+            colors: [
+              Color.alphaBlend(c.primary.withValues(alpha: 0.16), c.surfaceAlt),
+              c.surfaceAlt,
+            ],
+          ),
+        ),
+        child: SafeArea(
+          child: Column(
+            children: [
+              ?top,
+              Expanded(child: body),
+              bottom,
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

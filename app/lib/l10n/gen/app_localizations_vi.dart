@@ -3718,7 +3718,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get onb_start => 'Bắt đầu';
 
   @override
-  String get onb_finish => 'Vào app';
+  String get onb_finish => 'Hoàn tất';
 
   @override
   String onb_progress(int step, int total) {
@@ -3866,12 +3866,6 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get onb_lookBody => 'Màu chủ đạo, sáng tối và kiểu thanh tab. Xem trước ngay bên dưới.';
-
-  @override
-  String get onb_rerun => 'Xem lại phần chào mừng';
-
-  @override
-  String get onb_rerunHint => 'Tên, ngôn ngữ, bạn là ai và giao diện, từng bước';
 
   @override
   String get social_tooFast => 'Bạn gửi hơi nhanh — đợi một chút rồi thử lại nhé';
@@ -4426,4 +4420,100 @@ class AppLocalizationsVi extends AppLocalizations {
   @override
   String get water_reason_coastalLake =>
       'Hồ sát biển: có thể là đầm phá nối biển (có triều nhỏ) hoặc hồ nước ngọt — bản đồ chưa phân biệt được.';
+
+  @override
+  String get onb_termsTitle => 'Điều khoản & quyền riêng tư';
+
+  @override
+  String get onb_termsBody => 'Đọc nhanh trước khi dùng. Bản đầy đủ ở hai liên kết bên dưới.';
+
+  @override
+  String get onb_termsDevice =>
+      'Trên máy bạn: nhật ký câu, nơi theo dõi, cài đặt và vị trí gần đúng (~1 km). Không gửi đi.';
+
+  @override
+  String get onb_termsServer =>
+      'Trên máy chủ: những gì bạn đăng công khai (điểm câu, bình luận, kèo, đánh giá, ảnh đã xoá thông tin vị trí) và mã máy đã mã hoá. IP chỉ lưu dạng mã hoá trong 7 ngày để chống spam.';
+
+  @override
+  String get onb_termsLocation =>
+      'Vị trí dùng ngay trên máy. Để lấy thời tiết và sóng, app gửi toạ độ đã làm tròn tới Open-Meteo.';
+
+  @override
+  String get onb_termsCommunity =>
+      'Cộng đồng: cấm quảng cáo, cờ bạc, lừa đảo, quấy rối và khai thác thủy sản trái phép (kích điện, nổ mìn, chất độc). Vi phạm bị ẩn hoặc khoá. Bạn có thể báo cáo và chặn người khác.';
+
+  @override
+  String get onb_termsSafety =>
+      'Mọi số liệu, dự báo và cảnh báo chỉ để tham khảo. Bạn tự chịu trách nhiệm về an toàn của mình trên sông nước.';
+
+  @override
+  String get onb_termsAgree =>
+      'Tôi đã đọc và đồng ý Điều khoản sử dụng và Chính sách quyền riêng tư';
+
+  @override
+  String get onb_termsUpdatedBody => 'Vui lòng đọc và đồng ý để tiếp tục dùng app.';
+
+  @override
+  String get onb_termsContinue => 'Đồng ý và tiếp tục';
+
+  @override
+  String get legal_section => 'Pháp lý';
+
+  @override
+  String get legal_terms => 'Điều khoản sử dụng';
+
+  @override
+  String get legal_privacy => 'Chính sách quyền riêng tư';
+
+  @override
+  String get legal_disclaimer => 'Miễn trừ trách nhiệm';
+
+  @override
+  String get legal_disclaimerText =>
+      'Mọi số liệu mực nước, dự báo thủy triều, chỉ số câu cá và cảnh báo an toàn trên ứng dụng chỉ mang tính chất tham khảo dựa trên mô hình tính toán khoa học và dữ liệu công cộng, không thay thế cho các bản tin cảnh báo thiên tai chính thức của cơ quan nhà nước có thẩm quyền hoặc các quy tắc cứu hộ, an toàn sông nước. Người dùng tự chịu trách nhiệm về quyết định và an toàn của bản thân khi hoạt động ngoài trời.';
+
+  @override
+  String get legal_disclaimerShort =>
+      'Số liệu chỉ để tham khảo, không thay bản tin cảnh báo chính thức. Bạn tự chịu trách nhiệm về an toàn của mình.';
+
+  @override
+  String get legal_contact => 'Liên hệ / báo cáo vi phạm';
+
+  @override
+  String get legal_contactHint => 'Qua GitHub Issues · báo cáo được xử lý trong 24 giờ';
+
+  @override
+  String get block_action => 'Chặn người này';
+
+  @override
+  String get block_title => 'Chặn người này?';
+
+  @override
+  String get block_body =>
+      'Bạn sẽ không thấy điểm câu, bình luận, kèo, tin nhắn và đánh giá của người này nữa. Họ không được báo.';
+
+  @override
+  String get block_done => 'Đã chặn. Nội dung của người này đã được ẩn.';
+
+  @override
+  String get block_failed => 'Không chặn được nội dung này.';
+
+  @override
+  String get block_unblockAll => 'Bỏ chặn tất cả';
+
+  @override
+  String get block_unblockHint => 'Hiện lại nội dung của những người bạn đã chặn';
+
+  @override
+  String block_unblockDone(int count) {
+    return 'Đã bỏ chặn $count người';
+  }
+
+  @override
+  String get onb_termsRequired =>
+      'App chỉ dùng được khi bạn đồng ý Điều khoản sử dụng và Chính sách quyền riêng tư. Chưa đồng ý thì app không tải dữ liệu, không hỏi vị trí và không gửi gì đi.';
+
+  @override
+  String get onb_exitApp => 'Thoát ứng dụng';
 }

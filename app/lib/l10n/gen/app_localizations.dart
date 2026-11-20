@@ -6573,7 +6573,7 @@ abstract class AppLocalizations {
   /// No description provided for @onb_finish.
   ///
   /// In vi, this message translates to:
-  /// **'Vào app'**
+  /// **'Hoàn tất'**
   String get onb_finish;
 
   /// Welcome flow progress
@@ -6857,18 +6857,6 @@ abstract class AppLocalizations {
   /// In vi, this message translates to:
   /// **'Màu chủ đạo, sáng tối và kiểu thanh tab. Xem trước ngay bên dưới.'**
   String get onb_lookBody;
-
-  /// No description provided for @onb_rerun.
-  ///
-  /// In vi, this message translates to:
-  /// **'Xem lại phần chào mừng'**
-  String get onb_rerun;
-
-  /// No description provided for @onb_rerunHint.
-  ///
-  /// In vi, this message translates to:
-  /// **'Tên, ngôn ngữ, bạn là ai và giao diện, từng bước'**
-  String get onb_rerunHint;
 
   /// No description provided for @social_tooFast.
   ///
@@ -7817,6 +7805,174 @@ abstract class AppLocalizations {
   /// In vi, this message translates to:
   /// **'Hồ sát biển: có thể là đầm phá nối biển (có triều nhỏ) hoặc hồ nước ngọt — bản đồ chưa phân biệt được.'**
   String get water_reason_coastalLake;
+
+  /// No description provided for @onb_termsTitle.
+  ///
+  /// In vi, this message translates to:
+  /// **'Điều khoản & quyền riêng tư'**
+  String get onb_termsTitle;
+
+  /// No description provided for @onb_termsBody.
+  ///
+  /// In vi, this message translates to:
+  /// **'Đọc nhanh trước khi dùng. Bản đầy đủ ở hai liên kết bên dưới.'**
+  String get onb_termsBody;
+
+  /// No description provided for @onb_termsDevice.
+  ///
+  /// In vi, this message translates to:
+  /// **'Trên máy bạn: nhật ký câu, nơi theo dõi, cài đặt và vị trí gần đúng (~1 km). Không gửi đi.'**
+  String get onb_termsDevice;
+
+  /// No description provided for @onb_termsServer.
+  ///
+  /// In vi, this message translates to:
+  /// **'Trên máy chủ: những gì bạn đăng công khai (điểm câu, bình luận, kèo, đánh giá, ảnh đã xoá thông tin vị trí) và mã máy đã mã hoá. IP chỉ lưu dạng mã hoá trong 7 ngày để chống spam.'**
+  String get onb_termsServer;
+
+  /// No description provided for @onb_termsLocation.
+  ///
+  /// In vi, this message translates to:
+  /// **'Vị trí dùng ngay trên máy. Để lấy thời tiết và sóng, app gửi toạ độ đã làm tròn tới Open-Meteo.'**
+  String get onb_termsLocation;
+
+  /// No description provided for @onb_termsCommunity.
+  ///
+  /// In vi, this message translates to:
+  /// **'Cộng đồng: cấm quảng cáo, cờ bạc, lừa đảo, quấy rối và khai thác thủy sản trái phép (kích điện, nổ mìn, chất độc). Vi phạm bị ẩn hoặc khoá. Bạn có thể báo cáo và chặn người khác.'**
+  String get onb_termsCommunity;
+
+  /// No description provided for @onb_termsSafety.
+  ///
+  /// In vi, this message translates to:
+  /// **'Mọi số liệu, dự báo và cảnh báo chỉ để tham khảo. Bạn tự chịu trách nhiệm về an toàn của mình trên sông nước.'**
+  String get onb_termsSafety;
+
+  /// No description provided for @onb_termsAgree.
+  ///
+  /// In vi, this message translates to:
+  /// **'Tôi đã đọc và đồng ý Điều khoản sử dụng và Chính sách quyền riêng tư'**
+  String get onb_termsAgree;
+
+  /// No description provided for @onb_termsUpdatedBody.
+  ///
+  /// In vi, this message translates to:
+  /// **'Vui lòng đọc và đồng ý để tiếp tục dùng app.'**
+  String get onb_termsUpdatedBody;
+
+  /// No description provided for @onb_termsContinue.
+  ///
+  /// In vi, this message translates to:
+  /// **'Đồng ý và tiếp tục'**
+  String get onb_termsContinue;
+
+  /// No description provided for @legal_section.
+  ///
+  /// In vi, this message translates to:
+  /// **'Pháp lý'**
+  String get legal_section;
+
+  /// No description provided for @legal_terms.
+  ///
+  /// In vi, this message translates to:
+  /// **'Điều khoản sử dụng'**
+  String get legal_terms;
+
+  /// No description provided for @legal_privacy.
+  ///
+  /// In vi, this message translates to:
+  /// **'Chính sách quyền riêng tư'**
+  String get legal_privacy;
+
+  /// No description provided for @legal_disclaimer.
+  ///
+  /// In vi, this message translates to:
+  /// **'Miễn trừ trách nhiệm'**
+  String get legal_disclaimer;
+
+  /// No description provided for @legal_disclaimerText.
+  ///
+  /// In vi, this message translates to:
+  /// **'Mọi số liệu mực nước, dự báo thủy triều, chỉ số câu cá và cảnh báo an toàn trên ứng dụng chỉ mang tính chất tham khảo dựa trên mô hình tính toán khoa học và dữ liệu công cộng, không thay thế cho các bản tin cảnh báo thiên tai chính thức của cơ quan nhà nước có thẩm quyền hoặc các quy tắc cứu hộ, an toàn sông nước. Người dùng tự chịu trách nhiệm về quyết định và an toàn của bản thân khi hoạt động ngoài trời.'**
+  String get legal_disclaimerText;
+
+  /// No description provided for @legal_disclaimerShort.
+  ///
+  /// In vi, this message translates to:
+  /// **'Số liệu chỉ để tham khảo, không thay bản tin cảnh báo chính thức. Bạn tự chịu trách nhiệm về an toàn của mình.'**
+  String get legal_disclaimerShort;
+
+  /// No description provided for @legal_contact.
+  ///
+  /// In vi, this message translates to:
+  /// **'Liên hệ / báo cáo vi phạm'**
+  String get legal_contact;
+
+  /// No description provided for @legal_contactHint.
+  ///
+  /// In vi, this message translates to:
+  /// **'Qua GitHub Issues · báo cáo được xử lý trong 24 giờ'**
+  String get legal_contactHint;
+
+  /// No description provided for @block_action.
+  ///
+  /// In vi, this message translates to:
+  /// **'Chặn người này'**
+  String get block_action;
+
+  /// No description provided for @block_title.
+  ///
+  /// In vi, this message translates to:
+  /// **'Chặn người này?'**
+  String get block_title;
+
+  /// No description provided for @block_body.
+  ///
+  /// In vi, this message translates to:
+  /// **'Bạn sẽ không thấy điểm câu, bình luận, kèo, tin nhắn và đánh giá của người này nữa. Họ không được báo.'**
+  String get block_body;
+
+  /// No description provided for @block_done.
+  ///
+  /// In vi, this message translates to:
+  /// **'Đã chặn. Nội dung của người này đã được ẩn.'**
+  String get block_done;
+
+  /// No description provided for @block_failed.
+  ///
+  /// In vi, this message translates to:
+  /// **'Không chặn được nội dung này.'**
+  String get block_failed;
+
+  /// No description provided for @block_unblockAll.
+  ///
+  /// In vi, this message translates to:
+  /// **'Bỏ chặn tất cả'**
+  String get block_unblockAll;
+
+  /// No description provided for @block_unblockHint.
+  ///
+  /// In vi, this message translates to:
+  /// **'Hiện lại nội dung của những người bạn đã chặn'**
+  String get block_unblockHint;
+
+  /// No description provided for @block_unblockDone.
+  ///
+  /// In vi, this message translates to:
+  /// **'Đã bỏ chặn {count} người'**
+  String block_unblockDone(int count);
+
+  /// No description provided for @onb_termsRequired.
+  ///
+  /// In vi, this message translates to:
+  /// **'App chỉ dùng được khi bạn đồng ý Điều khoản sử dụng và Chính sách quyền riêng tư. Chưa đồng ý thì app không tải dữ liệu, không hỏi vị trí và không gửi gì đi.'**
+  String get onb_termsRequired;
+
+  /// No description provided for @onb_exitApp.
+  ///
+  /// In vi, this message translates to:
+  /// **'Thoát ứng dụng'**
+  String get onb_exitApp;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

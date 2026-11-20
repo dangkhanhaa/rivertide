@@ -71,6 +71,7 @@ class HazardBanner extends ConsumerWidget {
                 ],
               ),
               for (final h in hazards) Text(_text(context, h), style: context.text.body),
+              Text(context.l10n.legal_disclaimerShort, style: context.text.caption),
             ],
           ),
         ),

@@ -9,8 +9,13 @@ const String _key = 'onboarding_v1';
 const String _done = 'done';
 const String _profileKey = 'user_profile';
 
-/// Steps of the welcome flow: welcome, language, name, who, preferences, look.
-const int onboardingSteps = 6;
+/// Steps of the welcome flow: welcome, language, terms (P2-57), name, who,
+/// preferences, look.
+const int onboardingSteps = 7;
+
+/// Index of the terms step: a flow resumed without accepted terms never
+/// starts after it.
+const int onboardingTermsStep = 2;
 
 /// Welcome flow progress (P2-53): null = finished (or never needed), else the
 /// step to resume at. The step is saved as the user moves, so an app killed
