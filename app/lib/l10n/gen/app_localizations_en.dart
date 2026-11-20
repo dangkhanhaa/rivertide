@@ -4492,7 +4492,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get onb_termsServer =>
-      'On our server: what you post publicly (spots, comments, trips, reviews, photos with location data removed) and a hashed device code. IP addresses are kept only hashed, for 7 days, against spam.';
+      'On our server: what you post publicly (spots, comments, trips, reviews, photos with location data removed) and an encrypted device code. Anti-spam technical data is kept 7 days at most.';
 
   @override
   String get onb_termsLocation =>

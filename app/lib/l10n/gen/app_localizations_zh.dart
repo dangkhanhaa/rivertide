@@ -4338,7 +4338,7 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get onb_termsServer =>
-      '保存在服务器上：你公开发布的内容（钓点、评论、约钓、评价、已去除位置信息的照片）以及加密后的设备码。IP 仅以加密形式保存 7 天，用于防垃圾信息。';
+      '保存在服务器上：你公开发布的内容（钓点、评论、约钓、评价、已去除位置信息的照片）以及加密后的设备码。防垃圾信息的技术数据最多保存 7 天。';
 
   @override
   String get onb_termsLocation => '位置只在设备上使用。获取天气和海浪时，应用会把取整后的坐标发送给 Open-Meteo。';

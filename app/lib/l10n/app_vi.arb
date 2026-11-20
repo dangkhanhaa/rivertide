@@ -1528,7 +1528,7 @@
   "onb_termsTitle": "Điều khoản & quyền riêng tư",
   "onb_termsBody": "Đọc nhanh trước khi dùng. Bản đầy đủ ở hai liên kết bên dưới.",
   "onb_termsDevice": "Trên máy bạn: nhật ký câu, nơi theo dõi, cài đặt và vị trí gần đúng (~1 km). Không gửi đi.",
-  "onb_termsServer": "Trên máy chủ: những gì bạn đăng công khai (điểm câu, bình luận, kèo, đánh giá, ảnh đã xoá thông tin vị trí) và mã máy đã mã hoá. IP chỉ lưu dạng mã hoá trong 7 ngày để chống spam.",
+  "onb_termsServer": "Trên máy chủ: những gì bạn đăng công khai (điểm câu, bình luận, kèo, đánh giá, ảnh đã xoá thông tin vị trí) và mã thiết bị đã mã hoá. Dữ liệu kỹ thuật chống spam chỉ lưu tối đa 7 ngày.",
   "onb_termsLocation": "Vị trí dùng ngay trên máy. Để lấy thời tiết và sóng, app gửi toạ độ đã làm tròn tới Open-Meteo.",
   "onb_termsCommunity": "Cộng đồng: cấm quảng cáo, cờ bạc, lừa đảo, quấy rối và khai thác thủy sản trái phép (kích điện, nổ mìn, chất độc). Vi phạm bị ẩn hoặc khoá. Bạn có thể báo cáo và chặn người khác.",
   "onb_termsSafety": "Mọi số liệu, dự báo và cảnh báo chỉ để tham khảo. Bạn tự chịu trách nhiệm về an toàn của mình trên sông nước.",

@@ -4344,7 +4344,7 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get onb_termsServer =>
-      'サーバー：公開で投稿した内容（ポイント、コメント、釣行、レビュー、位置情報を消した写真）とハッシュ化した端末コード。IPはスパム対策のためハッシュ化して7日間だけ保存します。';
+      'サーバー：公開で投稿した内容（ポイント、コメント、釣行、レビュー、位置情報を消した写真）と暗号化した端末コード。スパム対策の技術データは最大7日間だけ保存します。';
 
   @override
   String get onb_termsLocation => '位置情報は端末内で使います。天気と波の取得のため、丸めた座標を Open-Meteo に送ります。';

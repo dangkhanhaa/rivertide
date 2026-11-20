@@ -4434,7 +4434,7 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get onb_termsServer =>
-      'Trên máy chủ: những gì bạn đăng công khai (điểm câu, bình luận, kèo, đánh giá, ảnh đã xoá thông tin vị trí) và mã máy đã mã hoá. IP chỉ lưu dạng mã hoá trong 7 ngày để chống spam.';
+      'Trên máy chủ: những gì bạn đăng công khai (điểm câu, bình luận, kèo, đánh giá, ảnh đã xoá thông tin vị trí) và mã thiết bị đã mã hoá. Dữ liệu kỹ thuật chống spam chỉ lưu tối đa 7 ngày.';
 
   @override
   String get onb_termsLocation =>

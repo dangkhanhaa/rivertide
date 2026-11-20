@@ -34,8 +34,8 @@
 
   <div class="card">
     <strong>Tóm tắt.</strong> Không cần đăng ký, không hỏi email hay số điện thoại. Phần lớn dữ liệu nằm ngay trên
-    máy bạn. Máy chủ chỉ giữ những gì bạn chủ động đăng công khai, một mã máy đã băm và địa chỉ IP đã băm trong 7 ngày
-    để chống spam. Chúng tôi không bán dữ liệu và không chạy quảng cáo.
+    máy bạn. Máy chủ chỉ giữ những gì bạn chủ động đăng công khai, một mã nhận diện thiết bị đã mã hoá và dữ liệu
+    kỹ thuật tối thiểu (lưu ngắn hạn) để chống spam. Chúng tôi không bán dữ liệu và không chạy quảng cáo.
   </div>
 
   <h2>1. Bên kiểm soát dữ liệu</h2>
@@ -48,7 +48,7 @@
       điểm bạn đồng ý điều khoản.</li>
     <li>Vị trí gần đúng lần cuối (làm tròn khoảng 1 km) để lần sau bản đồ mở nhanh.</li>
     <li>Bộ nhớ đệm số liệu để dùng được khi mất sóng.</li>
-    <li>Một mã bí mật ngẫu nhiên của thiết bị, dùng để chứng minh "nội dung này là của tôi" thay cho tài khoản.</li>
+    <li>Một mã ngẫu nhiên của thiết bị, dùng thay cho tài khoản để bạn quản lý nội dung của mình.</li>
   </ul>
   <p>Xoá ứng dụng (hoặc xoá dữ liệu trang web trong trình duyệt) là xoá hết các dữ liệu này.</p>
 
@@ -56,45 +56,45 @@
   <ul>
     <li>Ứng dụng chỉ hỏi quyền vị trí sau khi giải thích, và vẫn dùng được nếu bạn từ chối.</li>
     <li>Vị trí dùng ngay trên máy để đưa bản đồ tới chỗ bạn, tìm trạm, hồ câu gần nhất và tính con nước.</li>
-    <li>Để lấy thời tiết, sóng biển và lưu lượng sông, ứng dụng gửi toạ độ <strong>đã làm tròn</strong> (khoảng 100 m
-      đến 1 km) tới dịch vụ Open-Meteo (open-meteo.com). Yêu cầu này không kèm tên hay mã máy của bạn.</li>
+    <li>Để lấy thời tiết, sóng biển, lưu lượng sông và thông tin bản đồ, ứng dụng gửi toạ độ <strong>đã làm tròn</strong>
+      tới các nhà cung cấp dữ liệu nêu ở mục 6. Yêu cầu này không kèm tên hay mã thiết bị của bạn.</li>
     <li>Vị trí của bạn không được gửi lên máy chủ của chúng tôi, trừ khi bạn chủ động đăng một điểm câu, hồ câu, kèo câu
       (toạ độ của điểm đó trở nên công khai), bấm "Đang câu ở đây" hoặc "Có dính không?" (chỉ lưu ô lưới khoảng 200 m và
       chỉ hiện dạng số người, không ai thấy vị trí chính xác hay danh tính của bạn).</li>
   </ul>
 
-  <h2>4. Dữ liệu trên máy chủ (Supabase)</h2>
+  <h2>4. Dữ liệu trên máy chủ</h2>
   <div class="scroll">
   <table class="table">
     <tr><th>Dữ liệu</th><th>Mục đích</th><th>Lưu bao lâu</th></tr>
     <tr><td>Nội dung bạn đăng: điểm câu, ảnh, bình luận, kèo câu, tin nhắn trong kèo, hồ câu, lịch xả cá, đánh giá,
       tên hiển thị kèm theo</td><td>Hiển thị cho cộng đồng</td><td>Đến khi bạn xoá, hoặc bị gỡ do vi phạm</td></tr>
-    <tr><td>Mã máy: bản băm SHA-256 của mã bí mật (máy chủ không có mã gốc)</td><td>Biết nội dung nào của bạn để bạn
-      sửa, xoá; giới hạn spam; lưu danh sách người bạn chặn</td><td>Cùng nội dung; danh sách chặn đến khi bạn bỏ chặn</td></tr>
-    <tr><td>Địa chỉ IP dưới dạng mã HMAC-SHA256 (IPv6 gộp theo /64), không lưu IP gốc</td><td>Chống spam, chống tạo
-      hàng loạt mã máy</td><td>7 ngày</td></tr>
+    <tr><td>Mã nhận diện thiết bị (đã mã hoá, không phải mã gốc)</td><td>Biết nội dung nào của bạn để bạn sửa, xoá;
+      chống lạm dụng; lưu danh sách người bạn chặn</td><td>Cùng nội dung; danh sách chặn đến khi bạn bỏ chặn</td></tr>
+    <tr><td>Dữ liệu kỹ thuật của kết nối (đã mã hoá, không lưu địa chỉ IP gốc)</td><td>Chống spam và lạm dụng</td>
+      <td>Tối đa 7 ngày</td></tr>
     <tr><td>"Đang câu ở đây": ô lưới ~200 m</td><td>Đếm số người đang câu quanh đó</td><td>Tự hết hạn sau vài giờ hoặc
       khi bạn bấm kết thúc</td></tr>
     <tr><td>Báo cáo vi phạm và lượt "Có dính không?"</td><td>Kiểm duyệt; thống kê cá cắn</td><td>Theo nội dung liên quan;
       thống kê tối đa 60 ngày</td></tr>
   </table>
   </div>
-  <p>Ảnh được nén lại trên máy trước khi tải lên; việc nén lại xoá toàn bộ thông tin EXIF, gồm toạ độ GPS nhúng trong
-    ảnh. Ảnh đã đăng là công khai, ai có đường dẫn đều xem được.</p>
-  <p>Máy chủ đặt tại hạ tầng của Supabase (có thể ở ngoài Việt Nam). Kết nối luôn được mã hoá (HTTPS).</p>
+  <p>Ảnh được xử lý trên máy trước khi tải lên để xoá thông tin vị trí nhúng trong ảnh. Ảnh đã đăng là công khai.</p>
+  <p>Dữ liệu được lưu tại nhà cung cấp hạ tầng đám mây, có thể đặt ngoài Việt Nam (chuyển dữ liệu ra nước ngoài theo
+    Nghị định 13/2023/NĐ-CP). Kết nối luôn được mã hoá.</p>
 
   <h2>5. Chúng tôi không làm</h2>
   <ul>
     <li>Không bán, cho thuê hay trao đổi dữ liệu của bạn; không chạy quảng cáo; không dùng công cụ theo dõi quảng cáo.</li>
     <li>Không thu thập danh bạ, tin nhắn, email hay số điện thoại.</li>
-    <li>Không ghi toạ độ chính xác, mã bí mật hay nội dung nhật ký vào nhật ký hệ thống.</li>
+    <li>Không ghi vị trí chính xác hay nội dung nhật ký câu của bạn vào nhật ký hệ thống.</li>
   </ul>
 
   <h2>6. Bên thứ ba</h2>
   <ul>
-    <li>Supabase (lưu nội dung cộng đồng), GitHub Pages (phục vụ trang web).</li>
-    <li>Open-Meteo (thời tiết, sóng, lưu lượng), OpenFreeMap / OpenStreetMap và EOX (bản đồ nền, ảnh vệ tinh):
-      nhận địa chỉ IP và vùng bản đồ bạn xem như mọi trang web khác.</li>
+    <li>Nhà cung cấp hạ tầng: lưu trữ nội dung cộng đồng và phục vụ trang web.</li>
+    <li>Nhà cung cấp dữ liệu thời tiết, bản đồ nền, ảnh vệ tinh và dữ liệu bản đồ mở (OpenStreetMap): nhận địa chỉ IP,
+      toạ độ đã làm tròn hoặc vùng bản đồ bạn xem, như mọi trang web khác. Họ xử lý theo chính sách riêng của họ.</li>
   </ul>
 
   <h2>7. Quyền của bạn (Nghị định 13/2023/NĐ-CP)</h2>

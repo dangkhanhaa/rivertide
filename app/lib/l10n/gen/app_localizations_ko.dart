@@ -4350,7 +4350,7 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get onb_termsServer =>
-      '서버에 저장: 공개로 올린 내용(포인트, 댓글, 출조, 리뷰, 위치 정보를 지운 사진)과 암호화된 기기 코드. IP는 스팸 방지를 위해 암호화된 형태로 7일만 보관해요.';
+      '서버에 저장: 공개로 올린 내용(포인트, 댓글, 출조, 리뷰, 위치 정보를 지운 사진)과 암호화된 기기 코드. 스팸 방지용 기술 데이터는 최대 7일만 보관해요.';
 
   @override
   String get onb_termsLocation => '위치는 기기에서만 사용해요. 날씨와 파도를 받기 위해 반올림한 좌표를 Open-Meteo에 보내요.';
