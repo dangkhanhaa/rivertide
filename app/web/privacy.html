@@ -34,68 +34,44 @@
 
   <div class="card">
     <strong>Tóm tắt.</strong> Không cần đăng ký, không hỏi email hay số điện thoại. Phần lớn dữ liệu nằm ngay trên
-    máy bạn. Máy chủ chỉ giữ những gì bạn chủ động đăng công khai, một mã nhận diện thiết bị đã mã hoá và dữ liệu
-    kỹ thuật tối thiểu (lưu ngắn hạn) để chống spam. Chúng tôi không bán dữ liệu và không chạy quảng cáo.
+    máy bạn. Máy chủ chỉ giữ những gì bạn chủ động đăng công khai và một ít dữ liệu cần thiết để chống spam.
+    Chúng tôi không bán dữ liệu và không chạy quảng cáo.
   </div>
 
   <h2>1. Bên kiểm soát dữ liệu</h2>
   <p>Chủ dự án Con Nước là bên kiểm soát và xử lý dữ liệu cá nhân theo Nghị định 13/2023/NĐ-CP về bảo vệ dữ liệu cá
     nhân. Liên hệ: <a href="https://github.com/dangkhanhaa/rivertide/issues">github.com/dangkhanhaa/rivertide/issues</a>.</p>
 
-  <h2>2. Dữ liệu chỉ lưu trên máy bạn</h2>
-  <ul>
-    <li>Nhật ký câu cá (kể cả ảnh), nơi theo dõi và ghi chú, cài đặt giao diện, tên hiển thị, tiến độ hướng dẫn và thời
-      điểm bạn đồng ý điều khoản.</li>
-    <li>Vị trí gần đúng lần cuối (làm tròn khoảng 1 km) để lần sau bản đồ mở nhanh.</li>
-    <li>Bộ nhớ đệm số liệu để dùng được khi mất sóng.</li>
-    <li>Một mã ngẫu nhiên của thiết bị, dùng thay cho tài khoản để bạn quản lý nội dung của mình.</li>
-  </ul>
-  <p>Xoá ứng dụng (hoặc xoá dữ liệu trang web trong trình duyệt) là xoá hết các dữ liệu này.</p>
+  <h2>2. Dữ liệu lưu trên máy bạn</h2>
+  <p>Nhật ký câu cá, nơi bạn theo dõi, cài đặt, tên hiển thị và lần đồng ý điều khoản được lưu ngay trên máy bạn,
+    không gửi đi. Xoá ứng dụng (hoặc xoá dữ liệu trang web) là xoá hết các dữ liệu này.</p>
 
   <h2>3. Vị trí</h2>
   <ul>
-    <li>Ứng dụng chỉ hỏi quyền vị trí sau khi giải thích, và vẫn dùng được nếu bạn từ chối.</li>
-    <li>Vị trí dùng ngay trên máy để đưa bản đồ tới chỗ bạn, tìm trạm, hồ câu gần nhất và tính con nước.</li>
-    <li>Để lấy thời tiết, sóng biển, lưu lượng sông và thông tin bản đồ, ứng dụng gửi toạ độ <strong>đã làm tròn</strong>
-      tới các nhà cung cấp dữ liệu nêu ở mục 6. Yêu cầu này không kèm tên hay mã thiết bị của bạn.</li>
-    <li>Vị trí của bạn không được gửi lên máy chủ của chúng tôi, trừ khi bạn chủ động đăng một điểm câu, hồ câu, kèo câu
-      (toạ độ của điểm đó trở nên công khai), bấm "Đang câu ở đây" hoặc "Có dính không?" (chỉ lưu ô lưới khoảng 200 m và
-      chỉ hiện dạng số người, không ai thấy vị trí chính xác hay danh tính của bạn).</li>
+    <li>Ứng dụng chỉ hỏi quyền vị trí khi cần và vẫn dùng được nếu bạn từ chối.</li>
+    <li>Vị trí dùng để đưa bản đồ tới chỗ bạn, tìm trạm, hồ câu gần nhất, và lấy con nước, thời tiết tại chỗ bạn.</li>
+    <li>Vị trí của bạn không được công khai, trừ khi bạn chủ động đăng một điểm câu, hồ câu hoặc kèo câu.</li>
   </ul>
 
   <h2>4. Dữ liệu trên máy chủ</h2>
-  <div class="scroll">
-  <table class="table">
-    <tr><th>Dữ liệu</th><th>Mục đích</th><th>Lưu bao lâu</th></tr>
-    <tr><td>Nội dung bạn đăng: điểm câu, ảnh, bình luận, kèo câu, tin nhắn trong kèo, hồ câu, lịch xả cá, đánh giá,
-      tên hiển thị kèm theo</td><td>Hiển thị cho cộng đồng</td><td>Đến khi bạn xoá, hoặc bị gỡ do vi phạm</td></tr>
-    <tr><td>Mã nhận diện thiết bị (đã mã hoá, không phải mã gốc)</td><td>Biết nội dung nào của bạn để bạn sửa, xoá;
-      chống lạm dụng; lưu danh sách người bạn chặn</td><td>Cùng nội dung; danh sách chặn đến khi bạn bỏ chặn</td></tr>
-    <tr><td>Dữ liệu kỹ thuật của kết nối (đã mã hoá, không lưu địa chỉ IP gốc)</td><td>Chống spam và lạm dụng</td>
-      <td>Tối đa 7 ngày</td></tr>
-    <tr><td>"Đang câu ở đây": ô lưới ~200 m</td><td>Đếm số người đang câu quanh đó</td><td>Tự hết hạn sau vài giờ hoặc
-      khi bạn bấm kết thúc</td></tr>
-    <tr><td>Báo cáo vi phạm và lượt "Có dính không?"</td><td>Kiểm duyệt; thống kê cá cắn</td><td>Theo nội dung liên quan;
-      thống kê tối đa 60 ngày</td></tr>
-  </table>
-  </div>
-  <p>Ảnh được xử lý trên máy trước khi tải lên để xoá thông tin vị trí nhúng trong ảnh. Ảnh đã đăng là công khai.</p>
-  <p>Dữ liệu được lưu tại nhà cung cấp hạ tầng đám mây, có thể đặt ngoài Việt Nam (chuyển dữ liệu ra nước ngoài theo
-    Nghị định 13/2023/NĐ-CP). Kết nối luôn được mã hoá.</p>
+  <ul>
+    <li><strong>Nội dung bạn đăng</strong> (điểm câu, ảnh, bình luận, kèo câu, hồ câu, đánh giá…): để hiển thị cho cộng
+      đồng; lưu đến khi bạn xoá hoặc khi nội dung bị gỡ do vi phạm.</li>
+    <li><strong>Mã nhận diện thiết bị</strong>: để bạn sửa, xoá nội dung của mình và để chặn người khác; lưu cùng nội dung.</li>
+    <li><strong>Dữ liệu kỹ thuật chống spam</strong>: chỉ dùng để ngăn lạm dụng; lưu tối đa 7 ngày.</li>
+  </ul>
+  <p>Dữ liệu được lưu tại nhà cung cấp dịch vụ đám mây, có thể đặt ở nước ngoài. Kết nối luôn được mã hoá.</p>
 
   <h2>5. Chúng tôi không làm</h2>
   <ul>
-    <li>Không bán, cho thuê hay trao đổi dữ liệu của bạn; không chạy quảng cáo; không dùng công cụ theo dõi quảng cáo.</li>
+    <li>Không bán, cho thuê hay trao đổi dữ liệu của bạn; không chạy quảng cáo.</li>
     <li>Không thu thập danh bạ, tin nhắn, email hay số điện thoại.</li>
-    <li>Không ghi vị trí chính xác hay nội dung nhật ký câu của bạn vào nhật ký hệ thống.</li>
   </ul>
 
   <h2>6. Bên thứ ba</h2>
-  <ul>
-    <li>Nhà cung cấp hạ tầng: lưu trữ nội dung cộng đồng và phục vụ trang web.</li>
-    <li>Nhà cung cấp dữ liệu thời tiết, bản đồ nền, ảnh vệ tinh và dữ liệu bản đồ mở (OpenStreetMap): nhận địa chỉ IP,
-      toạ độ đã làm tròn hoặc vùng bản đồ bạn xem, như mọi trang web khác. Họ xử lý theo chính sách riêng của họ.</li>
-  </ul>
+  <p>Ứng dụng dùng dịch vụ của các nhà cung cấp hạ tầng, dữ liệu thời tiết và bản đồ. Khi bạn dùng ứng dụng, các nhà
+    cung cấp này có thể nhận địa chỉ IP và khu vực bạn đang xem, như với mọi trang web khác, và xử lý theo chính sách
+    của họ.</p>
 
   <h2>7. Quyền của bạn (Nghị định 13/2023/NĐ-CP)</h2>
   <ul>
