@@ -4334,14 +4334,13 @@ class AppLocalizationsZh extends AppLocalizations {
   String get onb_termsBody => '使用前请快速阅读。完整内容见下方两个链接。';
 
   @override
-  String get onb_termsDevice => '保存在你的设备上：钓鱼日志、关注地点、设置以及大致位置（约 1 公里）。不会上传。';
+  String get onb_termsDevice => '保存在你的设备上：钓鱼日志、关注地点和设置。不会上传。';
 
   @override
-  String get onb_termsServer =>
-      '保存在服务器上：你公开发布的内容（钓点、评论、约钓、评价、已去除位置信息的照片）以及加密后的设备码。防垃圾信息的技术数据最多保存 7 天。';
+  String get onb_termsServer => '保存在服务器上：你公开发布的内容和防垃圾信息所需的数据。';
 
   @override
-  String get onb_termsLocation => '位置只在设备上使用。获取天气和海浪时，应用会把取整后的坐标发送给 Open-Meteo。';
+  String get onb_termsLocation => '位置只用于显示你附近的潮汐、天气和钓点，不会公开。';
 
   @override
   String get onb_termsCommunity => '社区：禁止广告、赌博、诈骗、骚扰以及非法捕捞（电鱼、炸鱼、毒鱼）。违规内容会被隐藏或封禁。你可以举报和屏蔽他人。';

@@ -4340,14 +4340,13 @@ class AppLocalizationsJa extends AppLocalizations {
   String get onb_termsBody => '始める前にざっと読んでください。全文は下のリンクにあります。';
 
   @override
-  String get onb_termsDevice => '端末内：釣り日誌、ウォッチ中の場所、設定、おおよその位置（約1km）。送信しません。';
+  String get onb_termsDevice => '端末に保存：釣り日誌、フォロー中の場所、設定。送信しません。';
 
   @override
-  String get onb_termsServer =>
-      'サーバー：公開で投稿した内容（ポイント、コメント、釣行、レビュー、位置情報を消した写真）と暗号化した端末コード。スパム対策の技術データは最大7日間だけ保存します。';
+  String get onb_termsServer => 'サーバー：公開で投稿した内容とスパム対策に必要なデータ。';
 
   @override
-  String get onb_termsLocation => '位置情報は端末内で使います。天気と波の取得のため、丸めた座標を Open-Meteo に送ります。';
+  String get onb_termsLocation => '位置情報は周辺の潮・天気・釣り場の表示にのみ使い、公開しません。';
 
   @override
   String get onb_termsCommunity =>

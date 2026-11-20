@@ -4429,16 +4429,15 @@ class AppLocalizationsVi extends AppLocalizations {
   String get onb_termsBody => 'Đọc nhanh trước khi dùng. Bản đầy đủ ở hai liên kết bên dưới.';
 
   @override
-  String get onb_termsDevice =>
-      'Trên máy bạn: nhật ký câu, nơi theo dõi, cài đặt và vị trí gần đúng (~1 km). Không gửi đi.';
+  String get onb_termsDevice => 'Trên máy bạn: nhật ký câu, nơi theo dõi và cài đặt. Không gửi đi.';
 
   @override
   String get onb_termsServer =>
-      'Trên máy chủ: những gì bạn đăng công khai (điểm câu, bình luận, kèo, đánh giá, ảnh đã xoá thông tin vị trí) và mã thiết bị đã mã hoá. Dữ liệu kỹ thuật chống spam chỉ lưu tối đa 7 ngày.';
+      'Trên máy chủ: những gì bạn đăng công khai và dữ liệu cần thiết để chống spam.';
 
   @override
   String get onb_termsLocation =>
-      'Vị trí dùng ngay trên máy. Để lấy thời tiết và sóng, app gửi toạ độ đã làm tròn tới Open-Meteo.';
+      'Vị trí chỉ dùng để hiện con nước, thời tiết và chỗ câu quanh bạn, không công khai.';
 
   @override
   String get onb_termsCommunity =>

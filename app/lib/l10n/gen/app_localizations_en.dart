@@ -4488,15 +4488,15 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get onb_termsDevice =>
-      'On your device: fishing journal, watched places, settings and your rough location (~1 km). Never sent.';
+      'On your device: fishing log, followed places and settings. Never sent.';
 
   @override
   String get onb_termsServer =>
-      'On our server: what you post publicly (spots, comments, trips, reviews, photos with location data removed) and an encrypted device code. Anti-spam technical data is kept 7 days at most.';
+      'On our server: what you post publicly and the data needed to stop spam.';
 
   @override
   String get onb_termsLocation =>
-      'Location is used on your device. For weather and waves the app sends rounded coordinates to Open-Meteo.';
+      'Location is only used to show tides, weather and spots near you, never made public.';
 
   @override
   String get onb_termsCommunity =>

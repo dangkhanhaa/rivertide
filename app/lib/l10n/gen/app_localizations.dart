@@ -7821,19 +7821,19 @@ abstract class AppLocalizations {
   /// No description provided for @onb_termsDevice.
   ///
   /// In vi, this message translates to:
-  /// **'Trên máy bạn: nhật ký câu, nơi theo dõi, cài đặt và vị trí gần đúng (~1 km). Không gửi đi.'**
+  /// **'Trên máy bạn: nhật ký câu, nơi theo dõi và cài đặt. Không gửi đi.'**
   String get onb_termsDevice;
 
   /// No description provided for @onb_termsServer.
   ///
   /// In vi, this message translates to:
-  /// **'Trên máy chủ: những gì bạn đăng công khai (điểm câu, bình luận, kèo, đánh giá, ảnh đã xoá thông tin vị trí) và mã thiết bị đã mã hoá. Dữ liệu kỹ thuật chống spam chỉ lưu tối đa 7 ngày.'**
+  /// **'Trên máy chủ: những gì bạn đăng công khai và dữ liệu cần thiết để chống spam.'**
   String get onb_termsServer;
 
   /// No description provided for @onb_termsLocation.
   ///
   /// In vi, this message translates to:
-  /// **'Vị trí dùng ngay trên máy. Để lấy thời tiết và sóng, app gửi toạ độ đã làm tròn tới Open-Meteo.'**
+  /// **'Vị trí chỉ dùng để hiện con nước, thời tiết và chỗ câu quanh bạn, không công khai.'**
   String get onb_termsLocation;
 
   /// No description provided for @onb_termsCommunity.

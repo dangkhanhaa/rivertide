@@ -4346,14 +4346,13 @@ class AppLocalizationsKo extends AppLocalizations {
   String get onb_termsBody => '시작 전에 간단히 읽어 주세요. 전문은 아래 링크에 있어요.';
 
   @override
-  String get onb_termsDevice => '기기에 저장: 낚시 일지, 관심 장소, 설정, 대략적인 위치(~1km). 전송되지 않아요.';
+  String get onb_termsDevice => '기기에 저장: 낚시 일지, 관심 장소, 설정. 전송하지 않아요.';
 
   @override
-  String get onb_termsServer =>
-      '서버에 저장: 공개로 올린 내용(포인트, 댓글, 출조, 리뷰, 위치 정보를 지운 사진)과 암호화된 기기 코드. 스팸 방지용 기술 데이터는 최대 7일만 보관해요.';
+  String get onb_termsServer => '서버에 저장: 공개로 올린 내용과 스팸 방지에 필요한 데이터.';
 
   @override
-  String get onb_termsLocation => '위치는 기기에서만 사용해요. 날씨와 파도를 받기 위해 반올림한 좌표를 Open-Meteo에 보내요.';
+  String get onb_termsLocation => '위치는 주변 물때, 날씨, 낚시터를 보여 주는 데만 쓰이고 공개되지 않아요.';
 
   @override
   String get onb_termsCommunity =>
