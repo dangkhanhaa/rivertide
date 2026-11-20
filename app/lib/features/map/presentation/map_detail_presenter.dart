@@ -131,18 +131,26 @@ mixin MapDetailPresenter<T extends ConsumerStatefulWidget> on ConsumerState<T> {
     _releaseTimer?.cancel();
     _setBusy(true);
     try {
-      // Root navigator: the sheet covers the floating tab bar instead of
-      // sliding under it (the map tab draws behind the bar, P2-42).
+      // Tab navigator + safe area (P2-58): the floating tab bar always stays
+      // on screen; the map tab's bottom padding includes the bar's height, so
+      // the sheet's content ends above it.
       await showModalBottomSheet<void>(
         context: context,
-        useRootNavigator: true,
+        useSafeArea: true,
         showDragHandle: true,
-        builder: builder,
+        builder: (ctx) => _aboveTabBar(ctx, builder(ctx)),
       );
     } finally {
       _releaseTimer = Timer(_tapGrace, () => _setBusy(false));
     }
   }
+
+  /// Sheet content ends above the floating tab bar (the map tab's bottom
+  /// padding is the bar's height plus the system inset).
+  static Widget _aboveTabBar(BuildContext ctx, Widget child) => Padding(
+    padding: EdgeInsets.only(bottom: MediaQuery.paddingOf(ctx).bottom),
+    child: child,
+  );
 
   Future<void> showDetail(Widget child) async {
     if (isWide) {
@@ -155,23 +163,25 @@ mixin MapDetailPresenter<T extends ConsumerStatefulWidget> on ConsumerState<T> {
     try {
       await showModalBottomSheet<void>(
         context: context,
-        useRootNavigator: true,
         isScrollControlled: true,
         showDragHandle: true,
         useSafeArea: true,
-        builder: (ctx) => DraggableScrollableSheet(
-          expand: false,
-          initialChildSize: sheetInitialSize,
-          minChildSize: 0.3,
-          maxChildSize: 0.95,
-          builder: (ctx, controller) {
-            _sheetContext = ctx;
-            return MapDetailPanel(
-              scrollController: controller,
-              onClose: () => Navigator.of(ctx).pop(),
-              child: child,
-            );
-          },
+        builder: (ctx) => _aboveTabBar(
+          ctx,
+          DraggableScrollableSheet(
+            expand: false,
+            initialChildSize: sheetInitialSize,
+            minChildSize: 0.3,
+            maxChildSize: 0.95,
+            builder: (ctx, controller) {
+              _sheetContext = ctx;
+              return MapDetailPanel(
+                scrollController: controller,
+                onClose: () => Navigator.of(ctx).pop(),
+                child: child,
+              );
+            },
+          ),
         ),
       );
     } finally {
